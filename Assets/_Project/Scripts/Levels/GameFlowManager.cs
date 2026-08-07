@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class GameFlowManager : MonoBehaviour
 {
+    [Header("Starting Party")]
+    public CharacterCardData[] startingParty;
+
     [Header("Screens")]
     public GameObject overworldPanel;
-    public GameObject combatScreen; // wraps AllyContainer + EnemyContainer
+    public GameObject combatScreen;
 
     [Header("Controllers")]
     public DialogueController dialogueController;
@@ -16,6 +19,18 @@ public class GameFlowManager : MonoBehaviour
 
     private LevelData currentLevel;
     private int currentLevelIndex;
+
+    private void Awake()
+    {
+        if (PartyManager.Instance != null)
+        {
+            PartyManager.Instance.InitializeParty(new List<CharacterCardData>(startingParty));
+        }
+        else
+        {
+            Debug.LogError("GameFlowManager: no PartyManager found in scene.");
+        }
+    }
 
     public void StartLevel(LevelData level, int levelIndex)
     {
@@ -116,7 +131,6 @@ public class GameFlowManager : MonoBehaviour
 
     private void OnCombatDefeat()
     {
-        // No game-over screen yet — for now just send the player back to the map.
         ReturnToOverworld();
     }
 
