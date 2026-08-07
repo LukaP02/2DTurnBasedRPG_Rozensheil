@@ -1,0 +1,12 @@
+using UnityEngine;
+
+[System.Serializable]
+public class EventChoice
+{
+    public string choiceText;       // shown on the button, e.g. "Fight the bandits"
+    [TextArea(2, 4)] public string outcomeText; // shown after picking, e.g. "You win the scuffle and find gold."
+
+    [Header("Effects (optional, leave 0 for none)")]
+    public int goldChange;   // can be negative
+    public int hpChangePercent; // flat % of max HP applied to whole party, can be negative
+}
