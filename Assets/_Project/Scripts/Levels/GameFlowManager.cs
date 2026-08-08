@@ -78,8 +78,6 @@ public class GameFlowManager : MonoBehaviour
 
     private void BeginCombat()
     {
-        combatScreen.SetActive(true);
-
         List<CharacterInstance> allies = PartyManager.Instance.GetPartyInstances();
         List<CharacterInstance> enemies = new List<CharacterInstance>();
 
@@ -90,6 +88,9 @@ public class GameFlowManager : MonoBehaviour
 
         combatController.OnStateChanged += CheckCombatEnd;
         combatController.StartCombat(allies, enemies);
+
+        combatScreen.SetActive(true);
+
         combatUIManager.SetupCombatUI();
     }
 

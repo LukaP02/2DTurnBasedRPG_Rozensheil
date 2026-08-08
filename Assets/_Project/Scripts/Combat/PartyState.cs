@@ -4,7 +4,7 @@ public class PartyState
 {
     public List<CharacterInstance> members;
     public int currentSkillPoints;
-    public int maxSkillPoints = 5;
+    public int maxSkillPoints = 10;
 
     public PartyState(List<CharacterInstance> partyMembers)
     {
@@ -14,11 +14,9 @@ public class PartyState
 
     public bool CanUseAbility(AbilityData ability)
     {
-        // Only spend-type abilities need an affordability check
         return currentSkillPoints >= ability.spCost;
     }
 
-    // Call this when an ability actually resolves in combat
     public void ResolveAbilityCost(AbilityData ability)
     {
         if (ability.spCost > 0)

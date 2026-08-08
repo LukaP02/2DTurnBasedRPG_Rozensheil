@@ -19,8 +19,7 @@ public class EventController : MonoBehaviour
     public TMP_Text outcomeText;
     public Button outcomeContinueButton;
 
-    [Header("Party reference (for HP effects)")]
-    public List<CharacterInstance> currentParty;
+    [NonSerialized] public List<CharacterInstance> currentParty;
 
     private EventData currentEvent;
 
@@ -36,7 +35,7 @@ public class EventController : MonoBehaviour
     {
         if (eventData == null)
         {
-            OnEventClosed?.Invoke(); // nothing to show, immediately signal done
+            OnEventClosed?.Invoke();
             return;
         }
 

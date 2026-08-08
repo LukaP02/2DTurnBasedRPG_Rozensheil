@@ -65,6 +65,12 @@ public class CombatController : MonoBehaviour
             return;
         }
 
+        if (!partyState.CanUseAbility(ability))
+        {
+            Debug.LogWarning($"Not enough SP to use {ability.abilityName}.");
+            return;
+        }
+
         currentState = CombatState.Resolving;
 
         ExecuteAbility(activeActor, ability, targets);
@@ -111,11 +117,60 @@ public class CombatController : MonoBehaviour
     {
         currentState = CombatState.Resolving;
 
-        Debug.Log($"{activeActor.data.characterName} (enemy) takes its turn.");
+        AbilityData chosenAbility = ChooseEnemyAbility(activeActor);
+        List<CharacterInstance> targets = ChooseEnemyTargets(chosenAbility);
+
+        if (chosenAbility != null && targets != null && targets.Count > 0)
+        {
+            Debug.Log($"{activeActor.data.characterName} (enemy) uses {chosenAbility.abilityName}.");
+            ExecuteAbility(activeActor, chosenAbility, targets);
+        }
+        else
+        {
+            Debug.LogWarning($"{activeActor.data.characterName} had no valid action.");
+        }
 
         OnStateChanged?.Invoke();
 
         EndTurn();
+    }
+
+    private AbilityData ChooseEnemyAbility(CharacterInstance enemy)
+    {
+        var validAbilities = enemy.activeAbilities.Where(a => a != null).ToList();
+        if (validAbilities.Count == 0) return null;
+
+        return validAbilities[UnityEngine.Random.Range(0, validAbilities.Count)];
+    }
+
+    private List<CharacterInstance> ChooseEnemyTargets(AbilityData ability)
+    {
+        if (ability == null) return null;
+
+        switch (ability.targetType)
+        {
+            case TargetType.SingleEnemy:
+                var aliveAllies = turnOrder.allies.Where(a => a.isAlive).ToList();
+                if (aliveAllies.Count == 0) return null;
+                return new List<CharacterInstance> { aliveAllies[UnityEngine.Random.Range(0, aliveAllies.Count)] };
+
+            case TargetType.AllEnemies:
+                return turnOrder.allies.Where(a => a.isAlive).ToList();
+
+            case TargetType.SingleAlly:
+                var aliveEnemies = turnOrder.enemies.Where(e => e.isAlive).ToList();
+                if (aliveEnemies.Count == 0) return null;
+                return new List<CharacterInstance> { aliveEnemies[UnityEngine.Random.Range(0, aliveEnemies.Count)] };
+
+            case TargetType.AllAllies:
+                return turnOrder.enemies.Where(e => e.isAlive).ToList();
+
+            case TargetType.Self:
+                return new List<CharacterInstance> { activeActor };
+
+            default:
+                return null;
+        }
     }
 
     private void ExecuteAbility(CharacterInstance user, AbilityData ability, List<CharacterInstance> targets)

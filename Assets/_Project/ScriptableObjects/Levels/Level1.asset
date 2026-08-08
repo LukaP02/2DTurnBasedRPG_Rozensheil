@@ -16,5 +16,5 @@ MonoBehaviour:
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 11400000, guid: fb93b9fb11645fa42af5334e86227015, type: 2}
   enemies:
-  - {fileID: 11400000, guid: 550f63cd1e586884a81e98a7640158a3, type: 2}
+  - {fileID: 11400000, guid: ae86d2a0d21b5d94085bfb8725a015ce, type: 2}
   postLevelEvent: {fileID: 0}
