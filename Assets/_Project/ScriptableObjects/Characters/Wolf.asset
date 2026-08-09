@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfd8ad134fa89724ebaaee07cf4c01d4, type: 3}
-  m_Name: Wagner
+  m_Name: Wolf
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
-  characterName: 
+  characterName: Wolf
   cardArt: {fileID: 0}
   description: 
   isPlayableCharacter: 0
-  maxHP: 0
-  attack: 0
-  defense: 0
-  speed: 0
+  maxHP: 130
+  attack: 30
+  defense: 20
+  speed: 100
   threatWeight: 1
   weaknesses: 
-  basicAbility: {fileID: 0}
+  basicAbility: {fileID: 11400000, guid: 881fc088fd4ff314db1d1275b88b79d6, type: 2}
   skillOptions: []
   ultimateOptions: []
   defaultSkill: {fileID: 0}

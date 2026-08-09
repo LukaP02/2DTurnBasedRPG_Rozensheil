@@ -10,21 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfd8ad134fa89724ebaaee07cf4c01d4, type: 3}
-  m_Name: Wagner
+  m_Name: GladiatorHeal
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
-  characterName: 
+  characterName: Gladiator Support
   cardArt: {fileID: 0}
   description: 
   isPlayableCharacter: 0
-  maxHP: 0
-  attack: 0
-  defense: 0
-  speed: 0
+  maxHP: 200
+  attack: 40
+  defense: 30
+  speed: 70
   threatWeight: 1
-  weaknesses: 
-  basicAbility: {fileID: 0}
-  skillOptions: []
+  weaknesses: 04000000
+  basicAbility: {fileID: 11400000, guid: f23aa7da64fd453428d8ec5ce4150a4b, type: 2}
+  skillOptions:
+  - {fileID: 11400000, guid: 7cf08eb7825224c488d7a1ed83c62ca3, type: 2}
   ultimateOptions: []
-  defaultSkill: {fileID: 0}
+  defaultSkill: {fileID: 11400000, guid: 7cf08eb7825224c488d7a1ed83c62ca3, type: 2}
   defaultUltimate: {fileID: 0}
   passive: {fileID: 0}
