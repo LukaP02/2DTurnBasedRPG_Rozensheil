@@ -15,13 +15,18 @@ MonoBehaviour:
   characterName: Sicur
   cardArt: {fileID: 0}
   description: 
-  maxHP: 0
-  attack: 0
-  defense: 0
-  speed: 0
+  isPlayableCharacter: 1
+  maxHP: 180
+  attack: 70
+  defense: 20
+  speed: 50
+  threatWeight: 1
   weaknesses: 
-  abilitySlots:
+  basicAbility: {fileID: 11400000, guid: bff21539ecbb7374caa63992de94cf8e, type: 2}
+  skillOptions:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  ultimateOptions: []
+  defaultSkill: {fileID: 0}
+  defaultUltimate: {fileID: 0}
   passive: {fileID: 0}

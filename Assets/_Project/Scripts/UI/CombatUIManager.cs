@@ -27,7 +27,6 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnStateChanged -= RefreshUI;
     }
 
-    // Call this right after combatController.StartCombat(...) each time a new fight begins
     public void SetupCombatUI()
     {
         ClearCards();
@@ -87,35 +86,47 @@ public class CombatUIManager : MonoBehaviour
 
     public void OnAbilitySelected(CharacterInstance user, AbilityData ability)
     {
-        if (ability.targetType == TargetType.Self)
+        if (ability.targetSide == TargetSide.Self)
         {
             combatController.ResolvePlayerAction(ability, new List<CharacterInstance> { user });
+            return;
         }
-        else if (ability.targetType == TargetType.AllEnemies)
+
+        if (ability.targetShape == TargetShape.All)
         {
-            combatController.ResolvePlayerAction(ability, combatController.Enemies.Where(e => e.isAlive).ToList());
+            List<CharacterInstance> targets = ability.targetSide == TargetSide.Ally
+                ? combatController.Allies.Where(a => a.isAlive).ToList()
+                : combatController.Enemies.Where(e => e.isAlive).ToList();
+
+            combatController.ResolvePlayerAction(ability, targets);
+            return;
         }
-        else if (ability.targetType == TargetType.AllAllies)
-        {
-            combatController.ResolvePlayerAction(ability, combatController.Allies.Where(a => a.isAlive).ToList());
-        }
-        else
-        {
-            selectedAbility = ability;
-            waitingForTarget = true;
-        }
+
+        selectedAbility = ability;
+        waitingForTarget = true;
     }
 
     public void OnCardClicked(CharacterInstance clickedCharacter)
     {
         if (!waitingForTarget || selectedAbility == null) return;
 
-        bool validTarget =
-            (selectedAbility.targetType == TargetType.SingleEnemy && combatController.Enemies.Contains(clickedCharacter)) ||
-            (selectedAbility.targetType == TargetType.SingleAlly && combatController.Allies.Contains(clickedCharacter));
+        bool clickedIsAlly = combatController.Allies.Contains(clickedCharacter);
+        bool clickedIsEnemy = combatController.Enemies.Contains(clickedCharacter);
 
-        if (!validTarget) return;
+        bool sideAllowed = selectedAbility.targetSide switch
+        {
+            TargetSide.Enemy => clickedIsEnemy,
+            TargetSide.Ally => clickedIsAlly,
+            TargetSide.Either => clickedIsAlly || clickedIsEnemy,
+            _ => false
+        };
 
-        combatController.ResolvePlayerAction(selectedAbility, new List<CharacterInstance> { clickedCharacter });
+        if (!sideAllowed) return;
+
+        List<CharacterInstance> targets = selectedAbility.targetShape == TargetShape.Single
+            ? new List<CharacterInstance> { clickedCharacter }
+            : combatController.BuildTargetGroup(selectedAbility.targetShape, clickedCharacter);
+
+        combatController.ResolvePlayerAction(selectedAbility, targets);
     }
 }

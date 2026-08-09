@@ -10,26 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfd8ad134fa89724ebaaee07cf4c01d4, type: 3}
-  m_Name: Raindorf
+  m_Name: Cyclops
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
-  characterName: Raindorf
+  characterName: Cyclops
   cardArt: {fileID: 0}
   description: 
-  isPlayableCharacter: 1
-  maxHP: 250
-  attack: 30
-  defense: 80
-  speed: 70
+  isPlayableCharacter: 0
+  maxHP: 1500
+  attack: 100
+  defense: 100
+  speed: 100
   threatWeight: 1
-  weaknesses: 
-  basicAbility: {fileID: 11400000, guid: 9e72f84069a1eb846a76ac07c22aca64, type: 2}
+  weaknesses: 01000000
+  basicAbility: {fileID: 11400000, guid: 2f8971669aa59aa4ca84d586e0441851, type: 2}
   skillOptions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 170ce3a4977f5ee49ad2d3a64681574a, type: 2}
+  - {fileID: 11400000, guid: e38564dbe0b93b047acebfdce2bbe433, type: 2}
   ultimateOptions:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: c053179e42edd1b499f4ad87bdb4642e, type: 2}
   defaultSkill: {fileID: 0}
   defaultUltimate: {fileID: 0}
-  passive: {fileID: 11400000, guid: 79d475d527ff1b449a90303ba216b66c, type: 2}
+  passive: {fileID: 0}

@@ -15,13 +15,21 @@ MonoBehaviour:
   characterName: Abdul
   cardArt: {fileID: 0}
   description: 
-  maxHP: 0
-  attack: 0
-  defense: 0
-  speed: 0
+  isPlayableCharacter: 1
+  maxHP: 200
+  attack: 40
+  defense: 40
+  speed: 100
+  threatWeight: 1
   weaknesses: 
-  abilitySlots:
+  basicAbility: {fileID: 11400000, guid: 008d07eb9819f8c45a83799e63189b59, type: 2}
+  skillOptions:
+  - {fileID: 0}
+  - {fileID: 0}
+  ultimateOptions:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  defaultSkill: {fileID: 0}
+  defaultUltimate: {fileID: 0}
   passive: {fileID: 0}

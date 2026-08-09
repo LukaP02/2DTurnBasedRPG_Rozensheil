@@ -4,5 +4,6 @@ public enum ElementType
     Fire,
     Ice,
     Holy,
-    Shadow
+    Shadow,
+    Electro
 }

@@ -9,13 +9,17 @@ public class CharacterCardData : ScriptableObject
     [TextArea] public string description;
 
     [Header("Type")]
-    public bool isPlayableCharacter = true; // false for enemies
+    public bool isPlayableCharacter = true;
 
     [Header("Base Stats")]
     public int maxHP;
     public int attack;
     public int defense;
     public int speed;
+
+    [Header("Targeting")]
+    [Tooltip("Relative weight for being chosen as an enemy AI target. 1 = normal, 2 = twice as likely, etc.")]
+    public float threatWeight = 1f;
 
     [Header("Elemental")]
     public ElementType[] weaknesses;

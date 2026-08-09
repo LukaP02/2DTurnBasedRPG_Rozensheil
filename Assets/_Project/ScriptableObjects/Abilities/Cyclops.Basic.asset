@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
-  m_Name: Zavren.Basic
+  m_Name: Cyclops.Basic
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 
+  abilityName: Punch
   icon: {fileID: 0}
   description: 
   abilityType: 0
   spCost: 0
-  spGain: 1
-  power: 0
-  targetType: 0
+  spGain: 2
+  power: 50
   element: 0
+  targetShape: 0
+  targetSide: 0
+  freezeChance: 0

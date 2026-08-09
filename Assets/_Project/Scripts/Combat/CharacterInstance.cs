@@ -1,5 +1,10 @@
 using System.Collections.Generic;
 
+public enum StatusEffectType
+{
+    Freeze
+}
+
 public class CharacterInstance
 {
     public CharacterCardData data;
@@ -11,6 +16,8 @@ public class CharacterInstance
     public List<AbilityData> activeAbilities;
     public bool isAlive => currentHP > 0;
 
+    private HashSet<StatusEffectType> activeStatuses = new HashSet<StatusEffectType>();
+
     public CharacterInstance(CharacterCardData sourceData)
     {
         data = sourceData;
@@ -18,11 +25,9 @@ public class CharacterInstance
         RecalculateStats();
         RefreshAbilities();
 
-        currentHP = maxHP; // full HP only on initial creation
+        currentHP = maxHP;
     }
 
-    // Recomputes maxHP/attack/defense/speed from base stats + currently equipped item.
-    // Call this any time the equipped item changes.
     public void RecalculateStats()
     {
         int hpBonus = 0, attackBonus = 0, defenseBonus = 0, speedBonus = 0;
@@ -32,11 +37,19 @@ public class CharacterInstance
             ItemData equippedItem = PartyManager.Instance.GetEquippedItem(data);
             if (equippedItem != null)
             {
-                hpBonus = equippedItem.hpBonus;
-                attackBonus = equippedItem.attackBonus;
-                defenseBonus = equippedItem.defenseBonus;
-                speedBonus = equippedItem.speedBonus;
+                hpBonus += equippedItem.hpBonus;
+                attackBonus += equippedItem.attackBonus;
+                defenseBonus += equippedItem.defenseBonus;
+                speedBonus += equippedItem.speedBonus;
             }
+        }
+
+        if (data.passive != null && data.passive.trigger == PassiveTrigger.PassiveStatScaling)
+        {
+            hpBonus += UnityEngine.Mathf.RoundToInt(data.maxHP * data.passive.bonusHPPercent);
+            attackBonus += UnityEngine.Mathf.RoundToInt(data.attack * data.passive.bonusAttackPercent);
+            defenseBonus += UnityEngine.Mathf.RoundToInt(data.defense * data.passive.bonusDefensePercent);
+            speedBonus += UnityEngine.Mathf.RoundToInt(data.speed * data.passive.bonusSpeedPercent);
         }
 
         int previousMaxHP = maxHP;
@@ -45,8 +58,6 @@ public class CharacterInstance
         currentDefense = data.defense + defenseBonus;
         currentSpeed = data.speed + speedBonus;
 
-        // If maxHP changed after the character already existed (e.g. item swap mid-game),
-        // keep currentHP proportional instead of snapping to full or leaving it stale.
         if (previousMaxHP > 0 && currentHP > 0)
         {
             float ratio = (float)currentHP / previousMaxHP;
@@ -79,5 +90,22 @@ public class CharacterInstance
     {
         currentHP += amount;
         if (currentHP > maxHP) currentHP = maxHP;
+    }
+
+    // --- Status effects ---
+    public void ApplyStatus(StatusEffectType status)
+    {
+        activeStatuses.Add(status);
+    }
+
+    public bool HasStatus(StatusEffectType status)
+    {
+        return activeStatuses.Contains(status);
+    }
+
+    // Call when the status's duration is spent (e.g. after skipping a frozen turn)
+    public void RemoveStatus(StatusEffectType status)
+    {
+        activeStatuses.Remove(status);
     }
 }

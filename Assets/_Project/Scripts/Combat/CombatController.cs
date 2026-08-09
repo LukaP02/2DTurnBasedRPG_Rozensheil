@@ -46,6 +46,18 @@ public class CombatController : MonoBehaviour
             return;
         }
 
+        if (activeActor.HasStatus(StatusEffectType.Freeze))
+        {
+            Debug.Log($"{activeActor.data.characterName} is frozen and skips their turn.");
+            activeActor.RemoveStatus(StatusEffectType.Freeze);
+
+            currentState = CombatState.Resolving;
+            OnStateChanged?.Invoke();
+
+            EndTurn();
+            return;
+        }
+
         bool isPlayerControlled = turnOrder.allies.Contains(activeActor);
         currentState = isPlayerControlled ? CombatState.PlayerTurn : CombatState.EnemyTurn;
 
@@ -89,24 +101,42 @@ public class CombatController : MonoBehaviour
             return false;
         }
 
-        switch (ability.targetType)
+        if (targets.Any(t => !t.isAlive))
         {
-            case TargetType.SingleEnemy:
-                return targets.Count == 1 && turnOrder.enemies.Contains(targets[0]);
+            Debug.LogWarning($"{ability.abilityName}: target list contains a dead character.");
+            return false;
+        }
 
-            case TargetType.AllEnemies:
-                return targets.Count == turnOrder.enemies.Count(e => e.isAlive) &&
-                       targets.All(t => turnOrder.enemies.Contains(t));
+        if (ability.targetSide == TargetSide.Self)
+        {
+            return targets.Count == 1 && targets[0] == activeActor;
+        }
 
-            case TargetType.SingleAlly:
-                return targets.Count == 1 && turnOrder.allies.Contains(targets[0]);
+        bool allAreAllies = targets.All(t => turnOrder.allies.Contains(t));
+        bool allAreEnemies = targets.All(t => turnOrder.enemies.Contains(t));
 
-            case TargetType.AllAllies:
-                return targets.Count == turnOrder.allies.Count(a => a.isAlive) &&
-                       targets.All(t => turnOrder.allies.Contains(t));
+        if (!allAreAllies && !allAreEnemies)
+        {
+            Debug.LogWarning($"{ability.abilityName}: targets span both sides.");
+            return false;
+        }
 
-            case TargetType.Self:
-                return targets.Count == 1 && targets[0] == activeActor;
+        switch (ability.targetShape)
+        {
+            case TargetShape.Single:
+                return targets.Count == 1;
+
+            case TargetShape.Cleave:
+                return targets.Count >= 1 && targets.Count <= 2;
+
+            case TargetShape.Spread:
+                return targets.Count >= 1 && targets.Count <= 3;
+
+            case TargetShape.All:
+                int expectedCount = allAreAllies
+                    ? turnOrder.allies.Count(a => a.isAlive)
+                    : turnOrder.enemies.Count(e => e.isAlive);
+                return targets.Count == expectedCount;
 
             default:
                 return false;
@@ -118,7 +148,7 @@ public class CombatController : MonoBehaviour
         currentState = CombatState.Resolving;
 
         AbilityData chosenAbility = ChooseEnemyAbility(activeActor);
-        List<CharacterInstance> targets = ChooseEnemyTargets(chosenAbility);
+        List<CharacterInstance> targets = ChooseEnemyTargets(activeActor, chosenAbility);
 
         if (chosenAbility != null && targets != null && targets.Count > 0)
         {
@@ -143,45 +173,92 @@ public class CombatController : MonoBehaviour
         return validAbilities[UnityEngine.Random.Range(0, validAbilities.Count)];
     }
 
-    private List<CharacterInstance> ChooseEnemyTargets(AbilityData ability)
+    private List<CharacterInstance> ChooseEnemyTargets(CharacterInstance caster, AbilityData ability)
     {
         if (ability == null) return null;
 
-        switch (ability.targetType)
+        if (ability.targetSide == TargetSide.Self)
+            return new List<CharacterInstance> { caster };
+
+        TargetSide effectiveSide = ability.targetSide;
+        if (effectiveSide == TargetSide.Either)
+            effectiveSide = (UnityEngine.Random.value < 0.5f) ? TargetSide.Enemy : TargetSide.Ally;
+
+        List<CharacterInstance> pool = ResolveSidePool(caster, effectiveSide);
+        if (pool == null || pool.Count == 0) return null;
+
+        if (ability.targetShape == TargetShape.All)
+            return pool;
+
+        CharacterInstance chosen = pool[UnityEngine.Random.Range(0, pool.Count)];
+
+        if (ability.targetShape == TargetShape.Single)
+            return new List<CharacterInstance> { chosen };
+
+        return BuildTargetGroup(ability.targetShape, chosen);
+    }
+
+    private List<CharacterInstance> ResolveSidePool(CharacterInstance caster, TargetSide side)
+    {
+        bool casterIsAlly = turnOrder.allies.Contains(caster);
+
+        if (side == TargetSide.Enemy)
         {
-            case TargetType.SingleEnemy:
-                var aliveAllies = turnOrder.allies.Where(a => a.isAlive).ToList();
-                if (aliveAllies.Count == 0) return null;
-                return new List<CharacterInstance> { aliveAllies[UnityEngine.Random.Range(0, aliveAllies.Count)] };
-
-            case TargetType.AllEnemies:
-                return turnOrder.allies.Where(a => a.isAlive).ToList();
-
-            case TargetType.SingleAlly:
-                var aliveEnemies = turnOrder.enemies.Where(e => e.isAlive).ToList();
-                if (aliveEnemies.Count == 0) return null;
-                return new List<CharacterInstance> { aliveEnemies[UnityEngine.Random.Range(0, aliveEnemies.Count)] };
-
-            case TargetType.AllAllies:
-                return turnOrder.enemies.Where(e => e.isAlive).ToList();
-
-            case TargetType.Self:
-                return new List<CharacterInstance> { activeActor };
-
-            default:
-                return null;
+            return casterIsAlly
+                ? turnOrder.enemies.Where(e => e.isAlive).ToList()
+                : turnOrder.allies.Where(a => a.isAlive).ToList();
         }
+
+        if (side == TargetSide.Ally)
+        {
+            return casterIsAlly
+                ? turnOrder.allies.Where(a => a.isAlive).ToList()
+                : turnOrder.enemies.Where(e => e.isAlive).ToList();
+        }
+
+        return null;
+    }
+
+    public List<CharacterInstance> BuildTargetGroup(TargetShape shape, CharacterInstance clicked)
+    {
+        List<CharacterInstance> sideList = turnOrder.allies.Contains(clicked)
+            ? turnOrder.allies.Where(a => a.isAlive).ToList()
+            : turnOrder.enemies.Where(e => e.isAlive).ToList();
+
+        int index = sideList.IndexOf(clicked);
+        List<CharacterInstance> result = new List<CharacterInstance> { clicked };
+
+        if (shape == TargetShape.Cleave)
+        {
+            List<CharacterInstance> neighbors = new List<CharacterInstance>();
+            if (index - 1 >= 0) neighbors.Add(sideList[index - 1]);
+            if (index + 1 < sideList.Count) neighbors.Add(sideList[index + 1]);
+
+            if (neighbors.Count > 0)
+                result.Add(neighbors[UnityEngine.Random.Range(0, neighbors.Count)]);
+        }
+        else if (shape == TargetShape.Spread)
+        {
+            if (index - 1 >= 0) result.Add(sideList[index - 1]);
+            if (index + 1 < sideList.Count) result.Add(sideList[index + 1]);
+        }
+
+        return result;
     }
 
     private void ExecuteAbility(CharacterInstance user, AbilityData ability, List<CharacterInstance> targets)
     {
+        bool userIsAlly = turnOrder.allies.Contains(user);
+
         foreach (var target in targets)
         {
             if (ability.power <= 0) continue;
 
-            bool isHeal = IsHealingAbility(ability, user, target);
+            bool targetIsSameSideAsUser =
+                (userIsAlly && turnOrder.allies.Contains(target)) ||
+                (!userIsAlly && turnOrder.enemies.Contains(target));
 
-            if (isHeal)
+            if (targetIsSameSideAsUser)
             {
                 target.Heal(ability.power);
             }
@@ -189,6 +266,11 @@ public class CombatController : MonoBehaviour
             {
                 int damage = CalculateDamage(user, target, ability);
                 target.TakeDamage(damage);
+
+                if (ability.freezeChance > 0f && UnityEngine.Random.value <= ability.freezeChance)
+                {
+                    target.ApplyStatus(StatusEffectType.Freeze);
+                }
             }
         }
     }
@@ -215,13 +297,6 @@ public class CombatController : MonoBehaviour
             if (w == element) return true;
         }
         return false;
-    }
-
-    private bool IsHealingAbility(AbilityData ability, CharacterInstance user, CharacterInstance target)
-    {
-        return ability.targetType == TargetType.SingleAlly ||
-               ability.targetType == TargetType.AllAllies ||
-               ability.targetType == TargetType.Self;
     }
 
     private void EndTurn()

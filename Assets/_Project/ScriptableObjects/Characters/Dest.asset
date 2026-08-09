@@ -16,14 +16,15 @@ MonoBehaviour:
   cardArt: {fileID: 0}
   description: 
   isPlayableCharacter: 1
-  maxHP: 0
-  attack: 0
-  defense: 0
-  speed: 0
+  maxHP: 400
+  attack: 20
+  defense: 10
+  speed: 90
+  threatWeight: 2
   weaknesses: 
   basicAbility: {fileID: 0}
   skillOptions: []
   ultimateOptions: []
   defaultSkill: {fileID: 0}
   defaultUltimate: {fileID: 0}
-  passive: {fileID: 0}
+  passive: {fileID: 11400000, guid: bd5148bf168e73b46b1674dc1ba7b520, type: 2}

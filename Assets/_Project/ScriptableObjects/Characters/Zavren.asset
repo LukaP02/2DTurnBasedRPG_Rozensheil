@@ -15,13 +15,21 @@ MonoBehaviour:
   characterName: Zavren
   cardArt: {fileID: -6686154229328266208, guid: 3118c3f93fce4c6418f92e0c5d4cac89, type: 3}
   description: 
-  maxHP: 1
-  attack: 1
-  defense: 1
-  speed: 1
+  isPlayableCharacter: 1
+  maxHP: 150
+  attack: 45
+  defense: 60
+  speed: 90
+  threatWeight: 1
   weaknesses: 
-  abilitySlots:
+  basicAbility: {fileID: 0}
+  skillOptions:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  ultimateOptions:
+  - {fileID: 0}
+  - {fileID: 0}
+  defaultSkill: {fileID: 0}
+  defaultUltimate: {fileID: 0}
   passive: {fileID: 0}
