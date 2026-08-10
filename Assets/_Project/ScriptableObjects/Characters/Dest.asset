@@ -22,9 +22,12 @@ MonoBehaviour:
   speed: 90
   threatWeight: 2
   weaknesses: 
-  basicAbility: {fileID: 0}
-  skillOptions: []
-  ultimateOptions: []
+  basicAbility: {fileID: 11400000, guid: 10c8a6885e60b8f42b664de8e67879a4, type: 2}
+  skillOptions:
+  - {fileID: 0}
+  - {fileID: 0}
+  ultimateOptions:
+  - {fileID: 0}
   defaultSkill: {fileID: 0}
   defaultUltimate: {fileID: 0}
   passive: {fileID: 11400000, guid: bd5148bf168e73b46b1674dc1ba7b520, type: 2}

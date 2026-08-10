@@ -22,4 +22,10 @@ public class AbilityData : ScriptableObject
 
     [Header("Status Effects")]
     [Range(0f, 1f)] public float freezeChance;
+
+    [Header("Marks (Abdul)")]
+    public bool appliesMark;
+    public int maxMarkStacks = 3;
+    public bool consumesMark;
+    public int bonusDamagePerMarkStack;
 }

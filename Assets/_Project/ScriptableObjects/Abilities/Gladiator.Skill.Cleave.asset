@@ -15,7 +15,7 @@ MonoBehaviour:
   abilityName: Cleave
   icon: {fileID: 0}
   description: Gladiator cleaves 2 targets dealing low physical damage
-  abilityType: 0
+  abilityType: 1
   spCost: 3
   spGain: 0
   power: 20
@@ -23,3 +23,7 @@ MonoBehaviour:
   targetShape: 1
   targetSide: 0
   freezeChance: 0
+  appliesMark: 0
+  maxMarkStacks: 3
+  consumesMark: 0
+  bonusDamagePerMarkStack: 0

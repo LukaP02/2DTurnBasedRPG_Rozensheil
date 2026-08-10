@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -17,6 +18,10 @@ public class CharacterCardUI : MonoBehaviour
     public Button skillButton;
     public Button ultButton;
 
+    [Header("Status Icons")]
+    public Transform statusIconContainer;
+    public GameObject statusIconPrefab;
+
     private CharacterInstance boundCharacter;
     private CombatUIManager uiManager;
 
@@ -31,6 +36,7 @@ public class CharacterCardUI : MonoBehaviour
         artImage.sprite = character.data.cardArt;
 
         RefreshHP();
+        RefreshStatuses();
         HideActionButtons();
     }
 
@@ -41,6 +47,23 @@ public class CharacterCardUI : MonoBehaviour
         hpSlider.maxValue = boundCharacter.maxHP;
         hpSlider.value = boundCharacter.currentHP;
         hpText.text = $"{boundCharacter.currentHP} / {boundCharacter.maxHP}";
+    }
+
+    public void RefreshStatuses()
+    {
+        if (boundCharacter == null || statusIconContainer == null) return;
+
+        foreach (Transform child in statusIconContainer)
+            Destroy(child.gameObject);
+
+        List<StatusEffectInstance> statuses = boundCharacter.GetStatusDisplayList();
+
+        foreach (var status in statuses)
+        {
+            GameObject iconObj = Instantiate(statusIconPrefab, statusIconContainer);
+            StatusIconUI iconUI = iconObj.GetComponent<StatusIconUI>();
+            iconUI.Bind(status);
+        }
     }
 
     public void SetActiveTurn(bool isActive)

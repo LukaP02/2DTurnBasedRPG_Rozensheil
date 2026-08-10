@@ -5,6 +5,12 @@ public enum StatusEffectType
     Freeze
 }
 
+public class StatusEffectInstance
+{
+    public string label;
+    public int stackCount;
+}
+
 public class CharacterInstance
 {
     public CharacterCardData data;
@@ -17,6 +23,7 @@ public class CharacterInstance
     public bool isAlive => currentHP > 0;
 
     private HashSet<StatusEffectType> activeStatuses = new HashSet<StatusEffectType>();
+    private Dictionary<CharacterInstance, int> marksBySource = new Dictionary<CharacterInstance, int>();
 
     public CharacterInstance(CharacterCardData sourceData)
     {
@@ -103,9 +110,53 @@ public class CharacterInstance
         return activeStatuses.Contains(status);
     }
 
-    // Call when the status's duration is spent (e.g. after skipping a frozen turn)
     public void RemoveStatus(StatusEffectType status)
     {
         activeStatuses.Remove(status);
+    }
+
+    // --- Marks (now stored on the character CARRYING the marks, keyed by who applied them) ---
+    public void AddMarkStack(CharacterInstance source, int maxStacks)
+    {
+        if (!marksBySource.ContainsKey(source))
+            marksBySource[source] = 0;
+
+        marksBySource[source] = UnityEngine.Mathf.Min(marksBySource[source] + 1, maxStacks);
+    }
+
+    public int ConsumeMarkStacks(CharacterInstance source)
+    {
+        if (!marksBySource.TryGetValue(source, out int stacks))
+            return 0;
+
+        marksBySource[source] = 0;
+        return stacks;
+    }
+
+    public int GetMarkStacks(CharacterInstance source)
+    {
+        return marksBySource.TryGetValue(source, out int stacks) ? stacks : 0;
+    }
+
+    // --- Generic display list for UI (Freeze, Marks, future statuses all feed this) ---
+    public List<StatusEffectInstance> GetStatusDisplayList()
+    {
+        var list = new List<StatusEffectInstance>();
+
+        if (HasStatus(StatusEffectType.Freeze))
+        {
+            list.Add(new StatusEffectInstance { label = "Freeze", stackCount = 1 });
+        }
+
+        foreach (var kvp in marksBySource)
+        {
+            if (kvp.Value > 0)
+            {
+                string sourceName = kvp.Key != null ? kvp.Key.data.characterName : "Unknown";
+                list.Add(new StatusEffectInstance { label = $"Mark ({sourceName})", stackCount = kvp.Value });
+            }
+        }
+
+        return list;
     }
 }

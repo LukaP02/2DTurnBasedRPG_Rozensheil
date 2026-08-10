@@ -24,3 +24,7 @@ MonoBehaviour:
   targetShape: 0
   targetSide: 0
   freezeChance: 0
+  appliesMark: 1
+  maxMarkStacks: 3
+  consumesMark: 0
+  bonusDamagePerMarkStack: 0

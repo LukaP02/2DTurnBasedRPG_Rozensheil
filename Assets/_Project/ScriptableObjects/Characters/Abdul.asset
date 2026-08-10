@@ -24,12 +24,11 @@ MonoBehaviour:
   weaknesses: 
   basicAbility: {fileID: 11400000, guid: 008d07eb9819f8c45a83799e63189b59, type: 2}
   skillOptions:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 03ad0ddd8d9c52a4db38bcc8d593b214, type: 2}
   ultimateOptions:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  defaultSkill: {fileID: 0}
+  defaultSkill: {fileID: 11400000, guid: 03ad0ddd8d9c52a4db38bcc8d593b214, type: 2}
   defaultUltimate: {fileID: 0}
-  passive: {fileID: 0}
+  passive: {fileID: 11400000, guid: 6c5f742ba1cc37e498b4fc06540a224b, type: 2}

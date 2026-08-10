@@ -60,6 +60,7 @@ public class CombatUIManager : MonoBehaviour
         foreach (var kvp in cardLookup)
         {
             kvp.Value.RefreshHP();
+            kvp.Value.RefreshStatuses();
             kvp.Value.SetActiveTurn(kvp.Key == combatController.ActiveActor);
             kvp.Value.HideActionButtons();
         }
@@ -92,16 +93,7 @@ public class CombatUIManager : MonoBehaviour
             return;
         }
 
-        if (ability.targetShape == TargetShape.All)
-        {
-            List<CharacterInstance> targets = ability.targetSide == TargetSide.Ally
-                ? combatController.Allies.Where(a => a.isAlive).ToList()
-                : combatController.Enemies.Where(e => e.isAlive).ToList();
-
-            combatController.ResolvePlayerAction(ability, targets);
-            return;
-        }
-
+        // Single / Cleave / Spread / All now all wait for a confirming click
         selectedAbility = ability;
         waitingForTarget = true;
     }
@@ -123,9 +115,22 @@ public class CombatUIManager : MonoBehaviour
 
         if (!sideAllowed) return;
 
-        List<CharacterInstance> targets = selectedAbility.targetShape == TargetShape.Single
-            ? new List<CharacterInstance> { clickedCharacter }
-            : combatController.BuildTargetGroup(selectedAbility.targetShape, clickedCharacter);
+        List<CharacterInstance> targets;
+
+        if (selectedAbility.targetShape == TargetShape.All)
+        {
+            targets = clickedIsAlly
+                ? combatController.Allies.Where(a => a.isAlive).ToList()
+                : combatController.Enemies.Where(e => e.isAlive).ToList();
+        }
+        else if (selectedAbility.targetShape == TargetShape.Single)
+        {
+            targets = new List<CharacterInstance> { clickedCharacter };
+        }
+        else
+        {
+            targets = combatController.BuildTargetGroup(selectedAbility.targetShape, clickedCharacter);
+        }
 
         combatController.ResolvePlayerAction(selectedAbility, targets);
     }

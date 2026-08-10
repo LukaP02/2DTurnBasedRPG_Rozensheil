@@ -264,8 +264,20 @@ public class CombatController : MonoBehaviour
             }
             else
             {
-                int damage = CalculateDamage(user, target, ability);
+                int bonusFromMarks = 0;
+                if (ability.consumesMark)
+                {
+                    int stacks = target.ConsumeMarkStacks(user);
+                    bonusFromMarks = stacks * ability.bonusDamagePerMarkStack;
+                }
+
+                int damage = CalculateDamage(user, target, ability) + bonusFromMarks;
                 target.TakeDamage(damage);
+
+                if (ability.appliesMark)
+                {
+                    target.AddMarkStack(user, ability.maxMarkStacks);
+                }
 
                 if (ability.freezeChance > 0f && UnityEngine.Random.value <= ability.freezeChance)
                 {
