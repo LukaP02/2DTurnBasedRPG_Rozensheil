@@ -13,15 +13,8 @@ public class StatusIconUI : MonoBehaviour
 
         if (countText != null)
         {
-            if (status.stackCount > 1)
-            {
-                countText.gameObject.SetActive(true);
-                countText.text = status.stackCount.ToString();
-            }
-            else
-            {
-                countText.gameObject.SetActive(false);
-            }
+            countText.gameObject.SetActive(true);
+            countText.text = status.stackCount.ToString();
         }
     }
 }

@@ -250,6 +250,21 @@ public class CombatController : MonoBehaviour
     {
         bool userIsAlly = turnOrder.allies.Contains(user);
 
+        // Demon-form HP cost: % of missing HP, self-inflicted
+        if (ability.costsHPPercentOfMissing)
+        {
+            int missingHP = user.maxHP - user.currentHP;
+            int hpCost = Mathf.RoundToInt(missingHP * ability.hpCostPercent);
+
+            if (hpCost > 0)
+            {
+                user.TakeDamage(hpCost);
+
+                if (user.CheckAndMarkDeath())
+                    TriggerOnAnyDeathPassives();
+            }
+        }
+
         foreach (var target in targets)
         {
             if (ability.power <= 0) continue;
@@ -274,6 +289,9 @@ public class CombatController : MonoBehaviour
                 int damage = CalculateDamage(user, target, ability) + bonusFromMarks;
                 target.TakeDamage(damage);
 
+                if (target.CheckAndMarkDeath())
+                    TriggerOnAnyDeathPassives();
+
                 if (ability.appliesMark)
                 {
                     target.AddMarkStack(user, ability.maxMarkStacks);
@@ -284,6 +302,27 @@ public class CombatController : MonoBehaviour
                     target.ApplyStatus(StatusEffectType.Freeze);
                 }
             }
+        }
+
+        if (ability.triggersFormSwitch)
+        {
+            user.ToggleForm();
+        }
+    }
+
+    private void TriggerOnAnyDeathPassives()
+    {
+        List<CharacterInstance> everyone = new List<CharacterInstance>();
+        everyone.AddRange(turnOrder.allies);
+        everyone.AddRange(turnOrder.enemies);
+
+        foreach (var character in everyone)
+        {
+            if (!character.isAlive) continue;
+            if (character.data.passive == null) continue;
+            if (character.data.passive.trigger != PassiveTrigger.OnAnyDeath) continue;
+
+            character.Heal(character.data.passive.value);
         }
     }
 

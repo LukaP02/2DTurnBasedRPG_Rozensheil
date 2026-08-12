@@ -28,4 +28,9 @@ public class AbilityData : ScriptableObject
     public int maxMarkStacks = 3;
     public bool consumesMark;
     public int bonusDamagePerMarkStack;
+
+    [Header("Forms (Sicur)")]
+    public bool triggersFormSwitch;
+    public bool costsHPPercentOfMissing;
+    [Range(0f, 1f)] public float hpCostPercent;
 }

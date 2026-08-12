@@ -5,6 +5,12 @@ public enum StatusEffectType
     Freeze
 }
 
+public enum CharacterForm
+{
+    Normal,
+    Demon
+}
+
 public class StatusEffectInstance
 {
     public string label;
@@ -22,8 +28,11 @@ public class CharacterInstance
     public List<AbilityData> activeAbilities;
     public bool isAlive => currentHP > 0;
 
+    public CharacterForm currentForm = CharacterForm.Normal;
+
     private HashSet<StatusEffectType> activeStatuses = new HashSet<StatusEffectType>();
     private Dictionary<CharacterInstance, int> marksBySource = new Dictionary<CharacterInstance, int>();
+    private bool deathProcessed = false;
 
     public CharacterInstance(CharacterCardData sourceData)
     {
@@ -74,17 +83,38 @@ public class CharacterInstance
 
     public void RefreshAbilities()
     {
-        if (data.isPlayableCharacter && PartyManager.Instance != null)
+        activeAbilities = new List<AbilityData>();
+
+        if (data.hasForms)
+        {
+            AbilityData basic = currentForm == CharacterForm.Normal ? data.normalFormBasic : data.demonFormBasic;
+            AbilityData skill = currentForm == CharacterForm.Normal ? data.normalFormSkill : data.demonFormSkill;
+
+            if (basic != null) activeAbilities.Add(basic);
+            if (skill != null) activeAbilities.Add(skill);
+
+            AbilityData ultimate = (data.isPlayableCharacter && PartyManager.Instance != null)
+                ? PartyManager.Instance.GetLoadout(data).equippedUltimate
+                : data.defaultUltimate;
+
+            if (ultimate != null) activeAbilities.Add(ultimate);
+        }
+        else if (data.isPlayableCharacter && PartyManager.Instance != null)
         {
             activeAbilities = PartyManager.Instance.GetEquippedAbilities(data);
         }
         else
         {
-            activeAbilities = new List<AbilityData>();
             if (data.basicAbility != null) activeAbilities.Add(data.basicAbility);
             if (data.defaultSkill != null) activeAbilities.Add(data.defaultSkill);
             if (data.defaultUltimate != null) activeAbilities.Add(data.defaultUltimate);
         }
+    }
+
+    public void ToggleForm()
+    {
+        currentForm = currentForm == CharacterForm.Normal ? CharacterForm.Demon : CharacterForm.Normal;
+        RefreshAbilities();
     }
 
     public void TakeDamage(int amount)
@@ -97,6 +127,17 @@ public class CharacterInstance
     {
         currentHP += amount;
         if (currentHP > maxHP) currentHP = maxHP;
+    }
+
+    // Returns true only the FIRST time this character is found dead (prevents double-triggering death passives)
+    public bool CheckAndMarkDeath()
+    {
+        if (!isAlive && !deathProcessed)
+        {
+            deathProcessed = true;
+            return true;
+        }
+        return false;
     }
 
     // --- Status effects ---
@@ -115,7 +156,7 @@ public class CharacterInstance
         activeStatuses.Remove(status);
     }
 
-    // --- Marks (now stored on the character CARRYING the marks, keyed by who applied them) ---
+    // --- Marks ---
     public void AddMarkStack(CharacterInstance source, int maxStacks)
     {
         if (!marksBySource.ContainsKey(source))
@@ -138,7 +179,7 @@ public class CharacterInstance
         return marksBySource.TryGetValue(source, out int stacks) ? stacks : 0;
     }
 
-    // --- Generic display list for UI (Freeze, Marks, future statuses all feed this) ---
+    // --- Status display for UI ---
     public List<StatusEffectInstance> GetStatusDisplayList()
     {
         var list = new List<StatusEffectInstance>();

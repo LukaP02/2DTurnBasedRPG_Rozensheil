@@ -24,16 +24,23 @@ public class CharacterCardData : ScriptableObject
     [Header("Elemental")]
     public ElementType[] weaknesses;
 
-    [Header("Basic Attack (fixed, not swappable)")]
+    [Header("Basic Attack (fixed, not swappable) - used only if Has Forms is false")]
     public AbilityData basicAbility;
 
-    [Header("Skill Tree - Unlockable Options")]
+    [Header("Skill Tree - Unlockable Options (not used if Has Forms is true)")]
     public AbilityData[] skillOptions;
     public AbilityData[] ultimateOptions;
 
     [Header("Default / Starting Loadout")]
     public AbilityData defaultSkill;
     public AbilityData defaultUltimate;
+
+    [Header("Forms (Sicur)")]
+    public bool hasForms;
+    public AbilityData normalFormBasic;
+    public AbilityData normalFormSkill;
+    public AbilityData demonFormBasic;
+    public AbilityData demonFormSkill;
 
     public PassiveData passive;
 }
