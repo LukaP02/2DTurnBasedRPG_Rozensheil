@@ -24,8 +24,12 @@ public class CharacterCardData : ScriptableObject
     [Header("Elemental")]
     public ElementType[] weaknesses;
 
-    [Header("Basic Attack (fixed, not swappable) - used only if Has Forms is false")]
+    [Header("Basic Attack - fixed (used if Basic Options is empty)")]
     public AbilityData basicAbility;
+
+    [Header("Basic Tree - Unlockable Options (leave empty for a fixed Basic)")]
+    public AbilityData[] basicOptions;
+    public AbilityData defaultBasic;
 
     [Header("Skill Tree - Unlockable Options (not used if Has Forms is true)")]
     public AbilityData[] skillOptions;
@@ -41,6 +45,7 @@ public class CharacterCardData : ScriptableObject
     public AbilityData normalFormSkill;
     public AbilityData demonFormBasic;
     public AbilityData demonFormSkill;
+    public Sprite demonFormArt;
 
     public PassiveData passive;
 }

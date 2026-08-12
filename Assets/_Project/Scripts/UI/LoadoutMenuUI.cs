@@ -12,14 +12,17 @@ public class LoadoutMenuUI : MonoBehaviour
     public Transform characterListContainer;
     public GameObject characterButtonPrefab;
 
+    [Header("Basic Options")]
+    public Transform basicOptionsContainer;
+
     [Header("Ability Lists")]
     public Transform skillOptionsContainer;
     public Transform ultimateOptionsContainer;
-    public GameObject abilityOptionPrefab; // uses AbilityOptionUI
+    public GameObject abilityOptionPrefab;
 
     [Header("Item List")]
     public Transform itemOptionsContainer;
-    public GameObject itemOptionPrefab; // uses ItemOptionUI
+    public GameObject itemOptionPrefab;
 
     [Header("Selected Character Info")]
     public TMP_Text selectedCharacterNameText;
@@ -66,6 +69,26 @@ public class LoadoutMenuUI : MonoBehaviour
 
     private void RefreshAbilityLists()
     {
+        bool basicIsSwappable = selectedCharacter.basicOptions != null && selectedCharacter.basicOptions.Length > 0;
+
+        if (basicIsSwappable && basicOptionsContainer != null)
+        {
+            PopulateAbilityOptions(
+                selectedCharacter.basicOptions,
+                basicOptionsContainer,
+                PartyManager.Instance.GetLoadout(selectedCharacter).equippedBasic,
+                (ability) =>
+                {
+                    PartyManager.Instance.SetBasic(selectedCharacter, ability);
+                    RefreshAbilityLists();
+                });
+        }
+        else if (basicOptionsContainer != null)
+        {
+            foreach (Transform child in basicOptionsContainer)
+                Destroy(child.gameObject);
+        }
+
         PopulateAbilityOptions(
             selectedCharacter.skillOptions,
             skillOptionsContainer,

@@ -8,7 +8,8 @@ public enum PassiveTrigger
     OnDamageDealt,
     OnAllyDeath,
     OnKill,
-    OnAnyDeath, // any character on the field dies, either side
+    OnAnyDeath,
+    EnablesStains,
     PassiveStatScaling
 }
 
@@ -21,11 +22,22 @@ public class PassiveData : ScriptableObject
 
     [Header("Behavior")]
     public PassiveTrigger trigger;
-    public int value; // heal amount for OnAnyDeath, generic magnitude otherwise
+    public int value;
 
     [Header("Stat Scaling (only used if trigger = PassiveStatScaling)")]
     [Range(0f, 1f)] public float bonusHPPercent;
     [Range(0f, 1f)] public float bonusAttackPercent;
     [Range(0f, 1f)] public float bonusDefensePercent;
     [Range(0f, 1f)] public float bonusSpeedPercent;
+
+    [Header("Stain Combos (only used if trigger = EnablesStains)")]
+    [Tooltip("Fire + Ice: single-target bonus damage")]
+    public int fireIceBonusDamage;
+
+    [Tooltip("Fire + Electro: bonus damage that spreads to the target's neighbors too")]
+    public int fireElectroSpreadDamage;
+
+    [Tooltip("Ice + Electro: DEF shred")]
+    public int defShredAmount;
+    public int defShredDuration;
 }

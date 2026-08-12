@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
   m_Name: Sicur.D.Skill
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 
+  abilityName: Tear
   icon: {fileID: 0}
-  description: 
-  abilityType: 0
+  description: Demonic entity goes into a blood driven rampage, hitting up to 5 targets
+    for high shadow damage. (70% Missing HP)
+  abilityType: 1
   spCost: 0
   spGain: 0
-  power: 0
-  element: 0
+  power: 70
+  element: 4
   targetShape: 0
   targetSide: 0
   freezeChance: 0
@@ -28,5 +29,5 @@ MonoBehaviour:
   consumesMark: 0
   bonusDamagePerMarkStack: 0
   triggersFormSwitch: 0
-  costsHPPercentOfMissing: 0
-  hpCostPercent: 0
+  costsHPPercentOfMissing: 1
+  hpCostPercent: 0.7

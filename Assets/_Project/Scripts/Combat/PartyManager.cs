@@ -66,13 +66,14 @@ public class PartyManager : MonoBehaviour
         }
     }
 
-    // --- Abilities ---
+    // --- Abilities / Loadout ---
     public CharacterLoadout GetLoadout(CharacterCardData data)
     {
         if (!loadouts.TryGetValue(data, out var loadout))
         {
             loadout = new CharacterLoadout
             {
+                equippedBasic = data.defaultBasic != null ? data.defaultBasic : data.basicAbility,
                 equippedSkill = data.defaultSkill,
                 equippedUltimate = data.defaultUltimate
             };
@@ -87,21 +88,46 @@ public class PartyManager : MonoBehaviour
         var loadout = GetLoadout(data);
         var result = new List<AbilityData>();
 
-        if (data.basicAbility != null) result.Add(data.basicAbility);
+        bool basicIsSwappable = data.basicOptions != null && data.basicOptions.Length > 0;
+        AbilityData basic = basicIsSwappable ? loadout.equippedBasic : data.basicAbility;
+
+        if (basic != null) result.Add(basic);
         if (loadout.equippedSkill != null) result.Add(loadout.equippedSkill);
         if (loadout.equippedUltimate != null) result.Add(loadout.equippedUltimate);
 
         return result;
     }
 
+    public void SetBasic(CharacterCardData data, AbilityData newBasic)
+    {
+        GetLoadout(data).equippedBasic = newBasic;
+
+        RefreshInstanceAbilities(data);
+    }
+
     public void SetSkill(CharacterCardData data, AbilityData newSkill)
     {
         GetLoadout(data).equippedSkill = newSkill;
+
+        RefreshInstanceAbilities(data);
     }
 
     public void SetUltimate(CharacterCardData data, AbilityData newUltimate)
     {
         GetLoadout(data).equippedUltimate = newUltimate;
+
+        RefreshInstanceAbilities(data);
+    }
+
+    private void RefreshInstanceAbilities(CharacterCardData data)
+    {
+        if (partyInstances == null) return;
+
+        var instance = partyInstances.Find(c => c.data == data);
+        if (instance != null)
+        {
+            instance.RefreshAbilities();
+        }
     }
 
     // --- Gold ---

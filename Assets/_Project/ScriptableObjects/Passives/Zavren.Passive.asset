@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fd85636534bdfa4c9edc8983133efab, type: 3}
-  m_Name: Sicur.Passive
+  m_Name: Zavren.Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveData
-  passiveName: Fiendish Vigor
-  description: Sicur's patron rewards him with vitality any time he witnesses a death.
-  trigger: 6
-  value: 40
+  passiveName: 
+  description: 
+  trigger: 0
+  value: 0
   bonusHPPercent: 0
   bonusAttackPercent: 0
   bonusDefensePercent: 0
   bonusSpeedPercent: 0
+  fireIceBonusDamage: 0
+  fireElectroSpreadDamage: 0
+  defShredAmount: 0
+  defShredDuration: 0

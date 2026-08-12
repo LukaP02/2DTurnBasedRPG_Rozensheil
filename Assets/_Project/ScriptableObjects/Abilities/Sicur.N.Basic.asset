@@ -19,8 +19,15 @@ MonoBehaviour:
   abilityType: 0
   spCost: 0
   spGain: 1
-  power: 20
+  power: 10
   element: 1
   targetShape: 0
   targetSide: 0
   freezeChance: 0
+  appliesMark: 0
+  maxMarkStacks: 3
+  consumesMark: 0
+  bonusDamagePerMarkStack: 0
+  triggersFormSwitch: 0
+  costsHPPercentOfMissing: 0
+  hpCostPercent: 0

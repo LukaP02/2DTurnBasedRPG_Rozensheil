@@ -46,6 +46,8 @@ public class CombatController : MonoBehaviour
             return;
         }
 
+        activeActor.TickTempModifiers();
+
         if (activeActor.HasStatus(StatusEffectType.Freeze))
         {
             Debug.Log($"{activeActor.data.characterName} is frozen and skips their turn.");
@@ -250,11 +252,9 @@ public class CombatController : MonoBehaviour
     {
         bool userIsAlly = turnOrder.allies.Contains(user);
 
-        // Demon-form HP cost: % of missing HP, self-inflicted
         if (ability.costsHPPercentOfMissing)
         {
-            int missingHP = user.maxHP - user.currentHP;
-            int hpCost = Mathf.RoundToInt(missingHP * ability.hpCostPercent);
+            int hpCost = Mathf.RoundToInt(user.maxHP * ability.hpCostPercent);
 
             if (hpCost > 0)
             {
@@ -301,12 +301,83 @@ public class CombatController : MonoBehaviour
                 {
                     target.ApplyStatus(StatusEffectType.Freeze);
                 }
+
+                TryApplyElementalStain(user, target, ability.element);
             }
         }
 
         if (ability.triggersFormSwitch)
         {
             user.ToggleForm();
+        }
+    }
+
+    // --- Elemental stains & combos ---
+
+    private CharacterInstance FindStainEnabler()
+    {
+        var all = turnOrder.allies.Concat(turnOrder.enemies);
+        return all.FirstOrDefault(c => c.isAlive && c.data.passive != null && c.data.passive.trigger == PassiveTrigger.EnablesStains);
+    }
+
+    private void TryApplyElementalStain(CharacterInstance user, CharacterInstance target, ElementType element)
+    {
+        if (element != ElementType.Fire && element != ElementType.Ice && element != ElementType.Electro)
+            return;
+
+        CharacterInstance enabler = FindStainEnabler();
+        if (enabler == null) return; // no one on the field enables stains
+
+        bool wasNew = target.ApplyStain(element);
+        if (!wasNew) return;
+
+        if (target.StainCount() < 2) return;
+
+        // Combo only triggers if the caster of THIS hit is the enabler themself
+        if (user != enabler) return;
+
+        List<ElementType> stains = target.GetActiveStains();
+        ElementType a = stains[0];
+        ElementType b = stains[1];
+
+        ResolveStainCombo(enabler, target, a, b);
+        target.ClearStains();
+    }
+
+    private void ResolveStainCombo(CharacterInstance enabler, CharacterInstance target, ElementType a, ElementType b)
+    {
+        PassiveData passive = enabler.data.passive;
+
+        bool isFireIce = (a == ElementType.Fire && b == ElementType.Ice) || (a == ElementType.Ice && b == ElementType.Fire);
+        bool isFireElectro = (a == ElementType.Fire && b == ElementType.Electro) || (a == ElementType.Electro && b == ElementType.Fire);
+        bool isIceElectro = (a == ElementType.Ice && b == ElementType.Electro) || (a == ElementType.Electro && b == ElementType.Ice);
+
+        if (isFireIce)
+        {
+            Debug.Log($"Stain combo (Fire+Ice): bonus damage to {target.data.characterName}.");
+            target.TakeDamage(passive.fireIceBonusDamage);
+
+            if (target.CheckAndMarkDeath())
+                TriggerOnAnyDeathPassives();
+        }
+        else if (isFireElectro)
+        {
+            Debug.Log($"Stain combo (Fire+Electro): spread damage from {target.data.characterName}.");
+
+            List<CharacterInstance> spreadTargets = BuildTargetGroup(TargetShape.Spread, target);
+
+            foreach (var spreadTarget in spreadTargets)
+            {
+                spreadTarget.TakeDamage(passive.fireElectroSpreadDamage);
+
+                if (spreadTarget.CheckAndMarkDeath())
+                    TriggerOnAnyDeathPassives();
+            }
+        }
+        else if (isIceElectro)
+        {
+            Debug.Log($"Stain combo (Ice+Electro): {target.data.characterName} DEF shredded.");
+            target.ApplyDefenseShred(passive.defShredAmount, passive.defShredDuration);
         }
     }
 

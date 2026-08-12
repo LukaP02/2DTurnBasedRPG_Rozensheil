@@ -34,6 +34,17 @@ public class CharacterInstance
     private Dictionary<CharacterInstance, int> marksBySource = new Dictionary<CharacterInstance, int>();
     private bool deathProcessed = false;
 
+    // --- Elemental stains ---
+    private HashSet<ElementType> activeStains = new HashSet<ElementType>();
+
+    // --- Temporary stat modifiers (e.g. DEF Shred) ---
+    private class TempModifier
+    {
+        public int defenseDelta;
+        public int turnsRemaining;
+    }
+    private List<TempModifier> tempModifiers = new List<TempModifier>();
+
     public CharacterInstance(CharacterCardData sourceData)
     {
         data = sourceData;
@@ -66,6 +77,12 @@ public class CharacterInstance
             attackBonus += UnityEngine.Mathf.RoundToInt(data.attack * data.passive.bonusAttackPercent);
             defenseBonus += UnityEngine.Mathf.RoundToInt(data.defense * data.passive.bonusDefensePercent);
             speedBonus += UnityEngine.Mathf.RoundToInt(data.speed * data.passive.bonusSpeedPercent);
+        }
+
+        // Apply active temporary modifiers (e.g. DEF Shred) on top of base+item+passive
+        foreach (var mod in tempModifiers)
+        {
+            defenseBonus += mod.defenseDelta;
         }
 
         int previousMaxHP = maxHP;
@@ -129,7 +146,6 @@ public class CharacterInstance
         if (currentHP > maxHP) currentHP = maxHP;
     }
 
-    // Returns true only the FIRST time this character is found dead (prevents double-triggering death passives)
     public bool CheckAndMarkDeath()
     {
         if (!isAlive && !deathProcessed)
@@ -140,7 +156,7 @@ public class CharacterInstance
         return false;
     }
 
-    // --- Status effects ---
+    // --- Status effects (Freeze) ---
     public void ApplyStatus(StatusEffectType status)
     {
         activeStatuses.Add(status);
@@ -179,6 +195,60 @@ public class CharacterInstance
         return marksBySource.TryGetValue(source, out int stacks) ? stacks : 0;
     }
 
+    // --- Elemental stains ---
+
+    // Returns true if this element was NEWLY added (wasn't already present)
+    public bool ApplyStain(ElementType element)
+    {
+        return activeStains.Add(element);
+    }
+
+    public bool HasStain(ElementType element)
+    {
+        return activeStains.Contains(element);
+    }
+
+    public List<ElementType> GetActiveStains()
+    {
+        return new List<ElementType>(activeStains);
+    }
+
+    public int StainCount()
+    {
+        return activeStains.Count;
+    }
+
+    public void ClearStains()
+    {
+        activeStains.Clear();
+    }
+
+    // --- Temporary modifiers (DEF Shred) ---
+    public void ApplyDefenseShred(int amount, int duration)
+    {
+        tempModifiers.Add(new TempModifier { defenseDelta = -amount, turnsRemaining = duration });
+        RecalculateStats();
+    }
+
+    // Call at the start of this character's own turn
+    public void TickTempModifiers()
+    {
+        bool anyExpired = false;
+
+        for (int i = tempModifiers.Count - 1; i >= 0; i--)
+        {
+            tempModifiers[i].turnsRemaining--;
+            if (tempModifiers[i].turnsRemaining <= 0)
+            {
+                tempModifiers.RemoveAt(i);
+                anyExpired = true;
+            }
+        }
+
+        if (anyExpired)
+            RecalculateStats();
+    }
+
     // --- Status display for UI ---
     public List<StatusEffectInstance> GetStatusDisplayList()
     {
@@ -196,6 +266,16 @@ public class CharacterInstance
                 string sourceName = kvp.Key != null ? kvp.Key.data.characterName : "Unknown";
                 list.Add(new StatusEffectInstance { label = $"Mark ({sourceName})", stackCount = kvp.Value });
             }
+        }
+
+        foreach (var stain in activeStains)
+        {
+            list.Add(new StatusEffectInstance { label = $"{stain} Stain", stackCount = 1 });
+        }
+
+        if (tempModifiers.Count > 0)
+        {
+            list.Add(new StatusEffectInstance { label = "DEF Shred", stackCount = tempModifiers.Count });
         }
 
         return list;

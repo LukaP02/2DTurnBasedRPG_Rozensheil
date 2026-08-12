@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
   m_Name: Sicur.N.Skill
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 
+  abilityName: Hunger Of Hadar
   icon: {fileID: 0}
-  description: 
-  abilityType: 0
-  spCost: 0
+  description: Sicur opens a gateway to the dark between the stars damaging up to
+    three targets for medium fire damage.
+  abilityType: 1
+  spCost: 1
   spGain: 0
-  power: 0
-  element: 0
-  targetShape: 0
+  power: 40
+  element: 1
+  targetShape: 2
   targetSide: 0
   freezeChance: 0
   appliesMark: 0

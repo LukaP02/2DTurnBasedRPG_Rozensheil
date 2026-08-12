@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
   m_Name: Sicur.D.Basic
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 
+  abilityName: Rip
   icon: {fileID: 0}
-  description: 
+  description: Demonic entity claws a single target dealing cleaving medium shadow
+    damage. (40% Missing HP)
   abilityType: 0
   spCost: 0
-  spGain: 0
-  power: 0
-  element: 0
-  targetShape: 0
+  spGain: 1
+  power: 55
+  element: 4
+  targetShape: 1
   targetSide: 0
   freezeChance: 0
   appliesMark: 0
@@ -28,5 +29,5 @@ MonoBehaviour:
   consumesMark: 0
   bonusDamagePerMarkStack: 0
   triggersFormSwitch: 0
-  costsHPPercentOfMissing: 0
-  hpCostPercent: 0
+  costsHPPercentOfMissing: 1
+  hpCostPercent: 0.4

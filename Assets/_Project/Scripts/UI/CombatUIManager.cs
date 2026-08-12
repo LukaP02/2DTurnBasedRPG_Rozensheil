@@ -61,6 +61,7 @@ public class CombatUIManager : MonoBehaviour
         {
             kvp.Value.RefreshHP();
             kvp.Value.RefreshStatuses();
+            kvp.Value.RefreshArt();
             kvp.Value.SetActiveTurn(kvp.Key == combatController.ActiveActor);
             kvp.Value.HideActionButtons();
         }

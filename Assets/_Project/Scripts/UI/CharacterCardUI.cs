@@ -49,6 +49,20 @@ public class CharacterCardUI : MonoBehaviour
         hpText.text = $"{boundCharacter.currentHP} / {boundCharacter.maxHP}";
     }
 
+    public void RefreshArt()
+    {
+        if (boundCharacter == null || artImage == null) return;
+
+        if (boundCharacter.data.hasForms && boundCharacter.currentForm == CharacterForm.Demon && boundCharacter.data.demonFormArt != null)
+        {
+            artImage.sprite = boundCharacter.data.demonFormArt;
+        }
+        else
+        {
+            artImage.sprite = boundCharacter.data.cardArt;
+        }
+    }
+
     public void RefreshStatuses()
     {
         if (boundCharacter == null || statusIconContainer == null) return;
