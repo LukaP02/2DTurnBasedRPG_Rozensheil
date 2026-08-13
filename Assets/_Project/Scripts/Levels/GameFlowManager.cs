@@ -9,6 +9,7 @@ public class GameFlowManager : MonoBehaviour
     [Header("Screens")]
     public GameObject overworldPanel;
     public GameObject combatScreen;
+    public DefeatScreenUI defeatScreen;
 
     [Header("Controllers")]
     public DialogueController dialogueController;
@@ -29,6 +30,11 @@ public class GameFlowManager : MonoBehaviour
         else
         {
             Debug.LogError("GameFlowManager: no PartyManager found in scene.");
+        }
+
+        if (defeatScreen != null)
+        {
+            defeatScreen.OnContinuePressed += OnDefeatContinuePressed;
         }
     }
 
@@ -132,13 +138,27 @@ public class GameFlowManager : MonoBehaviour
 
     private void OnCombatDefeat()
     {
-        ReturnToOverworld();
+        defeatScreen.Show();
+    }
+
+    private void OnDefeatContinuePressed()
+    {
+        defeatScreen.Hide();
+
+        PartyManager.Instance.HealPartyFully();
+
+        ReturnToOverworldWithoutUnlocking();
     }
 
     private void ReturnToOverworld()
     {
         PartyManager.Instance.UnlockUpTo(currentLevelIndex + 1);
         overworldMapUI.RefreshNodes();
+        overworldPanel.SetActive(true);
+    }
+
+    private void ReturnToOverworldWithoutUnlocking()
+    {
         overworldPanel.SetActive(true);
     }
 }

@@ -23,6 +23,8 @@ MonoBehaviour:
   threatWeight: 2
   weaknesses: 
   basicAbility: {fileID: 11400000, guid: 10c8a6885e60b8f42b664de8e67879a4, type: 2}
+  basicOptions: []
+  defaultBasic: {fileID: 11400000, guid: 10c8a6885e60b8f42b664de8e67879a4, type: 2}
   skillOptions:
   - {fileID: 0}
   - {fileID: 0}
@@ -30,4 +32,10 @@ MonoBehaviour:
   - {fileID: 0}
   defaultSkill: {fileID: 0}
   defaultUltimate: {fileID: 0}
+  hasForms: 0
+  normalFormBasic: {fileID: 0}
+  normalFormSkill: {fileID: 0}
+  demonFormBasic: {fileID: 0}
+  demonFormSkill: {fileID: 0}
+  demonFormArt: {fileID: 0}
   passive: {fileID: 11400000, guid: bd5148bf168e73b46b1674dc1ba7b520, type: 2}

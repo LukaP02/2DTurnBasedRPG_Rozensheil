@@ -23,15 +23,16 @@ MonoBehaviour:
   threatWeight: 1
   weaknesses: 
   basicAbility: {fileID: 0}
-  skillOptions:
-  - {fileID: 11400000, guid: 5b8110d5c8d399b4996131d6e4b284a6, type: 2}
-  - {fileID: 11400000, guid: f23aa7da64fd453428d8ec5ce4150a4b, type: 2}
+  basicOptions: []
+  defaultBasic: {fileID: 0}
+  skillOptions: []
   ultimateOptions: []
-  defaultSkill: {fileID: 11400000, guid: 5b8110d5c8d399b4996131d6e4b284a6, type: 2}
-  defaultUltimate: {fileID: 0}
+  defaultSkill: {fileID: 11400000, guid: 4f4d163d5db4c7941aa7472aadd1925a, type: 2}
+  defaultUltimate: {fileID: 11400000, guid: 373ade998b564594b94c80afa155d201, type: 2}
   hasForms: 1
   normalFormBasic: {fileID: 11400000, guid: bff21539ecbb7374caa63992de94cf8e, type: 2}
-  normalFormSkill: {fileID: 0}
-  demonFormBasic: {fileID: 0}
-  demonFormSkill: {fileID: 0}
-  passive: {fileID: 0}
+  normalFormSkill: {fileID: 11400000, guid: 4f4d163d5db4c7941aa7472aadd1925a, type: 2}
+  demonFormBasic: {fileID: 11400000, guid: e62427ca815e1d049aa5db16bfa89c1a, type: 2}
+  demonFormSkill: {fileID: 11400000, guid: 01451e71deee7014cb682c8b3cb892f2, type: 2}
+  demonFormArt: {fileID: 0}
+  passive: {fileID: 11400000, guid: c2761a5c0d6010b40987c7a9c2bf1e6d, type: 2}

@@ -14,11 +14,14 @@ public class CombatController : MonoBehaviour
     private CharacterInstance activeActor;
 
     private const float WEAKNESS_MULTIPLIER = 1.5f;
+    private const float RESISTANCE_MULTIPLIER = 0.5f;
 
     [Header("Rewards")]
     public int goldReward = 50;
 
     public event Action OnStateChanged;
+    public event Action<CharacterInstance, int> OnHealApplied;
+    public event Action<CharacterInstance, int, ElementType> OnDamageApplied;
 
     public CharacterInstance ActiveActor => activeActor;
     public int CurrentSkillPoints => partyState.currentSkillPoints;
@@ -259,6 +262,8 @@ public class CombatController : MonoBehaviour
             if (hpCost > 0)
             {
                 user.TakeDamage(hpCost);
+                OnDamageApplied?.Invoke(user, hpCost, ElementType.Physical); // self-cost isn't elemental, treat as Physical
+
 
                 if (user.CheckAndMarkDeath())
                     TriggerOnAnyDeathPassives();
@@ -276,6 +281,7 @@ public class CombatController : MonoBehaviour
             if (targetIsSameSideAsUser)
             {
                 target.Heal(ability.power);
+                OnHealApplied?.Invoke(target, ability.power);
             }
             else
             {
@@ -288,6 +294,7 @@ public class CombatController : MonoBehaviour
 
                 int damage = CalculateDamage(user, target, ability) + bonusFromMarks;
                 target.TakeDamage(damage);
+                OnDamageApplied?.Invoke(target, damage, ability.element);
 
                 if (target.CheckAndMarkDeath())
                     TriggerOnAnyDeathPassives();
@@ -312,8 +319,6 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    // --- Elemental stains & combos ---
-
     private CharacterInstance FindStainEnabler()
     {
         var all = turnOrder.allies.Concat(turnOrder.enemies);
@@ -326,14 +331,13 @@ public class CombatController : MonoBehaviour
             return;
 
         CharacterInstance enabler = FindStainEnabler();
-        if (enabler == null) return; // no one on the field enables stains
+        if (enabler == null) return;
 
         bool wasNew = target.ApplyStain(element);
         if (!wasNew) return;
 
         if (target.StainCount() < 2) return;
 
-        // Combo only triggers if the caster of THIS hit is the enabler themself
         if (user != enabler) return;
 
         List<ElementType> stains = target.GetActiveStains();
@@ -356,6 +360,7 @@ public class CombatController : MonoBehaviour
         {
             Debug.Log($"Stain combo (Fire+Ice): bonus damage to {target.data.characterName}.");
             target.TakeDamage(passive.fireIceBonusDamage);
+            OnDamageApplied?.Invoke(target, passive.fireIceBonusDamage, ElementType.Fire);
 
             if (target.CheckAndMarkDeath())
                 TriggerOnAnyDeathPassives();
@@ -369,6 +374,7 @@ public class CombatController : MonoBehaviour
             foreach (var spreadTarget in spreadTargets)
             {
                 spreadTarget.TakeDamage(passive.fireElectroSpreadDamage);
+                OnDamageApplied?.Invoke(spreadTarget, passive.fireElectroSpreadDamage, ElementType.Fire);
 
                 if (spreadTarget.CheckAndMarkDeath())
                     TriggerOnAnyDeathPassives();
@@ -394,6 +400,7 @@ public class CombatController : MonoBehaviour
             if (character.data.passive.trigger != PassiveTrigger.OnAnyDeath) continue;
 
             character.Heal(character.data.passive.value);
+            OnHealApplied?.Invoke(character, character.data.passive.value);
         }
     }
 
@@ -406,6 +413,10 @@ public class CombatController : MonoBehaviour
         {
             raw = Mathf.RoundToInt(raw * WEAKNESS_MULTIPLIER);
         }
+        else if (IsResistantTo(defender, ability.element))
+        {
+            raw = Mathf.RoundToInt(raw * RESISTANCE_MULTIPLIER);
+        }
 
         return raw;
     }
@@ -417,6 +428,17 @@ public class CombatController : MonoBehaviour
         foreach (var w in target.data.weaknesses)
         {
             if (w == element) return true;
+        }
+        return false;
+    }
+
+    private bool IsResistantTo(CharacterInstance target, ElementType element)
+    {
+        if (target.data.resistances == null) return false;
+
+        foreach (var r in target.data.resistances)
+        {
+            if (r == element) return true;
         }
         return false;
     }

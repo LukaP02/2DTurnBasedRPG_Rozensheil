@@ -19,12 +19,34 @@ public class CombatUIManager : MonoBehaviour
     private void Awake()
     {
         combatController.OnStateChanged += RefreshUI;
+        combatController.OnDamageApplied += HandleDamageApplied;
+        combatController.OnHealApplied += HandleHealApplied;
     }
 
     private void OnDestroy()
     {
         if (combatController != null)
+        {
             combatController.OnStateChanged -= RefreshUI;
+            combatController.OnDamageApplied -= HandleDamageApplied;
+            combatController.OnHealApplied -= HandleHealApplied;
+        }
+    }
+
+    private void HandleDamageApplied(CharacterInstance target, int amount, ElementType element)
+    {
+        if (cardLookup.TryGetValue(target, out var card))
+        {
+            card.ShowFloatingText(amount, false, element);
+        }
+    }
+
+    private void HandleHealApplied(CharacterInstance target, int amount)
+    {
+        if (cardLookup.TryGetValue(target, out var card))
+        {
+            card.ShowFloatingText(amount, true, ElementType.Physical); // element unused for heals
+        }
     }
 
     public void SetupCombatUI()
@@ -54,6 +76,16 @@ public class CombatUIManager : MonoBehaviour
             cardLookup[character] = card;
         }
     }
+
+    private void HandleDamageApplied(CharacterInstance target, int amount)
+    {
+        if (cardLookup.TryGetValue(target, out var card))
+        {
+            card.ShowFloatingText(amount, false);
+        }
+    }
+
+   
 
     private void RefreshUI()
     {
@@ -94,7 +126,6 @@ public class CombatUIManager : MonoBehaviour
             return;
         }
 
-        // Single / Cleave / Spread / All now all wait for a confirming click
         selectedAbility = ability;
         waitingForTarget = true;
     }

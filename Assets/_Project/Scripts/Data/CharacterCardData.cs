@@ -23,6 +23,7 @@ public class CharacterCardData : ScriptableObject
 
     [Header("Elemental")]
     public ElementType[] weaknesses;
+    public ElementType[] resistances;
 
     [Header("Basic Attack - fixed (used if Basic Options is empty)")]
     public AbilityData basicAbility;

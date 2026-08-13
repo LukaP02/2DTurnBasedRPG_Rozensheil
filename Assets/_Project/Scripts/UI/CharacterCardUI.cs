@@ -22,6 +22,10 @@ public class CharacterCardUI : MonoBehaviour
     public Transform statusIconContainer;
     public GameObject statusIconPrefab;
 
+    [Header("Floating Text")]
+    public Transform floatingTextAnchor;
+    public GameObject floatingTextPrefab;
+
     private CharacterInstance boundCharacter;
     private CombatUIManager uiManager;
 
@@ -49,20 +53,6 @@ public class CharacterCardUI : MonoBehaviour
         hpText.text = $"{boundCharacter.currentHP} / {boundCharacter.maxHP}";
     }
 
-    public void RefreshArt()
-    {
-        if (boundCharacter == null || artImage == null) return;
-
-        if (boundCharacter.data.hasForms && boundCharacter.currentForm == CharacterForm.Demon && boundCharacter.data.demonFormArt != null)
-        {
-            artImage.sprite = boundCharacter.data.demonFormArt;
-        }
-        else
-        {
-            artImage.sprite = boundCharacter.data.cardArt;
-        }
-    }
-
     public void RefreshStatuses()
     {
         if (boundCharacter == null || statusIconContainer == null) return;
@@ -78,6 +68,33 @@ public class CharacterCardUI : MonoBehaviour
             StatusIconUI iconUI = iconObj.GetComponent<StatusIconUI>();
             iconUI.Bind(status);
         }
+    }
+
+    public void RefreshArt()
+    {
+        if (boundCharacter == null || artImage == null) return;
+
+        if (boundCharacter.data.hasForms && boundCharacter.currentForm == CharacterForm.Demon && boundCharacter.data.demonFormArt != null)
+        {
+            artImage.sprite = boundCharacter.data.demonFormArt;
+        }
+        else
+        {
+            artImage.sprite = boundCharacter.data.cardArt;
+        }
+    }
+
+    public void ShowFloatingText(int amount, bool isHeal)
+    {
+        if (floatingTextAnchor == null || floatingTextPrefab == null) return;
+
+        GameObject textObj = Instantiate(floatingTextPrefab, floatingTextAnchor);
+        FloatingTextUI floatingText = textObj.GetComponent<FloatingTextUI>();
+
+        string content = isHeal ? $"+{amount}" : $"-{amount}";
+        Color color = isHeal ? Color.green : Color.red;
+
+        floatingText.Play(content, color);
     }
 
     public void SetActiveTurn(bool isActive)
@@ -115,5 +132,37 @@ public class CharacterCardUI : MonoBehaviour
     public void OnCardClicked()
     {
         uiManager.OnCardClicked(boundCharacter);
+    }
+    public void ShowFloatingText(int amount, bool isHeal, ElementType element)
+    {
+        if (floatingTextAnchor == null || floatingTextPrefab == null) return;
+
+        GameObject textObj = Instantiate(floatingTextPrefab, floatingTextAnchor);
+        FloatingTextUI floatingText = textObj.GetComponent<FloatingTextUI>();
+
+        string content = isHeal ? $"+{amount}" : $"-{amount}";
+        Color color = isHeal ? Color.green : GetElementColor(element);
+
+        floatingText.Play(content, color);
+    }
+
+    private Color GetElementColor(ElementType element)
+    {
+        switch (element)
+        {
+            case ElementType.Fire:
+                return new Color(1f, 0.4f, 0.1f);      // orange
+            case ElementType.Ice:
+                return new Color(0.4f, 0.85f, 1f);      // cyan
+            case ElementType.Electro:
+                return new Color(0.7f, 0.3f, 1f);       // purple
+            case ElementType.Holy:
+                return new Color(1f, 0.95f, 0.5f);      // pale gold
+            case ElementType.Shadow:
+                return new Color(0.5f, 0.1f, 0.6f);     // dark violet
+            case ElementType.Physical:
+            default:
+                return Color.white;
+        }
     }
 }
