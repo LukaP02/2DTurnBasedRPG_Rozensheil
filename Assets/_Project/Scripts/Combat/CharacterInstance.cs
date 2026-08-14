@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-
-public enum StatusEffectType
-{
-    Freeze
-}
+using System.Linq;
+using UnityEngine;
 
 public enum CharacterForm
 {
@@ -15,6 +12,7 @@ public class StatusEffectInstance
 {
     public string label;
     public int stackCount;
+    public Sprite icon;
 }
 
 public class CharacterInstance
@@ -30,20 +28,12 @@ public class CharacterInstance
 
     public CharacterForm currentForm = CharacterForm.Normal;
 
-    private HashSet<StatusEffectType> activeStatuses = new HashSet<StatusEffectType>();
+    private List<ActiveStatusEffect> activeEffects = new List<ActiveStatusEffect>();
     private Dictionary<CharacterInstance, int> marksBySource = new Dictionary<CharacterInstance, int>();
     private bool deathProcessed = false;
 
     // --- Elemental stains ---
     private HashSet<ElementType> activeStains = new HashSet<ElementType>();
-
-    // --- Temporary stat modifiers (e.g. DEF Shred) ---
-    private class TempModifier
-    {
-        public int defenseDelta;
-        public int turnsRemaining;
-    }
-    private List<TempModifier> tempModifiers = new List<TempModifier>();
 
     public CharacterInstance(CharacterCardData sourceData)
     {
@@ -79,10 +69,22 @@ public class CharacterInstance
             speedBonus += UnityEngine.Mathf.RoundToInt(data.speed * data.passive.bonusSpeedPercent);
         }
 
-        // Apply active temporary modifiers (e.g. DEF Shred) on top of base+item+passive
-        foreach (var mod in tempModifiers)
+        foreach (var effect in activeEffects)
         {
-            defenseBonus += mod.defenseDelta;
+            if (effect.category != StatusEffectCategory.StatModifier) continue;
+
+            int delta = effect.isPercent
+                ? Mathf.RoundToInt(BaseValueFor(effect.modifiedStat) * effect.percentAmount)
+                : effect.flatAmount;
+            delta *= effect.stackCount;
+
+            switch (effect.modifiedStat)
+            {
+                case ModifiedStat.Attack: attackBonus += delta; break;
+                case ModifiedStat.Defense: defenseBonus += delta; break;
+                case ModifiedStat.Speed: speedBonus += delta; break;
+                case ModifiedStat.MaxHP: hpBonus += delta; break;
+            }
         }
 
         int previousMaxHP = maxHP;
@@ -95,6 +97,18 @@ public class CharacterInstance
         {
             float ratio = (float)currentHP / previousMaxHP;
             currentHP = UnityEngine.Mathf.RoundToInt(maxHP * ratio);
+        }
+    }
+
+    private int BaseValueFor(ModifiedStat stat)
+    {
+        switch (stat)
+        {
+            case ModifiedStat.Attack: return data.attack;
+            case ModifiedStat.Defense: return data.defense;
+            case ModifiedStat.Speed: return data.speed;
+            case ModifiedStat.MaxHP: return data.maxHP;
+            default: return 0;
         }
     }
 
@@ -156,20 +170,117 @@ public class CharacterInstance
         return false;
     }
 
-    // --- Status effects (Freeze) ---
-    public void ApplyStatus(StatusEffectType status)
+    // --- Status effects (generic: stat modifiers, shields, crowd control) ---
+
+    public void ApplyStatusEffect(StatusEffectData data, CharacterInstance source)
     {
-        activeStatuses.Add(status);
+        if (data == null) return;
+
+        ActiveStatusEffect existing = activeEffects.FirstOrDefault(e => e.label == data.effectName);
+
+        if (existing != null && data.stackable)
+        {
+            existing.stackCount = Mathf.Min(existing.stackCount + 1, data.maxStacks);
+            existing.turnsRemaining = data.duration;
+        }
+        else if (existing != null)
+        {
+            existing.turnsRemaining = data.duration;
+            if (data.category == StatusEffectCategory.Shield)
+                existing.shieldRemaining = data.shieldAmount;
+        }
+        else
+        {
+            activeEffects.Add(new ActiveStatusEffect
+            {
+                label = data.effectName,
+                icon = data.icon,
+                category = data.category,
+                isDebuff = data.isDebuff,
+                modifiedStat = data.modifiedStat,
+                isPercent = data.isPercent,
+                flatAmount = data.flatAmount,
+                percentAmount = data.percentAmount,
+                shieldRemaining = data.shieldAmount,
+                skipTurn = data.skipTurn,
+                turnsRemaining = data.duration,
+                stackCount = 1,
+                maxStacks = data.maxStacks,
+                stackable = data.stackable,
+                source = source
+            });
+        }
+
+        if (data.category == StatusEffectCategory.StatModifier)
+            RecalculateStats();
     }
 
-    public bool HasStatus(StatusEffectType status)
+    // For procedurally generated modifiers that don't have a backing asset (e.g. stain-combo DEF shred).
+    public void ApplyRawStatModifier(string label, ModifiedStat stat, int flatDelta, int duration, CharacterInstance source)
     {
-        return activeStatuses.Contains(status);
+        activeEffects.Add(new ActiveStatusEffect
+        {
+            label = label,
+            category = StatusEffectCategory.StatModifier,
+            isDebuff = flatDelta < 0,
+            modifiedStat = stat,
+            isPercent = false,
+            flatAmount = flatDelta,
+            turnsRemaining = duration,
+            stackCount = 1,
+            maxStacks = 1,
+            stackable = false,
+            source = source
+        });
+
+        RecalculateStats();
     }
 
-    public void RemoveStatus(StatusEffectType status)
+    // Absorbs incoming damage into any active shields, oldest first, and returns the amount left to apply to HP.
+    public int AbsorbDamage(int incomingDamage)
     {
-        activeStatuses.Remove(status);
+        int remaining = incomingDamage;
+
+        foreach (var shield in activeEffects.Where(e => e.category == StatusEffectCategory.Shield && e.shieldRemaining > 0))
+        {
+            if (remaining <= 0) break;
+
+            int absorbed = Mathf.Min(shield.shieldRemaining, remaining);
+            shield.shieldRemaining -= absorbed;
+            remaining -= absorbed;
+        }
+
+        activeEffects.RemoveAll(e => e.category == StatusEffectCategory.Shield && e.shieldRemaining <= 0);
+
+        return remaining;
+    }
+
+    public bool HasSkipTurnEffect()
+    {
+        return activeEffects.Any(e => e.category == StatusEffectCategory.CrowdControl && e.skipTurn);
+    }
+
+    // Call at the start of this character's own turn.
+    public void TickStatusEffects()
+    {
+        bool anyStatModifierExpired = false;
+
+        for (int i = activeEffects.Count - 1; i >= 0; i--)
+        {
+            var effect = activeEffects[i];
+            effect.turnsRemaining--;
+
+            if (effect.turnsRemaining <= 0)
+            {
+                if (effect.category == StatusEffectCategory.StatModifier)
+                    anyStatModifierExpired = true;
+
+                activeEffects.RemoveAt(i);
+            }
+        }
+
+        if (anyStatModifierExpired)
+            RecalculateStats();
     }
 
     // --- Marks ---
@@ -223,40 +334,18 @@ public class CharacterInstance
         activeStains.Clear();
     }
 
-    // --- Temporary modifiers (DEF Shred) ---
-    public void ApplyDefenseShred(int amount, int duration)
-    {
-        tempModifiers.Add(new TempModifier { defenseDelta = -amount, turnsRemaining = duration });
-        RecalculateStats();
-    }
-
-    // Call at the start of this character's own turn
-    public void TickTempModifiers()
-    {
-        bool anyExpired = false;
-
-        for (int i = tempModifiers.Count - 1; i >= 0; i--)
-        {
-            tempModifiers[i].turnsRemaining--;
-            if (tempModifiers[i].turnsRemaining <= 0)
-            {
-                tempModifiers.RemoveAt(i);
-                anyExpired = true;
-            }
-        }
-
-        if (anyExpired)
-            RecalculateStats();
-    }
-
     // --- Status display for UI ---
     public List<StatusEffectInstance> GetStatusDisplayList()
     {
         var list = new List<StatusEffectInstance>();
 
-        if (HasStatus(StatusEffectType.Freeze))
+        foreach (var effect in activeEffects)
         {
-            list.Add(new StatusEffectInstance { label = "Freeze", stackCount = 1 });
+            string label = effect.category == StatusEffectCategory.Shield
+                ? $"{effect.label} ({effect.shieldRemaining})"
+                : effect.label;
+
+            list.Add(new StatusEffectInstance { label = label, stackCount = effect.stackCount, icon = effect.icon });
         }
 
         foreach (var kvp in marksBySource)
@@ -271,11 +360,6 @@ public class CharacterInstance
         foreach (var stain in activeStains)
         {
             list.Add(new StatusEffectInstance { label = $"{stain} Stain", stackCount = 1 });
-        }
-
-        if (tempModifiers.Count > 0)
-        {
-            list.Add(new StatusEffectInstance { label = "DEF Shred", stackCount = tempModifiers.Count });
         }
 
         return list;

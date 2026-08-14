@@ -49,12 +49,13 @@ public class CombatController : MonoBehaviour
             return;
         }
 
-        activeActor.TickTempModifiers();
+        bool skipsTurn = activeActor.HasSkipTurnEffect();
 
-        if (activeActor.HasStatus(StatusEffectType.Freeze))
+        activeActor.TickStatusEffects();
+
+        if (skipsTurn)
         {
             Debug.Log($"{activeActor.data.characterName} is frozen and skips their turn.");
-            activeActor.RemoveStatus(StatusEffectType.Freeze);
 
             currentState = CombatState.Resolving;
             OnStateChanged?.Invoke();
@@ -272,44 +273,41 @@ public class CombatController : MonoBehaviour
 
         foreach (var target in targets)
         {
-            if (ability.power <= 0) continue;
-
             bool targetIsSameSideAsUser =
                 (userIsAlly && turnOrder.allies.Contains(target)) ||
                 (!userIsAlly && turnOrder.enemies.Contains(target));
 
-            if (targetIsSameSideAsUser)
+            if (ability.power > 0)
             {
-                target.Heal(ability.power);
-                OnHealApplied?.Invoke(target, ability.power);
+                if (targetIsSameSideAsUser)
+                {
+                    target.Heal(ability.power);
+                    OnHealApplied?.Invoke(target, ability.power);
+                }
+                else
+                {
+                    int bonusFromMarks = 0;
+                    if (ability.consumesMark)
+                    {
+                        int stacks = target.ConsumeMarkStacks(user);
+                        bonusFromMarks = stacks * ability.bonusDamagePerMarkStack;
+                    }
+
+                    int rawDamage = CalculateDamage(user, target, ability) + bonusFromMarks;
+                    DealDamage(target, rawDamage, ability.element);
+
+                    if (ability.appliesMark)
+                    {
+                        target.AddMarkStack(user, ability.maxMarkStacks);
+                    }
+
+                    TryApplyElementalStain(user, target, ability.element);
+                }
             }
-            else
+
+            if (ability.appliesStatusEffect != null && UnityEngine.Random.value <= ability.statusEffectChance)
             {
-                int bonusFromMarks = 0;
-                if (ability.consumesMark)
-                {
-                    int stacks = target.ConsumeMarkStacks(user);
-                    bonusFromMarks = stacks * ability.bonusDamagePerMarkStack;
-                }
-
-                int damage = CalculateDamage(user, target, ability) + bonusFromMarks;
-                target.TakeDamage(damage);
-                OnDamageApplied?.Invoke(target, damage, ability.element);
-
-                if (target.CheckAndMarkDeath())
-                    TriggerOnAnyDeathPassives();
-
-                if (ability.appliesMark)
-                {
-                    target.AddMarkStack(user, ability.maxMarkStacks);
-                }
-
-                if (ability.freezeChance > 0f && UnityEngine.Random.value <= ability.freezeChance)
-                {
-                    target.ApplyStatus(StatusEffectType.Freeze);
-                }
-
-                TryApplyElementalStain(user, target, ability.element);
+                target.ApplyStatusEffect(ability.appliesStatusEffect, user);
             }
         }
 
@@ -317,6 +315,17 @@ public class CombatController : MonoBehaviour
         {
             user.ToggleForm();
         }
+    }
+
+    // Single entry point for applying damage: absorbs into shields first, then HP, then fires the shared events.
+    private void DealDamage(CharacterInstance target, int amount, ElementType element)
+    {
+        int actualDamage = target.AbsorbDamage(amount);
+        target.TakeDamage(actualDamage);
+        OnDamageApplied?.Invoke(target, actualDamage, element);
+
+        if (target.CheckAndMarkDeath())
+            TriggerOnAnyDeathPassives();
     }
 
     private CharacterInstance FindStainEnabler()
@@ -359,11 +368,7 @@ public class CombatController : MonoBehaviour
         if (isFireIce)
         {
             Debug.Log($"Stain combo (Fire+Ice): bonus damage to {target.data.characterName}.");
-            target.TakeDamage(passive.fireIceBonusDamage);
-            OnDamageApplied?.Invoke(target, passive.fireIceBonusDamage, ElementType.Fire);
-
-            if (target.CheckAndMarkDeath())
-                TriggerOnAnyDeathPassives();
+            DealDamage(target, passive.fireIceBonusDamage, ElementType.Fire);
         }
         else if (isFireElectro)
         {
@@ -373,17 +378,13 @@ public class CombatController : MonoBehaviour
 
             foreach (var spreadTarget in spreadTargets)
             {
-                spreadTarget.TakeDamage(passive.fireElectroSpreadDamage);
-                OnDamageApplied?.Invoke(spreadTarget, passive.fireElectroSpreadDamage, ElementType.Fire);
-
-                if (spreadTarget.CheckAndMarkDeath())
-                    TriggerOnAnyDeathPassives();
+                DealDamage(spreadTarget, passive.fireElectroSpreadDamage, ElementType.Fire);
             }
         }
         else if (isIceElectro)
         {
             Debug.Log($"Stain combo (Ice+Electro): {target.data.characterName} DEF shredded.");
-            target.ApplyDefenseShred(passive.defShredAmount, passive.defShredDuration);
+            target.ApplyRawStatModifier("DEF Shred", ModifiedStat.Defense, -passive.defShredAmount, passive.defShredDuration, enabler);
         }
     }
 

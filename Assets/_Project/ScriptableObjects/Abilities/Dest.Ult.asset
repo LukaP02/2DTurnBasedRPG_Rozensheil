@@ -23,7 +23,8 @@ MonoBehaviour:
   element: 2
   targetShape: 0
   targetSide: 0
-  freezeChance: 1
+  appliesStatusEffect: {fileID: 11400000, guid: 101e79b50ade497b8f1ef2539dafe3d1, type: 2}
+  statusEffectChance: 1
   appliesMark: 0
   maxMarkStacks: 3
   consumesMark: 0

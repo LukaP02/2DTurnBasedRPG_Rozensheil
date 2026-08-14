@@ -21,7 +21,8 @@ public class AbilityData : ScriptableObject
     public TargetSide targetSide = TargetSide.Enemy;
 
     [Header("Status Effects")]
-    [Range(0f, 1f)] public float freezeChance;
+    public StatusEffectData appliesStatusEffect;
+    [Range(0f, 1f)] public float statusEffectChance = 1f;
 
     [Header("Marks (Abdul)")]
     public bool appliesMark;
