@@ -85,13 +85,14 @@ public class CombatUIManager : MonoBehaviour
         }
     }
 
-   
+
 
     private void RefreshUI()
     {
         foreach (var kvp in cardLookup)
         {
             kvp.Value.RefreshHP();
+            kvp.Value.RefreshEnergy();
             kvp.Value.RefreshStatuses();
             kvp.Value.RefreshArt();
             kvp.Value.SetActiveTurn(kvp.Key == combatController.ActiveActor);
@@ -116,6 +117,9 @@ public class CombatUIManager : MonoBehaviour
         AbilityData ult = actor.activeAbilities.FirstOrDefault(a => a != null && a.abilityType == AbilityType.Ultimate);
 
         card.ShowActionButtons(basic, skill, ult);
+
+        if (ult != null && card.ultButton != null)
+            card.ultButton.interactable = actor.IsUltimateReady;
     }
 
     public void OnAbilitySelected(CharacterInstance user, AbilityData ability)

@@ -10,6 +10,8 @@ public class CharacterCardUI : MonoBehaviour
     public TMP_Text nameText;
     public Slider hpSlider;
     public TMP_Text hpText;
+    public Slider energySlider;
+    public TMP_Text energyText;
     public GameObject activeTurnHighlight;
 
     [Header("Action Buttons")]
@@ -40,6 +42,7 @@ public class CharacterCardUI : MonoBehaviour
         artImage.sprite = character.data.cardArt;
 
         RefreshHP();
+        RefreshEnergy();
         RefreshStatuses();
         HideActionButtons();
     }
@@ -51,6 +54,17 @@ public class CharacterCardUI : MonoBehaviour
         hpSlider.maxValue = boundCharacter.maxHP;
         hpSlider.value = boundCharacter.currentHP;
         hpText.text = $"{boundCharacter.currentHP} / {boundCharacter.maxHP}";
+    }
+
+    public void RefreshEnergy()
+    {
+        if (boundCharacter == null || energySlider == null) return;
+
+        energySlider.maxValue = boundCharacter.maxEnergy;
+        energySlider.value = boundCharacter.currentEnergy;
+
+        if (energyText != null)
+            energyText.text = $"{boundCharacter.currentEnergy} / {boundCharacter.maxEnergy}";
     }
 
     public void RefreshStatuses()

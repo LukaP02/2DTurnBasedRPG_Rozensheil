@@ -23,6 +23,8 @@ public class CharacterInstance
     public int currentSpeed;
     public int currentAttack;
     public int currentDefense;
+    public int currentEnergy;
+    public int maxEnergy;
     public List<AbilityData> activeAbilities;
     public bool isAlive => currentHP > 0;
 
@@ -43,6 +45,22 @@ public class CharacterInstance
         RefreshAbilities();
 
         currentHP = maxHP;
+
+        maxEnergy = data.maxEnergy > 0 ? data.maxEnergy : 100;
+        currentEnergy = 0;
+    }
+
+    // --- Ultimate energy ---
+    public bool IsUltimateReady => currentEnergy >= maxEnergy;
+
+    public void GainEnergy(int amount)
+    {
+        currentEnergy = Mathf.Min(currentEnergy + amount, maxEnergy);
+    }
+
+    public void ConsumeEnergyForUltimate()
+    {
+        currentEnergy = 0;
     }
 
     public void RecalculateStats()

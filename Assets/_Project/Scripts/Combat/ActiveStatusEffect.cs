@@ -1,8 +1,6 @@
 using UnityEngine;
 
-// Runtime instance of a StatusEffectData applied to a CharacterInstance.
-// Fields are copied from the source data at apply time so effects generated
-// procedurally (e.g. elemental stain combos) don't need a backing asset.
+
 public class ActiveStatusEffect
 {
     public string label;

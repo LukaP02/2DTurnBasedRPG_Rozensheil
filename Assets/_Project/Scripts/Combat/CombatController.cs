@@ -16,6 +16,10 @@ public class CombatController : MonoBehaviour
     private const float WEAKNESS_MULTIPLIER = 1.5f;
     private const float RESISTANCE_MULTIPLIER = 0.5f;
 
+    private const int BASIC_ENERGY_GAIN = 20;
+    private const int SKILL_ENERGY_GAIN = 10;
+    private const int DAMAGE_TAKEN_ENERGY_GAIN = 10;
+
     [Header("Rewards")]
     public int goldReward = 50;
 
@@ -83,7 +87,15 @@ public class CombatController : MonoBehaviour
             return;
         }
 
-        if (!partyState.CanUseAbility(ability))
+        if (ability.abilityType == AbilityType.Ultimate)
+        {
+            if (!activeActor.IsUltimateReady)
+            {
+                Debug.LogWarning($"{ability.abilityName} is not charged yet.");
+                return;
+            }
+        }
+        else if (!partyState.CanUseAbility(ability))
         {
             Debug.LogWarning($"Not enough SP to use {ability.abilityName}.");
             return;
@@ -92,7 +104,9 @@ public class CombatController : MonoBehaviour
         currentState = CombatState.Resolving;
 
         ExecuteAbility(activeActor, ability, targets);
-        partyState.ResolveAbilityCost(ability);
+
+        if (ability.abilityType != AbilityType.Ultimate)
+            partyState.ResolveAbilityCost(ability);
 
         OnStateChanged?.Invoke();
 
@@ -173,7 +187,9 @@ public class CombatController : MonoBehaviour
 
     private AbilityData ChooseEnemyAbility(CharacterInstance enemy)
     {
-        var validAbilities = enemy.activeAbilities.Where(a => a != null).ToList();
+        var validAbilities = enemy.activeAbilities
+            .Where(a => a != null && (a.abilityType != AbilityType.Ultimate || enemy.IsUltimateReady))
+            .ToList();
         if (validAbilities.Count == 0) return null;
 
         return validAbilities[UnityEngine.Random.Range(0, validAbilities.Count)];
@@ -315,6 +331,19 @@ public class CombatController : MonoBehaviour
         {
             user.ToggleForm();
         }
+
+        switch (ability.abilityType)
+        {
+            case AbilityType.Ultimate:
+                user.ConsumeEnergyForUltimate();
+                break;
+            case AbilityType.Basic:
+                user.GainEnergy(BASIC_ENERGY_GAIN);
+                break;
+            case AbilityType.Skill:
+                user.GainEnergy(SKILL_ENERGY_GAIN);
+                break;
+        }
     }
 
     // Single entry point for applying damage: absorbs into shields first, then HP, then fires the shared events.
@@ -322,6 +351,7 @@ public class CombatController : MonoBehaviour
     {
         int actualDamage = target.AbsorbDamage(amount);
         target.TakeDamage(actualDamage);
+        target.GainEnergy(DAMAGE_TAKEN_ENERGY_GAIN);
         OnDamageApplied?.Invoke(target, actualDamage, element);
 
         if (target.CheckAndMarkDeath())

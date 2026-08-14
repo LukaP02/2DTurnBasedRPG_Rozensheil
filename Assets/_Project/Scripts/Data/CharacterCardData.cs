@@ -17,6 +17,10 @@ public class CharacterCardData : ScriptableObject
     public int defense;
     public int speed;
 
+    [Header("Ultimate Energy")]
+    [Tooltip("Energy required before this character's Ultimate can be used.")]
+    public int maxEnergy = 100;
+
     [Header("Targeting")]
     [Tooltip("Relative weight for being chosen as an enemy AI target. 1 = normal, 2 = twice as likely, etc.")]
     public float threatWeight = 1f;
