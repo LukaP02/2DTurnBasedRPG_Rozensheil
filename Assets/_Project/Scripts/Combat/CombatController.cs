@@ -20,6 +20,11 @@ public class CombatController : MonoBehaviour
     private const int SKILL_ENERGY_GAIN = 10;
     private const int DAMAGE_TAKEN_ENERGY_GAIN = 10;
 
+    // Enemy AI tuning: how often enemies prefer their Skill over their Basic (when both are usable),
+    // how often they focus the lowest-HP% target instead of picking by threat weight.
+    private const float ENEMY_SKILL_PREFERENCE_CHANCE = 0.66f;
+    private const float ENEMY_FOCUS_LOWEST_HP_CHANCE = 0.33f;
+
     [Header("Rewards")]
     public int goldReward = 50;
 
@@ -185,6 +190,8 @@ public class CombatController : MonoBehaviour
         EndTurn();
     }
 
+    // Priority order: Ult>Skill>Basic
+    
     private AbilityData ChooseEnemyAbility(CharacterInstance enemy)
     {
         var validAbilities = enemy.activeAbilities
@@ -192,7 +199,17 @@ public class CombatController : MonoBehaviour
             .ToList();
         if (validAbilities.Count == 0) return null;
 
-        return validAbilities[UnityEngine.Random.Range(0, validAbilities.Count)];
+        AbilityData ultimate = validAbilities.FirstOrDefault(a => a.abilityType == AbilityType.Ultimate);
+        if (ultimate != null)
+            return ultimate;
+
+        AbilityData skill = validAbilities.FirstOrDefault(a => a.abilityType == AbilityType.Skill);
+        AbilityData basic = validAbilities.FirstOrDefault(a => a.abilityType == AbilityType.Basic);
+
+        if (skill != null && basic != null)
+            return UnityEngine.Random.value < ENEMY_SKILL_PREFERENCE_CHANCE ? skill : basic;
+
+        return skill ?? basic ?? validAbilities[UnityEngine.Random.Range(0, validAbilities.Count)];
     }
 
     private List<CharacterInstance> ChooseEnemyTargets(CharacterInstance caster, AbilityData ability)
@@ -212,12 +229,35 @@ public class CombatController : MonoBehaviour
         if (ability.targetShape == TargetShape.All)
             return pool;
 
-        CharacterInstance chosen = pool[UnityEngine.Random.Range(0, pool.Count)];
+        CharacterInstance chosen = ChooseWeightedTarget(pool);
 
         if (ability.targetShape == TargetShape.Single)
             return new List<CharacterInstance> { chosen };
 
         return BuildTargetGroup(ability.targetShape, chosen);
+    }
+
+    //rolls if it hits lowest HP % or heighest Threat
+    private CharacterInstance ChooseWeightedTarget(List<CharacterInstance> pool)
+    {
+        if (pool.Count == 1)
+            return pool[0];
+
+        if (UnityEngine.Random.value < ENEMY_FOCUS_LOWEST_HP_CHANCE)
+            return pool.OrderBy(c => (float)c.currentHP / c.maxHP).First();
+
+        float totalWeight = pool.Sum(c => Mathf.Max(c.data.threatWeight, 0.01f));
+        float roll = UnityEngine.Random.value * totalWeight;
+        float cumulative = 0f;
+
+        foreach (var candidate in pool)
+        {
+            cumulative += Mathf.Max(candidate.data.threatWeight, 0.01f);
+            if (roll <= cumulative)
+                return candidate;
+        }
+
+        return pool[pool.Count - 1];
     }
 
     private List<CharacterInstance> ResolveSidePool(CharacterInstance caster, TargetSide side)
