@@ -34,8 +34,8 @@ public class CharacterInstance
     private Dictionary<CharacterInstance, int> marksBySource = new Dictionary<CharacterInstance, int>();
     private bool deathProcessed = false;
 
-    // --- Elemental stains ---
-    private HashSet<ElementType> activeStains = new HashSet<ElementType>();
+    // --- Elemental stain (only one active at a time; the most recent application replaces it) ---
+    private ElementType? currentStain = null;
 
     public CharacterInstance(CharacterCardData sourceData)
     {
@@ -324,32 +324,17 @@ public class CharacterInstance
         return marksBySource.TryGetValue(source, out int stacks) ? stacks : 0;
     }
 
-    // --- Elemental stains ---
+    // --- Elemental stain ---
+    public ElementType? CurrentStain => currentStain;
 
-    // Returns true if this element was NEWLY added (wasn't already present)
-    public bool ApplyStain(ElementType element)
+    public void SetStain(ElementType element)
     {
-        return activeStains.Add(element);
+        currentStain = element;
     }
 
-    public bool HasStain(ElementType element)
+    public void ClearStain()
     {
-        return activeStains.Contains(element);
-    }
-
-    public List<ElementType> GetActiveStains()
-    {
-        return new List<ElementType>(activeStains);
-    }
-
-    public int StainCount()
-    {
-        return activeStains.Count;
-    }
-
-    public void ClearStains()
-    {
-        activeStains.Clear();
+        currentStain = null;
     }
 
     // --- Status display for UI ---
@@ -375,9 +360,9 @@ public class CharacterInstance
             }
         }
 
-        foreach (var stain in activeStains)
+        if (currentStain.HasValue)
         {
-            list.Add(new StatusEffectInstance { label = $"{stain} Stain", stackCount = 1 });
+            list.Add(new StatusEffectInstance { label = $"{currentStain.Value} Stain", stackCount = 1 });
         }
 
         return list;

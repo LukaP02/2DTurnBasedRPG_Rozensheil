@@ -21,9 +21,9 @@ public class CombatController : MonoBehaviour
     private const int DAMAGE_TAKEN_ENERGY_GAIN = 10;
 
     // Enemy AI tuning: how often enemies prefer their Skill over their Basic (when both are usable),
-    // how often they focus the lowest-HP% target instead of picking by threat weight.
-    private const float ENEMY_SKILL_PREFERENCE_CHANCE = 0.66f;
-    private const float ENEMY_FOCUS_LOWEST_HP_CHANCE = 0.33f;
+    // and how often they focus the lowest-HP% target instead of picking by threat weight.
+    private const float ENEMY_SKILL_PREFERENCE_CHANCE = 0.6f;
+    private const float ENEMY_FOCUS_LOWEST_HP_CHANCE = 0.4f;
 
     [Header("Rewards")]
     public int goldReward = 50;
@@ -31,6 +31,14 @@ public class CombatController : MonoBehaviour
     public event Action OnStateChanged;
     public event Action<CharacterInstance, int> OnHealApplied;
     public event Action<CharacterInstance, int, ElementType> OnDamageApplied;
+    public event Action<string> OnCombatLogMessage;
+
+    // Logs to the console and broadcasts to any on-screen combat log listener.
+    private void LogMessage(string message)
+    {
+        Debug.Log(message);
+        OnCombatLogMessage?.Invoke(message);
+    }
 
     public CharacterInstance ActiveActor => activeActor;
     public int CurrentSkillPoints => partyState.currentSkillPoints;
@@ -64,7 +72,7 @@ public class CombatController : MonoBehaviour
 
         if (skipsTurn)
         {
-            Debug.Log($"{activeActor.data.characterName} is frozen and skips their turn.");
+            LogMessage($"{activeActor.data.characterName} is frozen and skips their turn.");
 
             currentState = CombatState.Resolving;
             OnStateChanged?.Invoke();
@@ -177,7 +185,6 @@ public class CombatController : MonoBehaviour
 
         if (chosenAbility != null && targets != null && targets.Count > 0)
         {
-            Debug.Log($"{activeActor.data.characterName} (enemy) uses {chosenAbility.abilityName}.");
             ExecuteAbility(activeActor, chosenAbility, targets);
         }
         else
@@ -190,8 +197,8 @@ public class CombatController : MonoBehaviour
         EndTurn();
     }
 
-    // Priority order: Ult>Skill>Basic
-    
+    // Priority order: use a charged Ultimate whenever available, otherwise lean toward Skill
+    // over Basic (ENEMY_SKILL_PREFERENCE_CHANCE of the time), falling back to whichever exists.
     private AbilityData ChooseEnemyAbility(CharacterInstance enemy)
     {
         var validAbilities = enemy.activeAbilities
@@ -237,7 +244,8 @@ public class CombatController : MonoBehaviour
         return BuildTargetGroup(ability.targetShape, chosen);
     }
 
-    //rolls if it hits lowest HP % or heighest Threat
+    // Picks a target from the pool: ENEMY_FOCUS_LOWEST_HP_CHANCE of the time it focuses whoever has
+    // the lowest HP%, otherwise it rolls weighted by each candidate's threatWeight (higher = more likely).
     private CharacterInstance ChooseWeightedTarget(List<CharacterInstance> pool)
     {
         if (pool.Count == 1)
@@ -310,6 +318,8 @@ public class CombatController : MonoBehaviour
 
     private void ExecuteAbility(CharacterInstance user, AbilityData ability, List<CharacterInstance> targets)
     {
+        LogMessage($"{user.data.characterName} uses {ability.abilityName}!");
+
         bool userIsAlly = turnOrder.allies.Contains(user);
 
         if (ability.costsHPPercentOfMissing)
@@ -404,27 +414,30 @@ public class CombatController : MonoBehaviour
         return all.FirstOrDefault(c => c.isAlive && c.data.passive != null && c.data.passive.trigger == PassiveTrigger.EnablesStains);
     }
 
+    // Stains only function while Zavren is alive
+    // and in the fight, but ANY character's elemental hit can apply/overwrite one while he's present.
+    // Only the enabler's own hit can detonate a combo
+    
     private void TryApplyElementalStain(CharacterInstance user, CharacterInstance target, ElementType element)
     {
         if (element != ElementType.Fire && element != ElementType.Ice && element != ElementType.Electro)
             return;
 
         CharacterInstance enabler = FindStainEnabler();
-        if (enabler == null) return;
+        if (enabler == null)
+            return;
 
-        bool wasNew = target.ApplyStain(element);
-        if (!wasNew) return;
+        ElementType? existingStain = target.CurrentStain;
 
-        if (target.StainCount() < 2) return;
-
-        if (user != enabler) return;
-
-        List<ElementType> stains = target.GetActiveStains();
-        ElementType a = stains[0];
-        ElementType b = stains[1];
-
-        ResolveStainCombo(enabler, target, a, b);
-        target.ClearStains();
+        if (existingStain.HasValue && existingStain.Value != element && user == enabler)
+        {
+            ResolveStainCombo(enabler, target, existingStain.Value, element);
+            target.ClearStain();
+        }
+        else
+        {
+            target.SetStain(element);
+        }
     }
 
     private void ResolveStainCombo(CharacterInstance enabler, CharacterInstance target, ElementType a, ElementType b)

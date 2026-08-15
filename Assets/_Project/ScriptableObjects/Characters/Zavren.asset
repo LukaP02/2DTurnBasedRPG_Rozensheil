@@ -20,8 +20,10 @@ MonoBehaviour:
   attack: 45
   defense: 60
   speed: 90
+  maxEnergy: 100
   threatWeight: 1
   weaknesses: 
+  resistances: 
   basicAbility: {fileID: 0}
   basicOptions:
   - {fileID: 11400000, guid: c6b7b2672bfda4e4bbc7f3c76ac11f48, type: 2}
@@ -43,4 +45,4 @@ MonoBehaviour:
   demonFormBasic: {fileID: 0}
   demonFormSkill: {fileID: 0}
   demonFormArt: {fileID: 0}
-  passive: {fileID: 0}
+  passive: {fileID: 11400000, guid: 8e330d126f935ec4d9e1836fe67b40fe, type: 2}

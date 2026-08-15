@@ -20,8 +20,10 @@ MonoBehaviour:
   attack: 20
   defense: 10
   speed: 90
+  maxEnergy: 100
   threatWeight: 2
   weaknesses: 
+  resistances: 
   basicAbility: {fileID: 11400000, guid: 10c8a6885e60b8f42b664de8e67879a4, type: 2}
   basicOptions: []
   defaultBasic: {fileID: 11400000, guid: 10c8a6885e60b8f42b664de8e67879a4, type: 2}
@@ -29,9 +31,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   ultimateOptions:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: c854fa154f6cdda4faab96b11c802488, type: 2}
   defaultSkill: {fileID: 0}
-  defaultUltimate: {fileID: 0}
+  defaultUltimate: {fileID: 11400000, guid: c854fa154f6cdda4faab96b11c802488, type: 2}
   hasForms: 0
   normalFormBasic: {fileID: 0}
   normalFormSkill: {fileID: 0}

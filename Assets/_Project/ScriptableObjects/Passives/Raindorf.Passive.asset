@@ -15,9 +15,13 @@ MonoBehaviour:
   passiveName: Dwarven Might
   description: Raindorf gains bonus Health and Defense based on 20% of his max Health
     and Defense retrospectively
-  trigger: 6
+  trigger: 8
   value: 0
   bonusHPPercent: 0.2
   bonusAttackPercent: 0
   bonusDefensePercent: 0.2
   bonusSpeedPercent: 0
+  fireIceBonusDamage: 0
+  fireElectroSpreadDamage: 0
+  defShredAmount: 0
+  defShredDuration: 0

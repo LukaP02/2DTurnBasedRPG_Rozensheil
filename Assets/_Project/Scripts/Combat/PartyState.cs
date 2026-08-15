@@ -4,7 +4,7 @@ public class PartyState
 {
     public List<CharacterInstance> members;
     public int currentSkillPoints;
-    public int maxSkillPoints = 10;
+    public int maxSkillPoints = 5;
 
     public PartyState(List<CharacterInstance> partyMembers)
     {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class CombatUIManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class CombatUIManager : MonoBehaviour
     public GameObject cardPrefab;
     public Transform allyContainer;
     public Transform enemyContainer;
+
+    [Header("Combat Log")]
+    public TMP_Text combatLogText;
 
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
 
@@ -21,6 +25,7 @@ public class CombatUIManager : MonoBehaviour
         combatController.OnStateChanged += RefreshUI;
         combatController.OnDamageApplied += HandleDamageApplied;
         combatController.OnHealApplied += HandleHealApplied;
+        combatController.OnCombatLogMessage += HandleCombatLogMessage;
     }
 
     private void OnDestroy()
@@ -30,7 +35,14 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnStateChanged -= RefreshUI;
             combatController.OnDamageApplied -= HandleDamageApplied;
             combatController.OnHealApplied -= HandleHealApplied;
+            combatController.OnCombatLogMessage -= HandleCombatLogMessage;
         }
+    }
+
+    private void HandleCombatLogMessage(string message)
+    {
+        if (combatLogText != null)
+            combatLogText.text = message;
     }
 
     private void HandleDamageApplied(CharacterInstance target, int amount, ElementType element)

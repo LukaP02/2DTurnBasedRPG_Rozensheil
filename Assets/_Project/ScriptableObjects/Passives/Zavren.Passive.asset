@@ -17,7 +17,7 @@ MonoBehaviour:
     source leaves a stain on the enemy target. Combining any 2 different elements
     from these 3 makes a new effect. (Fire + Ice = Bonus single target damage, Fire
     + Electro = three target AOE, Ice + Electro = DEF shred) '
-  trigger: 0
+  trigger: 7
   value: 0
   bonusHPPercent: 0
   bonusAttackPercent: 0
