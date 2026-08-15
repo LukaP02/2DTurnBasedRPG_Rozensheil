@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class CombatUIManager : MonoBehaviour
@@ -14,6 +15,10 @@ public class CombatUIManager : MonoBehaviour
 
     [Header("Combat Log")]
     public TMP_Text combatLogText;
+
+    [Header("Turn Order")]
+    public Transform turnOrderContainer;
+    public GameObject turnOrderIconPrefab;
 
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
 
@@ -117,6 +122,24 @@ public class CombatUIManager : MonoBehaviour
         if (combatController.IsPlayerTurn && combatController.ActiveActor != null)
         {
             ShowActionButtonsFor(combatController.ActiveActor);
+        }
+
+        RefreshTurnOrder();
+    }
+
+    private void RefreshTurnOrder()
+    {
+        if (turnOrderContainer == null || turnOrderIconPrefab == null) return;
+
+        foreach (Transform child in turnOrderContainer)
+            Destroy(child.gameObject);
+
+        foreach (var character in combatController.UpcomingTurnOrder)
+        {
+            GameObject iconObj = Instantiate(turnOrderIconPrefab, turnOrderContainer);
+            Image icon = iconObj.GetComponent<Image>();
+            if (icon != null)
+                icon.sprite = character.data.cardArt;
         }
     }
 

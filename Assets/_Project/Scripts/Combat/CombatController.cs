@@ -33,6 +33,7 @@ public class CombatController : MonoBehaviour
     public event Action<CharacterInstance, int, ElementType> OnDamageApplied;
     public event Action<string> OnCombatLogMessage;
 
+
     // Logs to the console and broadcasts to any on-screen combat log listener.
     private void LogMessage(string message)
     {
@@ -315,6 +316,7 @@ public class CombatController : MonoBehaviour
 
         return result;
     }
+    public List<CharacterInstance> UpcomingTurnOrder => turnOrder.PeekUpcomingOrder(); //reads TurnOrderManager
 
     private void ExecuteAbility(CharacterInstance user, AbilityData ability, List<CharacterInstance> targets)
     {

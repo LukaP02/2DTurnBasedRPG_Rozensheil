@@ -53,6 +53,12 @@ public class TurnOrderManager
     {
         return roundQueue.Count == 0;
     }
+    // Snapshot of the remaining acting order for this round (excludes whoever's turn it currently is)
+    
+    public List<CharacterInstance> PeekUpcomingOrder()
+    {
+        return roundQueue.Where(c => c.isAlive).ToList();
+    }
 
     // Call this immediately after any turn resolves (damage, heal, etc.)
     public CombatResult CheckCombatState()
