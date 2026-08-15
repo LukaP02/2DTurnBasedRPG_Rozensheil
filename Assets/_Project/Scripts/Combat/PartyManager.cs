@@ -1,15 +1,22 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PartyManager : MonoBehaviour
 {
     public static PartyManager Instance { get; private set; }
 
+    public const int MaxActivePartySize = 4;
+
     private Dictionary<CharacterCardData, CharacterLoadout> loadouts = new Dictionary<CharacterCardData, CharacterLoadout>();
     private Dictionary<CharacterCardData, ItemData> equippedItems = new Dictionary<CharacterCardData, ItemData>();
     private List<ItemData> ownedItems = new List<ItemData>();
 
-    private List<CharacterInstance> partyInstances;
+    // Every recruited character gets a persistent CharacterInstance (HP, energy, etc. survive
+    // being benched); activeParty is the subset (up to MaxActivePartySize) that fights.
+    private Dictionary<CharacterCardData, CharacterInstance> allInstances = new Dictionary<CharacterCardData, CharacterInstance>();
+    private List<CharacterCardData> fullRoster = new List<CharacterCardData>();
+    private List<CharacterCardData> activeParty = new List<CharacterCardData>();
 
     public int Gold { get; private set; } = 0;
     public int UnlockedLevelIndex { get; private set; } = 0;
@@ -33,36 +40,57 @@ public class PartyManager : MonoBehaviour
             UnlockedLevelIndex = index;
     }
 
-    // --- Persistent party instances ---
+    // --- Roster & active party ---
     public void InitializeParty(List<CharacterCardData> members)
     {
-        if (partyInstances != null) return;
+        if (fullRoster.Count > 0) return;
 
-        partyInstances = new List<CharacterInstance>();
-        foreach (var member in members)
+        fullRoster = members;
+
+        foreach (var member in fullRoster)
         {
-            partyInstances.Add(new CharacterInstance(member));
+            allInstances[member] = new CharacterInstance(member);
         }
+
+        activeParty = fullRoster.Take(MaxActivePartySize).ToList();
+    }
+
+    public List<CharacterCardData> GetFullRoster()
+    {
+        return fullRoster;
+    }
+
+    public List<CharacterCardData> GetActiveParty()
+    {
+        return activeParty;
+    }
+
+    // Returns false (leaving the active party unchanged) if the selection is empty or over the cap.
+    public bool SetActiveParty(List<CharacterCardData> selected)
+    {
+        if (selected == null || selected.Count == 0 || selected.Count > MaxActivePartySize)
+            return false;
+
+        activeParty = new List<CharacterCardData>(selected);
+        return true;
     }
 
     public List<CharacterInstance> GetPartyInstances()
     {
-        if (partyInstances == null)
+        if (fullRoster.Count == 0)
         {
             Debug.LogWarning("PartyManager: party not initialized yet. Call InitializeParty first.");
             return new List<CharacterInstance>();
         }
 
-        return partyInstances;
+        return activeParty.Select(c => allInstances[c]).ToList();
     }
 
     public void HealPartyFully()
     {
-        if (partyInstances == null) return;
-
-        foreach (var member in partyInstances)
+        foreach (var instance in allInstances.Values)
         {
-            member.Heal(member.maxHP);
+            instance.Heal(instance.maxHP);
         }
     }
 
@@ -121,10 +149,7 @@ public class PartyManager : MonoBehaviour
 
     private void RefreshInstanceAbilities(CharacterCardData data)
     {
-        if (partyInstances == null) return;
-
-        var instance = partyInstances.Find(c => c.data == data);
-        if (instance != null)
+        if (allInstances.TryGetValue(data, out var instance))
         {
             instance.RefreshAbilities();
         }
@@ -167,13 +192,9 @@ public class PartyManager : MonoBehaviour
     {
         equippedItems[character] = item;
 
-        if (partyInstances != null)
+        if (allInstances.TryGetValue(character, out var instance))
         {
-            var instance = partyInstances.Find(c => c.data == character);
-            if (instance != null)
-            {
-                instance.RecalculateStats();
-            }
+            instance.RecalculateStats();
         }
     }
 
