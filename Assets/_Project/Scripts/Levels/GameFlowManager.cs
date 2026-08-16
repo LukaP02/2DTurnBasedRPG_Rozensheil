@@ -10,6 +10,7 @@ public class GameFlowManager : MonoBehaviour
     public GameObject overworldPanel;
     public GameObject combatScreen;
     public DefeatScreenUI defeatScreen;
+    public VictoryScreenUI victoryScreen;
 
     [Header("Controllers")]
     public DialogueController dialogueController;
@@ -35,6 +36,11 @@ public class GameFlowManager : MonoBehaviour
         if (defeatScreen != null)
         {
             defeatScreen.OnContinuePressed += OnDefeatContinuePressed;
+        }
+
+        if (victoryScreen != null)
+        {
+            victoryScreen.OnContinuePressed += OnVictoryContinuePressed;
         }
     }
 
@@ -72,14 +78,26 @@ public class GameFlowManager : MonoBehaviour
         }
         else
         {
-            BeginCombat();
+            ProceedAfterIntro();
         }
     }
 
     private void OnIntroDialogueEnded()
     {
         dialogueController.OnDialogueEnded -= OnIntroDialogueEnded;
-        BeginCombat();
+        ProceedAfterIntro();
+    }
+
+    // A level with no enemies is a no-combat node (event and/or dialogue only) — skip straight
+    // to the post-level sequence instead of entering combat.
+    private void ProceedAfterIntro()
+    {
+        bool hasCombat = currentLevel.enemies != null && System.Array.Exists(currentLevel.enemies, e => e != null);
+
+        if (hasCombat)
+            BeginCombat();
+        else
+            RunPostLevelSequence();
     }
 
     private void BeginCombat()
@@ -128,7 +146,7 @@ public class GameFlowManager : MonoBehaviour
             combatController.OnStateChanged -= CheckCombatEnd;
             combatController.OnMidBattleDialogueRequested -= HandleMidBattleDialogueRequested;
             combatScreen.SetActive(false);
-            OnCombatVictory();
+            victoryScreen.Show(combatController.goldReward);
         }
         else if (combatController.currentState == CombatState.Defeat)
         {
@@ -139,7 +157,9 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
-    private void OnCombatVictory()
+    // Shared by both combat victory and no-combat levels: post-level event, then post-level
+    // dialogue, then back to the overworld.
+    private void RunPostLevelSequence()
     {
         if (currentLevel.postLevelEvent != null)
         {
@@ -149,13 +169,32 @@ public class GameFlowManager : MonoBehaviour
         }
         else
         {
-            ReturnToOverworld();
+            BeginPostLevelDialogue();
         }
     }
 
     private void OnPostEventClosed()
     {
         eventController.OnEventClosed -= OnPostEventClosed;
+        BeginPostLevelDialogue();
+    }
+
+    private void BeginPostLevelDialogue()
+    {
+        if (currentLevel.postLevelDialogue != null)
+        {
+            dialogueController.OnDialogueEnded += OnPostLevelDialogueEnded;
+            dialogueController.StartDialogue(currentLevel.postLevelDialogue);
+        }
+        else
+        {
+            ReturnToOverworld();
+        }
+    }
+
+    private void OnPostLevelDialogueEnded()
+    {
+        dialogueController.OnDialogueEnded -= OnPostLevelDialogueEnded;
         ReturnToOverworld();
     }
 
@@ -171,6 +210,12 @@ public class GameFlowManager : MonoBehaviour
         PartyManager.Instance.HealPartyFully();
 
         ReturnToOverworldWithoutUnlocking();
+    }
+
+    private void OnVictoryContinuePressed()
+    {
+        victoryScreen.Hide();
+        RunPostLevelSequence();
     }
 
     private void ReturnToOverworld()

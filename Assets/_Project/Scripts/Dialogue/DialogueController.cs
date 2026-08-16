@@ -7,6 +7,7 @@ public class DialogueController : MonoBehaviour
 {
     [Header("UI References")]
     public GameObject dialoguePanel;
+    public Image backgroundImage;
     public Image portraitImage;
     public TMP_Text speakerNameText;
     public TMP_Text dialogueText;
@@ -64,6 +65,11 @@ public class DialogueController : MonoBehaviour
 
         if (portraitImage != null)
             portraitImage.sprite = line.speakerPortrait;
+
+        // Leaving a line's backgroundImage empty keeps whatever background is already showing,
+        // so a sequence doesn't need to repeat the same sprite on every line.
+        if (backgroundImage != null && line.backgroundImage != null)
+            backgroundImage.sprite = line.backgroundImage;
     }
 
     private void EndDialogue()

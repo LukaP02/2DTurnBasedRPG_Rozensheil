@@ -6,11 +6,13 @@ public class LevelData : ScriptableObject
     [Header("Identity")]
     public string levelName;
 
-    [Header("Flow (all optional except enemies)")]
+    [Header("Flow (all optional)")]
     public EventData preLevelEvent;
     public DialogueSequence introDialogue;
+    [Tooltip("Leave empty for a no-combat node (event and/or dialogue only) — combat is skipped entirely.")]
     public CharacterCardData[] enemies;
     public EventData postLevelEvent;
+    public DialogueSequence postLevelDialogue;
 
     [Header("Wave Encounter (optional; leave Max Enemies On Field at 0 for a normal fight)")]
     [Tooltip("Caps how many enemies can be alive on the field at once. Reinforcements fill empty slots as enemies die.")]

@@ -8,6 +8,7 @@ public class EventController : MonoBehaviour
 {
     [Header("Prompt UI")]
     public GameObject eventPanel;
+    public Image backgroundImage;
     public Image eventImage;
     public TMP_Text titleText;
     public TMP_Text descriptionText;
@@ -46,6 +47,9 @@ public class EventController : MonoBehaviour
 
         if (eventImage != null)
             eventImage.sprite = eventData.image;
+
+        if (backgroundImage != null && eventData.backgroundImage != null)
+            backgroundImage.sprite = eventData.backgroundImage;
 
         PopulateChoices();
 
