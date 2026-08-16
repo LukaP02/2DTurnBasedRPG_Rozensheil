@@ -20,6 +20,9 @@ public class CharacterCardUI : MonoBehaviour
     public Button skillButton;
     public Button ultButton;
 
+    [Header("Inspect")]
+    public Button inspectButton;
+
     [Header("Status Icons")]
     public Transform statusIconContainer;
     public GameObject statusIconPrefab;
@@ -45,6 +48,12 @@ public class CharacterCardUI : MonoBehaviour
         RefreshEnergy();
         RefreshStatuses();
         HideActionButtons();
+
+        if (inspectButton != null)
+        {
+            inspectButton.onClick.RemoveAllListeners();
+            inspectButton.onClick.AddListener(() => uiManager.OnInspectCard(boundCharacter));
+        }
     }
 
     public void RefreshHP()

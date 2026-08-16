@@ -1,5 +1,7 @@
 using UnityEngine;
 
+public enum CharacterRole { Damage, Tank, Support, Utility }
+
 [CreateAssetMenu(fileName = "NewCharacter", menuName = "CardRPG/Character")]
 public class CharacterCardData : ScriptableObject
 {
@@ -10,6 +12,7 @@ public class CharacterCardData : ScriptableObject
 
     [Header("Type")]
     public bool isPlayableCharacter = true;
+    public CharacterRole role = CharacterRole.Damage;
 
     [Header("Base Stats")]
     public int maxHP;

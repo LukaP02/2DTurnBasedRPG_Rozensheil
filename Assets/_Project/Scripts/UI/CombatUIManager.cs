@@ -20,6 +20,11 @@ public class CombatUIManager : MonoBehaviour
     public Transform turnOrderContainer;
     public GameObject turnOrderIconPrefab;
 
+    [Header("Card Inspect")]
+    public CardDetailUI cardDetailUI;
+
+
+
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
 
     private AbilityData selectedAbility;
@@ -214,5 +219,10 @@ public class CombatUIManager : MonoBehaviour
         }
 
         combatController.ResolvePlayerAction(selectedAbility, targets);
+    }
+    public void OnInspectCard(CharacterInstance character)
+    {
+        if (cardDetailUI != null)
+            cardDetailUI.Show(character);
     }
 }
