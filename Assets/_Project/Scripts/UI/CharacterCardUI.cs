@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
-public class CharacterCardUI : MonoBehaviour
+public class CharacterCardUI : MonoBehaviour, IPointerClickHandler
 {
     [Header("Visuals")]
     public Image artImage;
@@ -20,8 +21,7 @@ public class CharacterCardUI : MonoBehaviour
     public Button skillButton;
     public Button ultButton;
 
-    [Header("Inspect")]
-    public Button inspectButton;
+    
 
     [Header("Status Icons")]
     public Transform statusIconContainer;
@@ -49,10 +49,13 @@ public class CharacterCardUI : MonoBehaviour
         RefreshStatuses();
         HideActionButtons();
 
-        if (inspectButton != null)
+        
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            inspectButton.onClick.RemoveAllListeners();
-            inspectButton.onClick.AddListener(() => uiManager.OnInspectCard(boundCharacter));
+            uiManager.OnInspectCard(boundCharacter);
         }
     }
 
