@@ -10,10 +10,16 @@ public class OptionsMenuUI : MonoBehaviour
     [Header("Audio")]
     public Slider volumeSlider;
 
+    [Header("Buttons")]
+    public Button backButton;
+
     private void Awake()
     {
         if (volumeSlider != null)
             volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+
+        if (backButton != null)
+            backButton.onClick.AddListener(Back);
     }
 
     private void OnEnable()
