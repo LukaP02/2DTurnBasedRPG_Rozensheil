@@ -31,6 +31,7 @@ public class CombatUIManager : MonoBehaviour
         combatController.OnDamageApplied += HandleDamageApplied;
         combatController.OnHealApplied += HandleHealApplied;
         combatController.OnCombatLogMessage += HandleCombatLogMessage;
+        combatController.OnEnemyReinforced += HandleEnemyReinforced;
     }
 
     private void OnDestroy()
@@ -41,7 +42,16 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnDamageApplied -= HandleDamageApplied;
             combatController.OnHealApplied -= HandleHealApplied;
             combatController.OnCombatLogMessage -= HandleCombatLogMessage;
+            combatController.OnEnemyReinforced -= HandleEnemyReinforced;
         }
+    }
+
+    private void HandleEnemyReinforced(CharacterInstance enemy)
+    {
+        GameObject cardObj = Instantiate(cardPrefab, enemyContainer);
+        CharacterCardUI card = cardObj.GetComponent<CharacterCardUI>();
+        card.Bind(enemy, this);
+        cardLookup[enemy] = card;
     }
 
     private void HandleCombatLogMessage(string message)

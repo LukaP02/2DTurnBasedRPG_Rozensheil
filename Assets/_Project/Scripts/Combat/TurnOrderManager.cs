@@ -53,8 +53,16 @@ public class TurnOrderManager
     {
         return roundQueue.Count == 0;
     }
+
+    // Adds a reinforcement mid-fight. They join the acting order starting next round.
+    public void AddEnemy(CharacterInstance enemy)
+    {
+        enemies.Add(enemy);
+        combatants.Add(enemy);
+    }
+
     // Snapshot of the remaining acting order for this round (excludes whoever's turn it currently is)
-    
+
     public List<CharacterInstance> PeekUpcomingOrder()
     {
         return roundQueue.Where(c => c.isAlive).ToList();

@@ -92,7 +92,15 @@ public class GameFlowManager : MonoBehaviour
             if (data != null) enemies.Add(new CharacterInstance(data));
         }
 
+        combatController.ConfigureWaveEncounter(
+            currentLevel.maxEnemiesOnField,
+            currentLevel.reinforcementPool,
+            currentLevel.killTarget,
+            currentLevel.midBattleDialogue,
+            currentLevel.wipeMessage);
+
         combatController.OnStateChanged += CheckCombatEnd;
+        combatController.OnMidBattleDialogueRequested += HandleMidBattleDialogueRequested;
         combatController.StartCombat(allies, enemies);
 
         combatScreen.SetActive(true);
@@ -100,17 +108,32 @@ public class GameFlowManager : MonoBehaviour
         combatUIManager.SetupCombatUI();
     }
 
+    // Shows the mid-battle dialogue on top of the still-active combat screen (combat is not hidden).
+    private void HandleMidBattleDialogueRequested(DialogueSequence sequence)
+    {
+        dialogueController.OnDialogueEnded += OnMidBattleDialogueEnded;
+        dialogueController.StartDialogue(sequence);
+    }
+
+    private void OnMidBattleDialogueEnded()
+    {
+        dialogueController.OnDialogueEnded -= OnMidBattleDialogueEnded;
+        combatController.ResolveMidBattleWipe();
+    }
+
     private void CheckCombatEnd()
     {
         if (combatController.currentState == CombatState.Victory)
         {
             combatController.OnStateChanged -= CheckCombatEnd;
+            combatController.OnMidBattleDialogueRequested -= HandleMidBattleDialogueRequested;
             combatScreen.SetActive(false);
             OnCombatVictory();
         }
         else if (combatController.currentState == CombatState.Defeat)
         {
             combatController.OnStateChanged -= CheckCombatEnd;
+            combatController.OnMidBattleDialogueRequested -= HandleMidBattleDialogueRequested;
             combatScreen.SetActive(false);
             OnCombatDefeat();
         }

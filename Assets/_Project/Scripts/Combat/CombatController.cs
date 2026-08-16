@@ -30,11 +30,21 @@ public class CombatController : MonoBehaviour
     [Header("Rewards")]
     public int goldReward = 50;
 
+    // --- Wave encounter (optional, configured per level via ConfigureWaveEncounter) ---
+    private int maxEnemiesOnField;
+    private List<CharacterCardData> reinforcementQueue = new List<CharacterCardData>();
+    private int killTarget;
+    private int killCount;
+    private DialogueSequence midBattleDialogue;
+    private string wipeMessage;
+    private bool waitingForMidBattleSequence;
+
     public event Action OnStateChanged;
     public event Action<CharacterInstance, int> OnHealApplied;
     public event Action<CharacterInstance, int, ElementType> OnDamageApplied;
     public event Action<string> OnCombatLogMessage;
-
+    public event Action<DialogueSequence> OnMidBattleDialogueRequested;
+    public event Action<CharacterInstance> OnEnemyReinforced;
 
     // Logs to the console and broadcasts to any on-screen combat log listener.
     private void LogMessage(string message)
@@ -48,6 +58,7 @@ public class CombatController : MonoBehaviour
     public int MaxSkillPoints => partyState.maxSkillPoints;
     public IReadOnlyList<CharacterInstance> Allies => turnOrder.allies;
     public IReadOnlyList<CharacterInstance> Enemies => turnOrder.enemies;
+    public List<CharacterInstance> UpcomingTurnOrder => turnOrder.PeekUpcomingOrder();
     public bool IsPlayerTurn => currentState == CombatState.PlayerTurn;
 
     public void StartCombat(List<CharacterInstance> allies, List<CharacterInstance> enemies)
@@ -57,6 +68,19 @@ public class CombatController : MonoBehaviour
 
         currentState = CombatState.Starting;
         AdvanceTurn();
+    }
+
+    // Call before StartCombat to opt this fight into a wave encounter. Pass maxOnField <= 0 to
+    // leave it as a normal fight (default board-clear victory, no reinforcements).
+    public void ConfigureWaveEncounter(int maxOnField, CharacterCardData[] reinforcements, int killTarget, DialogueSequence midBattleDialogue, string wipeMessage)
+    {
+        maxEnemiesOnField = maxOnField;
+        reinforcementQueue = reinforcements != null ? new List<CharacterCardData>(reinforcements) : new List<CharacterCardData>();
+        this.killTarget = killTarget;
+        this.midBattleDialogue = midBattleDialogue;
+        this.wipeMessage = string.IsNullOrEmpty(wipeMessage) ? "The remaining enemies are struck down!" : wipeMessage;
+        killCount = 0;
+        waitingForMidBattleSequence = false;
     }
 
     private void AdvanceTurn()
@@ -318,7 +342,6 @@ public class CombatController : MonoBehaviour
 
         return result;
     }
-    public List<CharacterInstance> UpcomingTurnOrder => turnOrder.PeekUpcomingOrder(); //reads TurnOrderManager
 
     private void ExecuteAbility(CharacterInstance user, AbilityData ability, List<CharacterInstance> targets)
     {
@@ -337,7 +360,7 @@ public class CombatController : MonoBehaviour
 
 
                 if (user.CheckAndMarkDeath())
-                    TriggerOnAnyDeathPassives();
+                    HandleDeath(user);
             }
         }
 
@@ -401,7 +424,8 @@ public class CombatController : MonoBehaviour
     }
 
     // Single entry point for applying damage: rolls the +/-10% variance, absorbs into shields,
-    // then HP, then fires the shared events.
+    // then HP, then fires the shared events. Every damage source (abilities, stain combos) funnels
+    // through here, so the variance roll applies uniformly without each call site handling it.
     private void DealDamage(CharacterInstance target, int amount, ElementType element)
     {
         int variedAmount = ApplyDamageVariance(amount);
@@ -411,7 +435,7 @@ public class CombatController : MonoBehaviour
         OnDamageApplied?.Invoke(target, actualDamage, element);
 
         if (target.CheckAndMarkDeath())
-            TriggerOnAnyDeathPassives();
+            HandleDeath(target);
     }
 
     private int ApplyDamageVariance(int amount)
@@ -420,16 +444,87 @@ public class CombatController : MonoBehaviour
         return Mathf.Max(1, Mathf.RoundToInt(amount * multiplier));
     }
 
+    // Single entry point for any character's death: fires the existing on-any-death passives, and if
+    // the dead character was an enemy, feeds the wave-encounter bookkeeping (kill count / reinforcements).
+    private void HandleDeath(CharacterInstance character)
+    {
+        TriggerOnAnyDeathPassives();
+
+        if (turnOrder.enemies.Contains(character))
+            HandleEnemyDeath(character);
+    }
+
+    private void HandleEnemyDeath(CharacterInstance deadEnemy)
+    {
+        killCount++;
+
+        if (!waitingForMidBattleSequence && killTarget > 0 && killCount >= killTarget)
+        {
+            waitingForMidBattleSequence = true;
+            OnMidBattleDialogueRequested?.Invoke(midBattleDialogue);
+            return;
+        }
+
+        if (!waitingForMidBattleSequence)
+            TrySpawnReinforcement();
+    }
+
+    private void TrySpawnReinforcement()
+    {
+        if (maxEnemiesOnField <= 0 || reinforcementQueue.Count == 0)
+            return;
+
+        int aliveEnemies = turnOrder.enemies.Count(e => e.isAlive);
+        if (aliveEnemies >= maxEnemiesOnField)
+            return;
+
+        CharacterCardData nextData = reinforcementQueue[0];
+        reinforcementQueue.RemoveAt(0);
+
+        CharacterInstance reinforcement = new CharacterInstance(nextData);
+        turnOrder.AddEnemy(reinforcement);
+        OnEnemyReinforced?.Invoke(reinforcement);
+
+        LogMessage("More enemies have joined the battle!");
+    }
+
+    // Called by whoever shows the mid-battle dialogue once it's been closed. Instantly defeats every
+    // remaining living enemy (narrative "finishing blow"), then resumes normal turn flow, which will
+    // find the board clear and end combat in victory as usual.
+    public void ResolveMidBattleWipe()
+    {
+        List<CharacterInstance> remaining = turnOrder.enemies.Where(e => e.isAlive).ToList();
+
+        LogMessage(wipeMessage);
+
+        foreach (var enemy in remaining)
+        {
+            int amount = enemy.currentHP;
+            enemy.TakeDamage(amount);
+            OnDamageApplied?.Invoke(enemy, amount, ElementType.Physical);
+
+            if (enemy.CheckAndMarkDeath())
+                TriggerOnAnyDeathPassives();
+        }
+
+        waitingForMidBattleSequence = false;
+        OnStateChanged?.Invoke();
+        EndTurn();
+    }
+
     private CharacterInstance FindStainEnabler()
     {
         var all = turnOrder.allies.Concat(turnOrder.enemies);
         return all.FirstOrDefault(c => c.isAlive && c.data.passive != null && c.data.passive.trigger == PassiveTrigger.EnablesStains);
     }
 
-    // Stains only function while Zavren is alive
+    // Stains only function while the enabling character (Zavren, in the current content) is alive
     // and in the fight, but ANY character's elemental hit can apply/overwrite one while he's present.
-    // Only the enabler's own hit can detonate a combo
-    
+    // Only the enabler's own hit can detonate a combo: if their hit lands a different element than the
+    // one already on the target, it resolves immediately and clears the stain. Zavren can therefore
+    // either land both halves of a combo himself, or land the second (triggering) half after an ally
+    // already applied the first. A non-enabler landing a different element just overwrites the stain
+    // (most-recent-wins) without triggering anything, per the single-stain-per-target rule.
     private void TryApplyElementalStain(CharacterInstance user, CharacterInstance target, ElementType element)
     {
         if (element != ElementType.Fire && element != ElementType.Ice && element != ElementType.Electro)
@@ -551,6 +646,10 @@ public class CombatController : MonoBehaviour
 
     private void EndTurn()
     {
+        // Combat is paused for the mid-battle dialogue; ResolveMidBattleWipe() will resume it once closed.
+        if (waitingForMidBattleSequence)
+            return;
+
         CombatResult result = turnOrder.CheckCombatState();
 
         if (result == CombatResult.Victory)
