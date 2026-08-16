@@ -15,6 +15,8 @@ public class CombatController : MonoBehaviour
 
     private const float WEAKNESS_MULTIPLIER = 1.5f;
     private const float RESISTANCE_MULTIPLIER = 0.5f;
+    private const float CRIT_DAMAGE_MULTIPLIER = 1.5f;
+    private const float DAMAGE_VARIANCE = 0.1f; // damage from every source rolls +/- this fraction
 
     private const int BASIC_ENERGY_GAIN = 20;
     private const int SKILL_ENERGY_GAIN = 10;
@@ -398,16 +400,24 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    // Single entry point for applying damage: absorbs into shields first, then HP, then fires the shared events.
+    // Single entry point for applying damage: rolls the +/-10% variance, absorbs into shields,
+    // then HP, then fires the shared events.
     private void DealDamage(CharacterInstance target, int amount, ElementType element)
     {
-        int actualDamage = target.AbsorbDamage(amount);
+        int variedAmount = ApplyDamageVariance(amount);
+        int actualDamage = target.AbsorbDamage(variedAmount);
         target.TakeDamage(actualDamage);
         target.GainEnergy(DAMAGE_TAKEN_ENERGY_GAIN);
         OnDamageApplied?.Invoke(target, actualDamage, element);
 
         if (target.CheckAndMarkDeath())
             TriggerOnAnyDeathPassives();
+    }
+
+    private int ApplyDamageVariance(int amount)
+    {
+        float multiplier = 1f + UnityEngine.Random.Range(-DAMAGE_VARIANCE, DAMAGE_VARIANCE);
+        return Mathf.Max(1, Mathf.RoundToInt(amount * multiplier));
     }
 
     private CharacterInstance FindStainEnabler()
@@ -492,7 +502,12 @@ public class CombatController : MonoBehaviour
 
     private int CalculateDamage(CharacterInstance attacker, CharacterInstance defender, AbilityData ability)
     {
-        int raw = ability.power + attacker.currentAttack - defender.currentDefense;
+        int raw = ability.power
+            + Mathf.RoundToInt(attacker.currentAttack * ability.attackScaling)
+            + Mathf.RoundToInt(attacker.maxHP * ability.maxHPScaling)
+            + Mathf.RoundToInt(attacker.currentDefense * ability.defenseScaling)
+            + Mathf.RoundToInt(attacker.currentSpeed * ability.speedScaling)
+            - defender.currentDefense;
         raw = Mathf.Max(1, raw);
 
         if (IsWeakTo(defender, ability.element))
@@ -502,6 +517,11 @@ public class CombatController : MonoBehaviour
         else if (IsResistantTo(defender, ability.element))
         {
             raw = Mathf.RoundToInt(raw * RESISTANCE_MULTIPLIER);
+        }
+
+        if (ability.canCrit && UnityEngine.Random.value < attacker.currentCritRate)
+        {
+            raw = Mathf.RoundToInt(raw * CRIT_DAMAGE_MULTIPLIER);
         }
 
         return raw;

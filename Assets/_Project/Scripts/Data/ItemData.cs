@@ -14,4 +14,8 @@ public class ItemData : ScriptableObject
     public int defenseBonus;
     public int hpBonus;
     public int speedBonus;
+    [Tooltip("Added directly to Crit Rate, e.g. 0.1 = +10%")]
+    public float critRateBonus;
+    [Tooltip("Added directly to Energy Recharge Rate, e.g. 0.2 = +20%")]
+    public float energyRechargeBonus;
 }

@@ -20,6 +20,12 @@ public class CharacterCardData : ScriptableObject
     [Header("Ultimate Energy")]
     [Tooltip("Energy required before this character's Ultimate can be used.")]
     public int maxEnergy = 100;
+    [Tooltip("Energy gained from combat actions is multiplied by this (1.0 = 100%).")]
+    public float energyRechargeRate = 1f;
+
+    [Header("Critical Hits")]
+    [Tooltip("Base chance to land a critical hit (0.05 = 5%).")]
+    [Range(0f, 1f)] public float critRate = 0.05f;
 
     [Header("Targeting")]
     [Tooltip("Relative weight for being chosen as an enemy AI target. 1 = normal, 2 = twice as likely, etc.")]

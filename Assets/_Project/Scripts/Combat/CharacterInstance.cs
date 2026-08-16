@@ -25,6 +25,8 @@ public class CharacterInstance
     public int currentDefense;
     public int currentEnergy;
     public int maxEnergy;
+    public float currentCritRate;
+    public float currentEnergyRechargeRate;
     public List<AbilityData> activeAbilities;
     public bool isAlive => currentHP > 0;
 
@@ -53,9 +55,11 @@ public class CharacterInstance
     // --- Ultimate energy ---
     public bool IsUltimateReady => currentEnergy >= maxEnergy;
 
+    // amount is scaled by this character's Energy Recharge Rate before being applied.
     public void GainEnergy(int amount)
     {
-        currentEnergy = Mathf.Min(currentEnergy + amount, maxEnergy);
+        int scaledAmount = Mathf.RoundToInt(amount * currentEnergyRechargeRate);
+        currentEnergy = Mathf.Min(currentEnergy + scaledAmount, maxEnergy);
     }
 
     public void ConsumeEnergyForUltimate()
@@ -66,6 +70,7 @@ public class CharacterInstance
     public void RecalculateStats()
     {
         int hpBonus = 0, attackBonus = 0, defenseBonus = 0, speedBonus = 0;
+        float critRateBonus = 0f, energyRechargeBonus = 0f;
 
         if (data.isPlayableCharacter && PartyManager.Instance != null)
         {
@@ -76,6 +81,8 @@ public class CharacterInstance
                 attackBonus += equippedItem.attackBonus;
                 defenseBonus += equippedItem.defenseBonus;
                 speedBonus += equippedItem.speedBonus;
+                critRateBonus += equippedItem.critRateBonus;
+                energyRechargeBonus += equippedItem.energyRechargeBonus;
             }
         }
 
@@ -110,6 +117,8 @@ public class CharacterInstance
         currentAttack = data.attack + attackBonus;
         currentDefense = data.defense + defenseBonus;
         currentSpeed = data.speed + speedBonus;
+        currentCritRate = Mathf.Clamp01(data.critRate + critRateBonus);
+        currentEnergyRechargeRate = Mathf.Max(0f, data.energyRechargeRate + energyRechargeBonus);
 
         if (previousMaxHP > 0 && currentHP > 0)
         {
