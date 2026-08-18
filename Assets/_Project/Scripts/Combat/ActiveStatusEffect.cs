@@ -16,6 +16,8 @@ public class ActiveStatusEffect
     public int shieldRemaining;
 
     public bool skipTurn;
+    public bool silences;
+    public bool grantsDoubleAction;
 
     public int turnsRemaining;
     public int stackCount = 1;

@@ -43,6 +43,12 @@ public class StatusEffectData : ScriptableObject
 
     [Header("Crowd Control (category = CrowdControl)")]
     public bool skipTurn;
+    [Tooltip("Blocks Skill and Ultimate abilities (Basic still usable) for the duration.")]
+    public bool silences;
+
+    [Header("Bonus Action (category = CrowdControl; buff, not a debuff)")]
+    [Tooltip("While active, this character immediately acts again right after their own turn, for the duration.")]
+    public bool grantsDoubleAction;
 
     [Header("Scaling with stats")]
     public bool scaleWithAttack;

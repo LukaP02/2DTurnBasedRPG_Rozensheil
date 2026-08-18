@@ -51,6 +51,10 @@ public class AbilityData : ScriptableObject
     public int maxMarkStacks = 3;
     public bool consumesMark;
     public int bonusDamagePerMarkStack;
+    
+    [Header("Lifesteal")]
+    [Tooltip("Fraction of the total damage this cast deals (summed across all hit targets) healed back to the caster. 0.5 = 50%.")]
+    [Range(0f, 1f)] public float lifestealPercent = 0f;
 
     [Header("Forms (Sicur)")]
     public bool triggersFormSwitch;

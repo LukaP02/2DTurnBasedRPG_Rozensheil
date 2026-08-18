@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec06ca7a9c4403c99cdaf9f9cb0bc03, type: 3}
+  m_Name: CC.Silence
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectData
+  effectName: 
+  icon: {fileID: 0}
+  description: 
+  category: 0
+  isDebuff: 0
+  duration: 1
+  stackable: 0
+  maxStacks: 1
+  modifiedStat: 0
+  isPercent: 0
+  flatAmount: 0
+  percentAmount: 0
+  shieldAmount: 0
+  skipTurn: 0
+  silences: 0
+  grantsDoubleAction: 0
+  scaleWithAttack: 0
+  attackScaling: 0
+  scaleWithDefense: 0
+  defenseScaling: 0
+  scaleWithMaxHP: 0
+  maxHPScaling: 0
+  scaleWithSpeed: 0
+  speedScaling: 0

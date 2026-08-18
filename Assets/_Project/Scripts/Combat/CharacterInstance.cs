@@ -284,6 +284,8 @@ public class CharacterInstance
                 percentAmount = data.percentAmount,
                 shieldRemaining = Mathf.Min(data.shieldAmount + scalingBonus, maxHP),
                 skipTurn = data.skipTurn,
+                silences = data.silences,
+                grantsDoubleAction = data.grantsDoubleAction,
                 turnsRemaining = data.duration,
                 stackCount = 1,
                 maxStacks = data.maxStacks,
@@ -355,6 +357,17 @@ public class CharacterInstance
     public bool HasSkipTurnEffect()
     {
         return activeEffects.Any(e => e.category == StatusEffectCategory.CrowdControl && e.skipTurn);
+    }
+    // Blocks Skill and Ultimate abilities; Basic is still usable.
+    public bool IsSilenced()
+    {
+        return activeEffects.Any(e => e.category == StatusEffectCategory.CrowdControl && e.silences);
+    }
+
+    // While true, this character immediately acts again right after their own turn (Abdul's 3rd Ultimate option).
+    public bool HasDoubleActionBuff()
+    {
+        return activeEffects.Any(e => e.grantsDoubleAction);
     }
 
     // Call at the start of this character's own turn.

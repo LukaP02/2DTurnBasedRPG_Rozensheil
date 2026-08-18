@@ -51,6 +51,8 @@ public class CombatController : MonoBehaviour
     public event Action<CharacterInstance> OnEnemyReinforced;
     public event Action<DialogueSequence> OnPhaseTransitionRequested;
     public event Action<CharacterInstance> OnEnemyRemoved;
+    // --- Bonus action (Abdul's 3rd Ultimate option: act twice per turn for X turns) ---
+    private bool bonusActionAvailableThisTurn;
 
     // Logs to the console and broadcasts to any on-screen combat log listener.
     private void LogMessage(string message)
@@ -116,6 +118,7 @@ public class CombatController : MonoBehaviour
             return;
         }
 
+        bonusActionAvailableThisTurn = activeActor.HasDoubleActionBuff();
         bool isPlayerControlled = turnOrder.allies.Contains(activeActor);
         currentState = isPlayerControlled ? CombatState.PlayerTurn : CombatState.EnemyTurn;
 
@@ -132,6 +135,11 @@ public class CombatController : MonoBehaviour
         if (!ValidateTargets(ability, targets))
         {
             Debug.LogWarning($"Invalid targets for {ability.abilityName}, action cancelled.");
+            return;
+        }
+        if ((ability.abilityType == AbilityType.Skill || ability.abilityType == AbilityType.Ultimate) && activeActor.IsSilenced())
+        {
+            Debug.LogWarning($"{activeActor.data.characterName} is silenced and cannot use {ability.abilityName}.");
             return;
         }
 
@@ -240,8 +248,12 @@ public class CombatController : MonoBehaviour
     // one is picked at random from that pool rather than always using the first one.
     private AbilityData ChooseEnemyAbility(CharacterInstance enemy)
     {
+        bool isSilenced = enemy.IsSilenced();
+
         var validAbilities = enemy.activeAbilities
-            .Where(a => a != null && (a.abilityType != AbilityType.Ultimate || enemy.HasEnoughEnergyFor(a)))
+            .Where(a => a != null
+                && (a.abilityType != AbilityType.Ultimate || enemy.HasEnoughEnergyFor(a))
+                && !(isSilenced && (a.abilityType == AbilityType.Skill || a.abilityType == AbilityType.Ultimate)))
             .ToList();
         if (validAbilities.Count == 0) return null;
 
@@ -379,7 +391,7 @@ public class CombatController : MonoBehaviour
                     HandleDeath(user);
             }
         }
-
+        int totalDamageDealt = 0;
         foreach (var target in targets)
         {
             bool targetIsSameSideAsUser =
@@ -403,7 +415,7 @@ public class CombatController : MonoBehaviour
                     }
 
                     int rawDamage = CalculateDamage(user, target, ability) + bonusFromMarks;
-                    DealDamage(target, rawDamage, ability.element);
+                    totalDamageDealt += DealDamage(target, rawDamage, ability.element);
 
                     if (ability.appliesMark)
                     {
@@ -419,7 +431,16 @@ public class CombatController : MonoBehaviour
                 target.ApplyStatusEffect(ability.appliesStatusEffect, user);
             }
         }
-
+        // Lifesteal heals the caster based on the total damage dealt this cast, across every target hit.
+        if (ability.lifestealPercent > 0f && totalDamageDealt > 0 && user.isAlive)
+        {
+            int healAmount = Mathf.RoundToInt(totalDamageDealt * ability.lifestealPercent);
+            if (healAmount > 0)
+            {
+                user.Heal(healAmount);
+                OnHealApplied?.Invoke(user, healAmount);
+            }
+        }
         if (ability.triggersFormSwitch)
         {
             user.ToggleForm();
@@ -442,7 +463,7 @@ public class CombatController : MonoBehaviour
     // Single entry point for applying damage: rolls the +/-10% variance, absorbs into shields,
     // then HP, then fires the shared events. Every damage source (abilities, stain combos) funnels
     // through here, so the variance roll applies uniformly without each call site handling it.
-    private void DealDamage(CharacterInstance target, int amount, ElementType element)
+    private int DealDamage(CharacterInstance target, int amount, ElementType element)
     {
         int variedAmount = ApplyDamageVariance(amount);
         int actualDamage = target.AbsorbDamage(variedAmount);
@@ -454,6 +475,8 @@ public class CombatController : MonoBehaviour
             HandleDeath(target);
         else
             TryTriggerPhaseTransition(target);
+
+        return actualDamage;
     }
 
     private int ApplyDamageVariance(int amount)
@@ -741,7 +764,27 @@ public class CombatController : MonoBehaviour
             OnStateChanged?.Invoke();
             return;
         }
+        // Abdul's 3rd Ultimate option: while active, the same actor immediately acts again instead
+        // of the turn passing on. Consumed here so it grants exactly one extra action per turn; it's
+        // re-checked fresh (via HasDoubleActionBuff()) each time this character's turn comes around
+        // in AdvanceTurn(), so it keeps applying every turn the buff's Duration is still active.
+        if (bonusActionAvailableThisTurn && activeActor != null && activeActor.isAlive)
+        {
+            bonusActionAvailableThisTurn = false;
 
+            LogMessage($"{activeActor.data.characterName} acts again!");
+
+            bool isPlayerControlled = turnOrder.allies.Contains(activeActor);
+            currentState = isPlayerControlled ? CombatState.PlayerTurn : CombatState.EnemyTurn;
+
+            OnStateChanged?.Invoke();
+
+            if (!isPlayerControlled)
+            {
+                ResolveEnemyAction();
+            }
+            return;
+        }
         AdvanceTurn();
     }
 }
