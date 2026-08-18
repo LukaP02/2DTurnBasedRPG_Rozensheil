@@ -39,12 +39,18 @@ public class CombatController : MonoBehaviour
     private string wipeMessage;
     private bool waitingForMidBattleSequence;
 
+    // --- Boss phase transition (configured per-enemy via CharacterCardData.phaseTwoCard) ---
+    private bool waitingForPhaseTransition;
+    private CharacterInstance pendingPhaseTransitionEnemy;
+
     public event Action OnStateChanged;
     public event Action<CharacterInstance, int> OnHealApplied;
     public event Action<CharacterInstance, int, ElementType> OnDamageApplied;
     public event Action<string> OnCombatLogMessage;
     public event Action<DialogueSequence> OnMidBattleDialogueRequested;
     public event Action<CharacterInstance> OnEnemyReinforced;
+    public event Action<DialogueSequence> OnPhaseTransitionRequested;
+    public event Action<CharacterInstance> OnEnemyRemoved;
 
     // Logs to the console and broadcasts to any on-screen combat log listener.
     private void LogMessage(string message)
@@ -81,6 +87,8 @@ public class CombatController : MonoBehaviour
         this.wipeMessage = string.IsNullOrEmpty(wipeMessage) ? "The remaining enemies are struck down!" : wipeMessage;
         killCount = 0;
         waitingForMidBattleSequence = false;
+        waitingForPhaseTransition = false;
+        pendingPhaseTransitionEnemy = null;
     }
 
     private void AdvanceTurn()
@@ -231,7 +239,7 @@ public class CombatController : MonoBehaviour
     private AbilityData ChooseEnemyAbility(CharacterInstance enemy)
     {
         var validAbilities = enemy.activeAbilities
-            .Where(a => a != null && (a.abilityType != AbilityType.Ultimate || enemy.IsUltimateReady))
+            .Where(a => a != null && (a.abilityType != AbilityType.Ultimate || enemy.HasEnoughEnergyFor(a)))
             .ToList();
         if (validAbilities.Count == 0) return null;
 
@@ -442,6 +450,8 @@ public class CombatController : MonoBehaviour
 
         if (target.CheckAndMarkDeath())
             HandleDeath(target);
+        else
+            TryTriggerPhaseTransition(target);
     }
 
     private int ApplyDamageVariance(int amount)
@@ -514,6 +524,55 @@ public class CombatController : MonoBehaviour
         }
 
         waitingForMidBattleSequence = false;
+        OnStateChanged?.Invoke();
+        EndTurn();
+    }
+
+    // Checks a still-living enemy's HP against its configured Phase Transition HP Percent. Fires at
+    // most once per enemy (phaseTransitionProcessed) and pauses combat for the transition dialogue
+    // via the same request/resolve pattern as the mid-battle wave-encounter dialogue.
+    private void TryTriggerPhaseTransition(CharacterInstance target)
+    {
+        if (waitingForPhaseTransition) return;
+        if (target.phaseTransitionProcessed) return;
+        if (target.data.phaseTwoCard == null) return;
+        if (!turnOrder.enemies.Contains(target)) return;
+
+        float hpPercent = (float)target.currentHP / target.maxHP;
+        if (hpPercent > target.data.phaseTransitionHPPercent) return;
+
+        target.phaseTransitionProcessed = true;
+        waitingForPhaseTransition = true;
+        pendingPhaseTransitionEnemy = target;
+
+        if (!string.IsNullOrEmpty(target.data.phaseTransitionMessage))
+            LogMessage(target.data.phaseTransitionMessage);
+
+        OnPhaseTransitionRequested?.Invoke(target.data.phaseTransitionDialogue);
+    }
+
+    // Called once the phase-transition dialogue (if any) has closed. Removes the Phase 1 enemy from
+    // the field without it counting as a real death (no kill count, no on-any-death passives), then
+    // brings in Phase 2 as a fresh reinforcement with its own full HP and kit.
+    public void ResolvePhaseTransition()
+    {
+        CharacterInstance phaseOne = pendingPhaseTransitionEnemy;
+        pendingPhaseTransitionEnemy = null;
+        waitingForPhaseTransition = false;
+
+        if (phaseOne == null)
+        {
+            EndTurn();
+            return;
+        }
+
+        turnOrder.RemoveEnemy(phaseOne);
+        OnEnemyRemoved?.Invoke(phaseOne);
+
+        CharacterInstance phaseTwo = new CharacterInstance(phaseOne.data.phaseTwoCard);
+        turnOrder.AddEnemy(phaseTwo);
+        OnEnemyReinforced?.Invoke(phaseTwo);
+
         OnStateChanged?.Invoke();
         EndTurn();
     }
@@ -654,6 +713,10 @@ public class CombatController : MonoBehaviour
     {
         // Combat is paused for the mid-battle dialogue; ResolveMidBattleWipe() will resume it once closed.
         if (waitingForMidBattleSequence)
+            return;
+
+        // Combat is paused for a boss phase transition; ResolvePhaseTransition() will resume it once closed.
+        if (waitingForPhaseTransition)
             return;
 
         CombatResult result = turnOrder.CheckCombatState();

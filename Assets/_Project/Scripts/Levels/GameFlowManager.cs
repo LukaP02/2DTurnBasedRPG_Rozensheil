@@ -88,7 +88,7 @@ public class GameFlowManager : MonoBehaviour
         ProceedAfterIntro();
     }
 
-    // A level with no enemies is a no-combat node (event and/or dialogue only) — skip straight
+    // A level with no enemies is a no-combat node (event and/or dialogue only) - skip straight
     // to the post-level sequence instead of entering combat.
     private void ProceedAfterIntro()
     {
@@ -139,6 +139,7 @@ public class GameFlowManager : MonoBehaviour
         dialogueController.OnDialogueEnded -= OnMidBattleDialogueEnded;
         combatController.ResolveMidBattleWipe();
     }
+
     // Shows the boss's phase-transition dialogue over the still-active combat screen, same pattern
     // as the mid-battle wave-encounter dialogue. DialogueController itself no-ops instantly if the
     // boss's Phase Transition Dialogue field was left empty, so this works with or without one set.
@@ -153,6 +154,7 @@ public class GameFlowManager : MonoBehaviour
         dialogueController.OnDialogueEnded -= OnPhaseTransitionDialogueEnded;
         combatController.ResolvePhaseTransition();
     }
+
     private void CheckCombatEnd()
     {
         if (combatController.currentState == CombatState.Victory)
