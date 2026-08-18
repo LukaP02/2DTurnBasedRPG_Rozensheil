@@ -155,6 +155,8 @@ public class CombatController : MonoBehaviour
 
         if (ability.abilityType != AbilityType.Ultimate)
             partyState.ResolveAbilityCost(ability);
+        else if (ability.spGain > 0)
+            partyState.GainSkillPoints(ability.spGain);
 
         OnStateChanged?.Invoke();
 
