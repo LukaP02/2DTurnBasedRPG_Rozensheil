@@ -35,6 +35,7 @@ public class CharacterInstance
     private List<ActiveStatusEffect> activeEffects = new List<ActiveStatusEffect>();
     private Dictionary<CharacterInstance, int> marksBySource = new Dictionary<CharacterInstance, int>();
     private bool deathProcessed = false;
+    public bool phaseTransitionProcessed = false;
 
     // --- Elemental stain (only one active at a time; the most recent application replaces it) ---
     private ElementType? currentStain = null;
@@ -44,16 +45,20 @@ public class CharacterInstance
         data = sourceData;
 
         RecalculateStats();
-        RefreshAbilities();
+        RefreshAbilities(); // also sets maxEnergy - see RefreshAbilities
 
         currentHP = maxHP;
-
-        maxEnergy = data.maxEnergy > 0 ? data.maxEnergy : 100;
         currentEnergy = 0;
     }
 
     // --- Ultimate energy ---
-    public bool IsUltimateReady => currentEnergy >= maxEnergy;
+    // Each Ultimate ability sets its own energyCost, checked against this character's banked
+    // currentEnergy (capped at maxEnergy). Lets different Ultimates - including several on the
+    // same boss - require different amounts.
+    public bool HasEnoughEnergyFor(AbilityData ability)
+    {
+        return ability != null && currentEnergy >= ability.energyCost;
+    }
 
     // amount is scaled by this character's Energy Recharge Rate before being applied.
     public void GainEnergy(int amount)
@@ -62,11 +67,40 @@ public class CharacterInstance
         currentEnergy = Mathf.Min(currentEnergy + scaledAmount, maxEnergy);
     }
 
-    public void ConsumeEnergyForUltimate()
+    // Subtracts the specific Ultimate's cost rather than resetting to 0, so any banked energy
+    // beyond that cost carries over (relevant once a character/boss has more than one Ultimate).
+    public void ConsumeEnergyForUltimate(AbilityData ability)
     {
-        currentEnergy = 0;
+        currentEnergy = Mathf.Max(0, currentEnergy - ability.energyCost);
     }
 
+    // For playable characters, the energy cap is derived from their currently equipped Ultimate
+    // (Energy Cost, or Energy Cost x Max Energy Stacks if it's Stackable Energy) rather than a
+    // separate Max Energy field. Non-playable characters (enemies) keep using
+    // CharacterCardData.maxEnergy directly. Called from RefreshAbilities(), so the cap stays in
+    // sync automatically whenever a player's equipped Ultimate changes via the loadout screen.
+    private void RecalculateMaxEnergy()
+    {
+        if (data.isPlayableCharacter)
+        {
+            AbilityData ultimate = activeAbilities.FirstOrDefault(a => a != null && a.abilityType == AbilityType.Ultimate);
+            if (ultimate != null)
+            {
+                int stacks = ultimate.stackableEnergy ? Mathf.Max(1, ultimate.maxEnergyStacks) : 1;
+                maxEnergy = ultimate.energyCost * stacks;
+            }
+            else
+            {
+                maxEnergy = data.maxEnergy > 0 ? data.maxEnergy : 100;
+            }
+        }
+        else
+        {
+            maxEnergy = data.maxEnergy > 0 ? data.maxEnergy : 100;
+        }
+
+        currentEnergy = Mathf.Min(currentEnergy, maxEnergy);
+    }
     public void RecalculateStats()
     {
         int hpBonus = 0, attackBonus = 0, defenseBonus = 0, speedBonus = 0;
@@ -164,9 +198,19 @@ public class CharacterInstance
         else
         {
             if (data.basicAbility != null) activeAbilities.Add(data.basicAbility);
+            if (data.extraBasicAbilities != null)
+                activeAbilities.AddRange(data.extraBasicAbilities.Where(a => a != null));
+
             if (data.defaultSkill != null) activeAbilities.Add(data.defaultSkill);
+            if (data.extraSkillAbilities != null)
+                activeAbilities.AddRange(data.extraSkillAbilities.Where(a => a != null));
+
             if (data.defaultUltimate != null) activeAbilities.Add(data.defaultUltimate);
+            if (data.extraUltimateAbilities != null)
+                activeAbilities.AddRange(data.extraUltimateAbilities.Where(a => a != null));
         }
+
+        RecalculateMaxEnergy();
     }
 
     public void ToggleForm()
@@ -203,18 +247,28 @@ public class CharacterInstance
     {
         if (data == null) return;
 
+        int scalingBonus = ComputeStatusScalingBonus(data, source);
+
         ActiveStatusEffect existing = activeEffects.FirstOrDefault(e => e.label == data.effectName);
 
         if (existing != null && data.stackable)
         {
             existing.stackCount = Mathf.Min(existing.stackCount + 1, data.maxStacks);
             existing.turnsRemaining = data.duration;
+
+            // Stackable shields add their (scaled) amount on top of what's already up, capped at
+            // this character's Max HP rather than being replaced by the fresh application.
+            if (data.category == StatusEffectCategory.Shield)
+            {
+                int addedShield = data.shieldAmount + scalingBonus;
+                existing.shieldRemaining = Mathf.Min(existing.shieldRemaining + addedShield, maxHP);
+            }
         }
         else if (existing != null)
         {
             existing.turnsRemaining = data.duration;
             if (data.category == StatusEffectCategory.Shield)
-                existing.shieldRemaining = data.shieldAmount;
+                existing.shieldRemaining = Mathf.Min(data.shieldAmount + scalingBonus, maxHP);
         }
         else
         {
@@ -226,9 +280,9 @@ public class CharacterInstance
                 isDebuff = data.isDebuff,
                 modifiedStat = data.modifiedStat,
                 isPercent = data.isPercent,
-                flatAmount = data.flatAmount,
+                flatAmount = data.isPercent ? data.flatAmount : data.flatAmount + scalingBonus,
                 percentAmount = data.percentAmount,
-                shieldRemaining = data.shieldAmount,
+                shieldRemaining = Mathf.Min(data.shieldAmount + scalingBonus, maxHP),
                 skipTurn = data.skipTurn,
                 turnsRemaining = data.duration,
                 stackCount = 1,
@@ -240,6 +294,22 @@ public class CharacterInstance
 
         if (data.category == StatusEffectCategory.StatModifier)
             RecalculateStats();
+    }
+
+    // Generic stat-scaling bonus for status effects (e.g. a shield that scales with the caster's
+    // Defense). Applies to Shield Amount for shields and Flat Amount for non-percent stat modifiers.
+    // Toggle the relevant "scale with X" box in the Inspector to opt an effect into this.
+    private int ComputeStatusScalingBonus(StatusEffectData data, CharacterInstance source)
+    {
+        if (source == null) return 0;
+
+        float bonus = 0f;
+        if (data.scaleWithAttack) bonus += source.currentAttack * data.attackScaling;
+        if (data.scaleWithDefense) bonus += source.currentDefense * data.defenseScaling;
+        if (data.scaleWithMaxHP) bonus += source.maxHP * data.maxHPScaling;
+        if (data.scaleWithSpeed) bonus += source.currentSpeed * data.speedScaling;
+
+        return Mathf.RoundToInt(bonus);
     }
 
     // For procedurally generated modifiers that don't have a backing asset (e.g. stain-combo DEF shred).

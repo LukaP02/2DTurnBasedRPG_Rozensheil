@@ -129,7 +129,7 @@ public class CombatController : MonoBehaviour
 
         if (ability.abilityType == AbilityType.Ultimate)
         {
-            if (!activeActor.IsUltimateReady)
+            if (!activeActor.HasEnoughEnergyFor(ability))
             {
                 Debug.LogWarning($"{ability.abilityName} is not charged yet.");
                 return;
@@ -226,6 +226,8 @@ public class CombatController : MonoBehaviour
 
     // Priority order: use a charged Ultimate whenever available, otherwise lean toward Skill
     // over Basic (ENEMY_SKILL_PREFERENCE_CHANCE of the time), falling back to whichever exists.
+    // When a side has multiple abilities of the chosen type (e.g. a boss with several Skills),
+    // one is picked at random from that pool rather than always using the first one.
     private AbilityData ChooseEnemyAbility(CharacterInstance enemy)
     {
         var validAbilities = enemy.activeAbilities
@@ -233,17 +235,21 @@ public class CombatController : MonoBehaviour
             .ToList();
         if (validAbilities.Count == 0) return null;
 
-        AbilityData ultimate = validAbilities.FirstOrDefault(a => a.abilityType == AbilityType.Ultimate);
-        if (ultimate != null)
-            return ultimate;
+        var ultimates = validAbilities.Where(a => a.abilityType == AbilityType.Ultimate).ToList();
+        if (ultimates.Count > 0)
+            return ultimates[UnityEngine.Random.Range(0, ultimates.Count)];
 
-        AbilityData skill = validAbilities.FirstOrDefault(a => a.abilityType == AbilityType.Skill);
-        AbilityData basic = validAbilities.FirstOrDefault(a => a.abilityType == AbilityType.Basic);
+        var skills = validAbilities.Where(a => a.abilityType == AbilityType.Skill).ToList();
+        var basics = validAbilities.Where(a => a.abilityType == AbilityType.Basic).ToList();
 
-        if (skill != null && basic != null)
-            return UnityEngine.Random.value < ENEMY_SKILL_PREFERENCE_CHANCE ? skill : basic;
+        List<AbilityData> pool = (skills.Count > 0 && basics.Count > 0)
+            ? (UnityEngine.Random.value < ENEMY_SKILL_PREFERENCE_CHANCE ? skills : basics)
+            : (skills.Count > 0 ? skills : basics);
 
-        return skill ?? basic ?? validAbilities[UnityEngine.Random.Range(0, validAbilities.Count)];
+        if (pool.Count > 0)
+            return pool[UnityEngine.Random.Range(0, pool.Count)];
+
+        return validAbilities[UnityEngine.Random.Range(0, validAbilities.Count)];
     }
 
     private List<CharacterInstance> ChooseEnemyTargets(CharacterInstance caster, AbilityData ability)
@@ -412,7 +418,7 @@ public class CombatController : MonoBehaviour
         switch (ability.abilityType)
         {
             case AbilityType.Ultimate:
-                user.ConsumeEnergyForUltimate();
+                user.ConsumeEnergyForUltimate(ability);
                 break;
             case AbilityType.Basic:
                 user.GainEnergy(BASIC_ENERGY_GAIN);

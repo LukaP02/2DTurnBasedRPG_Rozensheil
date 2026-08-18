@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eec06ca7a9c4403c99cdaf9f9cb0bc03, type: 3}
-  m_Name: Freeze
+  m_Name: CC.Freeze
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectData
   effectName: Freeze
   icon: {fileID: 0}

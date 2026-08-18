@@ -41,17 +41,16 @@ public class CharacterCardData : ScriptableObject
     [Header("Basic Attack - fixed (used if Basic Options is empty)")]
     public AbilityData basicAbility;
 
-    [Header("Basic Tree - Unlockable Options (leave empty for a fixed Basic)")]
-    public AbilityData[] basicOptions;
-    public AbilityData defaultBasic;
-
     [Header("Skill Tree - Unlockable Options (not used if Has Forms is true)")]
+    public AbilityData[] basicOptions;
     public AbilityData[] skillOptions;
     public AbilityData[] ultimateOptions;
 
     [Header("Default / Starting Loadout")]
+    public AbilityData defaultBasic;
     public AbilityData defaultSkill;
     public AbilityData defaultUltimate;
+    public PassiveData passive;
 
     [Header("Forms (Sicur)")]
     public bool hasForms;
@@ -61,5 +60,22 @@ public class CharacterCardData : ScriptableObject
     public AbilityData demonFormSkill;
     public Sprite demonFormArt;
 
-    public PassiveData passive;
+    [Header("Boss Phase Transition (optional, enemy-only)")]
+    [Tooltip("If set, this enemy is swapped out for a brand-new card (its own HP/kit) once its HP drops to/below Phase Transition HP Percent. Does not count as a death.")]
+    public CharacterCardData phaseTwoCard;
+    [Tooltip("HP percent (0-1) at which the phase transition triggers.")]
+    [Range(0f, 1f)] public float phaseTransitionHPPercent = 0.5f;
+    [Tooltip("Optional dialogue that plays (pausing combat) during the transition. Leave empty to skip straight to Phase 2 with just the log message below.")]
+    public DialogueSequence phaseTransitionDialogue;
+    [TextArea] public string phaseTransitionMessage = "A new form emerges!";
+
+    [Header("Enemy Multi-Ability Pool (non-playable characters, e.g. a boss with several skills)")]
+    [Tooltip("Extra Basic abilities beyond Basic Ability. The AI rotates randomly among all available Basics.")]
+    public AbilityData[] extraBasicAbilities;
+    [Tooltip("Extra Skill abilities beyond Default Skill. The AI rotates randomly among all available Skills.")]
+    public AbilityData[] extraSkillAbilities;
+    [Tooltip("Extra Ultimate abilities beyond Default Ultimate. The AI rotates randomly among all available Ultimates.")]
+    public AbilityData[] extraUltimateAbilities;
+
+
 }

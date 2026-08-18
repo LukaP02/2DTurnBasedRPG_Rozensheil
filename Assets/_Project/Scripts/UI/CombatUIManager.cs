@@ -169,7 +169,8 @@ public class CombatUIManager : MonoBehaviour
         card.ShowActionButtons(basic, skill, ult);
 
         if (ult != null && card.ultButton != null)
-            card.ultButton.interactable = actor.IsUltimateReady;
+            if (ult != null && card.ultButton != null)
+                card.ultButton.interactable = actor.HasEnoughEnergyFor(ult);
     }
 
     public void OnAbilitySelected(CharacterInstance user, AbilityData ability)

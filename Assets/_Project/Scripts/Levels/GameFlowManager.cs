@@ -119,6 +119,7 @@ public class GameFlowManager : MonoBehaviour
 
         combatController.OnStateChanged += CheckCombatEnd;
         combatController.OnMidBattleDialogueRequested += HandleMidBattleDialogueRequested;
+        combatController.OnPhaseTransitionRequested += HandlePhaseTransitionRequested;
         combatController.StartCombat(allies, enemies);
 
         combatScreen.SetActive(true);
@@ -138,13 +139,27 @@ public class GameFlowManager : MonoBehaviour
         dialogueController.OnDialogueEnded -= OnMidBattleDialogueEnded;
         combatController.ResolveMidBattleWipe();
     }
+    // Shows the boss's phase-transition dialogue over the still-active combat screen, same pattern
+    // as the mid-battle wave-encounter dialogue. DialogueController itself no-ops instantly if the
+    // boss's Phase Transition Dialogue field was left empty, so this works with or without one set.
+    private void HandlePhaseTransitionRequested(DialogueSequence sequence)
+    {
+        dialogueController.OnDialogueEnded += OnPhaseTransitionDialogueEnded;
+        dialogueController.StartDialogue(sequence);
+    }
 
+    private void OnPhaseTransitionDialogueEnded()
+    {
+        dialogueController.OnDialogueEnded -= OnPhaseTransitionDialogueEnded;
+        combatController.ResolvePhaseTransition();
+    }
     private void CheckCombatEnd()
     {
         if (combatController.currentState == CombatState.Victory)
         {
             combatController.OnStateChanged -= CheckCombatEnd;
             combatController.OnMidBattleDialogueRequested -= HandleMidBattleDialogueRequested;
+            combatController.OnPhaseTransitionRequested -= HandlePhaseTransitionRequested;
             combatScreen.SetActive(false);
             victoryScreen.Show(combatController.goldReward);
         }
@@ -152,6 +167,7 @@ public class GameFlowManager : MonoBehaviour
         {
             combatController.OnStateChanged -= CheckCombatEnd;
             combatController.OnMidBattleDialogueRequested -= HandleMidBattleDialogueRequested;
+            combatController.OnPhaseTransitionRequested -= HandlePhaseTransitionRequested;
             combatScreen.SetActive(false);
             OnCombatDefeat();
         }

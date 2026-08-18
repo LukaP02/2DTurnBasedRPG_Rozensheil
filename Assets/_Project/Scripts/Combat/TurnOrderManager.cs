@@ -38,7 +38,7 @@ public class TurnOrderManager
         while (roundQueue.Count > 0)
         {
             var next = roundQueue.Dequeue();
-            if (next.isAlive)
+            if (next.isAlive && combatants.Contains(next))
             {
                 CurrentActor = next;
                 return next;
@@ -59,6 +59,14 @@ public class TurnOrderManager
     {
         enemies.Add(enemy);
         combatants.Add(enemy);
+    }
+    // Removes an enemy mid-fight without it counting as a death (e.g. a boss swapping to Phase 2).
+    // Safe to call even if they're still queued to act later this round - GetNextActor() skips
+    // anyone no longer in combatants.
+    public void RemoveEnemy(CharacterInstance enemy)
+    {
+        enemies.Remove(enemy);
+        combatants.Remove(enemy);
     }
 
     // Snapshot of the remaining acting order for this round (excludes whoever's turn it currently is)

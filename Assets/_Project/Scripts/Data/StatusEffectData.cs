@@ -43,4 +43,18 @@ public class StatusEffectData : ScriptableObject
 
     [Header("Crowd Control (category = CrowdControl)")]
     public bool skipTurn;
+
+    [Header("Scaling with stats")]
+    public bool scaleWithAttack;
+    [Tooltip("Multiplier applied to the caster's Attack, added on top of the base amount.")]
+    public float attackScaling = 0f;
+    public bool scaleWithDefense;
+    [Tooltip("Multiplier applied to the caster's Defense, added on top of the base amount.")]
+    public float defenseScaling = 0f;
+    public bool scaleWithMaxHP;
+    [Tooltip("Multiplier applied to the caster's Max HP, added on top of the base amount.")]
+    public float maxHPScaling = 0f;
+    public bool scaleWithSpeed;
+    [Tooltip("Multiplier applied to the caster's Speed, added on top of the base amount.")]
+    public float speedScaling = 0f;
 }
