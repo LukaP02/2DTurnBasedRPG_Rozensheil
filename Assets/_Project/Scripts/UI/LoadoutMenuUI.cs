@@ -135,7 +135,7 @@ public class LoadoutMenuUI : MonoBehaviour
             Destroy(child.gameObject);
 
         List<ItemData> owned = PartyManager.Instance.GetOwnedItems();
-        ItemData currentlyEquipped = PartyManager.Instance.GetEquippedItem(selectedCharacter);
+        List<ItemData> equipped = PartyManager.Instance.GetEquippedItems(selectedCharacter);
 
         foreach (var item in owned)
         {
@@ -144,7 +144,7 @@ public class LoadoutMenuUI : MonoBehaviour
             GameObject optionObj = Instantiate(itemOptionPrefab, itemOptionsContainer);
             ItemOptionUI optionUI = optionObj.GetComponent<ItemOptionUI>();
 
-            bool isEquipped = item == currentlyEquipped;
+            bool isEquipped = equipped.Contains(item);
             optionUI.Bind(item, isEquipped, () =>
             {
                 PartyManager.Instance.EquipItem(selectedCharacter, item);

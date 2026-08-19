@@ -6,10 +6,11 @@ public class PartyManager : MonoBehaviour
 {
     public static PartyManager Instance { get; private set; }
 
-    public const int MaxActivePartySize = 4;
+    public const int MaxActivePartySize = 3;
+    public const int MaxEquippedItemsPerCharacter = 3;
 
     private Dictionary<CharacterCardData, CharacterLoadout> loadouts = new Dictionary<CharacterCardData, CharacterLoadout>();
-    private Dictionary<CharacterCardData, ItemData> equippedItems = new Dictionary<CharacterCardData, ItemData>();
+    private Dictionary<CharacterCardData, List<ItemData>> equippedItems = new Dictionary<CharacterCardData, List<ItemData>>();
     private List<ItemData> ownedItems = new List<ItemData>();
 
     // Every recruited character gets a persistent CharacterInstance (HP, energy, etc. survive
@@ -188,9 +189,26 @@ public class PartyManager : MonoBehaviour
         return ownedItems;
     }
 
+    // Toggles item on/off for this character: unequips it if already equipped, otherwise equips it
+    // (up to MaxEquippedItemsPerCharacter - equipping a 4th while at the cap is a no-op).
     public void EquipItem(CharacterCardData character, ItemData item)
     {
-        equippedItems[character] = item;
+        List<ItemData> items = GetEquippedItems(character);
+
+        if (items.Contains(item))
+        {
+            items.Remove(item);
+        }
+        else
+        {
+            if (items.Count >= MaxEquippedItemsPerCharacter)
+            {
+                Debug.LogWarning($"PartyManager: {character.characterName} already has {MaxEquippedItemsPerCharacter} items equipped. Unequip one first.");
+                return;
+            }
+
+            items.Add(item);
+        }
 
         if (allInstances.TryGetValue(character, out var instance))
         {
@@ -198,9 +216,14 @@ public class PartyManager : MonoBehaviour
         }
     }
 
-    public ItemData GetEquippedItem(CharacterCardData character)
+    public List<ItemData> GetEquippedItems(CharacterCardData character)
     {
-        equippedItems.TryGetValue(character, out var item);
-        return item;
+        if (!equippedItems.TryGetValue(character, out var items))
+        {
+            items = new List<ItemData>();
+            equippedItems[character] = items;
+        }
+
+        return items;
     }
 }

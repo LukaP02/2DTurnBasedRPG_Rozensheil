@@ -108,9 +108,10 @@ public class CharacterInstance
 
         if (data.isPlayableCharacter && PartyManager.Instance != null)
         {
-            ItemData equippedItem = PartyManager.Instance.GetEquippedItem(data);
-            if (equippedItem != null)
+            foreach (var equippedItem in PartyManager.Instance.GetEquippedItems(data))
             {
+                if (equippedItem == null) continue;
+
                 hpBonus += equippedItem.hpBonus;
                 attackBonus += equippedItem.attackBonus;
                 defenseBonus += equippedItem.defenseBonus;
