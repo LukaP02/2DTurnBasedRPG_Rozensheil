@@ -12,27 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
   m_Name: Raindorf.Skill.Shield
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 
+  abilityName: Cleric's Protection
   icon: {fileID: 0}
-  description: 
-  abilityType: 0
+  description: Raindorf shields an ally for 50+50% DEF  with Holy energy, absorbing
+    all damage taken for the next 3 turns until broken.
+  abilityType: 1
   spCost: 0
   spGain: 0
-  power: 0
-  element: 0
-  attackScaling: 1
+  power: 50
+  element: 3
+  energyCost: 100
+  stackableEnergy: 0
+  maxEnergyStacks: 1
+  attackScaling: 0
   maxHPScaling: 0
-  defenseScaling: 0
+  defenseScaling: 0.5
   speedScaling: 0
   canCrit: 1
   targetShape: 0
-  targetSide: 0
-  appliesStatusEffect: {fileID: 0}
+  targetSide: 1
+  appliesStatusEffect: {fileID: 11400000, guid: 8ec9a3a63bf82774c80af2903cc090f7, type: 2}
   statusEffectChance: 1
   appliesMark: 0
   maxMarkStacks: 3
   consumesMark: 0
   bonusDamagePerMarkStack: 0
+  lifestealPercent: 0
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0

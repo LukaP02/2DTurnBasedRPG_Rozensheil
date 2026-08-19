@@ -13,36 +13,46 @@ MonoBehaviour:
   m_Name: Zavren
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Zavren
-  cardArt: {fileID: -6686154229328266208, guid: 3118c3f93fce4c6418f92e0c5d4cac89, type: 3}
+  cardArt: {fileID: 0}
   description: 
   isPlayableCharacter: 1
+  role: 3
   maxHP: 150
   attack: 45
   defense: 60
   speed: 90
   maxEnergy: 100
+  energyRechargeRate: 1
+  critRate: 0.05
   threatWeight: 1
   weaknesses: 
-  resistances: 
+  resistances: 010000000200000005000000
   basicAbility: {fileID: 0}
   basicOptions:
   - {fileID: 11400000, guid: c6b7b2672bfda4e4bbc7f3c76ac11f48, type: 2}
   - {fileID: 11400000, guid: 14e0a3ea9389c014fbb38d66d1c19606, type: 2}
   - {fileID: 11400000, guid: c30b844981a559c49adcb7a9b362e71e, type: 2}
-  defaultBasic: {fileID: 11400000, guid: c6b7b2672bfda4e4bbc7f3c76ac11f48, type: 2}
   skillOptions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: a6aaa6a647cf59c479e76c2ef6d3c54b, type: 2}
+  - {fileID: 11400000, guid: f52925d1fa979ac4394ab5d921cb7420, type: 2}
+  - {fileID: 11400000, guid: 0aa1b4ce23aafde44b8925b8b292d46d, type: 2}
   ultimateOptions:
-  - {fileID: 0}
-  - {fileID: 0}
-  defaultSkill: {fileID: 0}
-  defaultUltimate: {fileID: 0}
+  - {fileID: 11400000, guid: 4c8a0b4f83fd14c42bce872c53b06d1c, type: 2}
+  - {fileID: 11400000, guid: c7cf857f89e4959438d5aeb08237a24d, type: 2}
+  defaultBasic: {fileID: 11400000, guid: c6b7b2672bfda4e4bbc7f3c76ac11f48, type: 2}
+  defaultSkill: {fileID: 11400000, guid: a6aaa6a647cf59c479e76c2ef6d3c54b, type: 2}
+  defaultUltimate: {fileID: 11400000, guid: 4c8a0b4f83fd14c42bce872c53b06d1c, type: 2}
+  passive: {fileID: 11400000, guid: 8e330d126f935ec4d9e1836fe67b40fe, type: 2}
   hasForms: 0
   normalFormBasic: {fileID: 0}
   normalFormSkill: {fileID: 0}
   demonFormBasic: {fileID: 0}
   demonFormSkill: {fileID: 0}
   demonFormArt: {fileID: 0}
-  passive: {fileID: 11400000, guid: 8e330d126f935ec4d9e1836fe67b40fe, type: 2}
+  phaseTwoCard: {fileID: 0}
+  phaseTransitionHPPercent: 0.5
+  phaseTransitionDialogue: {fileID: 0}
+  phaseTransitionMessage: A new form emerges!
+  extraBasicAbilities: []
+  extraSkillAbilities: []
+  extraUltimateAbilities: []

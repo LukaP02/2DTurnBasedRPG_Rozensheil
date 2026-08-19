@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3118c3f93fce4c6418f92e0c5d4cac89
+guid: caba0c91a9cdf6945b8e3916805e1c1a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6686154229328266208
-    second: Zavren_pose2_0
+      213: 8061429965007914114
+    second: dialogue_boxt_03_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Zavren_pose2_0
+      name: dialogue_boxt_03_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2480
-        height: 3508
+        x: 40
+        y: 38
+        width: 1338
+        height: 370
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 02cb96737220633a0800000000000000
-      internalID: -6686154229328266208
+      spriteID: 2848cf587d3ffdf60800000000000000
+      internalID: 8061429965007914114
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Zavren_pose2_0: -6686154229328266208
+      dialogue_boxt_03_0: 8061429965007914114
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

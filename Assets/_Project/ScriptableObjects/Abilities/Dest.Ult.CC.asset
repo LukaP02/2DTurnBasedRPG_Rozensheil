@@ -22,11 +22,13 @@ MonoBehaviour:
   power: 25
   element: 2
   energyCost: 80
+  stackableEnergy: 1
+  maxEnergyStacks: 2
   attackScaling: 1
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
-  canCrit: 1
+  canCrit: 0
   targetShape: 0
   targetSide: 0
   appliesStatusEffect: {fileID: 11400000, guid: 101e79b50ade497b8f1ef2539dafe3d1, type: 2}
@@ -35,6 +37,7 @@ MonoBehaviour:
   maxMarkStacks: 3
   consumesMark: 0
   bonusDamagePerMarkStack: 0
+  lifestealPercent: 0
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0

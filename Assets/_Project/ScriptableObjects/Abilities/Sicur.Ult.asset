@@ -21,13 +21,23 @@ MonoBehaviour:
   spGain: 0
   power: 0
   element: 4
+  energyCost: 200
+  stackableEnergy: 0
+  maxEnergyStacks: 1
+  attackScaling: 1
+  maxHPScaling: 0
+  defenseScaling: 0
+  speedScaling: 0
+  canCrit: 1
   targetShape: 0
   targetSide: 2
-  freezeChance: 0
+  appliesStatusEffect: {fileID: 0}
+  statusEffectChance: 1
   appliesMark: 0
   maxMarkStacks: 3
   consumesMark: 0
   bonusDamagePerMarkStack: 0
+  lifestealPercent: 0
   triggersFormSwitch: 1
   costsHPPercentOfMissing: 0
   hpCostPercent: 0

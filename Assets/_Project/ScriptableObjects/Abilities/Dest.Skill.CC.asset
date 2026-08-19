@@ -12,28 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
   m_Name: Dest.Skill.CC
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 
+  abilityName: Blue Dragon's Breath
   icon: {fileID: 0}
-  description: 
-  abilityType: 0
-  spCost: 0
+  description: Dest breathes ice cold air dealing medium ice damage with a chance
+    to freeze hit enemies.
+  abilityType: 1
+  spCost: 1
   spGain: 0
-  power: 0
-  element: 0
+  power: 40
+  element: 2
   energyCost: 100
-  attackScaling: 1
-  maxHPScaling: 0
+  stackableEnergy: 0
+  maxEnergyStacks: 1
+  attackScaling: 0
+  maxHPScaling: 0.1
   defenseScaling: 0
   speedScaling: 0
-  canCrit: 1
+  canCrit: 0
   targetShape: 0
   targetSide: 0
-  appliesStatusEffect: {fileID: 0}
-  statusEffectChance: 1
+  appliesStatusEffect: {fileID: 11400000, guid: 101e79b50ade497b8f1ef2539dafe3d1, type: 2}
+  statusEffectChance: 0.3
   appliesMark: 0
   maxMarkStacks: 3
   consumesMark: 0
   bonusDamagePerMarkStack: 0
+  lifestealPercent: 0
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0

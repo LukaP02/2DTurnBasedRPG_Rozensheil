@@ -23,7 +23,7 @@ MonoBehaviour:
   bonusAttackPercent: 0
   bonusDefensePercent: 0
   bonusSpeedPercent: 0
-  fireIceBonusDamage: 50
-  fireElectroSpreadDamage: 30
-  defShredAmount: 40
+  fireIceBonusDamage: 80
+  fireElectroSpreadDamage: 40
+  defShredAmount: 80
   defShredDuration: 2

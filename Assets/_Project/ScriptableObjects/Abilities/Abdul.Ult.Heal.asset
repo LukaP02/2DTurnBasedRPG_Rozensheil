@@ -12,23 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
   m_Name: Abdul.Ult.Heal
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 
+  abilityName: 'Command: Heal'
   icon: {fileID: 0}
-  description: 
-  abilityType: 0
+  description: Abdul discharges energy from his mechanical arm, dealing 80+200% ATK
+    holy damage to 3 targets. Abdul heals for 80% of the damage dealt from this move.
+  abilityType: 2
   spCost: 0
   spGain: 0
-  power: 0
-  element: 0
-  energyCost: 100
+  power: 80
+  element: 3
+  energyCost: 160
   stackableEnergy: 0
   maxEnergyStacks: 1
-  attackScaling: 1
+  attackScaling: 2
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
   canCrit: 1
-  targetShape: 0
+  targetShape: 2
   targetSide: 0
   appliesStatusEffect: {fileID: 0}
   statusEffectChance: 1
@@ -36,7 +37,7 @@ MonoBehaviour:
   maxMarkStacks: 3
   consumesMark: 0
   bonusDamagePerMarkStack: 0
-  lifestealPercent: 0
+  lifestealPercent: 0.8
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0

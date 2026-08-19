@@ -12,21 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
   m_Name: Zavren.Ult.DMG
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 
+  abilityName: Elemental Genesis
   icon: {fileID: 0}
-  description: 
-  abilityType: 0
+  description: Zavren combines his elemental magic combusting it with a big explosion
+    dealing 120+120% ATK fire damage to all enemies.
+  abilityType: 2
   spCost: 0
   spGain: 0
-  power: 0
+  power: 120
   element: 0
-  energyCost: 100
-  attackScaling: 1
+  energyCost: 120
+  stackableEnergy: 0
+  maxEnergyStacks: 1
+  attackScaling: 1.2
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
-  canCrit: 1
-  targetShape: 0
+  canCrit: 0
+  targetShape: 3
   targetSide: 0
   appliesStatusEffect: {fileID: 0}
   statusEffectChance: 1
@@ -34,6 +37,7 @@ MonoBehaviour:
   maxMarkStacks: 3
   consumesMark: 0
   bonusDamagePerMarkStack: 0
+  lifestealPercent: 0
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0

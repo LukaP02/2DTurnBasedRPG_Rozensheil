@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: bc591bc62e659714d90e6e74a8ab7c76
+guid: 4b30b7d2d95943d47932702b7dc5d36e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4217176375533091593
-    second: Abdul_pose2_0
+      213: -7639506948693819358
+    second: dialogue_ornament_03_0
+  - first:
+      213: 8022429921393396188
+    second: dialogue_ornament_03_1
+  - first:
+      213: 6326301894859826738
+    second: dialogue_ornament_03_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Abdul_pose2_0
+      name: dialogue_ornament_03_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 2480
-        height: 3508
+        y: 36
+        width: 1615
+        height: 570
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7f44e251e649975c0800000000000000
-      internalID: -4217176375533091593
+      spriteID: 2200affe7e40bf590800000000000000
+      internalID: -7639506948693819358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ornament_03_1
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 11
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd94e144285655f60800000000000000
+      internalID: 8022429921393396188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ornament_03_2
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 0
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23620012e0a8bc750800000000000000
+      internalID: 6326301894859826738
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Abdul_pose2_0: -4217176375533091593
+      dialogue_ornament_03_0: -7639506948693819358
+      dialogue_ornament_03_1: 8022429921393396188
+      dialogue_ornament_03_2: 6326301894859826738
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

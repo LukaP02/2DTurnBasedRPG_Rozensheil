@@ -16,27 +16,41 @@ MonoBehaviour:
   cardArt: {fileID: 0}
   description: 
   isPlayableCharacter: 1
+  role: 0
   maxHP: 200
   attack: 40
   defense: 40
   speed: 100
+  maxEnergy: 100
+  energyRechargeRate: 1
+  critRate: 0.05
   threatWeight: 1
   weaknesses: 
+  resistances: 
   basicAbility: {fileID: 11400000, guid: 008d07eb9819f8c45a83799e63189b59, type: 2}
-  basicOptions: []
-  defaultBasic: {fileID: 11400000, guid: 008d07eb9819f8c45a83799e63189b59, type: 2}
+  basicOptions:
+  - {fileID: 11400000, guid: 008d07eb9819f8c45a83799e63189b59, type: 2}
   skillOptions:
   - {fileID: 11400000, guid: 03ad0ddd8d9c52a4db38bcc8d593b214, type: 2}
+  - {fileID: 0}
   ultimateOptions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 5e6ab70c5528a58489c75b2a2c0a2f7a, type: 2}
+  - {fileID: 11400000, guid: 5bb24b94b247e9c4a9290ba5872f5a67, type: 2}
+  - {fileID: 11400000, guid: a9ca2d7b190767946bf817b3a455c295, type: 2}
+  defaultBasic: {fileID: 11400000, guid: 008d07eb9819f8c45a83799e63189b59, type: 2}
   defaultSkill: {fileID: 11400000, guid: 03ad0ddd8d9c52a4db38bcc8d593b214, type: 2}
-  defaultUltimate: {fileID: 0}
+  defaultUltimate: {fileID: 11400000, guid: 5e6ab70c5528a58489c75b2a2c0a2f7a, type: 2}
+  passive: {fileID: 11400000, guid: 6c5f742ba1cc37e498b4fc06540a224b, type: 2}
   hasForms: 0
   normalFormBasic: {fileID: 0}
   normalFormSkill: {fileID: 0}
   demonFormBasic: {fileID: 0}
   demonFormSkill: {fileID: 0}
   demonFormArt: {fileID: 0}
-  passive: {fileID: 11400000, guid: 6c5f742ba1cc37e498b4fc06540a224b, type: 2}
+  phaseTwoCard: {fileID: 0}
+  phaseTransitionHPPercent: 0.5
+  phaseTransitionDialogue: {fileID: 0}
+  phaseTransitionMessage: A new form emerges!
+  extraBasicAbilities: []
+  extraSkillAbilities: []
+  extraUltimateAbilities: []

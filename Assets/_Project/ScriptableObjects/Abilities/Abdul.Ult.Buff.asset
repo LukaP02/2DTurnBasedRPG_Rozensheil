@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
   m_Name: Abdul.Ult.Buff
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 
+  abilityName: 'Command: Haste'
   icon: {fileID: 0}
-  description: 
-  abilityType: 0
+  description: Abdul discharges energy from his mechanical arm gaining greater reflexes.
+    Abdul can act two times per turn for 3 turns.
+  abilityType: 2
   spCost: 0
   spGain: 0
   power: 0
   element: 0
-  energyCost: 100
+  energyCost: 160
   stackableEnergy: 0
   maxEnergyStacks: 1
   attackScaling: 1
@@ -29,8 +30,8 @@ MonoBehaviour:
   speedScaling: 0
   canCrit: 1
   targetShape: 0
-  targetSide: 0
-  appliesStatusEffect: {fileID: 0}
+  targetSide: 2
+  appliesStatusEffect: {fileID: 11400000, guid: 6b565b15b0e2d4a48a87e9876da93a36, type: 2}
   statusEffectChance: 1
   appliesMark: 0
   maxMarkStacks: 3

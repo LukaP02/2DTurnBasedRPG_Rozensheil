@@ -12,16 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
   m_Name: Raindorf.Skill.Heal
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 
+  abilityName: Sylvian's Whisper
   icon: {fileID: 0}
-  description: 
+  description: Raindorf channels his cleric authority healing an ally for 50 + 0.2%
+    HP.
   abilityType: 1
   spCost: 1
   spGain: 0
-  power: 0
+  power: 50
   element: 3
-  attackScaling: 1
-  maxHPScaling: 0
+  energyCost: 100
+  stackableEnergy: 0
+  maxEnergyStacks: 1
+  attackScaling: 0
+  maxHPScaling: 0.2
   defenseScaling: 0
   speedScaling: 0
   canCrit: 0
@@ -33,6 +37,7 @@ MonoBehaviour:
   maxMarkStacks: 3
   consumesMark: 0
   bonusDamagePerMarkStack: 0
+  lifestealPercent: 0
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0

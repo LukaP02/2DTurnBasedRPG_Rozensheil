@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e50df349aa96a2e4886137eedeae6b6c
+guid: 37e28500ee74d0f4894b1ad44d45667b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7635730340761427482
-    second: Sicur_pose1_0
+      213: -4358658596696852468
+    second: boss_healthbar_red_03_03_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sicur_pose1_0
+      name: boss_healthbar_red_03_03_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2480
-        height: 3508
+        x: 287
+        y: 68
+        width: 1644
+        height: 79
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6e12e3ef5bf680690800000000000000
-      internalID: -7635730340761427482
+      spriteID: c087ea6791fe283c0800000000000000
+      internalID: -4358658596696852468
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Sicur_pose1_0: -7635730340761427482
+      boss_healthbar_red_03_03_0: -4358658596696852468
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
