@@ -64,7 +64,15 @@ public class DialogueController : MonoBehaviour
         dialogueText.text = line.text;
 
         if (portraitImage != null)
+        {
             portraitImage.sprite = line.speakerPortrait;
+
+            // With no sprite assigned, an Image still renders its flat fill color as a solid box -
+            // hide it entirely instead by zeroing its alpha (restored to opaque once a portrait is set).
+            Color portraitColor = portraitImage.color;
+            portraitColor.a = line.speakerPortrait != null ? 1f : 0f;
+            portraitImage.color = portraitColor;
+        }
 
         // Leaving a line's backgroundImage empty keeps whatever background is already showing,
         // so a sequence doesn't need to repeat the same sprite on every line.

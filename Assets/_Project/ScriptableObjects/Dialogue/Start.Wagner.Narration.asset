@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe2d31c0a575d374f9b00d77d5d88faf, type: 3}
-  m_Name: TestDialogue
+  m_Name: Start.Wagner.Narration
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
   lines:
-  - speakerName: Abdul
+  - speakerName: 
     speakerPortrait: {fileID: 0}
-    text: Test
-  - speakerName: Sicur
-    speakerPortrait: {fileID: 0}
-    text: Test 2
+    text: 
+    backgroundImage: {fileID: 1208040086343421634, guid: 3dff96136687fb440bb9001c94828bfd, type: 3}
