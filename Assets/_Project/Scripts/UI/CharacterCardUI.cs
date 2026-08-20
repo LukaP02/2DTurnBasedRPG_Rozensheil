@@ -41,7 +41,9 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler
         boundCharacter = character;
         uiManager = manager;
 
-        nameText.text = character.data.characterName;
+        if (nameText != null)
+            nameText.text = character.data.characterName;
+
         artImage.sprite = character.data.cardArt;
 
         RefreshHP();

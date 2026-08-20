@@ -13,10 +13,12 @@ public class DialogueController : MonoBehaviour
     public TMP_Text speakerNameText;
     public TMP_Text dialogueText;
 
-    [Header("Fade-In (leave dialogueBoxCanvasGroup empty to skip the box fade)")]
-    public CanvasGroup dialogueBoxCanvasGroup;
+    [Header("Fade-In")]
+    // Drag your box art pieces here (e.g. DialogueBoxArt, DialogueBoxOrnament, DialogueBoxOrnament (1), NameBoxArt).
+    // They fade in once, together, when the dialogue box opens.
+    public Image[] dialogueBoxArtImages;
     public float portraitFadeSeconds = 0.25f;
-    public float textBoxFadeSeconds = 0.2f;
+    public float boxFadeSeconds = 0.3f;
 
     [Header("Typewriter Effect")]
     public float typewriterSecondsPerChar = 0.02f;
@@ -27,7 +29,7 @@ public class DialogueController : MonoBehaviour
     private bool isTyping;
     private Coroutine typewriterCoroutine;
     private Coroutine portraitFadeCoroutine;
-    private Coroutine textBoxFadeCoroutine;
+    private Coroutine boxFadeCoroutine;
     private Sprite lastPortraitSprite;
 
     public event Action OnDialogueEnded;
@@ -52,6 +54,12 @@ public class DialogueController : MonoBehaviour
         lastPortraitSprite = null;
 
         dialoguePanel.SetActive(true);
+
+        if (boxFadeCoroutine != null)
+            StopCoroutine(boxFadeCoroutine);
+
+        boxFadeCoroutine = StartCoroutine(FadeImagesAlpha(dialogueBoxArtImages, 1f, boxFadeSeconds));
+
         ShowCurrentLine();
     }
 
@@ -97,6 +105,12 @@ public class DialogueController : MonoBehaviour
                 if (portraitFadeCoroutine != null)
                     StopCoroutine(portraitFadeCoroutine);
 
+                // Snap to fully transparent first so there's actually something to fade *from* -
+                // interpolating from whatever alpha it already happened to be at (usually 1) is invisible.
+                Color startColor = portraitImage.color;
+                startColor.a = 0f;
+                portraitImage.color = startColor;
+
                 portraitFadeCoroutine = StartCoroutine(FadeImageAlpha(portraitImage, targetAlpha, portraitFadeSeconds));
 
                 lastPortraitSprite = line.speakerPortrait;
@@ -107,14 +121,6 @@ public class DialogueController : MonoBehaviour
         // so a sequence doesn't need to repeat the same sprite on every line.
         if (backgroundImage != null && line.backgroundImage != null)
             backgroundImage.sprite = line.backgroundImage;
-
-        if (dialogueBoxCanvasGroup != null)
-        {
-            if (textBoxFadeCoroutine != null)
-                StopCoroutine(textBoxFadeCoroutine);
-
-            textBoxFadeCoroutine = StartCoroutine(FadeCanvasGroupAlpha(dialogueBoxCanvasGroup, 1f, textBoxFadeSeconds));
-        }
 
         if (typewriterCoroutine != null)
             StopCoroutine(typewriterCoroutine);
@@ -163,19 +169,43 @@ public class DialogueController : MonoBehaviour
         image.color = color;
     }
 
-    private IEnumerator FadeCanvasGroupAlpha(CanvasGroup canvasGroup, float targetAlpha, float duration)
+    private IEnumerator FadeImagesAlpha(Image[] images, float targetAlpha, float duration)
     {
-        float startAlpha = canvasGroup.alpha;
+        if (images == null || images.Length == 0) yield break;
+
+        foreach (var image in images)
+        {
+            if (image == null) continue;
+            Color c = image.color;
+            c.a = 0f;
+            image.color = c;
+        }
+
         float elapsed = 0f;
 
         while (duration > 0f && elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / duration);
+            float alpha = Mathf.Lerp(0f, targetAlpha, elapsed / duration);
+
+            foreach (var image in images)
+            {
+                if (image == null) continue;
+                Color c = image.color;
+                c.a = alpha;
+                image.color = c;
+            }
+
             yield return null;
         }
 
-        canvasGroup.alpha = targetAlpha;
+        foreach (var image in images)
+        {
+            if (image == null) continue;
+            Color c = image.color;
+            c.a = targetAlpha;
+            image.color = c;
+        }
     }
 
     private void CompleteCurrentLine()
@@ -204,10 +234,10 @@ public class DialogueController : MonoBehaviour
             portraitFadeCoroutine = null;
         }
 
-        if (textBoxFadeCoroutine != null)
+        if (boxFadeCoroutine != null)
         {
-            StopCoroutine(textBoxFadeCoroutine);
-            textBoxFadeCoroutine = null;
+            StopCoroutine(boxFadeCoroutine);
+            boxFadeCoroutine = null;
         }
 
         isActive = false;
