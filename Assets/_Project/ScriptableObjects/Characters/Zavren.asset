@@ -40,7 +40,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4c8a0b4f83fd14c42bce872c53b06d1c, type: 2}
   - {fileID: 11400000, guid: c7cf857f89e4959438d5aeb08237a24d, type: 2}
   defaultBasic: {fileID: 11400000, guid: c6b7b2672bfda4e4bbc7f3c76ac11f48, type: 2}
-  defaultSkill: {fileID: 11400000, guid: a6aaa6a647cf59c479e76c2ef6d3c54b, type: 2}
+  defaultSkill: {fileID: 11400000, guid: 0aa1b4ce23aafde44b8925b8b292d46d, type: 2}
   defaultUltimate: {fileID: 11400000, guid: 4c8a0b4f83fd14c42bce872c53b06d1c, type: 2}
   passive: {fileID: 11400000, guid: 8e330d126f935ec4d9e1836fe67b40fe, type: 2}
   hasForms: 0

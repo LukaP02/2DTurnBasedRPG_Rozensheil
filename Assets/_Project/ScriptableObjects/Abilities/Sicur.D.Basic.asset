@@ -24,7 +24,7 @@ MonoBehaviour:
   energyCost: 100
   stackableEnergy: 0
   maxEnergyStacks: 1
-  attackScaling: 1
+  attackScaling: 1.5
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0

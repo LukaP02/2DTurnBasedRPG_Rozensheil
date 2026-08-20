@@ -15,9 +15,9 @@ MonoBehaviour:
   itemName: 
   icon: {fileID: 0}
   description: 
-  price: 0
+  price: 50
   attackBonus: 0
-  defenseBonus: 0
+  defenseBonus: 30
   hpBonus: 0
   speedBonus: 0
   critRateBonus: 0

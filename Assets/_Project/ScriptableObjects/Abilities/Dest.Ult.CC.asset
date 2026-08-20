@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Glacial Prison
   icon: {fileID: 0}
-  description: Dest Hurls a draconic projectile dealing low damage and freezing the
+  description: Dest hurls a draconic projectile dealing low damage and freezing the
     target hit for 1 turn.
   abilityType: 2
   spCost: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
-  canCrit: 0
+  canCrit: 1
   targetShape: 0
   targetSide: 0
   appliesStatusEffect: {fileID: 11400000, guid: 101e79b50ade497b8f1ef2539dafe3d1, type: 2}

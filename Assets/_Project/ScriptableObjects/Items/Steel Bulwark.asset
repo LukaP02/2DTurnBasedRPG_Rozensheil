@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c18e9ed249bc1c45b52784e338dca54, type: 3}
   m_Name: Steel Bulwark
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: 
+  itemName: Steel Bulwark
   icon: {fileID: 0}
   description: 
-  price: 0
+  price: 150
   attackBonus: 0
-  defenseBonus: 0
-  hpBonus: 0
+  defenseBonus: 20
+  hpBonus: 60
   speedBonus: 0
   critRateBonus: 0
   energyRechargeBonus: 0

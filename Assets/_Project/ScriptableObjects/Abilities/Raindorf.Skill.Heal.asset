@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Sylvian's Whisper
   icon: {fileID: 0}
-  description: Raindorf channels his cleric authority healing an ally for 50 + 0.2%
+  description: Raindorf channels his cleric authority healing an ally for 50 + 20%
     HP.
   abilityType: 1
   spCost: 1

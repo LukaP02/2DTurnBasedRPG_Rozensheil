@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -12,9 +13,14 @@ public class DialogueController : MonoBehaviour
     public TMP_Text speakerNameText;
     public TMP_Text dialogueText;
 
+    [Header("Typewriter Effect")]
+    public float typewriterSecondsPerChar = 0.02f;
+
     private DialogueSequence currentSequence;
     private int currentLineIndex;
     private bool isActive;
+    private bool isTyping;
+    private Coroutine typewriterCoroutine;
 
     public event Action OnDialogueEnded;
 
@@ -44,6 +50,13 @@ public class DialogueController : MonoBehaviour
     {
         if (!isActive) return;
 
+        // First click completes the current line's reveal instead of skipping to the next line.
+        if (isTyping)
+        {
+            CompleteCurrentLine();
+            return;
+        }
+
         currentLineIndex++;
 
         if (currentLineIndex >= currentSequence.lines.Length)
@@ -61,7 +74,6 @@ public class DialogueController : MonoBehaviour
         DialogueLine line = currentSequence.lines[currentLineIndex];
 
         speakerNameText.text = line.speakerName;
-        dialogueText.text = line.text;
 
         if (portraitImage != null)
         {
@@ -78,11 +90,57 @@ public class DialogueController : MonoBehaviour
         // so a sequence doesn't need to repeat the same sprite on every line.
         if (backgroundImage != null && line.backgroundImage != null)
             backgroundImage.sprite = line.backgroundImage;
+
+        if (typewriterCoroutine != null)
+            StopCoroutine(typewriterCoroutine);
+
+        typewriterCoroutine = StartCoroutine(TypewriterReveal(line.text));
+    }
+
+    // Setting the full string up front lets TMP compute word-wrap once, so the layout never
+    // shifts mid-reveal; only maxVisibleCharacters changes as the line types out.
+    private IEnumerator TypewriterReveal(string fullText)
+    {
+        isTyping = true;
+
+        dialogueText.text = fullText;
+        dialogueText.maxVisibleCharacters = 0;
+        dialogueText.ForceMeshUpdate();
+
+        int totalChars = dialogueText.textInfo.characterCount;
+
+        for (int i = 0; i <= totalChars; i++)
+        {
+            dialogueText.maxVisibleCharacters = i;
+            yield return new WaitForSeconds(typewriterSecondsPerChar);
+        }
+
+        isTyping = false;
+        typewriterCoroutine = null;
+    }
+
+    private void CompleteCurrentLine()
+    {
+        if (typewriterCoroutine != null)
+        {
+            StopCoroutine(typewriterCoroutine);
+            typewriterCoroutine = null;
+        }
+
+        dialogueText.maxVisibleCharacters = dialogueText.textInfo.characterCount;
+        isTyping = false;
     }
 
     private void EndDialogue()
     {
+        if (typewriterCoroutine != null)
+        {
+            StopCoroutine(typewriterCoroutine);
+            typewriterCoroutine = null;
+        }
+
         isActive = false;
+        isTyping = false;
         currentSequence = null;
         dialoguePanel.SetActive(false);
 

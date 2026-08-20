@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Ice Meteor
   icon: {fileID: 0}
-  description: Dest conjures a huge ice meteor and hurls it to the enemies dealing
-    150+20% HP ice damage to 3 enemies.
+  description: Dest conjures a huge ice meteor and hurls it towards up to 3 enemies
+    dealing 150+20% HP ice damage.
   abilityType: 2
   spCost: 0
   spGain: 0

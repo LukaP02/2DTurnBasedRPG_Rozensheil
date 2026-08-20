@@ -17,8 +17,8 @@ MonoBehaviour:
   description: 
   price: 200
   attackBonus: 0
-  defenseBonus: 0
-  hpBonus: 0
+  defenseBonus: 100
+  hpBonus: 150
   speedBonus: 0
   critRateBonus: 0
-  energyRechargeBonus: 0
+  energyRechargeBonus: 0.3

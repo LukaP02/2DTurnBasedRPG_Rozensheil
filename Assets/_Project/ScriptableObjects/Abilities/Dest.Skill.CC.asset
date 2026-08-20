@@ -29,7 +29,7 @@ MonoBehaviour:
   defenseScaling: 0
   speedScaling: 0
   canCrit: 0
-  targetShape: 0
+  targetShape: 1
   targetSide: 0
   appliesStatusEffect: {fileID: 11400000, guid: 101e79b50ade497b8f1ef2539dafe3d1, type: 2}
   statusEffectChance: 0.3

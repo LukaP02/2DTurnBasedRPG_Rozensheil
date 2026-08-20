@@ -1,0 +1,481 @@
+fileFormatVersion: 2
+guid: b973f43e1779ce346b1a51d00261cde4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8893783173514606634
+    second: Olaf-pose1_03_0
+  - first:
+      213: -4911071205244807360
+    second: Olaf-pose1_03_1
+  - first:
+      213: 3426403389807087441
+    second: Olaf-pose1_03_2
+  - first:
+      213: -1763291972534699779
+    second: Olaf-pose1_03_3
+  - first:
+      213: 8409250753760061857
+    second: Olaf-pose1_03_4
+  - first:
+      213: 3849576280250823872
+    second: Olaf-pose1_03_5
+  - first:
+      213: -6227524260226214489
+    second: Olaf-pose1_03_6
+  - first:
+      213: -6033563135198910501
+    second: Olaf-pose1_03_7
+  - first:
+      213: 7352037444185176613
+    second: Olaf-pose1_03_8
+  - first:
+      213: -6031720579988171179
+    second: Olaf-pose1_03_9
+  - first:
+      213: -5544028345709363147
+    second: Olaf-pose1_03_10
+  - first:
+      213: -9154596701149116015
+    second: Olaf-pose1_03_11
+  - first:
+      213: 6875499095704026489
+    second: Olaf-pose1_03_12
+  - first:
+      213: -467880732771601921
+    second: Olaf-pose1_03_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Olaf-pose1_03_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1697
+        height: 1574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d7c051335fe29480800000000000000
+      internalID: -8893783173514606634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_1
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 657
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 047dbb042ce58dbb0800000000000000
+      internalID: -4911071205244807360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_2
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 538
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15f45aaaab70d8f20800000000000000
+      internalID: 3426403389807087441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_3
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 533
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df875c51b478787e0800000000000000
+      internalID: -1763291972534699779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_4
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 532
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a9ed05a109a3b470800000000000000
+      internalID: 8409250753760061857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_5
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 524
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c4be102b317c6530800000000000000
+      internalID: 3849576280250823872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_6
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 529
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a5d61f1ea36399a0800000000000000
+      internalID: -6227524260226214489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_7
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 523
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd7a394bb4a744ca0800000000000000
+      internalID: -6033563135198910501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_8
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 528
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52a370c4a1fa70660800000000000000
+      internalID: 7352037444185176613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_9
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 516
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 556546507160b4ca0800000000000000
+      internalID: -6031720579988171179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_10
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 501
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5300c45d797af03b0800000000000000
+      internalID: -5544028345709363147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_11
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 470
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1994b0eadc654f080800000000000000
+      internalID: -9154596701149116015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_12
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 460
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97d35f4effdaa6f50800000000000000
+      internalID: 6875499095704026489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Olaf-pose1_03_13
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 452
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff136e5d3f0c189f0800000000000000
+      internalID: -467880732771601921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Olaf-pose1_03_0: -8893783173514606634
+      Olaf-pose1_03_1: -4911071205244807360
+      Olaf-pose1_03_10: -5544028345709363147
+      Olaf-pose1_03_11: -9154596701149116015
+      Olaf-pose1_03_12: 6875499095704026489
+      Olaf-pose1_03_13: -467880732771601921
+      Olaf-pose1_03_2: 3426403389807087441
+      Olaf-pose1_03_3: -1763291972534699779
+      Olaf-pose1_03_4: 8409250753760061857
+      Olaf-pose1_03_5: 3849576280250823872
+      Olaf-pose1_03_6: -6227524260226214489
+      Olaf-pose1_03_7: -6033563135198910501
+      Olaf-pose1_03_8: 7352037444185176613
+      Olaf-pose1_03_9: -6031720579988171179
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

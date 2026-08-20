@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Frozen Bond
   icon: {fileID: 0}
-  description: Zavren channels a small ice storm dealing medium ice damage to up
+  description: Zavren channels a small ice field dealing medium ice damage to up
     to 3 enemies with a small chance to freeze all caught in it.
   abilityType: 1
   spCost: 0

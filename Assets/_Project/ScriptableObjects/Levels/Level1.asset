@@ -16,7 +16,15 @@ MonoBehaviour:
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 11400000, guid: fb93b9fb11645fa42af5334e86227015, type: 2}
   enemies:
-  - {fileID: 11400000, guid: b5bf71f8daa4bfe439ec6b228792c045, type: 2}
-  - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
   - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
   postLevelEvent: {fileID: 11400000, guid: 9a0c9478b562f534cb823af971e02ef1, type: 2}
+  postLevelDialogue: {fileID: 0}
+  maxEnemiesOnField: 0
+  reinforcementPool: []
+  killTarget: 0
+  midBattleDialogue: {fileID: 0}
+  wipeMessage: The remaining enemies are struck down!

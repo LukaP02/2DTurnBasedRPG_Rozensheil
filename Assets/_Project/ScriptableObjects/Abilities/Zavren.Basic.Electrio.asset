@@ -14,13 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Electro Bolt
   icon: {fileID: 0}
-  description: 'Zavren fires an electric projectile on a single target dealing low
-    electro damage. '
+  description: 'Zavren fires an electric projectile chaining 2 targets and dealing
+    low electro damage. '
   abilityType: 0
   spCost: 0
   spGain: 1
-  power: 18
+  power: 20
   element: 5
-  targetShape: 0
+  energyCost: 100
+  stackableEnergy: 0
+  maxEnergyStacks: 1
+  attackScaling: 1
+  maxHPScaling: 0
+  defenseScaling: 0
+  speedScaling: 0
+  canCrit: 1
+  targetShape: 1
   targetSide: 0
-  freezeChance: 0
+  appliesStatusEffect: {fileID: 0}
+  statusEffectChance: 1
+  appliesMark: 0
+  maxMarkStacks: 3
+  consumesMark: 0
+  bonusDamagePerMarkStack: 0
+  lifestealPercent: 0
+  triggersFormSwitch: 0
+  costsHPPercentOfMissing: 0
+  hpCostPercent: 0

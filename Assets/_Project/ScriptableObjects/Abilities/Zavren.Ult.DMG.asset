@@ -20,7 +20,7 @@ MonoBehaviour:
   spCost: 0
   spGain: 0
   power: 120
-  element: 0
+  element: 1
   energyCost: 120
   stackableEnergy: 0
   maxEnergyStacks: 1

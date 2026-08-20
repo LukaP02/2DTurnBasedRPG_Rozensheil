@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectData
   effectName: Energized Power
   icon: {fileID: 0}
-  description: Attack increased by 50 for 3 turns
+  description: Attack increased by 30% for 3 turns.
   category: 0
   isDebuff: 0
   duration: 3
   stackable: 0
   maxStacks: 1
   modifiedStat: 0
-  isPercent: 0
-  flatAmount: 50
-  percentAmount: 0
+  isPercent: 1
+  flatAmount: 0
+  percentAmount: 0.3
   shieldAmount: 0
   skipTurn: 0
   silences: 0

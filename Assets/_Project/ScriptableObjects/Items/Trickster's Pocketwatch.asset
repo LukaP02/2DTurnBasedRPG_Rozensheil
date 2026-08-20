@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c18e9ed249bc1c45b52784e338dca54, type: 3}
   m_Name: Trickster's Pocketwatch
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: 
+  itemName: Trickster's Pocketwatch
   icon: {fileID: 0}
   description: 
-  price: 0
-  attackBonus: 0
+  price: 120
+  attackBonus: 40
   defenseBonus: 0
   hpBonus: 0
-  speedBonus: 0
+  speedBonus: 40
   critRateBonus: 0
   energyRechargeBonus: 0
