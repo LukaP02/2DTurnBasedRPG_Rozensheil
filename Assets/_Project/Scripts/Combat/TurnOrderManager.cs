@@ -71,9 +71,30 @@ public class TurnOrderManager
 
     // Snapshot of the remaining acting order for this round (excludes whoever's turn it currently is)
 
-    public List<CharacterInstance> PeekUpcomingOrder()
+    // Snapshot of the next `count` actors to come up, excluding whoever's turn it currently is.
+    // Starts with whatever's left in this round, then - if that isn't enough to fill the window -
+    // keeps projecting further rounds (same speed-based ordering as BuildRoundQueue, without
+    // touching real state) so the preview is circular instead of stopping at the round's end.
+    public List<CharacterInstance> PeekUpcomingOrder(int count)
     {
-        return roundQueue.Where(c => c.isAlive && combatants.Contains(c)).ToList();
+        var result = new List<CharacterInstance>();
+
+        result.AddRange(roundQueue.Where(c => c.isAlive && combatants.Contains(c)));
+
+        while (result.Count < count)
+        {
+            var aliveOrdered = combatants
+                .Where(c => c.isAlive)
+                .OrderByDescending(c => c.currentSpeed)
+                .ToList();
+
+            if (aliveOrdered.Count == 0)
+                break;
+
+            result.AddRange(aliveOrdered);
+        }
+
+        return result.Take(count).ToList();
     }
 
     // Call this immediately after any turn resolves (damage, heal, etc.)

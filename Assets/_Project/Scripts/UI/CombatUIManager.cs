@@ -20,13 +20,18 @@ public class CombatUIManager : MonoBehaviour
     public Transform turnOrderContainer;
     public GameObject turnOrderIconPrefab;
     public Color activeTurnOrderIconColor = Color.yellow;
-
+    public int turnOrderVisibleCount = 7; // total icons shown, including the currently-acting one
+    
     [Header("Card Inspect")]
     public CardDetailUI cardDetailUI;
 
     [Header("Target Highlight Colors")]
     public Color allyTargetColor = Color.yellow;
     public Color enemyTargetColor = Color.red;
+
+    
+   
+    
 
 
 
@@ -155,12 +160,12 @@ public class CombatUIManager : MonoBehaviour
         foreach (Transform child in turnOrderContainer)
             Destroy(child.gameObject);
 
-        // The currently-acting character isn't part of UpcomingTurnOrder (they've already been
-        // dequeued for their turn), so add them separately, highlighted, at the front of the list.
         if (combatController.ActiveActor != null)
             SpawnTurnOrderIcon(combatController.ActiveActor, true);
 
-        foreach (var character in combatController.UpcomingTurnOrder)
+        int upcomingCount = Mathf.Max(0, turnOrderVisibleCount - (combatController.ActiveActor != null ? 1 : 0));
+
+        foreach (var character in combatController.GetUpcomingTurnOrder(upcomingCount))
             SpawnTurnOrderIcon(character, false);
     }
 
@@ -173,7 +178,6 @@ public class CombatUIManager : MonoBehaviour
         icon.sprite = character.data.cardArt;
         icon.color = isActive ? activeTurnOrderIconColor : Color.white;
     }
-
     private void ShowActionButtonsFor(CharacterInstance actor)
     {
         if (!cardLookup.TryGetValue(actor, out var card)) return;

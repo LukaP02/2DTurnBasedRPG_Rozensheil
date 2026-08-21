@@ -66,7 +66,7 @@ public class CombatController : MonoBehaviour
     public int MaxSkillPoints => partyState.maxSkillPoints;
     public IReadOnlyList<CharacterInstance> Allies => turnOrder.allies;
     public IReadOnlyList<CharacterInstance> Enemies => turnOrder.enemies;
-    public List<CharacterInstance> UpcomingTurnOrder => turnOrder.PeekUpcomingOrder();
+    public List<CharacterInstance> GetUpcomingTurnOrder(int count) => turnOrder.PeekUpcomingOrder(count);
     public bool IsPlayerTurn => currentState == CombatState.PlayerTurn;
 
     public void StartCombat(List<CharacterInstance> allies, List<CharacterInstance> enemies)
