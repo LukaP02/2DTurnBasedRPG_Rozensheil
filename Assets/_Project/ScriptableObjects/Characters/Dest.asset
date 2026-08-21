@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dest
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Dest
-  cardArt: {fileID: 0}
+  cardArt: {fileID: 7417892570511712460, guid: 12a5464dd31ceda40b51bb0e301a9ccf, type: 3}
   description: 
   isPlayableCharacter: 1
   role: 1

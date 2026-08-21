@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class CharacterCardUI : MonoBehaviour, IPointerClickHandler
+public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Visuals")]
     public Image artImage;
@@ -15,13 +15,19 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler
     public TMP_Text energyText;
     public GameObject activeTurnHighlight;
 
+    [Header("Hover")]
+    // Shown while an ability is selected and this card is a valid target for it.
+    public GameObject targetHoverHighlight;
+    public float hoverScale = 1.08f;
+    public float hoverScaleSeconds = 0.12f;
+
     [Header("Action Buttons")]
     public GameObject actionButtonsContainer;
     public Button basicButton;
     public Button skillButton;
     public Button ultButton;
 
-    
+
 
     [Header("Status Icons")]
     public Transform statusIconContainer;
@@ -33,8 +39,21 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler
 
     private CharacterInstance boundCharacter;
     private CombatUIManager uiManager;
+    private RectTransform rectTransform;
+    private Vector3 baseScale;
+    private Coroutine scaleCoroutine;
+    private Image targetHoverHighlightImage;
 
     public CharacterInstance BoundCharacter => boundCharacter;
+
+    private void Awake()
+    {
+        rectTransform = transform as RectTransform;
+        baseScale = rectTransform != null ? rectTransform.localScale : Vector3.one;
+
+        if (targetHoverHighlight != null)
+            targetHoverHighlightImage = targetHoverHighlight.GetComponent<Image>();
+    }
 
     public void Bind(CharacterInstance character, CombatUIManager manager)
     {
@@ -51,7 +70,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler
         RefreshStatuses();
         HideActionButtons();
 
-        
+
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -59,6 +78,53 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler
         {
             uiManager.OnInspectCard(boundCharacter);
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        PlayScale(baseScale * hoverScale);
+        uiManager?.OnCardHoverEnter(boundCharacter, this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        PlayScale(baseScale);
+        uiManager?.OnCardHoverExit(boundCharacter, this);
+    }
+
+    private void PlayScale(Vector3 targetScale)
+    {
+        if (rectTransform == null) return;
+
+        if (scaleCoroutine != null)
+            StopCoroutine(scaleCoroutine);
+
+        scaleCoroutine = StartCoroutine(ScaleTo(targetScale, hoverScaleSeconds));
+    }
+
+    private System.Collections.IEnumerator ScaleTo(Vector3 targetScale, float duration)
+    {
+        Vector3 startScale = rectTransform.localScale;
+        float elapsed = 0f;
+
+        while (duration > 0f && elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            rectTransform.localScale = Vector3.Lerp(startScale, targetScale, elapsed / duration);
+            yield return null;
+        }
+
+        rectTransform.localScale = targetScale;
+    }
+
+    public void SetTargetHighlight(bool show, Color color)
+    {
+        if (targetHoverHighlight == null) return;
+
+        if (targetHoverHighlightImage != null)
+            targetHoverHighlightImage.color = color;
+
+        targetHoverHighlight.SetActive(show);
     }
 
     public void RefreshHP()

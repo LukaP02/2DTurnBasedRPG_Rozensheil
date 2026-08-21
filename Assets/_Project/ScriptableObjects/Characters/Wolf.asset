@@ -13,18 +13,38 @@ MonoBehaviour:
   m_Name: Wolf
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Wolf
-  cardArt: {fileID: 0}
+  cardArt: {fileID: -1671632898402556846, guid: 031a5d99ab70b8347a01011d9df0c1e7, type: 3}
   description: 
   isPlayableCharacter: 0
+  role: 0
   maxHP: 130
   attack: 30
   defense: 20
   speed: 100
+  maxEnergy: 100
+  energyRechargeRate: 1
+  critRate: 0.05
   threatWeight: 1
   weaknesses: 
+  resistances: 
   basicAbility: {fileID: 11400000, guid: 881fc088fd4ff314db1d1275b88b79d6, type: 2}
+  basicOptions: []
   skillOptions: []
   ultimateOptions: []
+  defaultBasic: {fileID: 0}
   defaultSkill: {fileID: 0}
   defaultUltimate: {fileID: 0}
   passive: {fileID: 0}
+  hasForms: 0
+  normalFormBasic: {fileID: 0}
+  normalFormSkill: {fileID: 0}
+  demonFormBasic: {fileID: 0}
+  demonFormSkill: {fileID: 0}
+  demonFormArt: {fileID: 0}
+  phaseTwoCard: {fileID: 0}
+  phaseTransitionHPPercent: 0.5
+  phaseTransitionDialogue: {fileID: 0}
+  phaseTransitionMessage: A new form emerges!
+  extraBasicAbilities: []
+  extraSkillAbilities: []
+  extraUltimateAbilities: []

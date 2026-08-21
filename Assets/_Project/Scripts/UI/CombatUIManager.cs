@@ -23,6 +23,10 @@ public class CombatUIManager : MonoBehaviour
     [Header("Card Inspect")]
     public CardDetailUI cardDetailUI;
 
+    [Header("Target Highlight Colors")]
+    public Color allyTargetColor = Color.yellow;
+    public Color enemyTargetColor = Color.red;
+
 
 
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
@@ -129,6 +133,7 @@ public class CombatUIManager : MonoBehaviour
             kvp.Value.RefreshArt();
             kvp.Value.SetActiveTurn(kvp.Key == combatController.ActiveActor);
             kvp.Value.HideActionButtons();
+            kvp.Value.SetTargetHighlight(false, enemyTargetColor);
         }
 
         selectedAbility = null;
@@ -195,19 +200,9 @@ public class CombatUIManager : MonoBehaviour
     public void OnCardClicked(CharacterInstance clickedCharacter)
     {
         if (!waitingForTarget || selectedAbility == null) return;
+        if (!IsValidTarget(clickedCharacter)) return;
 
         bool clickedIsAlly = combatController.Allies.Contains(clickedCharacter);
-        bool clickedIsEnemy = combatController.Enemies.Contains(clickedCharacter);
-
-        bool sideAllowed = selectedAbility.targetSide switch
-        {
-            TargetSide.Enemy => clickedIsEnemy,
-            TargetSide.Ally => clickedIsAlly,
-            TargetSide.Either => clickedIsAlly || clickedIsEnemy,
-            _ => false
-        };
-
-        if (!sideAllowed) return;
 
         List<CharacterInstance> targets;
 
@@ -228,6 +223,35 @@ public class CombatUIManager : MonoBehaviour
 
         combatController.ResolvePlayerAction(selectedAbility, targets);
     }
+
+    // Shared by click-to-target and hover-to-preview so both agree on what counts as a legal target.
+    private bool IsValidTarget(CharacterInstance candidate)
+    {
+        bool isAlly = combatController.Allies.Contains(candidate);
+        bool isEnemy = combatController.Enemies.Contains(candidate);
+
+        return selectedAbility.targetSide switch
+        {
+            TargetSide.Enemy => isEnemy,
+            TargetSide.Ally => isAlly,
+            TargetSide.Either => isAlly || isEnemy,
+            _ => false
+        };
+    }
+
+    public void OnCardHoverEnter(CharacterInstance character, CharacterCardUI card)
+    {
+        if (!waitingForTarget || selectedAbility == null || !IsValidTarget(character)) return;
+
+        bool isAlly = combatController.Allies.Contains(character);
+        card.SetTargetHighlight(true, isAlly ? allyTargetColor : enemyTargetColor);
+    }
+
+    public void OnCardHoverExit(CharacterInstance character, CharacterCardUI card)
+    {
+        card.SetTargetHighlight(false, enemyTargetColor);
+    }
+
     public void OnInspectCard(CharacterInstance character)
     {
         if (cardDetailUI != null)

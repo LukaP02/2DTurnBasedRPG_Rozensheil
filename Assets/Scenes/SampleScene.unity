@@ -6436,6 +6436,7 @@ GameObject:
   - component: {fileID: 807906464}
   - component: {fileID: 807906466}
   - component: {fileID: 807906465}
+  - component: {fileID: 807906467}
   m_Layer: 5
   m_Name: DialoguePanel
   m_TagString: Untagged
@@ -6509,6 +6510,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807906463}
   m_CullTransparentMesh: 1
+--- !u!225 &807906467
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807906463}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &810026086
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9147,7 +9160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 647, y: 395}
+  m_AnchoredPosition: {x: 647, y: 355.5802}
   m_SizeDelta: {x: 590, y: 790}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1354573912
@@ -9439,6 +9452,14 @@ MonoBehaviour:
   portraitImage: {fileID: 1354573913}
   speakerNameText: {fileID: 1222458056}
   dialogueText: {fileID: 1594373990}
+  dialogueBoxArtImages:
+  - {fileID: 1001164778}
+  - {fileID: 1496901546}
+  - {fileID: 632371501}
+  - {fileID: 150290373}
+  portraitFadeSeconds: 0.3
+  boxFadeSeconds: 0.3
+  typewriterSecondsPerChar: 0.03
 --- !u!4 &1525017244
 Transform:
   m_ObjectHideFlags: 0

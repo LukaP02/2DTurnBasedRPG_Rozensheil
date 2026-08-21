@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Raindorf
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Raindorf
-  cardArt: {fileID: 0}
+  cardArt: {fileID: 6918554802959114315, guid: 69087dc869bc5b24f9a32f6a66900f37, type: 3}
   description: 
   isPlayableCharacter: 1
   role: 2

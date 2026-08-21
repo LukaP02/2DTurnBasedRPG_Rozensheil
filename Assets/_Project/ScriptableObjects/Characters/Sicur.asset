@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sicur
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Sicur
-  cardArt: {fileID: 0}
+  cardArt: {fileID: -8968411516607468687, guid: f778fb1839cac4f48becd6f481accfea, type: 3}
   description: 
   isPlayableCharacter: 1
   role: 0
@@ -41,7 +41,7 @@ MonoBehaviour:
   normalFormSkill: {fileID: 11400000, guid: 4f4d163d5db4c7941aa7472aadd1925a, type: 2}
   demonFormBasic: {fileID: 11400000, guid: e62427ca815e1d049aa5db16bfa89c1a, type: 2}
   demonFormSkill: {fileID: 11400000, guid: 01451e71deee7014cb682c8b3cb892f2, type: 2}
-  demonFormArt: {fileID: 0}
+  demonFormArt: {fileID: 5129157304080992830, guid: 82e086edf7fd4a846891b00cc6fc4cda, type: 3}
   phaseTwoCard: {fileID: 0}
   phaseTransitionHPPercent: 0.5
   phaseTransitionDialogue: {fileID: 0}
