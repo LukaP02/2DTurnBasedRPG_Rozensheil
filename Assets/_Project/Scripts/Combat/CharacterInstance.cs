@@ -237,7 +237,13 @@ public class CharacterInstance
         if (!isAlive && !deathProcessed)
         {
             deathProcessed = true;
-            activeEffects.Clear(); // buffs/debuffs/shields don't persist on a dead character
+
+            // Nothing status-related persists on a dead character - GetStatusDisplayList()
+            // pulls from all three of these, so all three need clearing, not just activeEffects.
+            activeEffects.Clear();
+            marksBySource.Clear();
+            currentStain = null;
+
             return true;
         }
         return false;

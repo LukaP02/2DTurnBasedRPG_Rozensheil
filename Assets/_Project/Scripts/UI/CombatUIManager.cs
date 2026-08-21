@@ -29,9 +29,12 @@ public class CombatUIManager : MonoBehaviour
     public Color allyTargetColor = Color.yellow;
     public Color enemyTargetColor = Color.red;
 
-    
-   
-    
+    [Header("Background")]
+    public Image backgroundImage;
+
+
+
+
 
 
 
@@ -271,5 +274,18 @@ public class CombatUIManager : MonoBehaviour
     {
         if (cardDetailUI != null)
             cardDetailUI.Show(character);
+    }
+    public void SetupCombatUI(Sprite background = null)
+    {
+        ClearCards();
+
+        SpawnCards(combatController.Allies, allyContainer);
+        SpawnCards(combatController.Enemies, enemyContainer);
+
+        // Leaving a level's Combat Background empty keeps whatever's already set on the scene.
+        if (background != null && backgroundImage != null)
+            backgroundImage.sprite = background;
+
+        RefreshUI();
     }
 }

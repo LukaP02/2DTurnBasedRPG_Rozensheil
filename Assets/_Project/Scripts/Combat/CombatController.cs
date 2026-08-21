@@ -417,16 +417,21 @@ public class CombatController : MonoBehaviour
                     int rawDamage = CalculateDamage(user, target, ability) + bonusFromMarks;
                     totalDamageDealt += DealDamage(target, rawDamage, ability.element);
 
-                    if (ability.appliesMark)
+                    // A killing hit clears the target's marks/stain/status in DealDamage -> don't
+                    // let this same action's on-hit effects immediately re-apply them to the corpse.
+                    if (target.isAlive)
                     {
-                        target.AddMarkStack(user, ability.maxMarkStacks);
-                    }
+                        if (ability.appliesMark)
+                        {
+                            target.AddMarkStack(user, ability.maxMarkStacks);
+                        }
 
-                    TryApplyElementalStain(user, target, ability.element);
+                        TryApplyElementalStain(user, target, ability.element);
+                    }
                 }
             }
 
-            if (ability.appliesStatusEffect != null && UnityEngine.Random.value <= ability.statusEffectChance)
+            if (target.isAlive && ability.appliesStatusEffect != null && UnityEngine.Random.value <= ability.statusEffectChance)
             {
                 target.ApplyStatusEffect(ability.appliesStatusEffect, user);
             }

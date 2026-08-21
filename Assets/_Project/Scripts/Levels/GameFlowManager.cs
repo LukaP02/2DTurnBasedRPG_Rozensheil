@@ -124,7 +124,7 @@ public class GameFlowManager : MonoBehaviour
 
         combatScreen.SetActive(true);
 
-        combatUIManager.SetupCombatUI();
+        combatUIManager.SetupCombatUI(currentLevel.combatBackground);
     }
 
     // Shows the mid-battle dialogue on top of the still-active combat screen (combat is not hidden).
