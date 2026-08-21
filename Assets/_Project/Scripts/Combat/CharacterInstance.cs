@@ -237,6 +237,7 @@ public class CharacterInstance
         if (!isAlive && !deathProcessed)
         {
             deathProcessed = true;
+            activeEffects.Clear(); // buffs/debuffs/shields don't persist on a dead character
             return true;
         }
         return false;
