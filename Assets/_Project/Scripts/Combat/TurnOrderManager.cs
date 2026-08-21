@@ -73,7 +73,7 @@ public class TurnOrderManager
 
     public List<CharacterInstance> PeekUpcomingOrder()
     {
-        return roundQueue.Where(c => c.isAlive).ToList();
+        return roundQueue.Where(c => c.isAlive && combatants.Contains(c)).ToList();
     }
 
     // Call this immediately after any turn resolves (damage, heal, etc.)
