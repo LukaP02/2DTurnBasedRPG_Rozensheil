@@ -10,19 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fab159ee9319ba4eb100c63e63a2aee, type: 3}
-  m_Name: Level3
+  m_Name: GeraldGoats
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  levelName: The Colosseum
-  mapPosition: {x: -380, y: -150}
-  unlocksOnComplete:
-  - {fileID: 11400000, guid: 2ce8c474912bd6c41b12ecd925a80ea2, type: 2}
-  - {fileID: 11400000, guid: a497becf27a8ecb43ac6376ab95e9cee, type: 2}
-  - {fileID: 11400000, guid: 8583541639a07d34e827f52fcec83e64, type: 2}
+  levelName: 
+  mapPosition: {x: 0, y: 0}
+  unlocksOnComplete: []
   combatBackground: {fileID: 0}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 0}
   enemies: []
-  postLevelEvent: {fileID: 0}
+  postLevelEvent: {fileID: 11400000, guid: 7ec8965b55c1469419c71dc7b92f26eb, type: 2}
   postLevelDialogue: {fileID: 0}
   maxEnemiesOnField: 0
   reinforcementPool: []

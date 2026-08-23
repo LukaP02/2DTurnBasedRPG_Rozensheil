@@ -9,6 +9,8 @@ public class LevelData : ScriptableObject
     [Header("Map Node")]
     [Tooltip("Anchored position of this level's node on the overworld map (OverworldMapUI positions the spawned button here).")]
     public Vector2 mapPosition;
+    [Tooltip("Other map nodes (levels or standalone events) that become unlocked once this one is completed. Can list several at once for branching.")]
+    public LevelData[] unlocksOnComplete;
 
     [Header("Visuals")]
     [Tooltip("Shown behind the combat screen for this level. Leave empty to keep whatever background is already set on the combat scene.")]
@@ -17,7 +19,7 @@ public class LevelData : ScriptableObject
     [Header("Flow (all optional)")]
     public EventData preLevelEvent;
     public DialogueSequence introDialogue;
-    [Tooltip("Leave empty for a no-combat node (event and/or dialogue only) — combat is skipped entirely.")]
+    [Tooltip("Leave empty for a no-combat node (event and/or dialogue only) - combat is skipped entirely.")]
     public CharacterCardData[] enemies;
     public EventData postLevelEvent;
     public DialogueSequence postLevelDialogue;
@@ -32,5 +34,4 @@ public class LevelData : ScriptableObject
     public int killTarget = 0;
     public DialogueSequence midBattleDialogue;
     [TextArea] public string wipeMessage = "The remaining enemies are struck down!";
-    
 }

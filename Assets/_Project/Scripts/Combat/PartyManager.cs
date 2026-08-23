@@ -20,7 +20,11 @@ public class PartyManager : MonoBehaviour
     private List<CharacterCardData> activeParty = new List<CharacterCardData>();
 
     public int Gold { get; private set; } = 0;
-    public int UnlockedLevelIndex { get; private set; } = 0;
+
+    // Overworld map nodes (levels and standalone events alike) unlocked so far. Branching:
+    // each LevelData declares its own unlocksOnComplete list, so completing one node can open
+    // several others at once instead of just "the next one in a line."
+    private HashSet<LevelData> unlockedLevels = new HashSet<LevelData>();
 
     private void Awake()
     {
@@ -35,10 +39,22 @@ public class PartyManager : MonoBehaviour
     }
 
     // --- Level progress ---
-    public void UnlockUpTo(int index)
+    public bool IsLevelUnlocked(LevelData level)
     {
-        if (index > UnlockedLevelIndex)
-            UnlockedLevelIndex = index;
+        return level != null && unlockedLevels.Contains(level);
+    }
+
+    // Purely additive - safe to call repeatedly (e.g. re-seeding starting nodes) without
+    // affecting anything already unlocked.
+    public void UnlockLevels(IEnumerable<LevelData> levels)
+    {
+        if (levels == null) return;
+
+        foreach (var level in levels)
+        {
+            if (level != null)
+                unlockedLevels.Add(level);
+        }
     }
 
     // --- Roster & active party ---

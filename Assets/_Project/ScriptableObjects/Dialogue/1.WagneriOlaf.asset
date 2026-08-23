@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2d31c0a575d374f9b00d77d5d88faf, type: 3}
   m_Name: 1.WagneriOlaf
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
-  lines: []
+  lines:
+  - speakerName: ???
+    speakerPortrait: {fileID: 0}
+    text: OY FELLAS, GET DOWN!!!
+    backgroundImage: {fileID: 0}
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: Suddenly the sky becomes dark for a moment. A brief spark appear from above
+      you and a giant flaming meteor emerges crushing all the remaining wolves.
+    backgroundImage: {fileID: 0}

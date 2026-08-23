@@ -238,7 +238,7 @@ public class GameFlowManager : MonoBehaviour
 
     private void ReturnToOverworld()
     {
-        PartyManager.Instance.UnlockUpTo(currentLevelIndex + 1);
+        PartyManager.Instance.UnlockLevels(currentLevel.unlocksOnComplete);
         overworldMapUI.RefreshNodes();
         overworldPanel.SetActive(true);
     }

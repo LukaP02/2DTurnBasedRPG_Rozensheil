@@ -10024,8 +10024,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OverworldMapUI
   levelsInOrder:
   - {fileID: 11400000, guid: d2add528c788dc240a911611d75f4ed9, type: 2}
+  - {fileID: 11400000, guid: 7f186bb01b5270b41a60d22a052d6456, type: 2}
+  - {fileID: 11400000, guid: e3a15cdc848fd404c8107bd0127d7b48, type: 2}
+  - {fileID: 11400000, guid: 2ce8c474912bd6c41b12ecd925a80ea2, type: 2}
+  - {fileID: 11400000, guid: 00a068fa7b2dabe4d824e142426eb5a6, type: 2}
+  - {fileID: 11400000, guid: a497becf27a8ecb43ac6376ab95e9cee, type: 2}
+  - {fileID: 11400000, guid: 241b256ddc26dcc4f81f635ddc80d9a1, type: 2}
+  - {fileID: 11400000, guid: 4a9680153705cca46ab8e35948a9089b, type: 2}
+  - {fileID: 11400000, guid: 93fb02922b82fdd48925285eb60011ed, type: 2}
+  - {fileID: 11400000, guid: 6792c8dbff423c44192db47483c373db, type: 2}
+  - {fileID: 11400000, guid: 9e9ab007e968bc344ab1c345c7889cec, type: 2}
+  - {fileID: 11400000, guid: 94788f5ac821a5f46a048bd8ffb0d65b, type: 2}
+  - {fileID: 11400000, guid: 8583541639a07d34e827f52fcec83e64, type: 2}
   nodeContainer: {fileID: 1164678655}
   nodeButtonPrefab: {fileID: 1218006786771303518, guid: 8957d14f058edd24588a49a084a83cfb, type: 3}
+  initiallyUnlockedLevels: []
+  lineSegmentPrefab: {fileID: 4021400663451743272, guid: b13d3c65225f938478d7eb9df95ba700, type: 3}
   gameFlowManager: {fileID: 258580454}
 --- !u!1 &1830018501
 GameObject:
