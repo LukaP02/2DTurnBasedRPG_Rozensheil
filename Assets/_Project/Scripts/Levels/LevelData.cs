@@ -5,7 +5,11 @@ public class LevelData : ScriptableObject
 {
     [Header("Identity")]
     public string levelName;
-   
+
+    [Header("Map Node")]
+    [Tooltip("Anchored position of this level's node on the overworld map (OverworldMapUI positions the spawned button here).")]
+    public Vector2 mapPosition;
+
     [Header("Visuals")]
     [Tooltip("Shown behind the combat screen for this level. Leave empty to keep whatever background is already set on the combat scene.")]
     public Sprite combatBackground;

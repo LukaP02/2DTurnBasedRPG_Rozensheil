@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fab159ee9319ba4eb100c63e63a2aee, type: 3}
+  m_Name: Level4
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  levelName: 
+  mapPosition: {x: 0, y: 0}
+  combatBackground: {fileID: 0}
+  preLevelEvent: {fileID: 0}
+  introDialogue: {fileID: 0}
+  enemies: []
+  postLevelEvent: {fileID: 0}
+  postLevelDialogue: {fileID: 0}
+  maxEnemiesOnField: 0
+  reinforcementPool: []
+  killTarget: 0
+  midBattleDialogue: {fileID: 0}
+  wipeMessage: The remaining enemies are struck down!

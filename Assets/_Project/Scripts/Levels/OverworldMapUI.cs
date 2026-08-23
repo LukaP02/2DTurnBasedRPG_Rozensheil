@@ -9,6 +9,7 @@ public class OverworldMapUI : MonoBehaviour
     public Transform nodeContainer;
     public GameObject nodeButtonPrefab;
 
+
     public GameFlowManager gameFlowManager;
 
     private List<Button> spawnedButtons = new List<Button>();
@@ -30,8 +31,13 @@ public class OverworldMapUI : MonoBehaviour
             LevelData level = levelsInOrder[i];
 
             GameObject buttonObj = Instantiate(nodeButtonPrefab, nodeContainer);
+            
+
+            RectTransform rt = buttonObj.GetComponent<RectTransform>();
+            if (rt != null) rt.anchoredPosition = level.mapPosition;
 
             TMP_Text label = buttonObj.GetComponentInChildren<TMP_Text>();
+            
             if (label != null) label.text = level.levelName;
 
             Button button = buttonObj.GetComponent<Button>();
