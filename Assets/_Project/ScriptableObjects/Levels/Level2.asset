@@ -16,8 +16,7 @@ MonoBehaviour:
   mapPosition: {x: -420, y: 200}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 94788f5ac821a5f46a048bd8ffb0d65b, type: 2}
-  - {fileID: 11400000, guid: 9e9ab007e968bc344ab1c345c7889cec, type: 2}
-  - {fileID: 11400000, guid: 4a9680153705cca46ab8e35948a9089b, type: 2}
+  - {fileID: 11400000, guid: 00a068fa7b2dabe4d824e142426eb5a6, type: 2}
   - {fileID: 11400000, guid: 6792c8dbff423c44192db47483c373db, type: 2}
   combatBackground: {fileID: -2057071991875456856, guid: 40fb31e3ecd9ec8458b70df2c35fe77d, type: 3}
   preLevelEvent: {fileID: 0}

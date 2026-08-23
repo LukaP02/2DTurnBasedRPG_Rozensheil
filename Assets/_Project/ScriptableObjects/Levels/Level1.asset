@@ -16,8 +16,7 @@ MonoBehaviour:
   mapPosition: {x: -350, y: 260}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 7f186bb01b5270b41a60d22a052d6456, type: 2}
-  - {fileID: 11400000, guid: 00a068fa7b2dabe4d824e142426eb5a6, type: 2}
-  - {fileID: 11400000, guid: 241b256ddc26dcc4f81f635ddc80d9a1, type: 2}
+  - {fileID: 11400000, guid: 9e9ab007e968bc344ab1c345c7889cec, type: 2}
   combatBackground: {fileID: -2057071991875456856, guid: 40fb31e3ecd9ec8458b70df2c35fe77d, type: 3}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 11400000, guid: fb93b9fb11645fa42af5334e86227015, type: 2}
@@ -31,6 +30,10 @@ MonoBehaviour:
   postLevelDialogue: {fileID: 0}
   maxEnemiesOnField: 5
   reinforcementPool:
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
   - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
   killTarget: 10
   midBattleDialogue: {fileID: 11400000, guid: cec58ed8063231f4084ad995a272e013, type: 2}

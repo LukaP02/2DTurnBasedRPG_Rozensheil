@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fab159ee9319ba4eb100c63e63a2aee, type: 3}
   m_Name: ALESSI.Eisendorph
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  levelName: 
-  mapPosition: {x: 0, y: 0}
+  levelName: ALESSI
+  mapPosition: {x: -500, y: 150}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}
   preLevelEvent: {fileID: 0}
