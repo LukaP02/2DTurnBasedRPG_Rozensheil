@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: Level1
+  combatBackground: {fileID: -2057071991875456856, guid: 40fb31e3ecd9ec8458b70df2c35fe77d, type: 3}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 11400000, guid: fb93b9fb11645fa42af5334e86227015, type: 2}
   enemies:

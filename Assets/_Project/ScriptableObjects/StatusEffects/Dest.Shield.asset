@@ -32,7 +32,7 @@ MonoBehaviour:
   attackScaling: 0
   scaleWithDefense: 1
   defenseScaling: 0.15
-  scaleWithMaxHP: 0
-  maxHPScaling: 0
+  scaleWithMaxHP: 1
+  maxHPScaling: 0.15
   scaleWithSpeed: 0
   speedScaling: 0

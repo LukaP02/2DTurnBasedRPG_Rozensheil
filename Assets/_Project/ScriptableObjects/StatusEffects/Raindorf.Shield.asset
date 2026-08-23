@@ -24,7 +24,7 @@ MonoBehaviour:
   isPercent: 0
   flatAmount: 0
   percentAmount: 0
-  shieldAmount: 0
+  shieldAmount: 50
   skipTurn: 0
   silences: 0
   grantsDoubleAction: 0

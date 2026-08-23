@@ -19,7 +19,7 @@ MonoBehaviour:
   abilityType: 1
   spCost: 0
   spGain: 0
-  power: 50
+  power: 0
   element: 3
   energyCost: 100
   stackableEnergy: 0
