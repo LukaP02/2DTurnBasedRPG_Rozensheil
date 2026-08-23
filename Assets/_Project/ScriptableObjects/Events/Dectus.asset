@@ -10,17 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e70547d8134d5943ac3fafcae79c9dc, type: 3}
-  m_Name: TestEvent
+  m_Name: Dectus
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  title: Ovdje nesto pise
-  description: Neki momaci su na putu
+  title: 
+  description: 
   image: {fileID: 0}
-  choices:
-  - choiceText: Udri sakom u glavu
-    outcomeText: prebise te, sta si mislio
-    goldChange: -12
-    hpChangePercent: -15
-  - choiceText: pokradi
-    outcomeText: uze im golda
-    goldChange: 20
-    hpChangePercent: 2
+  backgroundImage: {fileID: 0}
+  choices: []
