@@ -134,6 +134,18 @@ public class CombatUIManager : MonoBehaviour
 
     private void RefreshUI()
     {
+        // Dead enemies are removed outright (not just hidden) so the container's layout closes
+        // the gap and a later reinforcement's card naturally lands in the freed-up slot.
+        List<CharacterInstance> deadEnemies = cardLookup.Keys
+            .Where(c => !c.isAlive && combatController.Enemies.Contains(c))
+            .ToList();
+
+        foreach (var dead in deadEnemies)
+        {
+            Destroy(cardLookup[dead].gameObject);
+            cardLookup.Remove(dead);
+        }
+
         foreach (var kvp in cardLookup)
         {
             kvp.Value.RefreshHP();

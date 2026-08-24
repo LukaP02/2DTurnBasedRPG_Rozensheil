@@ -503,10 +503,12 @@ public class CombatController : MonoBehaviour
     private void HandleEnemyDeath(CharacterInstance deadEnemy)
     {
         killCount++;
+        Debug.Log($"[WaveEncounter] {deadEnemy.data.characterName} died. killCount={killCount}, killTarget={killTarget}, waitingForMidBattleSequence={waitingForMidBattleSequence}");
 
         if (!waitingForMidBattleSequence && killTarget > 0 && killCount >= killTarget)
         {
             waitingForMidBattleSequence = true;
+            Debug.Log($"[WaveEncounter] Kill target reached, requesting mid-battle dialogue. Sequence assigned: {midBattleDialogue != null}, subscriber count: {OnMidBattleDialogueRequested?.GetInvocationList().Length ?? 0}");
             OnMidBattleDialogueRequested?.Invoke(midBattleDialogue);
             return;
         }
@@ -531,7 +533,8 @@ public class CombatController : MonoBehaviour
         turnOrder.AddEnemy(reinforcement);
         OnEnemyReinforced?.Invoke(reinforcement);
 
-        LogMessage("More enemies have joined the battle!");
+        LogMessage("More wolves appear!");
+
     }
 
     // Called by whoever shows the mid-battle dialogue once it's been closed. Instantly defeats every

@@ -130,12 +130,14 @@ public class GameFlowManager : MonoBehaviour
     // Shows the mid-battle dialogue on top of the still-active combat screen (combat is not hidden).
     private void HandleMidBattleDialogueRequested(DialogueSequence sequence)
     {
+        Debug.Log($"[WaveEncounter] HandleMidBattleDialogueRequested received. dialogueController assigned: {dialogueController != null}, sequence assigned: {sequence != null}, lines: {(sequence != null ? sequence.lines.Length : -1)}");
         dialogueController.OnDialogueEnded += OnMidBattleDialogueEnded;
         dialogueController.StartDialogue(sequence);
     }
 
     private void OnMidBattleDialogueEnded()
     {
+        Debug.Log("[WaveEncounter] Mid-battle dialogue ended, resolving wipe.");
         dialogueController.OnDialogueEnded -= OnMidBattleDialogueEnded;
         combatController.ResolveMidBattleWipe();
     }

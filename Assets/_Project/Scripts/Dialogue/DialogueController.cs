@@ -13,6 +13,11 @@ public class DialogueController : MonoBehaviour
     public TMP_Text speakerNameText;
     public TMP_Text dialogueText;
 
+    [Header("Darken Overlay")]
+    [Tooltip("A full-screen black Image, first child of dialoguePanel (behind the box art), that dims whatever's behind the dialogue - e.g. the combat arena during mid-battle/phase-transition dialogue. Also blocks clicks to it while dialogue is up. Leave empty to skip.")]
+    public Image darkenOverlay;
+    [Range(0f, 1f)] public float darkenOverlayAlpha = 0.6f;
+
     [Header("Fade-In")]
     // Drag your box art pieces here (e.g. DialogueBoxArt, DialogueBoxOrnament, DialogueBoxOrnament (1), NameBoxArt).
     // They fade in once, together, when the dialogue box opens.
@@ -30,6 +35,7 @@ public class DialogueController : MonoBehaviour
     private Coroutine typewriterCoroutine;
     private Coroutine portraitFadeCoroutine;
     private Coroutine boxFadeCoroutine;
+    private Coroutine darkenFadeCoroutine;
     private Sprite lastPortraitSprite;
 
     public event Action OnDialogueEnded;
@@ -53,12 +59,36 @@ public class DialogueController : MonoBehaviour
         isActive = true;
         lastPortraitSprite = null;
 
+        // portraitImage is shared across every dialogue in the game (intro, mid-battle, post-level,
+        // etc.), so without this a fresh sequence whose first line has no portrait would otherwise
+        // keep showing whichever character's portrait the *previous* dialogue left on screen -
+        // ShowCurrentLine()'s change-detection sees null == null (lastPortraitSprite) and skips.
+        if (portraitImage != null)
+        {
+            portraitImage.sprite = null;
+            Color portraitColor = portraitImage.color;
+            portraitColor.a = 0f;
+            portraitImage.color = portraitColor;
+        }
+
         dialoguePanel.SetActive(true);
+        // Mid-battle/phase-transition dialogue shows over the still-active combat screen, which
+        // sits later in the Canvas than this panel - without this it renders completely hidden
+        // behind combat, active but invisible, with nothing to click to advance it.
+        dialoguePanel.transform.SetAsLastSibling();
 
         if (boxFadeCoroutine != null)
             StopCoroutine(boxFadeCoroutine);
 
         boxFadeCoroutine = StartCoroutine(FadeImagesAlpha(dialogueBoxArtImages, 1f, boxFadeSeconds));
+
+        if (darkenOverlay != null)
+        {
+            if (darkenFadeCoroutine != null)
+                StopCoroutine(darkenFadeCoroutine);
+
+            darkenFadeCoroutine = StartCoroutine(FadeImageAlpha(darkenOverlay, darkenOverlayAlpha, boxFadeSeconds));
+        }
 
         ShowCurrentLine();
     }
@@ -238,6 +268,14 @@ public class DialogueController : MonoBehaviour
         {
             StopCoroutine(boxFadeCoroutine);
             boxFadeCoroutine = null;
+        }
+
+        if (darkenOverlay != null)
+        {
+            if (darkenFadeCoroutine != null)
+                StopCoroutine(darkenFadeCoroutine);
+
+            darkenFadeCoroutine = StartCoroutine(FadeImageAlpha(darkenOverlay, 0f, boxFadeSeconds));
         }
 
         isActive = false;
