@@ -128,10 +128,12 @@ public class GameFlowManager : MonoBehaviour
     }
 
     // Shows the mid-battle dialogue on top of the still-active combat screen (combat is not hidden).
+    // suppressBackground: true so only the darken overlay dims the arena, instead of the
+    // dialogue's own background art covering it.
     private void HandleMidBattleDialogueRequested(DialogueSequence sequence)
     {
         dialogueController.OnDialogueEnded += OnMidBattleDialogueEnded;
-        dialogueController.StartDialogue(sequence);
+        dialogueController.StartDialogue(sequence, suppressBackground: true);
     }
 
     private void OnMidBattleDialogueEnded()
@@ -146,7 +148,7 @@ public class GameFlowManager : MonoBehaviour
     private void HandlePhaseTransitionRequested(DialogueSequence sequence)
     {
         dialogueController.OnDialogueEnded += OnPhaseTransitionDialogueEnded;
-        dialogueController.StartDialogue(sequence);
+        dialogueController.StartDialogue(sequence, suppressBackground: true);
     }
 
     private void OnPhaseTransitionDialogueEnded()
