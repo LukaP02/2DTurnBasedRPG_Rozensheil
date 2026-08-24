@@ -12,6 +12,11 @@ public class OverworldMapUI : MonoBehaviour
     [Tooltip("Nodes unlocked from the very start of the game (e.g. Level1). Everything else stays locked until some node's Unlocks On Complete list opens it.")]
     public LevelData[] initiallyUnlockedLevels;
 
+    [Header("Completed Nodes")]
+    [Tooltip("Tint applied to a node's button once it's been completed - it stays on the map, visible, but grayed out and unselectable.")]
+    public Color completedNodeColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+    public Color normalNodeColor = Color.white;
+
     [Header("Connection Lines")]
     [Tooltip("A thin stretchable Image (see setup notes) drawn between a node and each node it unlocks.")]
     public GameObject lineSegmentPrefab;
@@ -104,12 +109,11 @@ public class OverworldMapUI : MonoBehaviour
             if (label != null) label.text = level.levelName;
 
             Button button = buttonObj.GetComponent<Button>();
-            bool unlocked = PartyManager.Instance.IsLevelUnlocked(level);
-            button.interactable = unlocked;
-            buttonObj.SetActive(unlocked); // hidden entirely until unlocked, not just unclickable
             button.onClick.AddListener(() => gameFlowManager.StartLevel(level, index));
 
             spawnedButtons.Add(button);
+
+            ApplyNodeState(button, level);
         }
     }
 
@@ -117,14 +121,26 @@ public class OverworldMapUI : MonoBehaviour
     {
         for (int i = 0; i < spawnedButtons.Count; i++)
         {
-            bool unlocked = PartyManager.Instance.IsLevelUnlocked(levelsInOrder[i]);
-            spawnedButtons[i].interactable = unlocked;
-            spawnedButtons[i].gameObject.SetActive(unlocked);
+            ApplyNodeState(spawnedButtons[i], levelsInOrder[i]);
         }
 
         foreach (var (lineObj, destination) in spawnedLines)
         {
             lineObj.SetActive(PartyManager.Instance.IsLevelUnlocked(destination));
         }
+    }
+
+    // A node is one of: locked (hidden entirely), unlocked (visible, clickable, normal color),
+    // or completed (visible, unclickable, grayed out - stays on the map as a record of progress).
+    private void ApplyNodeState(Button button, LevelData level)
+    {
+        bool unlocked = PartyManager.Instance.IsLevelUnlocked(level);
+        bool completed = PartyManager.Instance.IsLevelCompleted(level);
+
+        button.gameObject.SetActive(unlocked); // hidden entirely until unlocked, not just unclickable
+        button.interactable = unlocked && !completed;
+
+        if (button.targetGraphic != null)
+            button.targetGraphic.color = completed ? completedNodeColor : normalNodeColor;
     }
 }

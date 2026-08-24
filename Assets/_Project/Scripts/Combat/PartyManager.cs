@@ -26,6 +26,11 @@ public class PartyManager : MonoBehaviour
     // several others at once instead of just "the next one in a line."
     private HashSet<LevelData> unlockedLevels = new HashSet<LevelData>();
 
+    // Nodes the player has already finished. Unlike unlockedLevels, this never gates whether a
+    // node is reachable - it's purely so the map can show a completed node grayed out and
+    // unselectable instead of it staying clickable (or disappearing) forever.
+    private HashSet<LevelData> completedLevels = new HashSet<LevelData>();
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -55,6 +60,17 @@ public class PartyManager : MonoBehaviour
             if (level != null)
                 unlockedLevels.Add(level);
         }
+    }
+
+    public bool IsLevelCompleted(LevelData level)
+    {
+        return level != null && completedLevels.Contains(level);
+    }
+
+    public void MarkLevelCompleted(LevelData level)
+    {
+        if (level != null)
+            completedLevels.Add(level);
     }
 
     // --- Roster & active party ---

@@ -131,12 +131,11 @@ public class GameFlowManager : MonoBehaviour
     private void HandleMidBattleDialogueRequested(DialogueSequence sequence)
     {
         dialogueController.OnDialogueEnded += OnMidBattleDialogueEnded;
-        dialogueController.StartDialogue(sequence, suppressBackground: true);
+        dialogueController.StartDialogue(sequence);
     }
 
     private void OnMidBattleDialogueEnded()
     {
-        Debug.Log("[WaveEncounter] Mid-battle dialogue ended, resolving wipe.");
         dialogueController.OnDialogueEnded -= OnMidBattleDialogueEnded;
         combatController.ResolveMidBattleWipe();
     }
@@ -147,7 +146,7 @@ public class GameFlowManager : MonoBehaviour
     private void HandlePhaseTransitionRequested(DialogueSequence sequence)
     {
         dialogueController.OnDialogueEnded += OnPhaseTransitionDialogueEnded;
-        dialogueController.StartDialogue(sequence, suppressBackground: true);
+        dialogueController.StartDialogue(sequence);
     }
 
     private void OnPhaseTransitionDialogueEnded()
@@ -239,6 +238,7 @@ public class GameFlowManager : MonoBehaviour
 
     private void ReturnToOverworld()
     {
+        PartyManager.Instance.MarkLevelCompleted(currentLevel);
         PartyManager.Instance.UnlockLevels(currentLevel.unlocksOnComplete);
         overworldMapUI.RefreshNodes();
         overworldPanel.SetActive(true);
