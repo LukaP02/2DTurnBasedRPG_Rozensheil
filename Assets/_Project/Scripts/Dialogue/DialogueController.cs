@@ -37,8 +37,10 @@ public class DialogueController : MonoBehaviour
     private Coroutine boxFadeCoroutine;
     private Coroutine darkenFadeCoroutine;
     private Sprite lastPortraitSprite;
+    private bool suppressBackground;
 
     public event Action OnDialogueEnded;
+    
 
     private void Awake()
     {
@@ -46,11 +48,14 @@ public class DialogueController : MonoBehaviour
             dialoguePanel.SetActive(false);
     }
 
-    public void StartDialogue(DialogueSequence sequence)
+    // suppressBackground: pass true for dialogue shown over a scene that should stay visible
+    // underneath (mid-battle, phase-transition) - the dialogue's own backgroundImage art is
+    // hidden and only the darken overlay dims things, instead of covering the arena entirely.
+    public void StartDialogue(DialogueSequence sequence, bool suppressBackground = false)
     {
         if (sequence == null || sequence.lines.Length == 0)
         {
-            OnDialogueEnded?.Invoke(); // nothing to show, immediately signal done
+            OnDialogueEnded?.Invoke();
             return;
         }
 
@@ -58,11 +63,8 @@ public class DialogueController : MonoBehaviour
         currentLineIndex = 0;
         isActive = true;
         lastPortraitSprite = null;
+        this.suppressBackground = suppressBackground;
 
-        // portraitImage is shared across every dialogue in the game (intro, mid-battle, post-level,
-        // etc.), so without this a fresh sequence whose first line has no portrait would otherwise
-        // keep showing whichever character's portrait the *previous* dialogue left on screen -
-        // ShowCurrentLine()'s change-detection sees null == null (lastPortraitSprite) and skips.
         if (portraitImage != null)
         {
             portraitImage.sprite = null;
@@ -71,11 +73,16 @@ public class DialogueController : MonoBehaviour
             portraitImage.color = portraitColor;
         }
 
+        // Same reasoning as the portrait reset above: backgroundImage is shared too, so a
+        // suppressed-background dialogue must explicitly hide it rather than trust "no line sets
+        // one" to mean "stays blank" - it would otherwise keep showing whatever an earlier,
+        // non-suppressed dialogue (e.g. this level's intro) last displayed.
+        if (backgroundImage != null)
+            backgroundImage.gameObject.SetActive(!suppressBackground);
+
         dialoguePanel.SetActive(true);
-        // Mid-battle/phase-transition dialogue shows over the still-active combat screen, which
-        // sits later in the Canvas than this panel - without this it renders completely hidden
-        // behind combat, active but invisible, with nothing to click to advance it.
         dialoguePanel.transform.SetAsLastSibling();
+      
 
         if (boxFadeCoroutine != null)
             StopCoroutine(boxFadeCoroutine);
@@ -154,6 +161,9 @@ public class DialogueController : MonoBehaviour
 
         if (typewriterCoroutine != null)
             StopCoroutine(typewriterCoroutine);
+        
+        if (!suppressBackground && backgroundImage != null && line.backgroundImage != null)
+            backgroundImage.sprite = line.backgroundImage;
 
         typewriterCoroutine = StartCoroutine(TypewriterReveal(line.text));
     }
