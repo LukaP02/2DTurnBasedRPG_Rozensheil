@@ -94,6 +94,15 @@ public class PartyManager : MonoBehaviour
     }
     // Adds a character recruited mid-run (e.g. via an event choice) to the roster. No-op if
     // already recruited, so an event/choice can be re-triggered safely.
+    
+    // Looks up any recruited character's instance, active party or benched - used by inspect
+    // panels (e.g. right-clicking a card on the Party Setup screen) that need stats/abilities
+    // for a character regardless of whether they're currently fighting.
+    public CharacterInstance GetInstance(CharacterCardData data)
+    {
+        allInstances.TryGetValue(data, out var instance);
+        return instance;
+    }
     public void RecruitCharacter(CharacterCardData character)
     {
         if (character == null || fullRoster.Contains(character)) return;

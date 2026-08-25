@@ -39,7 +39,7 @@ public class PartySetupUI : MonoBehaviour
             bool isRecruited = fullRoster.Contains(character);
             bool isSelected = activeParty.Contains(character);
 
-            cardUI.Bind(character, isSelected, isRecruited, () => ToggleCharacter(character));
+            cardUI.Bind(character, isSelected, isRecruited, () => ToggleCharacter(character), () => InspectCharacter(character));
         }
 
         UpdateSelectedCountText();
@@ -78,5 +78,16 @@ public class PartySetupUI : MonoBehaviour
     {
         if (selectedCountText != null)
             selectedCountText.text = $"{PartyManager.Instance.GetActiveParty().Count} / {PartyManager.MaxActivePartySize} Selected";
+    }
+    [Header("Inspect")]
+    [Tooltip("Same detail overlay used in combat (right-click a card).")]
+    public CardDetailUI cardDetailUI;
+    private void InspectCharacter(CharacterCardData character)
+    {
+        if (cardDetailUI == null) return;
+
+        CharacterInstance instance = PartyManager.Instance.GetInstance(character);
+        if (instance != null)
+            cardDetailUI.Show(instance);
     }
 }
