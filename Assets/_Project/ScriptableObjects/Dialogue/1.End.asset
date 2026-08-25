@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2d31c0a575d374f9b00d77d5d88faf, type: 3}
+  m_Name: 1.End
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
+  lines:
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: After the dust settled, 2 figures emerged from the hill.
+    backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
+  - speakerName: ???
+    speakerPortrait: {fileID: -8893783173514606634, guid: b973f43e1779ce346b1a51d00261cde4, type: 3}
+    text: 
+    backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
