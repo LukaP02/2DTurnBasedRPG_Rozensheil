@@ -24,7 +24,7 @@ MonoBehaviour:
       It was popularised thanks to these sheets and more recently with desktop publishing
       software like Aldus PageMaker and Microsoft Word including versions of Lorem
       Ipsum.
-    backgroundImage: {fileID: -221263833655885744, guid: 4dd3e97f801b5bc4b949b0600eb3b912, type: 3}
+    backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
   - speakerName: Sicur
     speakerPortrait: {fileID: -1230591729272067444, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
     text: Test 2

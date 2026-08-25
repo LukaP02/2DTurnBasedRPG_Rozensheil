@@ -13,9 +13,25 @@ MonoBehaviour:
   m_Name: 1.WagneriOlaf
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
   lines:
+  - speakerName: RainDorf
+    speakerPortrait: {fileID: -7709468997125455044, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    text: They just keep coming! Gods can only help so much!
+    backgroundImage: {fileID: 0}
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 2899803954951420851, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
+    text: At this point we might need some kind of a miracle.
+    backgroundImage: {fileID: 0}
   - speakerName: ???
     speakerPortrait: {fileID: 0}
     text: OY FELLAS, GET DOWN!!!
+    backgroundImage: {fileID: 0}
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: Strange arcane noises start echoing from behind.
+    backgroundImage: {fileID: 0}
+  - speakerName: Abdul
+    speakerPortrait: {fileID: -7937446064975466645, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: Oh, shit! ABOVE US !
     backgroundImage: {fileID: 0}
   - speakerName: 
     speakerPortrait: {fileID: 0}

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4dd3e97f801b5bc4b949b0600eb3b912
+guid: ca0fd372226fa2f4a902a12c3f1710f2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -221263833655885744
-    second: eisendorph_background2_0
+      213: -6133942402064407019
+    second: eisendorph background3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: eisendorph_background2_0
+      name: eisendorph background3_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 050cc4137b9edecf0800000000000000
-      internalID: -221263833655885744
+      spriteID: 516ae3462ebdfdaa0800000000000000
+      internalID: -6133942402064407019
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      eisendorph_background2_0: -221263833655885744
+      eisendorph background3_0: -6133942402064407019
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
