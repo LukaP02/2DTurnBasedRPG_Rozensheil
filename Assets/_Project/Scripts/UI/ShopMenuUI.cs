@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ShopMenuUI : MonoBehaviour
@@ -11,8 +12,17 @@ public class ShopMenuUI : MonoBehaviour
     public GameObject shopItemPrefab; // uses ShopItemUI
     public TMP_Text goldText;
 
+    [Header("Selected Item Detail (left side panel)")]
+    public GameObject selectedItemPanel;
+    public Image selectedItemIcon;
+    public TMP_Text selectedItemNameText;
+    public TMP_Text selectedItemDescriptionText;
+
     private void Start()
     {
+        if (selectedItemPanel != null)
+            selectedItemPanel.SetActive(false);
+
         RefreshShop();
     }
 
@@ -31,8 +41,24 @@ public class ShopMenuUI : MonoBehaviour
             ShopItemUI itemUI = itemObj.GetComponent<ShopItemUI>();
 
             bool owned = PartyManager.Instance.OwnsItem(item);
-            itemUI.Bind(item, owned, () => TryBuy(item));
+            itemUI.Bind(item, owned, () => TryBuy(item), () => SelectItem(item));
         }
+    }
+
+    private void SelectItem(ItemData item)
+    {
+        if (selectedItemPanel == null) return;
+
+        selectedItemPanel.SetActive(true);
+
+        if (selectedItemIcon != null)
+            selectedItemIcon.sprite = item.icon;
+
+        if (selectedItemNameText != null)
+            selectedItemNameText.text = item.itemName;
+
+        if (selectedItemDescriptionText != null)
+            selectedItemDescriptionText.text = item.description;
     }
 
     private void TryBuy(ItemData item)

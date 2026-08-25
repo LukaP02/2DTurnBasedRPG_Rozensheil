@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Martial Glaive
   icon: {fileID: 0}
-  description: 
+  description: +40 Attack
   price: 120
   attackBonus: 40
   defenseBonus: 0

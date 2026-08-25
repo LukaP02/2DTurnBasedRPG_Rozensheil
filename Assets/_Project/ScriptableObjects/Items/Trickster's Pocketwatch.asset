@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Trickster's Pocketwatch
   icon: {fileID: 0}
-  description: 
+  description: '+40 Attack
+
+    +40 Speed'
   price: 120
   attackBonus: 40
   defenseBonus: 0

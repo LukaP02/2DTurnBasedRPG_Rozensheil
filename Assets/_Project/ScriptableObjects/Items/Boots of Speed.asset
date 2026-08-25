@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Boots of Speed
   icon: {fileID: 0}
-  description: 
+  description: +50 Speed
   price: 80
   attackBonus: 0
   defenseBonus: 0

@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "Alessi\u2019s gilet de sables mouvants"
   icon: {fileID: 0}
-  description: 
+  description: '+40 Attack
+
+    +20 Speed
+
+    +60% Crit Chance'
   price: 200
   attackBonus: 40
   defenseBonus: 0

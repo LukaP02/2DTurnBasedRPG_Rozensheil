@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Ring of Protection
   icon: {fileID: 0}
-  description: 
+  description: +30 Defense
   price: 50
   attackBonus: 0
   defenseBonus: 30

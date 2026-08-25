@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Steel Bulwark
   icon: {fileID: 0}
-  description: 
+  description: '+20 Defense
+
+    +60 Health'
   price: 150
   attackBonus: 0
   defenseBonus: 20

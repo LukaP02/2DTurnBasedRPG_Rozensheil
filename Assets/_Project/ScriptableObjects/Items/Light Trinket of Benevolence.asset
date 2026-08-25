@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Light Trinket of Benevolence
   icon: {fileID: 0}
-  description: 
+  description: +80% Energy Recharge
   price: 70
   attackBonus: 0
   defenseBonus: 0

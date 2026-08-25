@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "Alessi\u2019s Robe de brume"
   icon: {fileID: 0}
-  description: 
+  description: '+30 Attack
+
+    +40 Speed
+
+    +60% Energy Recharge'
   price: 200
   attackBonus: 30
   defenseBonus: 0

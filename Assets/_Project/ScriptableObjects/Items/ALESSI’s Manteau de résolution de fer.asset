@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "ALESSI\u2019s Manteau de r\xE9solution de fer "
   icon: {fileID: 0}
-  description: 
+  description: '+100 Health
+
+    +40% Crit Chance
+
+    +40% Energy Recharge'
   price: 200
   attackBonus: 0
   defenseBonus: 0

@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "Alessi\u2019s armure du disciple du soleil"
   icon: {fileID: 0}
-  description: 
+  description: '+100 Defense
+
+    +150 Health
+
+    +30% Energy Recharge'
   price: 200
   attackBonus: 0
   defenseBonus: 100

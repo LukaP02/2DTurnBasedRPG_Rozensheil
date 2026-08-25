@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Hellfire Hourglass Charm
   icon: {fileID: 0}
-  description: 
+  description: '+60 Attack
+
+    +50 Speed'
   price: 120
   attackBonus: 60
   defenseBonus: 0

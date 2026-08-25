@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Scorpion Tail
   icon: {fileID: 0}
-  description: 
+  description: +40% Crit Chance
   price: 100
   attackBonus: 0
   defenseBonus: 0

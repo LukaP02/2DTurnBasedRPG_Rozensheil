@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "Alessi\u2019s manteau d'eau courante"
   icon: {fileID: 0}
-  description: 
+  description: '+200 Health
+
+    +10 Speed
+
+    +100% Energy Recharge'
   price: 200
   attackBonus: 0
   defenseBonus: 0

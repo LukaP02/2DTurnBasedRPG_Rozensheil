@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Necklace of True Ice
   icon: {fileID: 0}
-  description: 
+  description: +50 Health
   price: 100
   attackBonus: 0
   defenseBonus: 0

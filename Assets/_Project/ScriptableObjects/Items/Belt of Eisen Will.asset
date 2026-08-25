@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Belt of Eisen Will
   icon: {fileID: 0}
-  description: 
+  description: '+40 Health
+
+    +20% Energy Recharge'
   price: 100
   attackBonus: 0
   defenseBonus: 0
