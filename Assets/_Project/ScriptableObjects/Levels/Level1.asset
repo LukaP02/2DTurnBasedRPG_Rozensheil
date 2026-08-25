@@ -35,6 +35,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
   - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
   - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
   killTarget: 10
   midBattleDialogue: {fileID: 11400000, guid: cec58ed8063231f4084ad995a272e013, type: 2}
   wipeMessage: The wolves have been burned to the ashes!

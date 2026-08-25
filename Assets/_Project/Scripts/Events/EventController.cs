@@ -103,6 +103,10 @@ public class EventController : MonoBehaviour
                 else if (amount < 0) character.TakeDamage(-amount);
             }
         }
+        if (choice.recruitCharacter != null && PartyManager.Instance != null)
+        {
+            PartyManager.Instance.RecruitCharacter(choice.recruitCharacter);
+        }
     }
 
     public void CloseOutcome()

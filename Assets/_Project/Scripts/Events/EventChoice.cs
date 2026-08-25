@@ -9,4 +9,7 @@ public class EventChoice
     [Header("Effects (optional, leave 0 for none)")]
     public int goldChange;   // can be negative
     public int hpChangePercent; // flat % of max HP applied to whole party, can be negative
+
+    [Header("Recruitment (optional, leave empty for none)")]
+    public CharacterCardData recruitCharacter; // adds this character to the roster when this choice is picked
 }

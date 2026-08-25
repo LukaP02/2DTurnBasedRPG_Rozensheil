@@ -92,7 +92,15 @@ public class PartyManager : MonoBehaviour
     {
         return fullRoster;
     }
+    // Adds a character recruited mid-run (e.g. via an event choice) to the roster. No-op if
+    // already recruited, so an event/choice can be re-triggered safely.
+    public void RecruitCharacter(CharacterCardData character)
+    {
+        if (character == null || fullRoster.Contains(character)) return;
 
+        fullRoster.Add(character);
+        allInstances[character] = new CharacterInstance(character);
+    }
     public List<CharacterCardData> GetActiveParty()
     {
         return activeParty;
