@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dectus
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: Ruins of Dectus
-  mapPosition: {x: -500, y: 230}
+  mapPosition: {x: -500, y: 250}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}
   preLevelEvent: {fileID: 11400000, guid: 77869062f01278f4e8d86ad586661f79, type: 2}

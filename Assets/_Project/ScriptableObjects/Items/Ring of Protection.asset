@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c18e9ed249bc1c45b52784e338dca54, type: 3}
   m_Name: Ring of Protection
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: 
+  itemName: Ring of Protection
   icon: {fileID: 0}
   description: 
   price: 50
