@@ -5,14 +5,16 @@ using TMPro;
 
 public class PartySetupUI : MonoBehaviour
 {
+    [Header("All Playable Characters")]
+    [Tooltip("Every character that can ever be in the party, in display order - including ones not yet recruited (they'll show up locked/grayed out until PartyManager.RecruitCharacter is called for them).")]
+    public CharacterCardData[] allPlayableCharacters;
+
     [Header("Roster")]
     public Transform rosterContainer;
-    public GameObject rosterEntryPrefab;
+    public GameObject rosterEntryPrefab; // uses RosterCardUI
 
     [Header("Info")]
     public TMP_Text selectedCountText;
-    public Color selectedColor = new Color(0.6f, 0.85f, 0.6f);
-    public Color unselectedColor = Color.white;
 
     private void OnEnable()
     {
@@ -25,23 +27,19 @@ public class PartySetupUI : MonoBehaviour
             Destroy(child.gameObject);
 
         List<CharacterCardData> activeParty = PartyManager.Instance.GetActiveParty();
+        List<CharacterCardData> fullRoster = PartyManager.Instance.GetFullRoster();
 
-        foreach (var character in PartyManager.Instance.GetFullRoster())
+        foreach (var character in allPlayableCharacters)
         {
-            GameObject buttonObj = Instantiate(rosterEntryPrefab, rosterContainer);
+            if (character == null) continue;
 
+            GameObject cardObj = Instantiate(rosterEntryPrefab, rosterContainer);
+            RosterCardUI cardUI = cardObj.GetComponent<RosterCardUI>();
+
+            bool isRecruited = fullRoster.Contains(character);
             bool isSelected = activeParty.Contains(character);
 
-            TMP_Text label = buttonObj.GetComponentInChildren<TMP_Text>();
-            if (label != null)
-                label.text = isSelected ? $"[Selected] {character.characterName}" : character.characterName;
-
-            Image background = buttonObj.GetComponent<Image>();
-            if (background != null)
-                background.color = isSelected ? selectedColor : unselectedColor;
-
-            Button button = buttonObj.GetComponent<Button>();
-            button.onClick.AddListener(() => ToggleCharacter(character));
+            cardUI.Bind(character, isSelected, isRecruited, () => ToggleCharacter(character));
         }
 
         UpdateSelectedCountText();
