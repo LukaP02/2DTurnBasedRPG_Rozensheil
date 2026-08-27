@@ -12,6 +12,8 @@ public class DialogueController : MonoBehaviour
     public Image portraitImage;
     public TMP_Text speakerNameText;
     public TMP_Text dialogueText;
+    [Tooltip("Optional. AspectRatioFitter on the same object as Portrait Image, set to Fit In Parent - keeps each portrait's original proportions (no stretching/squishing) instead of it filling the frame exactly. Its Aspect Ratio value is set from each sprite automatically; leave empty to skip.")]
+    public AspectRatioFitter portraitAspectFitter;
 
     [Header("Darken Overlay")]
     [Tooltip("A full-screen black Image, first child of dialoguePanel (behind the box art), that dims whatever's behind the dialogue - e.g. the combat arena during mid-battle/phase-transition dialogue. Also blocks clicks to it while dialogue is up. Leave empty to skip.")]
@@ -167,6 +169,11 @@ public class DialogueController : MonoBehaviour
             if (line.speakerPortrait != lastPortraitSprite)
             {
                 portraitImage.sprite = line.speakerPortrait;
+                if (portraitAspectFitter != null && line.speakerPortrait != null)
+                {
+                    Rect r = line.speakerPortrait.rect;
+                    portraitAspectFitter.aspectRatio = r.width / r.height;
+                }
 
                 float targetAlpha = line.speakerPortrait != null ? 1f : 0f;
 
