@@ -69,7 +69,14 @@ public class CharacterCardData : ScriptableObject
     public DialogueSequence phaseTransitionDialogue;
     [TextArea] public string phaseTransitionMessage = "A new form emerges!";
 
-    [Header("Enemy Multi-Ability Pool (non-playable characters, e.g. a boss with several skills)")]
+    [Header("HP-Triggered Reinforcements (optional, enemy-only)")]
+    [Tooltip("If set, this enemy calls in these reinforcements (added straight to the fight, this card is unaffected) the first time its HP drops to/below HP Reinforcement Percent. Independent of both the wave-encounter reinforcement pool and Boss Phase Transition above - use this for an enemy that calls for backup partway through the fight without itself changing.")]
+    public CharacterCardData[] hpTriggeredReinforcements;
+    [Tooltip("HP percent (0-1) at which the reinforcements are called in.")]
+    [Range(0f, 1f)] public float hpTriggeredReinforcementPercent = 0.5f;
+    [TextArea] public string hpTriggeredReinforcementMessage = "The Cyclops calls two wolves!";
+
+    [Header("Enemy Multi-Ability Pool")]
     [Tooltip("Extra Basic abilities beyond Basic Ability. The AI rotates randomly among all available Basics.")]
     public AbilityData[] extraBasicAbilities;
     [Tooltip("Extra Skill abilities beyond Default Skill. The AI rotates randomly among all available Skills.")]

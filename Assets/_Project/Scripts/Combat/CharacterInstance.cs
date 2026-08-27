@@ -36,6 +36,7 @@ public class CharacterInstance
     private Dictionary<CharacterInstance, int> marksBySource = new Dictionary<CharacterInstance, int>();
     private bool deathProcessed = false;
     public bool phaseTransitionProcessed = false;
+    public bool hpReinforcementProcessed = false;
 
     // --- Elemental stain (only one active at a time; the most recent application replaces it) ---
     private ElementType? currentStain = null;

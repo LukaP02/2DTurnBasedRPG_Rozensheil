@@ -479,11 +479,42 @@ public class CombatController : MonoBehaviour
         if (target.CheckAndMarkDeath())
             HandleDeath(target);
         else
+        {
             TryTriggerPhaseTransition(target);
-
+            TryTriggerHpReinforcements(target);
+        }
         return actualDamage;
+
     }
 
+    // Checks a still-living enemy's HP against its configured HP Triggered Reinforcement Percent and
+    // calls in CharacterCardData.hpTriggeredReinforcements once, the first time HP drops to/below
+    // that threshold. Unlike TrySpawnReinforcement (kill-count/field-cap driven) and the phase
+    // transition system (swaps the card out), this just adds fixed reinforcements alongside an
+    // otherwise-unchanged boss - e.g. Cyclops calling in wolves at half HP.
+    private void TryTriggerHpReinforcements(CharacterInstance target)
+    {
+        if (target.hpReinforcementProcessed) return;
+        if (target.data.hpTriggeredReinforcements == null || target.data.hpTriggeredReinforcements.Length == 0) return;
+        if (!turnOrder.enemies.Contains(target)) return;
+
+        float hpPercent = (float)target.currentHP / target.maxHP;
+        if (hpPercent > target.data.hpTriggeredReinforcementPercent) return;
+
+        target.hpReinforcementProcessed = true;
+
+        if (!string.IsNullOrEmpty(target.data.hpTriggeredReinforcementMessage))
+            LogMessage(target.data.hpTriggeredReinforcementMessage);
+
+        foreach (var reinforcementData in target.data.hpTriggeredReinforcements)
+        {
+            if (reinforcementData == null) continue;
+
+            CharacterInstance reinforcement = new CharacterInstance(reinforcementData);
+            turnOrder.AddEnemy(reinforcement);
+            OnEnemyReinforced?.Invoke(reinforcement);
+        }
+    }
     private int ApplyDamageVariance(int amount)
     {
         float multiplier = 1f + UnityEngine.Random.Range(-DAMAGE_VARIANCE, DAMAGE_VARIANCE);
