@@ -40,12 +40,24 @@ public class DialogueController : MonoBehaviour
     private bool suppressBackground;
 
     public event Action OnDialogueEnded;
-    
+
 
     private void Awake()
     {
         if (dialoguePanel != null)
             dialoguePanel.SetActive(false);
+
+        // Must stay active at all times - visibility is controlled purely by alpha (faded by
+        // StartDialogue/EndDialogue below), not by toggling the GameObject. If this object gets
+        // switched off in the Editor (e.g. while reorganizing dialoguePanel's children), the alpha
+        // fades still run but nothing renders, silently breaking the mid-battle/phase-transition darken.
+        if (darkenOverlay != null)
+        {
+            darkenOverlay.gameObject.SetActive(true);
+            Color c = darkenOverlay.color;
+            c.a = 0f;
+            darkenOverlay.color = c;
+        }
     }
 
     // suppressBackground: pass true for dialogue shown over a scene that should stay visible
