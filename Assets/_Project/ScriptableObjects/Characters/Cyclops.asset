@@ -14,20 +14,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Cyclops
   cardArt: {fileID: 0}
+  icon: {fileID: 0}
   description: 
   isPlayableCharacter: 0
+  role: 0
   maxHP: 1500
   attack: 100
   defense: 100
   speed: 100
+  maxEnergy: 100
+  energyRechargeRate: 1
+  critRate: 0.05
   threatWeight: 1
   weaknesses: 01000000
+  resistances: 
   basicAbility: {fileID: 11400000, guid: 2f8971669aa59aa4ca84d586e0441851, type: 2}
+  basicOptions: []
   skillOptions:
   - {fileID: 11400000, guid: 170ce3a4977f5ee49ad2d3a64681574a, type: 2}
   - {fileID: 11400000, guid: e38564dbe0b93b047acebfdce2bbe433, type: 2}
   ultimateOptions:
   - {fileID: 11400000, guid: c053179e42edd1b499f4ad87bdb4642e, type: 2}
+  defaultBasic: {fileID: 0}
   defaultSkill: {fileID: 0}
   defaultUltimate: {fileID: 0}
   passive: {fileID: 0}
+  hasForms: 0
+  normalFormBasic: {fileID: 0}
+  normalFormSkill: {fileID: 0}
+  demonFormBasic: {fileID: 0}
+  demonFormSkill: {fileID: 0}
+  demonFormArt: {fileID: 0}
+  phaseTwoCard: {fileID: 0}
+  phaseTransitionHPPercent: 0.5
+  phaseTransitionDialogue: {fileID: 0}
+  phaseTransitionMessage: A new form emerges!
+  hpTriggeredReinforcements:
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
+  hpTriggeredReinforcementPercent: 0.5
+  hpTriggeredReinforcementMessage: The Cyclops calls two wolves!
+  extraBasicAbilities: []
+  extraSkillAbilities: []
+  extraUltimateAbilities: []

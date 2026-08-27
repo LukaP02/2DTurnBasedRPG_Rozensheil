@@ -21,9 +21,12 @@ MonoBehaviour:
   combatBackground: {fileID: -2057071991875456856, guid: 40fb31e3ecd9ec8458b70df2c35fe77d, type: 3}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 11400000, guid: 7bf491627b502ba4fbe2ef22b083f351, type: 2}
-  enemies: []
+  dialogueBeforePreEvent: 0
+  enemies:
+  - {fileID: 11400000, guid: b6cc20c214601bd4292deecc9e3b118f, type: 2}
   postLevelEvent: {fileID: 0}
   postLevelDialogue: {fileID: 0}
+  dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0
   reinforcementPool: []
   killTarget: 0

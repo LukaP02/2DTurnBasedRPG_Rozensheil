@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Zavren.Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveData
   passiveName: Elemental Stain
-  description: 'When Zavren is in the party, fire, ice and electro damage from any
+  description: When Zavren is in the party, fire, ice and electro damage from any
     source leaves a stain on the enemy target. Combining any 2 different elements
     from these 3 makes a new effect. (Fire + Ice = Bonus single target damage, Fire
-    + Electro = three target AOE, Ice + Electro = DEF shred) '
+    + Electro = three target AOE, Ice + Electro = DEF shred). In addition to the
+    stains Zavren also gains resistance to these elements.
   trigger: 7
   value: 0
   bonusHPPercent: 0

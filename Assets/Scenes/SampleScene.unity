@@ -5973,7 +5973,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Close
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0283054f1cda9ac4cbf819eb95b030a6, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -6004,7 +6004,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -6040,7 +6040,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &779745195
@@ -6515,7 +6515,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -9448,6 +9448,7 @@ GameObject:
   - component: {fileID: 1354573911}
   - component: {fileID: 1354573912}
   - component: {fileID: 1354573913}
+  - component: {fileID: 1354573914}
   m_Layer: 5
   m_Name: PortraitImage
   m_TagString: Untagged
@@ -9469,10 +9470,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 807906464}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 647, y: 355.5802}
-  m_SizeDelta: {x: 590, y: 790}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 563.67, y: 0}
+  m_SizeDelta: {x: -1127.5188, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1354573912
 CanvasRenderer:
@@ -9512,6 +9513,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1354573914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354573910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.AspectRatioFitter
+  m_AspectMode: 3
+  m_AspectRatio: 1
 --- !u!1 &1365779047
 GameObject:
   m_ObjectHideFlags: 0
@@ -9838,8 +9853,13 @@ MonoBehaviour:
   portraitImage: {fileID: 1354573913}
   speakerNameText: {fileID: 1222458056}
   dialogueText: {fileID: 1594373990}
+  portraitAspectFitter: {fileID: 1354573914}
   darkenOverlay: {fileID: 1452700937}
   darkenOverlayAlpha: 0.85
+  screenFlash: {fileID: 1122908049}
+  flashFadeInSeconds: 0.08
+  flashHoldSeconds: 0.1
+  flashFadeOutSeconds: 0.4
   dialogueBoxArtImages:
   - {fileID: 1001164778}
   - {fileID: 1496901546}
@@ -9847,10 +9867,6 @@ MonoBehaviour:
   portraitFadeSeconds: 0.3
   boxFadeSeconds: 0.3
   typewriterSecondsPerChar: 0.03
-  screenFlash: {fileID: 1122908049}
-  flashFadeInSeconds: 0.08
-  flashHoldSeconds: 0.1
-  flashFadeOutSeconds: 0.4
 --- !u!4 &1525017244
 Transform:
   m_ObjectHideFlags: 0
