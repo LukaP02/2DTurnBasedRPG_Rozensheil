@@ -25,7 +25,9 @@ MonoBehaviour:
       software like Aldus PageMaker and Microsoft Word including versions of Lorem
       Ipsum.
     backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
+    flashColor: {r: 0.3137255, g: 0.78431374, b: 0.47058824, a: 0.003921569}
   - speakerName: Sicur
     speakerPortrait: {fileID: -1230591729272067444, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
     text: Test 2
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}

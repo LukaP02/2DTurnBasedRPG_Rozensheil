@@ -18,6 +18,13 @@ public class DialogueController : MonoBehaviour
     public Image darkenOverlay;
     [Range(0f, 1f)] public float darkenOverlayAlpha = 0.6f;
 
+    [Header("Screen Flash")]
+    [Tooltip("A full-screen Image, above everything else (dialogue box, darken overlay), used for a story-beat flash driven by a line's Flash Color. Leave empty to skip.")]
+    public Image screenFlash;
+    public float flashFadeInSeconds = 0.08f;
+    public float flashHoldSeconds = 0.1f;
+    public float flashFadeOutSeconds = 0.4f;
+
     [Header("Fade-In")]
     // Drag your box art pieces here (e.g. DialogueBoxArt, DialogueBoxOrnament, DialogueBoxOrnament (1), NameBoxArt).
     // They fade in once, together, when the dialogue box opens.
@@ -36,6 +43,7 @@ public class DialogueController : MonoBehaviour
     private Coroutine portraitFadeCoroutine;
     private Coroutine boxFadeCoroutine;
     private Coroutine darkenFadeCoroutine;
+    private Coroutine flashCoroutine;
     private Sprite lastPortraitSprite;
     private bool suppressBackground;
 
@@ -57,6 +65,16 @@ public class DialogueController : MonoBehaviour
             Color c = darkenOverlay.color;
             c.a = 0f;
             darkenOverlay.color = c;
+        }
+
+        // Same reasoning as darkenOverlay above - stays active permanently, alpha 0 until a line
+        // with a Flash Color plays.
+        if (screenFlash != null)
+        {
+            screenFlash.gameObject.SetActive(true);
+            Color c = screenFlash.color;
+            c.a = 0f;
+            screenFlash.color = c;
         }
     }
 
@@ -94,14 +112,15 @@ public class DialogueController : MonoBehaviour
 
         dialoguePanel.SetActive(true);
         dialoguePanel.transform.SetAsLastSibling();
-      
 
         if (boxFadeCoroutine != null)
             StopCoroutine(boxFadeCoroutine);
 
         boxFadeCoroutine = StartCoroutine(FadeImagesAlpha(dialogueBoxArtImages, 1f, boxFadeSeconds));
 
-        if (darkenOverlay != null)
+        // Only mid-battle/phase-transition dialogue (suppressBackground) darkens the scene behind
+        // it - normal dialogue (intro, post-level) has its own background art and shouldn't dim.
+        if (darkenOverlay != null && suppressBackground)
         {
             if (darkenFadeCoroutine != null)
                 StopCoroutine(darkenFadeCoroutine);
@@ -173,9 +192,12 @@ public class DialogueController : MonoBehaviour
 
         if (typewriterCoroutine != null)
             StopCoroutine(typewriterCoroutine);
-        
+
         if (!suppressBackground && backgroundImage != null && line.backgroundImage != null)
             backgroundImage.sprite = line.backgroundImage;
+
+        if (screenFlash != null && line.flashColor.a > 0f)
+            PlayFlash(line.flashColor, line.flashFadeInSeconds, line.flashHoldSeconds, line.flashFadeOutSeconds);
 
         typewriterCoroutine = StartCoroutine(TypewriterReveal(line.text));
     }
@@ -200,6 +222,36 @@ public class DialogueController : MonoBehaviour
 
         isTyping = false;
         typewriterCoroutine = null;
+    }
+
+    // Snaps the flash image to the line's color at alpha 0, fades in, holds briefly, then fades
+    // back out - always ends transparent so it never lingers over the next line. Any override
+    // left at -1 falls back to this DialogueController's default timing.
+    private void PlayFlash(Color color, float fadeInOverride, float holdOverride, float fadeOutOverride)
+    {
+        screenFlash.transform.SetAsLastSibling(); // guarantee it renders above the dialogue box/darken overlay
+
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
+
+        float fadeIn = fadeInOverride >= 0f ? fadeInOverride : flashFadeInSeconds;
+        float hold = holdOverride >= 0f ? holdOverride : flashHoldSeconds;
+        float fadeOut = fadeOutOverride >= 0f ? fadeOutOverride : flashFadeOutSeconds;
+
+        flashCoroutine = StartCoroutine(FlashRoutine(color, fadeIn, hold, fadeOut));
+    }
+
+    private IEnumerator FlashRoutine(Color color, float fadeIn, float hold, float fadeOut)
+    {
+        Color transparent = color;
+        transparent.a = 0f;
+        screenFlash.color = transparent;
+
+        yield return FadeImageAlpha(screenFlash, color.a, fadeIn);
+        yield return new WaitForSeconds(hold);
+        yield return FadeImageAlpha(screenFlash, 0f, fadeOut);
+
+        flashCoroutine = null;
     }
 
     private IEnumerator FadeImageAlpha(Image image, float targetAlpha, float duration)
