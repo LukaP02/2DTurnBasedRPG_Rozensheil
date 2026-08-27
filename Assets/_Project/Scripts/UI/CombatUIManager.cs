@@ -190,7 +190,7 @@ public class CombatUIManager : MonoBehaviour
         Image icon = iconObj.GetComponent<Image>();
         if (icon == null) return;
 
-        icon.sprite = character.data.cardArt;
+        icon.sprite = character.data.icon != null ? character.data.icon : character.data.cardArt;
         icon.color = isActive ? activeTurnOrderIconColor : Color.white;
     }
     private void ShowActionButtonsFor(CharacterInstance actor)

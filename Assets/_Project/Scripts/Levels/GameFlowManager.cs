@@ -141,6 +141,9 @@ public class GameFlowManager : MonoBehaviour
             combatController.OnMidBattleDialogueRequested -= HandleMidBattleDialogueRequested;
             combatController.OnPhaseTransitionRequested -= HandlePhaseTransitionRequested;
             combatScreen.SetActive(false);
+
+            PartyManager.Instance.HealPartyFully();
+
             victoryScreen.Show(combatController.goldReward);
         }
         else if (combatController.currentState == CombatState.Defeat)

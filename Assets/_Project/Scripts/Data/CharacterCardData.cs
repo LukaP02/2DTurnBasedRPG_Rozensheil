@@ -8,6 +8,8 @@ public class CharacterCardData : ScriptableObject
     [Header("Identity")]
     public string characterName;
     public Sprite cardArt;
+    [Tooltip("Small icon version of the art - used for turn order icons and the Loadout character list. Falls back to Card Art if left empty.")]
+    public Sprite icon;
     [TextArea] public string description;
 
     [Header("Type")]
