@@ -51,41 +51,17 @@ public class GameFlowManager : MonoBehaviour
 
         overworldPanel.SetActive(false);
 
-        if (level.preLevelEvent != null)
-        {
-            eventController.currentParty = PartyManager.Instance.GetPartyInstances();
-            eventController.OnEventClosed += OnPreEventClosed;
-            eventController.StartEvent(level.preLevelEvent);
-        }
+        RunPreLevelSequence();
+    }
+
+    // Order controlled by LevelData.dialogueBeforePreEvent: normally the event plays first, then
+    // the intro dialogue - flip it for a level where the dialogue should set up the event instead.
+    private void RunPreLevelSequence()
+    {
+        if (currentLevel.dialogueBeforePreEvent)
+            PlayDialogue(currentLevel.introDialogue, () => PlayEvent(currentLevel.preLevelEvent, ProceedAfterIntro));
         else
-        {
-            BeginDialogue();
-        }
-    }
-
-    private void OnPreEventClosed()
-    {
-        eventController.OnEventClosed -= OnPreEventClosed;
-        BeginDialogue();
-    }
-
-    private void BeginDialogue()
-    {
-        if (currentLevel.introDialogue != null)
-        {
-            dialogueController.OnDialogueEnded += OnIntroDialogueEnded;
-            dialogueController.StartDialogue(currentLevel.introDialogue);
-        }
-        else
-        {
-            ProceedAfterIntro();
-        }
-    }
-
-    private void OnIntroDialogueEnded()
-    {
-        dialogueController.OnDialogueEnded -= OnIntroDialogueEnded;
-        ProceedAfterIntro();
+            PlayEvent(currentLevel.preLevelEvent, () => PlayDialogue(currentLevel.introDialogue, ProceedAfterIntro));
     }
 
     // A level with no enemies is a no-combat node (event and/or dialogue only) - skip straight
@@ -177,45 +153,54 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
-    // Shared by both combat victory and no-combat levels: post-level event, then post-level
-    // dialogue, then back to the overworld.
+    // Shared by both combat victory and no-combat levels. Order controlled by
+    // LevelData.dialogueBeforePostEvent, same idea as the pre-level sequence above.
     private void RunPostLevelSequence()
     {
-        if (currentLevel.postLevelEvent != null)
-        {
-            eventController.currentParty = PartyManager.Instance.GetPartyInstances();
-            eventController.OnEventClosed += OnPostEventClosed;
-            eventController.StartEvent(currentLevel.postLevelEvent);
-        }
+        if (currentLevel.dialogueBeforePostEvent)
+            PlayDialogue(currentLevel.postLevelDialogue, () => PlayEvent(currentLevel.postLevelEvent, ReturnToOverworld));
         else
-        {
-            BeginPostLevelDialogue();
-        }
+            PlayEvent(currentLevel.postLevelEvent, () => PlayDialogue(currentLevel.postLevelDialogue, ReturnToOverworld));
     }
 
-    private void OnPostEventClosed()
+    // Generic building blocks for the pre/post-level sequences above: run an event (or dialogue),
+    // then call onComplete. Either skips straight to onComplete if there's nothing to play.
+    private void PlayEvent(EventData eventData, System.Action onComplete)
     {
-        eventController.OnEventClosed -= OnPostEventClosed;
-        BeginPostLevelDialogue();
+        if (eventData == null)
+        {
+            onComplete();
+            return;
+        }
+
+        eventController.currentParty = PartyManager.Instance.GetPartyInstances();
+
+        void OnClosed()
+        {
+            eventController.OnEventClosed -= OnClosed;
+            onComplete();
+        }
+
+        eventController.OnEventClosed += OnClosed;
+        eventController.StartEvent(eventData);
     }
 
-    private void BeginPostLevelDialogue()
+    private void PlayDialogue(DialogueSequence sequence, System.Action onComplete)
     {
-        if (currentLevel.postLevelDialogue != null)
+        if (sequence == null)
         {
-            dialogueController.OnDialogueEnded += OnPostLevelDialogueEnded;
-            dialogueController.StartDialogue(currentLevel.postLevelDialogue);
+            onComplete();
+            return;
         }
-        else
-        {
-            ReturnToOverworld();
-        }
-    }
 
-    private void OnPostLevelDialogueEnded()
-    {
-        dialogueController.OnDialogueEnded -= OnPostLevelDialogueEnded;
-        ReturnToOverworld();
+        void OnEnded()
+        {
+            dialogueController.OnDialogueEnded -= OnEnded;
+            onComplete();
+        }
+
+        dialogueController.OnDialogueEnded += OnEnded;
+        dialogueController.StartDialogue(sequence);
     }
 
     private void OnCombatDefeat()

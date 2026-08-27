@@ -19,10 +19,14 @@ public class LevelData : ScriptableObject
     [Header("Flow (all optional)")]
     public EventData preLevelEvent;
     public DialogueSequence introDialogue;
+    [Tooltip("If true, Intro Dialogue plays before Pre Level Event. Default (false) plays the event first, then the dialogue.")]
+    public bool dialogueBeforePreEvent = false;
     [Tooltip("Leave empty for a no-combat node (event and/or dialogue only) - combat is skipped entirely.")]
     public CharacterCardData[] enemies;
     public EventData postLevelEvent;
     public DialogueSequence postLevelDialogue;
+    [Tooltip("If true, Post Level Dialogue plays before Post Level Event. Default (false) plays the event first, then the dialogue.")]
+    public bool dialogueBeforePostEvent = false;
 
     [Header("Wave Encounter (optional; leave Max Enemies On Field at 0 for a normal fight)")]
     [Tooltip("Caps how many enemies can be alive on the field at once. Reinforcements fill empty slots as enemies die.")]
@@ -34,4 +38,5 @@ public class LevelData : ScriptableObject
     public int killTarget = 0;
     public DialogueSequence midBattleDialogue;
     [TextArea] public string wipeMessage = "The remaining enemies are struck down!";
+
 }
