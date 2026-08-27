@@ -107,6 +107,26 @@ public class EventController : MonoBehaviour
         {
             PartyManager.Instance.RecruitCharacter(choice.recruitCharacter);
         }
+        if (PartyManager.Instance != null)
+        {
+            // Cost first, then grant - matters if the same item somehow appears in both lists
+            // (a straight swap), though that's not the expected use case.
+            if (choice.costItems != null)
+            {
+                foreach (var item in choice.costItems)
+                {
+                    if (item != null) PartyManager.Instance.RemoveItem(item);
+                }
+            }
+
+            if (choice.grantItems != null)
+            {
+                foreach (var item in choice.grantItems)
+                {
+                    if (item != null) PartyManager.Instance.GrantItem(item);
+                }
+            }
+        }
     }
 
     public void CloseOutcome()

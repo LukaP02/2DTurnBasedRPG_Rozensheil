@@ -12,4 +12,9 @@ public class EventChoice
 
     [Header("Recruitment (optional, leave empty for none)")]
     public CharacterCardData recruitCharacter; // adds this character to the roster when this choice is picked
+    [Header("Items (optional, leave empty for none)")]
+    [Tooltip("Items granted to the player when this choice is picked. Grant Items alone is a pure reward.")]
+    public ItemData[] grantItems;
+    [Tooltip("Items removed from the player's inventory when this choice is picked. Set both Grant Items and Cost Items to make this a trade (give these, receive those).")]
+    public ItemData[] costItems;
 }

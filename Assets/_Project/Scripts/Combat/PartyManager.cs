@@ -275,4 +275,29 @@ public class PartyManager : MonoBehaviour
 
         return items;
     }
+    // Grants an item outright (e.g. an event reward or the "receive" side of a trade), bypassing
+    // gold cost. No-op if already owned.
+    public void GrantItem(ItemData item)
+    {
+        if (item == null || OwnsItem(item)) return;
+
+        ownedItems.Add(item);
+    }
+
+    // Removes an owned item (e.g. the "give" side of an event trade), unequipping it from anyone
+    // who has it equipped so no character is left with a stat bonus for an item they no longer own.
+    public void RemoveItem(ItemData item)
+    {
+        if (item == null || !ownedItems.Contains(item)) return;
+
+        ownedItems.Remove(item);
+
+        foreach (var entry in equippedItems)
+        {
+            if (entry.Value.Remove(item) && allInstances.TryGetValue(entry.Key, out var instance))
+            {
+                instance.RecalculateStats();
+            }
+        }
+    }
 }
