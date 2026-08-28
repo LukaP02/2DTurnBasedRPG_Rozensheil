@@ -21,7 +21,7 @@ public class CombatUIManager : MonoBehaviour
     public GameObject turnOrderIconPrefab;
     public Color activeTurnOrderIconColor = Color.yellow;
     public int turnOrderVisibleCount = 7; // total icons shown, including the currently-acting one
-    
+
     [Header("Card Inspect")]
     public CardDetailUI cardDetailUI;
 
@@ -31,16 +31,10 @@ public class CombatUIManager : MonoBehaviour
 
     [Header("Background")]
     public Image backgroundImage;
-   
+
     [Header("Boss Health Bar")]
     [Tooltip("Top-of-screen HP display shown instead of the normal per-card bar for whichever living enemy has CharacterCardData.isBoss checked. Hidden when no enemy in the fight is a boss.")]
     public BossHealthBarUI bossHealthBar;
-
-
-
-
-
-
 
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
 
@@ -98,16 +92,6 @@ public class CombatUIManager : MonoBehaviour
         }
     }
 
-    public void SetupCombatUI()
-    {
-        ClearCards();
-
-        SpawnCards(combatController.Allies, allyContainer);
-        SpawnCards(combatController.Enemies, enemyContainer);
-
-        RefreshUI();
-    }
-
     private void ClearCards()
     {
         foreach (Transform child in allyContainer) Destroy(child.gameObject);
@@ -125,16 +109,6 @@ public class CombatUIManager : MonoBehaviour
             cardLookup[character] = card;
         }
     }
-
-    private void HandleDamageApplied(CharacterInstance target, int amount)
-    {
-        if (cardLookup.TryGetValue(target, out var card))
-        {
-            card.ShowFloatingText(amount, false);
-        }
-    }
-
-
 
     private void RefreshUI()
     {
@@ -159,7 +133,10 @@ public class CombatUIManager : MonoBehaviour
             kvp.Value.SetActiveTurn(kvp.Key == combatController.ActiveActor);
             kvp.Value.HideActionButtons();
             kvp.Value.SetTargetHighlight(false, enemyTargetColor);
+            kvp.Value.SetHPBarVisible(true); // reset; overridden below for the current boss, if any
         }
+
+        RefreshBossHealthBar();
 
         selectedAbility = null;
         waitingForTarget = false;
@@ -197,6 +174,7 @@ public class CombatUIManager : MonoBehaviour
         icon.sprite = character.data.icon != null ? character.data.icon : character.data.cardArt;
         icon.color = isActive ? activeTurnOrderIconColor : Color.white;
     }
+
     private void ShowActionButtonsFor(CharacterInstance actor)
     {
         if (!cardLookup.TryGetValue(actor, out var card)) return;
@@ -291,6 +269,7 @@ public class CombatUIManager : MonoBehaviour
         if (cardDetailUI != null)
             cardDetailUI.Show(character);
     }
+
     public void SetupCombatUI(Sprite background = null)
     {
         ClearCards();
@@ -304,6 +283,7 @@ public class CombatUIManager : MonoBehaviour
 
         RefreshUI();
     }
+
     // At most one boss health bar is shown at a time - fine for current content (single-boss
     // fights). Re-picks the boss each refresh so a phase transition's new card (if also flagged
     // isBoss) is picked up automatically.

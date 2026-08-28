@@ -9,6 +9,8 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     [Header("Visuals")]
     public Image artImage;
     public TMP_Text nameText;
+    [Tooltip("Wraps hpSlider + hpText so both can be hidden together for a boss whose HP is shown on the top boss health bar instead.")]
+    public GameObject hpBarContainer;
     public Slider hpSlider;
     public TMP_Text hpText;
     public Slider energySlider;
@@ -27,8 +29,6 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public Button skillButton;
     public Button ultButton;
 
-
-
     [Header("Status Icons")]
     public Transform statusIconContainer;
     public GameObject statusIconPrefab;
@@ -45,8 +45,6 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Image targetHoverHighlightImage;
 
     public CharacterInstance BoundCharacter => boundCharacter;
-    [Tooltip("Wraps hpSlider + hpText so both can be hidden together for a boss whose HP is shown on the top boss health bar instead.")]
-    public GameObject hpBarContainer;
 
     private void Awake()
     {
@@ -71,9 +69,8 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         RefreshEnergy();
         RefreshStatuses();
         HideActionButtons();
-
-
     }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
@@ -180,19 +177,6 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         }
     }
 
-    public void ShowFloatingText(int amount, bool isHeal)
-    {
-        if (floatingTextAnchor == null || floatingTextPrefab == null) return;
-
-        GameObject textObj = Instantiate(floatingTextPrefab, floatingTextAnchor);
-        FloatingTextUI floatingText = textObj.GetComponent<FloatingTextUI>();
-
-        string content = isHeal ? $"+{amount}" : $"-{amount}";
-        Color color = isHeal ? Color.green : Color.red;
-
-        floatingText.Play(content, color);
-    }
-
     public void SetActiveTurn(bool isActive)
     {
         if (activeTurnHighlight != null)
@@ -229,6 +213,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         uiManager.OnCardClicked(boundCharacter);
     }
+
     public void ShowFloatingText(int amount, bool isHeal, ElementType element)
     {
         if (floatingTextAnchor == null || floatingTextPrefab == null) return;
@@ -261,6 +246,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
                 return Color.white;
         }
     }
+
     // Hidden for a boss (CharacterCardData.isBoss) whose HP is instead shown on the top boss
     // health bar - visible by default, so every other card keeps its normal HP bar.
     public void SetHPBarVisible(bool visible)
