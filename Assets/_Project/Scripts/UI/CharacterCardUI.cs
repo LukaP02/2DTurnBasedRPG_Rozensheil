@@ -11,6 +11,8 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public TMP_Text nameText;
     [Tooltip("Wraps hpSlider + hpText so both can be hidden together for a boss whose HP is shown on the top boss health bar instead.")]
     public GameObject hpBarContainer;
+    [Tooltip("Wraps energySlider + energyText so both can be hidden together for a boss whose energy is shown on the top boss energy bar instead.")]
+    public GameObject energyBarContainer;
     public Slider hpSlider;
     public TMP_Text hpText;
     public Slider energySlider;
@@ -253,5 +255,11 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         if (hpBarContainer != null)
             hpBarContainer.SetActive(visible);
+    }
+    // Same idea as SetHPBarVisible, for the boss energy bar.
+    public void SetEnergyBarVisible(bool visible)
+    {
+        if (energyBarContainer != null)
+            energyBarContainer.SetActive(visible);
     }
 }

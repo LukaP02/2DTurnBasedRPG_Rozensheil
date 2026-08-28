@@ -35,6 +35,8 @@ public class CombatUIManager : MonoBehaviour
     [Header("Boss Health Bar")]
     [Tooltip("Top-of-screen HP display shown instead of the normal per-card bar for whichever living enemy has CharacterCardData.isBoss checked. Hidden when no enemy in the fight is a boss.")]
     public BossHealthBarUI bossHealthBar;
+    [Tooltip("Same idea as Boss Health Bar, for energy. Leave empty until the art is ready.")]
+    public BossEnergyBarUI bossEnergyBar;
 
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
 
@@ -303,5 +305,25 @@ public class CombatUIManager : MonoBehaviour
 
         if (cardLookup.TryGetValue(boss, out var bossCard))
             bossCard.SetHPBarVisible(false);
+    }
+    private void RefreshBossBars()
+    {
+        CharacterInstance boss = combatController.Enemies.FirstOrDefault(e => e.isAlive && e.data.isBoss);
+
+        if (boss == null)
+        {
+            if (bossHealthBar != null) bossHealthBar.Hide();
+            if (bossEnergyBar != null) bossEnergyBar.Hide();
+            return;
+        }
+
+        if (bossHealthBar != null) bossHealthBar.Show(boss);
+        if (bossEnergyBar != null) bossEnergyBar.Show(boss);
+
+        if (cardLookup.TryGetValue(boss, out var bossCard))
+        {
+            if (bossHealthBar != null) bossCard.SetHPBarVisible(false);
+            if (bossEnergyBar != null) bossCard.SetEnergyBarVisible(false);
+        }
     }
 }
