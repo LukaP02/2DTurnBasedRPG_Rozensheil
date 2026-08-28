@@ -136,9 +136,10 @@ public class CombatUIManager : MonoBehaviour
             kvp.Value.HideActionButtons();
             kvp.Value.SetTargetHighlight(false, enemyTargetColor);
             kvp.Value.SetHPBarVisible(true); // reset; overridden below for the current boss, if any
+            kvp.Value.SetEnergyBarVisible(true);
         }
 
-        RefreshBossHealthBar();
+        RefreshBossBars();
 
         selectedAbility = null;
         waitingForTarget = false;
@@ -286,26 +287,9 @@ public class CombatUIManager : MonoBehaviour
         RefreshUI();
     }
 
-    // At most one boss health bar is shown at a time - fine for current content (single-boss
-    // fights). Re-picks the boss each refresh so a phase transition's new card (if also flagged
-    // isBoss) is picked up automatically.
-    private void RefreshBossHealthBar()
-    {
-        if (bossHealthBar == null) return;
-
-        CharacterInstance boss = combatController.Enemies.FirstOrDefault(e => e.isAlive && e.data.isBoss);
-
-        if (boss == null)
-        {
-            bossHealthBar.Hide();
-            return;
-        }
-
-        bossHealthBar.Show(boss);
-
-        if (cardLookup.TryGetValue(boss, out var bossCard))
-            bossCard.SetHPBarVisible(false);
-    }
+    // At most one boss's bars are shown at a time - fine for current content (single-boss fights).
+    // Re-picks the boss each refresh so a phase transition's new card (if also flagged isBoss) is
+    // picked up automatically.
     private void RefreshBossBars()
     {
         CharacterInstance boss = combatController.Enemies.FirstOrDefault(e => e.isAlive && e.data.isBoss);
