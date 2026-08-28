@@ -37,6 +37,10 @@ public class DialogueController : MonoBehaviour
     [Header("Typewriter Effect")]
     public float typewriterSecondsPerChar = 0.02f;
 
+    [Header("Skip")]
+    [Tooltip("Optional. Immediately ends the current dialogue sequence, skipping any remaining lines.")]
+    public Button skipButton;
+
     private DialogueSequence currentSequence;
     private int currentLineIndex;
     private bool isActive;
@@ -78,11 +82,21 @@ public class DialogueController : MonoBehaviour
             c.a = 0f;
             screenFlash.color = c;
         }
+
+        if (skipButton != null)
+            skipButton.onClick.AddListener(SkipDialogue);
     }
 
     // suppressBackground: pass true for dialogue shown over a scene that should stay visible
     // underneath (mid-battle, phase-transition) - the dialogue's own backgroundImage art is
     // hidden and only the darken overlay dims things, instead of covering the arena entirely.
+    public void SkipDialogue()
+    {
+        if (!isActive) return;
+
+        EndDialogue();
+    }
+
     public void StartDialogue(DialogueSequence sequence, bool suppressBackground = false)
     {
         if (sequence == null || sequence.lines.Length == 0)
