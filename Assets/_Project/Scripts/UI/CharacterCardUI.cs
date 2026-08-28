@@ -19,6 +19,10 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public TMP_Text energyText;
     public GameObject activeTurnHighlight;
 
+    [Header("Boss")]
+    [Tooltip("Resting-size multiplier applied when this card is bound to a boss (CharacterCardData.isBoss). Layered under Hover Scale, so hovering still grows a boss card a bit further from its own larger base size.")]
+    public float bossCardScale = 1.25f;
+
     [Header("Hover")]
     // Shown while an ability is selected and this card is a valid target for it.
     public GameObject targetHoverHighlight;
@@ -61,7 +65,14 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         boundCharacter = character;
         uiManager = manager;
-
+        // Enlarges the card's resting size for a boss. Updates baseScale (not just the live
+        // transform) so hover-in/out still scales relative to this bigger size instead of
+        // fighting against it or snapping back to the normal card size on hover-exit.
+        if (rectTransform != null && character.data.isBoss)
+        {
+            baseScale *= bossCardScale;
+            rectTransform.localScale = baseScale;
+        }
         if (nameText != null)
             nameText.text = character.data.characterName;
 

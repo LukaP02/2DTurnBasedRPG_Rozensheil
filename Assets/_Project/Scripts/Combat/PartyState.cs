@@ -5,12 +5,15 @@ public class PartyState
     public List<CharacterInstance> members;
     public int currentSkillPoints;
     public int maxSkillPoints = 5;
+    public int startingSkillPoints = 3;
 
     public PartyState(List<CharacterInstance> partyMembers)
     {
         members = partyMembers;
-        currentSkillPoints = maxSkillPoints;
+        currentSkillPoints = startingSkillPoints;
     }
+
+   
 
     public bool CanUseAbility(AbilityData ability)
     {

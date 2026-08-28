@@ -62,12 +62,17 @@ public class CombatController : MonoBehaviour
     }
 
     public CharacterInstance ActiveActor => activeActor;
-    public int CurrentSkillPoints => partyState.currentSkillPoints;
-    public int MaxSkillPoints => partyState.maxSkillPoints;
+    // Null-safe: partyState isn't created until StartCombat() runs, but a UI observer (e.g.
+    // SPDisplayUI) can have its OnEnable fire before that - e.g. if left active in the scene
+    // outside of an actual fight - so read 0 instead of throwing in that window.
+    public int CurrentSkillPoints => partyState?.currentSkillPoints ?? 0;
+    public int MaxSkillPoints => partyState?.maxSkillPoints ?? 0;
     public IReadOnlyList<CharacterInstance> Allies => turnOrder.allies;
     public IReadOnlyList<CharacterInstance> Enemies => turnOrder.enemies;
     public List<CharacterInstance> GetUpcomingTurnOrder(int count) => turnOrder.PeekUpcomingOrder(count);
     public bool IsPlayerTurn => currentState == CombatState.PlayerTurn;
+
+
 
     public void StartCombat(List<CharacterInstance> allies, List<CharacterInstance> enemies)
     {
