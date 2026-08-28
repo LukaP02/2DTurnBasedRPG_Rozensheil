@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum CharacterRole { Damage, Tank, Support, Utility }
+public enum CharacterRole { Damage, Tank, Sustain, Hybrid }
 
 [CreateAssetMenu(fileName = "NewCharacter", menuName = "CardRPG/Character")]
 public class CharacterCardData : ScriptableObject
@@ -85,6 +85,7 @@ public class CharacterCardData : ScriptableObject
     public AbilityData[] extraSkillAbilities;
     [Tooltip("Extra Ultimate abilities beyond Default Ultimate. The AI rotates randomly among all available Ultimates.")]
     public AbilityData[] extraUltimateAbilities;
-
+    [Tooltip("Enemy-only. Shows this character's HP on the boss health bar at the top of the combat screen (different art) instead of the normal per-card HP bar. If this character has a Phase Transition, flag Phase Two Card as a boss too so the top bar keeps showing after the swap.")]
+    public bool isBoss = false;
 
 }

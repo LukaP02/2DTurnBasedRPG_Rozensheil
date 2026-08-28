@@ -31,6 +31,10 @@ public class CombatUIManager : MonoBehaviour
 
     [Header("Background")]
     public Image backgroundImage;
+   
+    [Header("Boss Health Bar")]
+    [Tooltip("Top-of-screen HP display shown instead of the normal per-card bar for whichever living enemy has CharacterCardData.isBoss checked. Hidden when no enemy in the fight is a boss.")]
+    public BossHealthBarUI bossHealthBar;
 
 
 
@@ -299,5 +303,25 @@ public class CombatUIManager : MonoBehaviour
             backgroundImage.sprite = background;
 
         RefreshUI();
+    }
+    // At most one boss health bar is shown at a time - fine for current content (single-boss
+    // fights). Re-picks the boss each refresh so a phase transition's new card (if also flagged
+    // isBoss) is picked up automatically.
+    private void RefreshBossHealthBar()
+    {
+        if (bossHealthBar == null) return;
+
+        CharacterInstance boss = combatController.Enemies.FirstOrDefault(e => e.isAlive && e.data.isBoss);
+
+        if (boss == null)
+        {
+            bossHealthBar.Hide();
+            return;
+        }
+
+        bossHealthBar.Show(boss);
+
+        if (cardLookup.TryGetValue(boss, out var bossCard))
+            bossCard.SetHPBarVisible(false);
     }
 }

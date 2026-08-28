@@ -1438,6 +1438,7 @@ MonoBehaviour:
   statusIconPrefab: {fileID: 216610058052462429, guid: 3f848597f410f644b85bd5744fd8a0dc, type: 3}
   floatingTextAnchor: {fileID: 2211139393468191146}
   floatingTextPrefab: {fileID: 787407630971366531, guid: 1d095799167090443a6f7dd2553de3eb, type: 3}
+  hpBarContainer: {fileID: 8556531387014537999}
 --- !u!114 &3766489776467790449
 MonoBehaviour:
   m_ObjectHideFlags: 0

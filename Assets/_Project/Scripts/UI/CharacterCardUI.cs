@@ -45,6 +45,8 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Image targetHoverHighlightImage;
 
     public CharacterInstance BoundCharacter => boundCharacter;
+    [Tooltip("Wraps hpSlider + hpText so both can be hidden together for a boss whose HP is shown on the top boss health bar instead.")]
+    public GameObject hpBarContainer;
 
     private void Awake()
     {
@@ -258,5 +260,12 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
             default:
                 return Color.white;
         }
+    }
+    // Hidden for a boss (CharacterCardData.isBoss) whose HP is instead shown on the top boss
+    // health bar - visible by default, so every other card keeps its normal HP bar.
+    public void SetHPBarVisible(bool visible)
+    {
+        if (hpBarContainer != null)
+            hpBarContainer.SetActive(visible);
     }
 }
