@@ -17,7 +17,7 @@ MonoBehaviour:
   description: Raindorf shields an ally for 50+50% DEF  with Holy energy, absorbing
     all damage taken for the next 3 turns until broken.
   abilityType: 1
-  spCost: 0
+  spCost: 1
   spGain: 0
   power: 0
   element: 3

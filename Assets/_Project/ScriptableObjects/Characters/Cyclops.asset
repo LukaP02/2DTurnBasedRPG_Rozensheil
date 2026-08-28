@@ -20,7 +20,7 @@ MonoBehaviour:
   role: 0
   maxHP: 1500
   attack: 100
-  defense: 100
+  defense: 0
   speed: 100
   maxEnergy: 100
   energyRechargeRate: 1
@@ -57,3 +57,4 @@ MonoBehaviour:
   extraBasicAbilities: []
   extraSkillAbilities: []
   extraUltimateAbilities: []
+  isBoss: 1

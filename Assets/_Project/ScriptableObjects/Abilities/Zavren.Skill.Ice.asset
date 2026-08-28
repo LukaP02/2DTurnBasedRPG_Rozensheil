@@ -17,7 +17,7 @@ MonoBehaviour:
   description: Zavren channels a small ice field dealing medium ice damage to up
     to 3 enemies with a small chance to freeze all caught in it.
   abilityType: 1
-  spCost: 0
+  spCost: 1
   spGain: 0
   power: 40
   element: 2

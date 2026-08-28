@@ -18,7 +18,7 @@ MonoBehaviour:
     a medium electro damage. This ability also inreases Zavren's ATK by 30% for 2
     turns.
   abilityType: 1
-  spCost: 0
+  spCost: 1
   spGain: 0
   power: 50
   element: 5
