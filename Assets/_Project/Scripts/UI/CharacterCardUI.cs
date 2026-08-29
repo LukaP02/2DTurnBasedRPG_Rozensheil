@@ -52,6 +52,51 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Image targetHoverHighlightImage;
     private CanvasGroup canvasGroup;
 
+    [Header("Slide-In")]
+    public float slideInSeconds = 0.35f;
+
+    private Coroutine slideInCoroutine;
+
+    // Slides the card in from fromOffset (relative to its real, already-laid-out position) while
+    // fading it in, optionally after a delay so a row of cards can be staggered in one after another.
+    // See CombatUIManager.PlayCombatStartSlideIn.
+    public void PlaySlideIn(Vector2 fromOffset, float delay = 0f)
+    {
+        if (rectTransform == null) return;
+
+        if (slideInCoroutine != null)
+            StopCoroutine(slideInCoroutine);
+
+        slideInCoroutine = StartCoroutine(SlideInRoutine(fromOffset, delay));
+    }
+
+    private System.Collections.IEnumerator SlideInRoutine(Vector2 fromOffset, float delay)
+    {
+        if (delay > 0f)
+            yield return new WaitForSeconds(delay);
+
+        Vector2 targetPos = rectTransform.anchoredPosition;
+        Vector2 startPos = targetPos + fromOffset;
+
+        rectTransform.anchoredPosition = startPos;
+        canvasGroup.alpha = 0f;
+
+        float elapsed = 0f;
+        while (elapsed < slideInSeconds)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / slideInSeconds);
+            float eased = 1f - Mathf.Pow(1f - t, 3f); // ease-out: fast start, settles gently into place
+
+            rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, eased);
+            canvasGroup.alpha = eased;
+            yield return null;
+        }
+
+        rectTransform.anchoredPosition = targetPos;
+        canvasGroup.alpha = 1f;
+    }
+
     public CharacterInstance BoundCharacter => boundCharacter;
 
     private void Awake()

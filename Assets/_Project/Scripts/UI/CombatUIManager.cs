@@ -38,6 +38,12 @@ public class CombatUIManager : MonoBehaviour
     [Tooltip("Same idea as Boss Health Bar, for energy. Leave empty until the art is ready.")]
     public BossEnergyBarUI bossEnergyBar;
 
+    [Header("Combat Start Animation")]
+    [Tooltip("How far off-screen (in UI units) cards start before sliding into their combat position.")]
+    public float cardSlideDistance = 400f;
+    [Tooltip("Delay added per card so the row slides in one after another instead of all at once.")]
+    public float cardSlideStaggerSeconds = 0.06f;
+
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
 
     private AbilityData selectedAbility;
@@ -347,16 +353,42 @@ public class CombatUIManager : MonoBehaviour
     public void SetupCombatUI(Sprite background = null)
     {
         ClearCards();
-        nextReinforcementGoesRight = true;
 
         SpawnCards(combatController.Allies, allyContainer);
         SpawnCards(combatController.Enemies, enemyContainer);
+        ReorderEnemyCardsAroundBoss(); // in case the level places the boss anywhere but the middle of its enemy list
 
         // Leaving a level's Combat Background empty keeps whatever's already set on the scene.
         if (background != null && backgroundImage != null)
             backgroundImage.sprite = background;
 
         RefreshUI();
+        PlayCombatStartSlideIn();
+    }
+
+    // Allies sit at the bottom of the screen and enemies at the top (see AllyContainer / EnemyContainer
+    // anchors), so allies slide up into place and enemies slide down, each card starting a beat after
+    // the previous one for a "dealt into battle" feel instead of every card popping in at once.
+    // Forcing an immediate layout rebuild first is required so each card's anchoredPosition already
+    // reflects its real HorizontalLayoutGroup slot before we read it as the slide target.
+    private void PlayCombatStartSlideIn()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(allyContainer as RectTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(enemyContainer as RectTransform);
+
+        int i = 0;
+        foreach (var ally in combatController.Allies)
+        {
+            if (cardLookup.TryGetValue(ally, out var card))
+                card.PlaySlideIn(new Vector2(0f, -cardSlideDistance), i++ * cardSlideStaggerSeconds);
+        }
+
+        i = 0;
+        foreach (var enemy in combatController.Enemies)
+        {
+            if (cardLookup.TryGetValue(enemy, out var card))
+                card.PlaySlideIn(new Vector2(0f, cardSlideDistance), i++ * cardSlideStaggerSeconds);
+        }
     }
 
     // At most one boss's bars are shown at a time - fine for current content (single-boss fights).

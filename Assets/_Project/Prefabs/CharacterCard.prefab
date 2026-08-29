@@ -1460,9 +1460,11 @@ MonoBehaviour:
   energySlider: {fileID: 4408497779723381719}
   energyText: {fileID: 7330617056981972364}
   activeTurnHighlight: {fileID: 4639101409308983756}
+  bossCardScale: 1.25
   targetHoverHighlight: {fileID: 6220807178661114240}
   hoverScale: 1.08
   hoverScaleSeconds: 0.12
+  hoverScaleEnabled: 1
   actionButtonsContainer: {fileID: 7730004895804804695}
   basicButton: {fileID: 2648095450941225846}
   skillButton: {fileID: 4415636309132726117}
@@ -1471,6 +1473,7 @@ MonoBehaviour:
   statusIconPrefab: {fileID: 216610058052462429, guid: 3f848597f410f644b85bd5744fd8a0dc, type: 3}
   floatingTextAnchor: {fileID: 2211139393468191146}
   floatingTextPrefab: {fileID: 787407630971366531, guid: 1d095799167090443a6f7dd2553de3eb, type: 3}
+  slideInSeconds: 0.7
 --- !u!114 &3766489776467790449
 MonoBehaviour:
   m_ObjectHideFlags: 0
