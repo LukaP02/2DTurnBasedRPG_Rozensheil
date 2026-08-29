@@ -185,6 +185,12 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         // Enlarges the card's resting size for a boss. Updates baseScale (not just the live
         // transform) so hover-in/out still scales relative to this bigger size instead of
         // fighting against it or snapping back to the normal card size on hover-exit.
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 1f;
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.interactable = true;
+        }
         if (rectTransform != null && character.data.isBoss)
         {
             baseScale *= bossCardScale;

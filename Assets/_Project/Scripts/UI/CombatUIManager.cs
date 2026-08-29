@@ -67,6 +67,7 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnHealApplied -= HandleHealApplied;
             combatController.OnCombatLogMessage -= HandleCombatLogMessage;
             combatController.OnEnemyReinforced -= HandleEnemyReinforced;
+            combatController.OnEnemyReinforced += HandleEnemyReinforced;
             combatController.OnFormSwitched -= HandleFormSwitched;
         }
     }
