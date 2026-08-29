@@ -28,6 +28,8 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public GameObject targetHoverHighlight;
     public float hoverScale = 1.08f;
     public float hoverScaleSeconds = 0.12f;
+    [Tooltip("Turn off to disable the hover scale-up entirely for this card instance (e.g. a read-only display card, like the one in LoadoutMenuUI, where hover-to-target doesn't apply).")]
+    public bool hoverScaleEnabled = true;
 
     [Header("Action Buttons")]
     public GameObject actionButtonsContainer;
@@ -94,13 +96,17 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        PlayScale(baseScale * hoverScale);
+        if (hoverScaleEnabled)
+            PlayScale(baseScale * hoverScale);
+
         uiManager?.OnCardHoverEnter(boundCharacter, this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        PlayScale(baseScale);
+        if (hoverScaleEnabled)
+            PlayScale(baseScale);
+
         uiManager?.OnCardHoverExit(boundCharacter, this);
     }
 
@@ -214,7 +220,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         button.gameObject.SetActive(true);
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => uiManager.OnAbilitySelected(boundCharacter, ability));
+        button.onClick.AddListener(() => uiManager?.OnAbilitySelected(boundCharacter, ability));
     }
 
     public void HideActionButtons()
@@ -224,7 +230,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void OnCardClicked()
     {
-        uiManager.OnCardClicked(boundCharacter);
+        uiManager?.OnCardClicked(boundCharacter);
     }
 
     public void ShowFloatingText(int amount, bool isHeal, ElementType element)

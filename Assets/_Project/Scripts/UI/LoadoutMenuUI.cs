@@ -94,11 +94,15 @@ public class LoadoutMenuUI : MonoBehaviour
         {
             GameObject cardObj = Instantiate(characterCardPrefab, characterCardContainer);
             selectedCharacterCard = cardObj.GetComponent<CharacterCardUI>();
+            selectedCharacterCard.hoverScaleEnabled = false; // static display card - no hover-to-target here
         }
 
         CharacterInstance instance = PartyManager.Instance.GetInstance(selectedCharacter);
         if (instance != null)
             selectedCharacterCard.Bind(instance, null);
+
+        selectedCharacterCard.SetActiveTurn(false);
+        selectedCharacterCard.SetTargetHighlight(false, Color.clear);
     }
 
     private void RefreshAbilityLists()
