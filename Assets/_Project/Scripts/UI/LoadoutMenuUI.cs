@@ -5,12 +5,14 @@ using TMPro;
 
 public class LoadoutMenuUI : MonoBehaviour
 {
-    [Header("Party to manage")]
-    public CharacterCardData[] playableCharacters;
-
     [Header("Character Selection")]
     public Transform characterListContainer;
-    public GameObject characterButtonPrefab;
+    public GameObject characterButtonPrefab; // uses LoadoutCharacterButtonUI
+
+    [Header("Selected Character Card")]
+    [Tooltip("Same prefab used for combat cards (CharacterCardUI). Shown read-only on the left, bound to the character's real persistent CharacterInstance (same HP/energy/status as combat).")]
+    public GameObject characterCardPrefab;
+    public Transform characterCardContainer;
 
     [Header("Basic Options")]
     public Transform basicOptionsContainer;
@@ -28,14 +30,24 @@ public class LoadoutMenuUI : MonoBehaviour
     public TMP_Text selectedCharacterNameText;
 
     private CharacterCardData selectedCharacter;
+    private CharacterCardUI selectedCharacterCard;
 
-    private void Start()
+    // Refreshes every time the panel opens (not just once via Start) so newly-recruited
+    // characters show up without needing a scene reload.
+    private void OnEnable()
     {
-        PopulateCharacterList();
+        List<CharacterCardData> roster = PartyManager.Instance.GetFullRoster();
 
-        if (playableCharacters.Length > 0)
+        if (selectedCharacter == null || !roster.Contains(selectedCharacter))
         {
-            SelectCharacter(playableCharacters[0]);
+            if (roster.Count > 0)
+                SelectCharacter(roster[0]);
+            else
+                PopulateCharacterList();
+        }
+        else
+        {
+            SelectCharacter(selectedCharacter); // re-bind in case loadout/items changed elsewhere
         }
     }
 
@@ -44,15 +56,15 @@ public class LoadoutMenuUI : MonoBehaviour
         foreach (Transform child in characterListContainer)
             Destroy(child.gameObject);
 
-        foreach (var character in playableCharacters)
+        foreach (var character in PartyManager.Instance.GetFullRoster())
         {
+            if (character == null) continue;
+
             GameObject buttonObj = Instantiate(characterButtonPrefab, characterListContainer);
+            LoadoutCharacterButtonUI buttonUI = buttonObj.GetComponent<LoadoutCharacterButtonUI>();
 
-            TMP_Text label = buttonObj.GetComponentInChildren<TMP_Text>();
-            if (label != null) label.text = character.characterName;
-
-            Button button = buttonObj.GetComponent<Button>();
-            button.onClick.AddListener(() => SelectCharacter(character));
+            bool isSelected = character == selectedCharacter;
+            buttonUI.Bind(character, isSelected, () => SelectCharacter(character));
         }
     }
 
@@ -63,8 +75,30 @@ public class LoadoutMenuUI : MonoBehaviour
         if (selectedCharacterNameText != null)
             selectedCharacterNameText.text = character.characterName;
 
+        PopulateCharacterList(); // rebuild so the new selection's highlight shows
+        RefreshSelectedCharacterCard();
         RefreshAbilityLists();
         RefreshItemList();
+    }
+
+    // Read-only display of the selected character using the same CharacterCardUI prefab combat
+    // uses, bound to their real persistent CharacterInstance (PartyManager.GetInstance) so it
+    // shows actual current HP/energy/status rather than a fresh dummy. Passing null for the
+    // CombatUIManager is safe - CharacterCardUI's manager calls are all null-conditional except
+    // right-click inspect, which is guarded separately (see CharacterCardUI.OnPointerClick).
+    private void RefreshSelectedCharacterCard()
+    {
+        if (characterCardPrefab == null || characterCardContainer == null) return;
+
+        if (selectedCharacterCard == null)
+        {
+            GameObject cardObj = Instantiate(characterCardPrefab, characterCardContainer);
+            selectedCharacterCard = cardObj.GetComponent<CharacterCardUI>();
+        }
+
+        CharacterInstance instance = PartyManager.Instance.GetInstance(selectedCharacter);
+        if (instance != null)
+            selectedCharacterCard.Bind(instance, null);
     }
 
     private void RefreshAbilityLists()

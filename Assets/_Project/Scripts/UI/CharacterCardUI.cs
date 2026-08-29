@@ -88,7 +88,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            uiManager.OnInspectCard(boundCharacter);
+            uiManager?.OnInspectCard(boundCharacter);
         }
     }
 
