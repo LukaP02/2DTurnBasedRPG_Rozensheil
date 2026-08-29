@@ -44,13 +44,13 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     [Header("Floating Text")]
     public Transform floatingTextAnchor;
     public GameObject floatingTextPrefab;
-
     private CharacterInstance boundCharacter;
     private CombatUIManager uiManager;
     private RectTransform rectTransform;
     private Vector3 baseScale;
     private Coroutine scaleCoroutine;
     private Image targetHoverHighlightImage;
+    private CanvasGroup canvasGroup;
 
     public CharacterInstance BoundCharacter => boundCharacter;
 
@@ -61,6 +61,21 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         if (targetHoverHighlight != null)
             targetHoverHighlightImage = targetHoverHighlight.GetComponent<Image>();
+
+        // Added at runtime rather than requiring prefab wiring - used only to dim/disable a dead
+        // card in a fixed-roster fight where it stays on screen instead of being destroyed.
+        canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+            canvasGroup = gameObject.AddComponent<CanvasGroup>();
+    }
+
+    // Dims the card and blocks all pointer interaction (hover, click, right-click inspect) once a
+    // dead enemy's card is left in place instead of being destroyed - see CombatUIManager.RefreshUI.
+    public void SetDeadVisual(bool isDead)
+    {
+        canvasGroup.alpha = isDead ? 0.35f : 1f;
+        canvasGroup.blocksRaycasts = !isDead;
+        canvasGroup.interactable = !isDead;
     }
 
     public void Bind(CharacterInstance character, CombatUIManager manager)

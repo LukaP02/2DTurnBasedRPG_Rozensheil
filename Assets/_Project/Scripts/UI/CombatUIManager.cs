@@ -64,12 +64,66 @@ public class CombatUIManager : MonoBehaviour
         }
     }
 
+    // Alternates which side of the boss the next reinforcement lands on, so the boss's card
+    // stays centered (roughly) as reinforcements pile up on both sides instead of the row just
+    // growing off to one end.
+    private bool nextReinforcementGoesRight = true;
+
     private void HandleEnemyReinforced(CharacterInstance enemy)
     {
         GameObject cardObj = Instantiate(cardPrefab, enemyContainer);
         CharacterCardUI card = cardObj.GetComponent<CharacterCardUI>();
         card.Bind(enemy, this);
         cardLookup[enemy] = card;
+
+        ReorderEnemyCardsAroundBoss();
+    }
+
+    // Rebuilds the enemy row's sibling order from scratch around the living boss, so it stays
+    // centered no matter how the alive/dead mix changes - a reinforcement joining, or an enemy on
+    // either side dying, both call this rather than nudging siblings incrementally (which drifted
+    // the boss toward whichever side happened to lose a card).
+    private void ReorderEnemyCardsAroundBoss()
+    {
+        CharacterInstance boss = combatController.Enemies.FirstOrDefault(e => e.isAlive && e.data.isBoss);
+        if (boss == null || !cardLookup.TryGetValue(boss, out var bossCard))
+            return; // no boss in this fight - leave whatever order the cards are already in
+
+        // combatController.Enemies keeps its append order (spawn order) even as enemies die, so
+        // filtering to the currently-alive ones gives a stable, reproducible ordering to split.
+        List<CharacterInstance> others = combatController.Enemies
+            .Where(e => e != boss && e.isAlive && cardLookup.ContainsKey(e))
+            .ToList();
+
+        List<CharacterInstance> left = new List<CharacterInstance>();
+        List<CharacterInstance> right = new List<CharacterInstance>();
+        for (int i = 0; i < others.Count; i++)
+        {
+            if (i % 2 == 0) right.Add(others[i]);
+            else left.Add(others[i]);
+        }
+        left.Reverse(); // furthest-from-boss spawn ends up furthest-from-boss on screen
+
+        int index = 0;
+        foreach (var e in left)
+            cardLookup[e].transform.SetSiblingIndex(index++);
+        bossCard.transform.SetSiblingIndex(index++);
+        foreach (var e in right)
+            cardLookup[e].transform.SetSiblingIndex(index++);
+    }
+
+    private void PositionReinforcementCard(CharacterInstance reinforcement, Transform cardTransform)
+    {
+        CharacterInstance boss = combatController.Enemies.FirstOrDefault(e => e.isAlive && e.data.isBoss);
+        if (boss == null || boss == reinforcement || !cardLookup.TryGetValue(boss, out var bossCard))
+            return; // no boss in this fight, or the reinforcement IS the boss - keep default (end of row) position
+
+        int bossIndex = bossCard.transform.GetSiblingIndex();
+        // Right side: insert immediately after the boss, pushing any earlier right-side card further right.
+        // Left side: insert at the boss's own index, which pushes the boss (and any earlier left-side card) further left.
+        cardTransform.SetSiblingIndex(nextReinforcementGoesRight ? bossIndex + 1 : bossIndex);
+
+        nextReinforcementGoesRight = !nextReinforcementGoesRight;
     }
 
     private void HandleCombatLogMessage(string message)
@@ -114,16 +168,33 @@ public class CombatUIManager : MonoBehaviour
 
     private void RefreshUI()
     {
-        // Dead enemies are removed outright (not just hidden) so the container's layout closes
-        // the gap and a later reinforcement's card naturally lands in the freed-up slot.
-        List<CharacterInstance> deadEnemies = cardLookup.Keys
-            .Where(c => !c.isAlive && combatController.Enemies.Contains(c))
-            .ToList();
-
-        foreach (var dead in deadEnemies)
+        if (combatController.IsWaveEncounter)
         {
-            Destroy(cardLookup[dead].gameObject);
-            cardLookup.Remove(dead);
+            // Wave encounters cycle enemies in/out via the reinforcement queue, so dead cards are
+            // removed outright and the row recenters around the boss to close the freed-up slot.
+            List<CharacterInstance> deadEnemies = cardLookup.Keys
+                .Where(c => !c.isAlive && combatController.Enemies.Contains(c))
+                .ToList();
+
+            foreach (var dead in deadEnemies)
+            {
+                Destroy(cardLookup[dead].gameObject);
+                cardLookup.Remove(dead);
+            }
+
+            if (deadEnemies.Count > 0)
+                ReorderEnemyCardsAroundBoss();
+        }
+        else
+        {
+            // Fixed-roster encounters (no reinforcements) keep every card in its original slot even
+            // after death - just dimmed and non-interactive - so the row's layout, and the boss's
+            // position in it, never shifts.
+            foreach (var kvp in cardLookup)
+            {
+                if (!kvp.Key.isAlive && combatController.Enemies.Contains(kvp.Key))
+                    kvp.Value.SetDeadVisual(true);
+            }
         }
 
         foreach (var kvp in cardLookup)
@@ -276,6 +347,7 @@ public class CombatUIManager : MonoBehaviour
     public void SetupCombatUI(Sprite background = null)
     {
         ClearCards();
+        nextReinforcementGoesRight = true;
 
         SpawnCards(combatController.Allies, allyContainer);
         SpawnCards(combatController.Enemies, enemyContainer);
