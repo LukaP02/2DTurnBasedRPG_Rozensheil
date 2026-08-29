@@ -55,6 +55,7 @@ public class CombatUIManager : MonoBehaviour
         combatController.OnDamageApplied += HandleDamageApplied;
         combatController.OnHealApplied += HandleHealApplied;
         combatController.OnCombatLogMessage += HandleCombatLogMessage;
+        combatController.OnEnemyReinforced += HandleEnemyReinforced;
         combatController.OnFormSwitched += HandleFormSwitched;
     }
 
@@ -67,7 +68,6 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnHealApplied -= HandleHealApplied;
             combatController.OnCombatLogMessage -= HandleCombatLogMessage;
             combatController.OnEnemyReinforced -= HandleEnemyReinforced;
-            combatController.OnEnemyReinforced += HandleEnemyReinforced;
             combatController.OnFormSwitched -= HandleFormSwitched;
         }
     }
