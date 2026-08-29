@@ -55,7 +55,7 @@ public class CombatUIManager : MonoBehaviour
         combatController.OnDamageApplied += HandleDamageApplied;
         combatController.OnHealApplied += HandleHealApplied;
         combatController.OnCombatLogMessage += HandleCombatLogMessage;
-        combatController.OnEnemyReinforced += HandleEnemyReinforced;
+        combatController.OnFormSwitched += HandleFormSwitched;
     }
 
     private void OnDestroy()
@@ -67,7 +67,14 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnHealApplied -= HandleHealApplied;
             combatController.OnCombatLogMessage -= HandleCombatLogMessage;
             combatController.OnEnemyReinforced -= HandleEnemyReinforced;
+            combatController.OnFormSwitched -= HandleFormSwitched;
         }
+    }
+
+    private void HandleFormSwitched(CharacterInstance character)
+    {
+        if (cardLookup.TryGetValue(character, out var card))
+            card.PlayFormFlip();
     }
 
     // Alternates which side of the boss the next reinforcement lands on, so the boss's card

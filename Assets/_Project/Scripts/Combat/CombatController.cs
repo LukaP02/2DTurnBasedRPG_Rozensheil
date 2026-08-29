@@ -51,6 +51,7 @@ public class CombatController : MonoBehaviour
     public event Action<CharacterInstance> OnEnemyReinforced;
     public event Action<DialogueSequence> OnPhaseTransitionRequested;
     public event Action<CharacterInstance> OnEnemyRemoved;
+    public event Action<CharacterInstance> OnFormSwitched;
     // --- Bonus action (Abdul's 3rd Ultimate option: act twice per turn for X turns) ---
     private bool bonusActionAvailableThisTurn;
 
@@ -459,6 +460,7 @@ public class CombatController : MonoBehaviour
         if (ability.triggersFormSwitch)
         {
             user.ToggleForm();
+            OnFormSwitched?.Invoke(user);
         }
 
         switch (ability.abilityType)

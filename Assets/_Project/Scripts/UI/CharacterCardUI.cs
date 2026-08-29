@@ -55,6 +55,61 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     [Header("Slide-In")]
     public float slideInSeconds = 0.35f;
 
+    [Header("Form Flip")]
+    [Tooltip("Total time for the flip - half spent shrinking to edge-on, half spent unfolding back out. The sprite is swapped at the midpoint, when the card is invisible edge-on.")]
+    public float formFlipSeconds = 0.3f;
+
+    private bool isFlipping;
+
+    // Plays a card-flip (scale X down to edge-on, swap art, scale back out) when a character's
+    // Normal/Demon form changes (e.g. Sicur) - see CombatController.OnFormSwitched.
+    public void PlayFormFlip()
+    {
+        if (rectTransform == null)
+        {
+            ApplyArtForCurrentForm(); // no transform to animate - at least keep the art correct
+            return;
+        }
+
+        if (scaleCoroutine != null)
+            StopCoroutine(scaleCoroutine);
+
+        scaleCoroutine = StartCoroutine(FlipRoutine());
+    }
+
+    private System.Collections.IEnumerator FlipRoutine()
+    {
+        isFlipping = true;
+
+        Vector3 startScale = rectTransform.localScale;
+        float half = formFlipSeconds * 0.5f;
+
+        yield return ScaleXTo(0f, startScale, half);
+
+        ApplyArtForCurrentForm(); // swap the sprite while edge-on and invisible
+
+        yield return ScaleXTo(startScale.x, startScale, half);
+
+        rectTransform.localScale = startScale;
+        isFlipping = false;
+    }
+
+    private System.Collections.IEnumerator ScaleXTo(float targetX, Vector3 baseScaleForYZ, float duration)
+    {
+        float startX = rectTransform.localScale.x;
+        float elapsed = 0f;
+
+        while (duration > 0f && elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float x = Mathf.Lerp(startX, targetX, elapsed / duration);
+            rectTransform.localScale = new Vector3(x, baseScaleForYZ.y, baseScaleForYZ.z);
+            yield return null;
+        }
+
+        rectTransform.localScale = new Vector3(targetX, baseScaleForYZ.y, baseScaleForYZ.z);
+    }
+
     private Coroutine slideInCoroutine;
 
     // Slides the card in from fromOffset (relative to its real, already-laid-out position) while
@@ -242,7 +297,16 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         }
     }
 
+    // Guarded: while a form-flip animation is playing, it owns the sprite swap itself (timed to
+    // the flip's midpoint via ApplyArtForCurrentForm below) - so RefreshUI's blanket per-card
+    // refresh must not jump the sprite to the new form early and spoil the reveal.
     public void RefreshArt()
+    {
+        if (isFlipping) return;
+        ApplyArtForCurrentForm();
+    }
+
+    private void ApplyArtForCurrentForm()
     {
         if (boundCharacter == null || artImage == null) return;
 
