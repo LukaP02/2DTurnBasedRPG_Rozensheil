@@ -21,6 +21,8 @@ public class CombatUIManager : MonoBehaviour
     public GameObject turnOrderIconPrefab;
     public Color activeTurnOrderIconColor = Color.yellow;
     public int turnOrderVisibleCount = 7; // total icons shown, including the currently-acting one
+    [Tooltip("How long the turn order track's icons take to slide up one slot when a turn passes.")]
+    public float turnOrderShiftSeconds = 0.25f;
 
     [Header("Card Inspect")]
     public CardDetailUI cardDetailUI;
@@ -52,6 +54,13 @@ public class CombatUIManager : MonoBehaviour
 
     private AbilityData selectedAbility;
     private bool waitingForTarget;
+    // Fixed-size pool, built once and reused for the rest of the fight - never destroyed/recreated
+    // per refresh like the old version, so a specific icon's identity can persist across a refresh
+    // and be animated sliding from one slot to the next instead of just popping into place.
+    private List<Image> turnOrderIcons = new List<Image>();
+    private List<Vector2> turnOrderIconHomePositions = new List<Vector2>();
+    private List<CharacterInstance> lastTurnOrderCharacters = new List<CharacterInstance>();
+    private Coroutine turnOrderShiftCoroutine;
 
     private void Awake()
     {
@@ -264,30 +273,141 @@ public class CombatUIManager : MonoBehaviour
         RefreshTurnOrder();
     }
 
+    // Builds the fixed-size icon pool once (on first use) and forces an immediate layout rebuild
+    // so each icon's VerticalLayoutGroup-assigned slot position is known and cached as its "home" -
+    // the position the shift animation animates to/from later.
+    private void EnsureTurnOrderIconPool()
+    {
+        if (turnOrderIcons.Count > 0) return;
+
+        for (int i = 0; i < turnOrderVisibleCount; i++)
+        {
+            GameObject iconObj = Instantiate(turnOrderIconPrefab, turnOrderContainer);
+            Image icon = iconObj.GetComponent<Image>();
+            turnOrderIcons.Add(icon);
+        }
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(turnOrderContainer as RectTransform);
+
+        foreach (var icon in turnOrderIcons)
+            turnOrderIconHomePositions.Add(icon.rectTransform.anchoredPosition);
+    }
+
     private void RefreshTurnOrder()
     {
         if (turnOrderContainer == null || turnOrderIconPrefab == null) return;
 
-        foreach (Transform child in turnOrderContainer)
-            Destroy(child.gameObject);
+        EnsureTurnOrderIconPool();
 
+        List<CharacterInstance> newOrder = new List<CharacterInstance>();
         if (combatController.ActiveActor != null)
-            SpawnTurnOrderIcon(combatController.ActiveActor, true);
+            newOrder.Add(combatController.ActiveActor);
 
-        int upcomingCount = Mathf.Max(0, turnOrderVisibleCount - (combatController.ActiveActor != null ? 1 : 0));
+        int upcomingCount = Mathf.Max(0, turnOrderVisibleCount - newOrder.Count);
+        newOrder.AddRange(combatController.GetUpcomingTurnOrder(upcomingCount));
 
-        foreach (var character in combatController.GetUpcomingTurnOrder(upcomingCount))
-            SpawnTurnOrderIcon(character, false);
+        // A "simple shift" is the common case: the previous head just acted and everyone else
+        // moved up one slot, with one new character appearing at the tail. Only that specific
+        // case gets the sliding animation - anything else (reinforcements changing the queue, a
+        // speed change reordering things, the very first refresh) just snaps instantly instead of
+        // trying to animate an arbitrary reshuffle.
+        bool isSimpleShift = turnOrderIcons.Count >= 2
+            && lastTurnOrderCharacters.Count == turnOrderIcons.Count
+            && newOrder.Count > 0
+            && lastTurnOrderCharacters.Skip(1).SequenceEqual(newOrder.Take(turnOrderIcons.Count - 1));
+
+        if (isSimpleShift)
+            PlayTurnOrderShift(newOrder);
+        else
+            SnapTurnOrderIcons(newOrder);
+
+        lastTurnOrderCharacters = newOrder;
     }
 
-    private void SpawnTurnOrderIcon(CharacterInstance character, bool isActive)
+    private void ApplyTurnOrderIcon(Image icon, CharacterInstance character, bool isActive)
     {
-        GameObject iconObj = Instantiate(turnOrderIconPrefab, turnOrderContainer);
-        Image icon = iconObj.GetComponent<Image>();
-        if (icon == null) return;
+        if (character == null)
+        {
+            icon.enabled = false;
+            return;
+        }
 
+        icon.enabled = true;
         icon.sprite = character.data.icon != null ? character.data.icon : character.data.cardArt;
         icon.color = isActive ? activeTurnOrderIconColor : Color.white;
+    }
+
+    private void SnapTurnOrderIcons(List<CharacterInstance> order)
+    {
+        if (turnOrderShiftCoroutine != null)
+        {
+            StopCoroutine(turnOrderShiftCoroutine);
+            turnOrderShiftCoroutine = null;
+        }
+
+        for (int i = 0; i < turnOrderIcons.Count; i++)
+        {
+            ApplyTurnOrderIcon(turnOrderIcons[i], i < order.Count ? order[i] : null, i == 0);
+            turnOrderIcons[i].rectTransform.anchoredPosition = turnOrderIconHomePositions[i];
+        }
+    }
+
+    private void PlayTurnOrderShift(List<CharacterInstance> newOrder)
+    {
+        if (turnOrderShiftCoroutine != null)
+            StopCoroutine(turnOrderShiftCoroutine);
+
+        turnOrderShiftCoroutine = StartCoroutine(TurnOrderShiftRoutine(newOrder));
+    }
+
+    private System.Collections.IEnumerator TurnOrderShiftRoutine(List<CharacterInstance> newOrder)
+    {
+        // The new active actor's slot just pops straight in - it's a new turn starting, not
+        // something sliding up out of the visible queue.
+        ApplyTurnOrderIcon(turnOrderIcons[0], newOrder.Count > 0 ? newOrder[0] : null, true);
+        turnOrderIcons[0].rectTransform.anchoredPosition = turnOrderIconHomePositions[0];
+
+        float slotHeight = turnOrderIconHomePositions[0].y - turnOrderIconHomePositions[1].y;
+        int lastIndex = turnOrderIcons.Count - 1;
+
+        // Every other visible slot already holds the character sliding up into it - that's
+        // exactly newOrder[i], since this is a one-slot shift - so assign the content now and
+        // animate only the position, from one slot below its resting spot up to it.
+        for (int i = 1; i < lastIndex; i++)
+        {
+            ApplyTurnOrderIcon(turnOrderIcons[i], i < newOrder.Count ? newOrder[i] : null, false);
+            turnOrderIcons[i].rectTransform.anchoredPosition = turnOrderIconHomePositions[i] + new Vector2(0f, slotHeight);
+        }
+
+        // The last slot is a brand new tail entry that wasn't visible before, so it fades in in
+        // place instead of sliding - there's nothing further down for it to slide up from.
+        Image lastIcon = turnOrderIcons[lastIndex];
+        ApplyTurnOrderIcon(lastIcon, lastIndex < newOrder.Count ? newOrder[lastIndex] : null, false);
+        lastIcon.rectTransform.anchoredPosition = turnOrderIconHomePositions[lastIndex];
+        Color lastColor = lastIcon.color;
+        lastIcon.color = new Color(lastColor.r, lastColor.g, lastColor.b, 0f);
+
+        float elapsed = 0f;
+        while (elapsed < turnOrderShiftSeconds)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / turnOrderShiftSeconds);
+            float eased = t * t * (3f - 2f * t);
+
+            for (int i = 1; i < lastIndex; i++)
+            {
+                Vector2 home = turnOrderIconHomePositions[i];
+                turnOrderIcons[i].rectTransform.anchoredPosition = Vector2.Lerp(home + new Vector2(0f, slotHeight), home, eased);
+            }
+
+            lastIcon.color = new Color(lastColor.r, lastColor.g, lastColor.b, eased);
+            yield return null;
+        }
+
+        for (int i = 1; i < lastIndex; i++)
+            turnOrderIcons[i].rectTransform.anchoredPosition = turnOrderIconHomePositions[i];
+
+        lastIcon.color = lastColor;
     }
 
     private void ShowActionButtonsFor(CharacterInstance actor)
@@ -403,6 +523,7 @@ public class CombatUIManager : MonoBehaviour
     public void SetupCombatUI(Sprite background = null)
     {
         ClearCards();
+        lastTurnOrderCharacters.Clear(); // don't treat this fight's first turn order as a shift from the last fight's
 
         SpawnCards(combatController.Allies, allyContainer);
         SpawnCards(combatController.Enemies, enemyContainer);
