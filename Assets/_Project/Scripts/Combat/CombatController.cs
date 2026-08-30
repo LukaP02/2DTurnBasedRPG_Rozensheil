@@ -52,6 +52,7 @@ public class CombatController : MonoBehaviour
     public event Action<DialogueSequence> OnPhaseTransitionRequested;
     public event Action<CharacterInstance> OnEnemyRemoved;
     public event Action<CharacterInstance> OnFormSwitched;
+    public event Action<CharacterInstance> OnCriticalOrWeaknessHit;
     // --- Bonus action (Abdul's 3rd Ultimate option: act twice per turn for X turns) ---
     private bool bonusActionAvailableThisTurn;
 
@@ -425,8 +426,14 @@ public class CombatController : MonoBehaviour
                         bonusFromMarks = stacks * ability.bonusDamagePerMarkStack;
                     }
 
-                    int rawDamage = CalculateDamage(user, target, ability) + bonusFromMarks;
+                    int rawDamage = CalculateDamage(user, target, ability, out bool wasCritOrWeakness) + bonusFromMarks;
                     totalDamageDealt += DealDamage(target, rawDamage, ability.element);
+
+                    // Skip the shiver on a killing blow - the death-fade/dim visual takes over instead.
+                    if (wasCritOrWeakness && target.isAlive)
+                        OnCriticalOrWeaknessHit?.Invoke(target);
+
+                    // A killing hit clears the target's marks/stain/status in DealDamage -> don't
 
                     // A killing hit clears the target's marks/stain/status in DealDamage -> don't
                     // let this same action's on-hit effects immediately re-apply them to the corpse.
@@ -736,8 +743,10 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    private int CalculateDamage(CharacterInstance attacker, CharacterInstance defender, AbilityData ability)
+    private int CalculateDamage(CharacterInstance attacker, CharacterInstance defender, AbilityData ability, out bool wasCritOrWeakness)
     {
+        wasCritOrWeakness = false;
+
         int raw = ability.power
             + Mathf.RoundToInt(attacker.currentAttack * ability.attackScaling)
             + Mathf.RoundToInt(attacker.maxHP * ability.maxHPScaling)
@@ -749,6 +758,7 @@ public class CombatController : MonoBehaviour
         if (IsWeakTo(defender, ability.element))
         {
             raw = Mathf.RoundToInt(raw * WEAKNESS_MULTIPLIER);
+            wasCritOrWeakness = true;
         }
         else if (IsResistantTo(defender, ability.element))
         {
@@ -758,6 +768,7 @@ public class CombatController : MonoBehaviour
         if (ability.canCrit && UnityEngine.Random.value < attacker.currentCritRate)
         {
             raw = Mathf.RoundToInt(raw * CRIT_DAMAGE_MULTIPLIER);
+            wasCritOrWeakness = true;
         }
 
         return raw;

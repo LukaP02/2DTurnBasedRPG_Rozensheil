@@ -54,6 +54,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Coroutine slideInCoroutine;
     private Coroutine flipCoroutine;
     private Coroutine deathFadeCoroutine;
+    private Coroutine shiverCoroutine;
 
     [Header("Slide-In")]
     public float slideInSeconds = 0.35f;
@@ -70,6 +71,39 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     [Tooltip("How long a wave-encounter enemy's card takes to fade out before being destroyed and replaced by a reinforcement's card.")]
     public float deathFadeOutSeconds = 0.4f;
 
+    [Header("Shiver")]
+    [Tooltip("How long the shiver (crit hit or elemental weakness hit) animation lasts.")]
+    public float shiverSeconds = 0.3f;
+    [Tooltip("How far side to side the card jitters during a shiver, in UI units.")]
+    public float shiverDistance = 8f;
+
+    // Plays a quick, damped side-to-side shudder - see CombatController.OnCriticalOrWeaknessHit.
+    public void PlayShiver()
+    {
+        if (rectTransform == null) return;
+
+        if (shiverCoroutine != null)
+            StopCoroutine(shiverCoroutine);
+
+        shiverCoroutine = StartCoroutine(ShiverRoutine());
+    }
+
+    private System.Collections.IEnumerator ShiverRoutine()
+    {
+        Vector2 basePos = rectTransform.anchoredPosition;
+        float elapsed = 0f;
+
+        while (elapsed < shiverSeconds)
+        {
+            elapsed += Time.deltaTime;
+            float damped = 1f - (elapsed / shiverSeconds); // shudder settles down toward the end
+            float offsetX = Mathf.Sin(elapsed * 60f) * shiverDistance * damped;
+            rectTransform.anchoredPosition = basePos + new Vector2(offsetX, 0f);
+            yield return null;
+        }
+
+        rectTransform.anchoredPosition = basePos;
+    }
     // Plays a card-flip (scale X down to edge-on, swap art, scale back out) when a character's
     // Normal/Demon form changes (e.g. Sicur) - see CombatController.OnFormSwitched.
     public void PlayFormFlip()

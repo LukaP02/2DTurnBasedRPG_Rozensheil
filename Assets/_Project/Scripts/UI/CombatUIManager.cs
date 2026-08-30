@@ -57,6 +57,7 @@ public class CombatUIManager : MonoBehaviour
         combatController.OnCombatLogMessage += HandleCombatLogMessage;
         combatController.OnEnemyReinforced += HandleEnemyReinforced;
         combatController.OnFormSwitched += HandleFormSwitched;
+        combatController.OnCriticalOrWeaknessHit += HandleCriticalOrWeaknessHit;
     }
 
     private void OnDestroy()
@@ -69,6 +70,7 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnCombatLogMessage -= HandleCombatLogMessage;
             combatController.OnEnemyReinforced -= HandleEnemyReinforced;
             combatController.OnFormSwitched -= HandleFormSwitched;
+            combatController.OnCriticalOrWeaknessHit -= HandleCriticalOrWeaknessHit;
         }
     }
 
@@ -76,6 +78,12 @@ public class CombatUIManager : MonoBehaviour
     {
         if (cardLookup.TryGetValue(character, out var card))
             card.PlayFormFlip();
+    }
+
+    private void HandleCriticalOrWeaknessHit(CharacterInstance character)
+    {
+        if (cardLookup.TryGetValue(character, out var card))
+            card.PlayShiver();
     }
 
     // Alternates which side of the boss the next reinforcement lands on, so the boss's card
