@@ -55,6 +55,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Coroutine flipCoroutine;
     private Coroutine deathFadeCoroutine;
     private Coroutine shiverCoroutine;
+    private Coroutine inspectZoomCoroutine;
 
     [Header("Slide-In")]
     public float slideInSeconds = 0.35f;
@@ -76,6 +77,84 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public float shiverSeconds = 0.3f;
     [Tooltip("How far side to side the card jitters during a shiver, in UI units.")]
     public float shiverDistance = 8f;
+
+    [Header("Inspect Zoom")]
+    [Tooltip("How long the on-field card takes to zoom toward the inspect anchor before the inspect panel opens.")]
+    public float inspectZoomSeconds = 0.3f;
+    [Tooltip("Scale the card reaches (relative to its own current scale) once fully zoomed in.")]
+    public float inspectZoomScale = 2.2f;
+
+    private Transform preInspectParent;
+    private int preInspectSiblingIndex;
+    private Vector2 preInspectAnchoredPosition;
+    private Vector3 preInspectScale;
+    private bool isZoomedForInspect;
+
+    public void PlayInspectZoom(RectTransform zoomAnchor, System.Action onComplete)
+    {
+        if (rectTransform == null || zoomAnchor == null)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        if (inspectZoomCoroutine != null)
+            StopCoroutine(inspectZoomCoroutine);
+
+        inspectZoomCoroutine = StartCoroutine(InspectZoomRoutine(zoomAnchor, onComplete));
+    }
+
+    private System.Collections.IEnumerator InspectZoomRoutine(RectTransform zoomAnchor, System.Action onComplete)
+    {
+        preInspectParent = rectTransform.parent;
+        preInspectSiblingIndex = rectTransform.GetSiblingIndex();
+        preInspectAnchoredPosition = rectTransform.anchoredPosition;
+        preInspectScale = rectTransform.localScale;
+        isZoomedForInspect = true;
+
+        rectTransform.SetParent(zoomAnchor, true);
+        rectTransform.SetAsLastSibling();
+
+        Vector2 startAnchoredPos = rectTransform.anchoredPosition;
+        Vector3 startScale = rectTransform.localScale;
+        Vector3 targetScale = preInspectScale * inspectZoomScale;
+
+        float elapsed = 0f;
+        while (elapsed < inspectZoomSeconds)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / inspectZoomSeconds);
+            float eased = t * t * (3f - 2f * t);
+
+            rectTransform.anchoredPosition = Vector2.Lerp(startAnchoredPos, Vector2.zero, eased);
+            rectTransform.localScale = Vector3.Lerp(startScale, targetScale, eased);
+            yield return null;
+        }
+
+        rectTransform.anchoredPosition = Vector2.zero;
+        rectTransform.localScale = targetScale;
+
+        onComplete?.Invoke();
+    }
+
+    public void ResetInspectZoom()
+    {
+        if (!isZoomedForInspect) return;
+        isZoomedForInspect = false;
+
+        if (inspectZoomCoroutine != null)
+        {
+            StopCoroutine(inspectZoomCoroutine);
+            inspectZoomCoroutine = null;
+        }
+
+        if (rectTransform == null || preInspectParent == null) return;
+
+        rectTransform.SetParent(preInspectParent, false);
+        rectTransform.SetSiblingIndex(preInspectSiblingIndex);
+        rectTransform.anchoredPosition = preInspectAnchoredPosition;
+        rectTransform.localScale = preInspectScale;
+    }
 
     // Plays a quick, damped side-to-side shudder - see CombatController.OnCriticalOrWeaknessHit.
     public void PlayShiver()

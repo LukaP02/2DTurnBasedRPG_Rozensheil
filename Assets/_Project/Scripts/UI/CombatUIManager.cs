@@ -24,6 +24,8 @@ public class CombatUIManager : MonoBehaviour
 
     [Header("Card Inspect")]
     public CardDetailUI cardDetailUI;
+    [Tooltip("Small, screen-centered RectTransform (anchors and pivot at 0.5, 0.5) that an inspected card temporarily reparents to and grows toward - see CharacterCardUI.PlayInspectZoom.")]
+    public RectTransform inspectZoomAnchor;
 
     [Header("Target Highlight Colors")]
     public Color allyTargetColor = Color.yellow;
@@ -44,6 +46,8 @@ public class CombatUIManager : MonoBehaviour
     [Tooltip("Delay added per card so the row slides in one after another instead of all at once.")]
     public float cardSlideStaggerSeconds = 0.06f;
 
+    
+
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
 
     private AbilityData selectedAbility;
@@ -58,6 +62,9 @@ public class CombatUIManager : MonoBehaviour
         combatController.OnEnemyReinforced += HandleEnemyReinforced;
         combatController.OnFormSwitched += HandleFormSwitched;
         combatController.OnCriticalOrWeaknessHit += HandleCriticalOrWeaknessHit;
+
+        if (cardDetailUI != null)
+            cardDetailUI.OnClosed += HandleInspectClosed;
     }
 
     private void OnDestroy()
@@ -72,6 +79,9 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnFormSwitched -= HandleFormSwitched;
             combatController.OnCriticalOrWeaknessHit -= HandleCriticalOrWeaknessHit;
         }
+        
+        if (cardDetailUI != null)
+            cardDetailUI.OnClosed -= HandleInspectClosed;
     }
 
     private void HandleFormSwitched(CharacterInstance character)
@@ -86,10 +96,21 @@ public class CombatUIManager : MonoBehaviour
             card.PlayShiver();
     }
 
+    private CharacterCardUI currentlyInspectedCard;
+
+    private void HandleInspectClosed()
+    {
+        if (currentlyInspectedCard != null)
+        {
+            currentlyInspectedCard.ResetInspectZoom();
+            currentlyInspectedCard = null;
+        }
+    }
+
     // Alternates which side of the boss the next reinforcement lands on, so the boss's card
     // stays centered (roughly) as reinforcements pile up on both sides instead of the row just
     // growing off to one end.
-    private bool nextReinforcementGoesRight = true;
+    
 
     private void HandleEnemyReinforced(CharacterInstance enemy)
     {
@@ -141,19 +162,7 @@ public class CombatUIManager : MonoBehaviour
             cardLookup[e].transform.SetSiblingIndex(index++);
     }
 
-    private void PositionReinforcementCard(CharacterInstance reinforcement, Transform cardTransform)
-    {
-        CharacterInstance boss = combatController.Enemies.FirstOrDefault(e => e.isAlive && e.data.isBoss);
-        if (boss == null || boss == reinforcement || !cardLookup.TryGetValue(boss, out var bossCard))
-            return; // no boss in this fight, or the reinforcement IS the boss - keep default (end of row) position
-
-        int bossIndex = bossCard.transform.GetSiblingIndex();
-        // Right side: insert immediately after the boss, pushing any earlier right-side card further right.
-        // Left side: insert at the boss's own index, which pushes the boss (and any earlier left-side card) further left.
-        cardTransform.SetSiblingIndex(nextReinforcementGoesRight ? bossIndex + 1 : bossIndex);
-
-        nextReinforcementGoesRight = !nextReinforcementGoesRight;
-    }
+  
 
     private void HandleCombatLogMessage(string message)
     {
@@ -383,8 +392,17 @@ public class CombatUIManager : MonoBehaviour
 
     public void OnInspectCard(CharacterInstance character)
     {
-        if (cardDetailUI != null)
+        if (cardDetailUI == null) return;
+
+        if (inspectZoomAnchor != null && cardLookup.TryGetValue(character, out var card))
+        {
+            currentlyInspectedCard = card;
+            card.PlayInspectZoom(inspectZoomAnchor, () => cardDetailUI.Show(character));
+        }
+        else
+        {
             cardDetailUI.Show(character);
+        }
     }
 
     public void SetupCombatUI(Sprite background = null)
@@ -451,4 +469,5 @@ public class CombatUIManager : MonoBehaviour
             if (bossEnergyBar != null) bossCard.SetEnergyBarVisible(false);
         }
     }
+
 }

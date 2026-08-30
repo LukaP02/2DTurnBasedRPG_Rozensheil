@@ -14,7 +14,6 @@ public class CombatController : MonoBehaviour
     private CharacterInstance activeActor;
 
     private const float WEAKNESS_MULTIPLIER = 1.5f;
-    private const float RESISTANCE_MULTIPLIER = 0.5f;
     private const float CRIT_DAMAGE_MULTIPLIER = 1.5f;
     private const float DAMAGE_VARIANCE = 0.1f; // damage from every source rolls +/- this fraction
 
@@ -29,6 +28,11 @@ public class CombatController : MonoBehaviour
 
     [Header("Rewards")]
     public int goldReward = 50;
+
+    [Header("Combat Tuning")]
+    [Range(0f, 1f)]
+    [Tooltip("Damage reduction fraction applied when a target resists the ability's element - 0 = no reduction (full damage), 1 = fully negated. Replaces the old fixed 50% reduction.")]
+    public float resistanceReduction = 0.5f;
 
     // --- Wave encounter (optional, configured per level via ConfigureWaveEncounter) ---
     private int maxEnemiesOnField;
@@ -751,8 +755,14 @@ public class CombatController : MonoBehaviour
             + Mathf.RoundToInt(attacker.currentAttack * ability.attackScaling)
             + Mathf.RoundToInt(attacker.maxHP * ability.maxHPScaling)
             + Mathf.RoundToInt(attacker.currentDefense * ability.defenseScaling)
-            + Mathf.RoundToInt(attacker.currentSpeed * ability.speedScaling)
-            - defender.currentDefense;
+            + Mathf.RoundToInt(attacker.currentSpeed * ability.speedScaling);
+
+        // Diminishing-returns defense: def = 100 / (100 + defense). Each point of the defender's
+        // Defense reduces incoming damage by a shrinking amount instead of 1-for-1, so defense
+        // stays useful at high values instead of being able to no-sell damage outright the way the
+        // old flat subtraction could.
+        float defenseFactor = 100f / (100f + defender.currentDefense);
+        raw = Mathf.RoundToInt(raw * defenseFactor);
         raw = Mathf.Max(1, raw);
 
         if (IsWeakTo(defender, ability.element))
@@ -762,7 +772,7 @@ public class CombatController : MonoBehaviour
         }
         else if (IsResistantTo(defender, ability.element))
         {
-            raw = Mathf.RoundToInt(raw * RESISTANCE_MULTIPLIER);
+            raw = Mathf.RoundToInt(raw * (1f - resistanceReduction));
         }
 
         if (ability.canCrit && UnityEngine.Random.value < attacker.currentCritRate)
