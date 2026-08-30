@@ -21,7 +21,7 @@ public class CardDetailUI : MonoBehaviour
     public TMP_Text roleText;
     public TMP_Text abilitiesText;
     public TMP_Text passiveText;
-    public event System.Action OnClosed;
+   
 
     private void Awake()
     {
@@ -92,11 +92,10 @@ public class CardDetailUI : MonoBehaviour
         return text;
     }
 
-    
+
 
     public void Hide()
     {
         detailPanel.SetActive(false);
-        OnClosed?.Invoke();
     }
 }

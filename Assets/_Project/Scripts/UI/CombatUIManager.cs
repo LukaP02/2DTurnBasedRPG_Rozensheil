@@ -62,9 +62,6 @@ public class CombatUIManager : MonoBehaviour
         combatController.OnEnemyReinforced += HandleEnemyReinforced;
         combatController.OnFormSwitched += HandleFormSwitched;
         combatController.OnCriticalOrWeaknessHit += HandleCriticalOrWeaknessHit;
-
-        if (cardDetailUI != null)
-            cardDetailUI.OnClosed += HandleInspectClosed;
     }
 
     private void OnDestroy()
@@ -79,9 +76,8 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnFormSwitched -= HandleFormSwitched;
             combatController.OnCriticalOrWeaknessHit -= HandleCriticalOrWeaknessHit;
         }
-        
-        if (cardDetailUI != null)
-            cardDetailUI.OnClosed -= HandleInspectClosed;
+
+       
     }
 
     private void HandleFormSwitched(CharacterInstance character)
@@ -96,21 +92,14 @@ public class CombatUIManager : MonoBehaviour
             card.PlayShiver();
     }
 
-    private CharacterCardUI currentlyInspectedCard;
+    
 
-    private void HandleInspectClosed()
-    {
-        if (currentlyInspectedCard != null)
-        {
-            currentlyInspectedCard.ResetInspectZoom();
-            currentlyInspectedCard = null;
-        }
-    }
+  
 
     // Alternates which side of the boss the next reinforcement lands on, so the boss's card
     // stays centered (roughly) as reinforcements pile up on both sides instead of the row just
     // growing off to one end.
-    
+
 
     private void HandleEnemyReinforced(CharacterInstance enemy)
     {
@@ -396,8 +385,14 @@ public class CombatUIManager : MonoBehaviour
 
         if (inspectZoomAnchor != null && cardLookup.TryGetValue(character, out var card))
         {
-            currentlyInspectedCard = card;
-            card.PlayInspectZoom(inspectZoomAnchor, () => cardDetailUI.Show(character));
+            card.PlayInspectZoom(inspectZoomAnchor, () =>
+            {
+                // Snap the field card back to its combat row slot right as the panel takes over -
+                // the panel is about to cover the whole screen anyway, so this is invisible. No
+                // need to wait for the panel to close later.
+                card.ResetInspectZoom();
+                cardDetailUI.Show(character);
+            });
         }
         else
         {
