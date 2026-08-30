@@ -376,28 +376,21 @@ public class CombatUIManager : MonoBehaviour
 
     private System.Collections.IEnumerator TurnOrderShiftRoutine(List<CharacterInstance> newOrder)
     {
-        // The new active actor's slot just pops straight in - it's a new turn starting, not
-        // something sliding up out of the visible queue.
-        ApplyTurnOrderIcon(turnOrderIcons[0], newOrder.Count > 0 ? newOrder[0] : null, true);
-        turnOrderIcons[0].rectTransform.anchoredPosition = turnOrderIconHomePositions[0];
-
         float slotHeight = turnOrderIconHomePositions[0].y - turnOrderIconHomePositions[1].y;
         int lastIndex = turnOrderIcons.Count - 1;
 
-        // Every other visible slot already holds the character sliding up into it - that's
-        // exactly newOrder[i], since this is a one-slot shift - so assign the content now and
-        // animate only the position, from one slot below its resting spot up to it.
-        for (int i = 1; i < lastIndex; i++)
+        // Every slot already holds the character sliding up into it - that's exactly newOrder[i],
+        // since this is a one-slot shift - so assign content now and animate every icon (including
+        // slot 0, the new active actor) the same way: from one slot below its resting spot up to
+        // it. The last slot is a brand new entry that wasn't visible before, so it also fades in
+        // while it slides instead of just appearing.
+        for (int i = 0; i <= lastIndex; i++)
         {
-            ApplyTurnOrderIcon(turnOrderIcons[i], i < newOrder.Count ? newOrder[i] : null, false);
+            ApplyTurnOrderIcon(turnOrderIcons[i], i < newOrder.Count ? newOrder[i] : null, i == 0);
             turnOrderIcons[i].rectTransform.anchoredPosition = turnOrderIconHomePositions[i] + new Vector2(0f, slotHeight);
         }
 
-        // The last slot is a brand new tail entry that wasn't visible before, so it fades in in
-        // place instead of sliding - there's nothing further down for it to slide up from.
         Image lastIcon = turnOrderIcons[lastIndex];
-        ApplyTurnOrderIcon(lastIcon, lastIndex < newOrder.Count ? newOrder[lastIndex] : null, false);
-        lastIcon.rectTransform.anchoredPosition = turnOrderIconHomePositions[lastIndex];
         Color lastColor = lastIcon.color;
         lastIcon.color = new Color(lastColor.r, lastColor.g, lastColor.b, 0f);
 
@@ -408,7 +401,7 @@ public class CombatUIManager : MonoBehaviour
             float t = Mathf.Clamp01(elapsed / turnOrderShiftSeconds);
             float eased = t * t * (3f - 2f * t);
 
-            for (int i = 1; i < lastIndex; i++)
+            for (int i = 0; i <= lastIndex; i++)
             {
                 Vector2 home = turnOrderIconHomePositions[i];
                 turnOrderIcons[i].rectTransform.anchoredPosition = Vector2.Lerp(home + new Vector2(0f, slotHeight), home, eased);
@@ -418,7 +411,7 @@ public class CombatUIManager : MonoBehaviour
             yield return null;
         }
 
-        for (int i = 1; i < lastIndex; i++)
+        for (int i = 0; i <= lastIndex; i++)
             turnOrderIcons[i].rectTransform.anchoredPosition = turnOrderIconHomePositions[i];
 
         lastIcon.color = lastColor;

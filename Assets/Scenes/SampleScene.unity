@@ -9039,7 +9039,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1184276179}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
   m_Name: 
@@ -11672,6 +11672,7 @@ MonoBehaviour:
   turnOrderIconPrefab: {fileID: 5729103082317954517, guid: 984c0af5b43680643937dd9513a0b723, type: 3}
   activeTurnOrderIconColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   turnOrderVisibleCount: 7
+  turnOrderShiftSeconds: 0.4
   cardDetailUI: {fileID: 771472622}
   inspectZoomAnchor: {fileID: 704496218}
   allyTargetColor: {r: 0.854902, g: 0.6470588, b: 0.1254902, a: 1}
@@ -11681,6 +11682,7 @@ MonoBehaviour:
   bossEnergyBar: {fileID: 1646441567}
   cardSlideDistance: 400
   cardSlideStaggerSeconds: 0.06
+  turnOrderSlotHeight: 60
 --- !u!4 &1925395476
 Transform:
   m_ObjectHideFlags: 0
