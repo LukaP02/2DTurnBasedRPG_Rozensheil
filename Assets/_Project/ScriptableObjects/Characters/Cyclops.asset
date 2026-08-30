@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Cyclops
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Cyclops
-  cardArt: {fileID: 0}
+  cardArt: {fileID: -8728374782289922796, guid: 995b689382452ca45b2c0c3927a12e6d, type: 3}
   icon: {fileID: 0}
   description: 
   isPlayableCharacter: 0
-  role: 0
+  role: 1
   maxHP: 1500
   attack: 100
   defense: 0

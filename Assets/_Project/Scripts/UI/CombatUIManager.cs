@@ -91,6 +91,13 @@ public class CombatUIManager : MonoBehaviour
         cardLookup[enemy] = card;
 
         ReorderEnemyCardsAroundBoss();
+
+        // Slides the new card down into place from off the top of the screen (same direction
+        // enemies enter from at combat start - see PlayCombatStartSlideIn) instead of just
+        // popping in, so it visibly arrives while the card it's replacing fades out (see
+        // RefreshUI's wave-encounter branch below).
+        LayoutRebuilder.ForceRebuildLayoutImmediate(enemyContainer as RectTransform);
+        card.PlaySlideIn(new Vector2(0f, cardSlideDistance));
     }
 
     // Rebuilds the enemy row's sibling order from scratch around the living boss, so it stays
@@ -182,22 +189,36 @@ public class CombatUIManager : MonoBehaviour
 
     private void RefreshUI()
     {
+        // Allies are never removed from the field on death - no reinforcement concept for them -
+        // so just dim/desaturate their card in place, same treatment as a fixed-roster enemy.
+        foreach (var kvp in cardLookup)
+        {
+            if (!kvp.Key.isAlive && combatController.Allies.Contains(kvp.Key))
+                kvp.Value.SetDeadVisual(true);
+        }
+
         if (combatController.IsWaveEncounter)
         {
-            // Wave encounters cycle enemies in/out via the reinforcement queue, so dead cards are
-            // removed outright and the row recenters around the boss to close the freed-up slot.
+            // Wave encounters cycle enemies in/out via the reinforcement queue. A dead enemy's
+            // card fades out (desaturated) instead of vanishing instantly, then is destroyed and
+            // the row recenters around the boss - by then a reinforcement's card has usually
+            // already started sliding in independently (see HandleEnemyReinforced), so the two
+            // animations overlap.
             List<CharacterInstance> deadEnemies = cardLookup.Keys
                 .Where(c => !c.isAlive && combatController.Enemies.Contains(c))
                 .ToList();
 
             foreach (var dead in deadEnemies)
             {
-                Destroy(cardLookup[dead].gameObject);
-                cardLookup.Remove(dead);
-            }
+                CharacterCardUI deadCard = cardLookup[dead];
+                cardLookup.Remove(dead); // stop tracking now so this death isn't reprocessed next refresh
 
-            if (deadEnemies.Count > 0)
-                ReorderEnemyCardsAroundBoss();
+                deadCard.PlayDeathFadeOut(() =>
+                {
+                    Destroy(deadCard.gameObject);
+                    ReorderEnemyCardsAroundBoss();
+                });
+            }
         }
         else
         {

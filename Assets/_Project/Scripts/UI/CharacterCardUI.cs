@@ -51,6 +51,9 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Coroutine scaleCoroutine;
     private Image targetHoverHighlightImage;
     private CanvasGroup canvasGroup;
+    private Coroutine slideInCoroutine;
+    private Coroutine flipCoroutine;
+    private Coroutine deathFadeCoroutine;
 
     [Header("Slide-In")]
     public float slideInSeconds = 0.35f;
@@ -60,6 +63,12 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public float formFlipSeconds = 0.3f;
 
     private bool isFlipping;
+
+    [Header("Death Visual")]
+    [Tooltip("Tint applied to a dead character's art - used both for a card left in place after death (fixed-roster enemies and allies) and for a wave-encounter card while it fades out before being replaced. White = no change; lower RGB = more washed-out/gray.")]
+    public Color deadArtTint = new Color(0.55f, 0.55f, 0.55f, 1f);
+    [Tooltip("How long a wave-encounter enemy's card takes to fade out before being destroyed and replaced by a reinforcement's card.")]
+    public float deathFadeOutSeconds = 0.4f;
 
     // Plays a card-flip (scale X down to edge-on, swap art, scale back out) when a character's
     // Normal/Demon form changes (e.g. Sicur) - see CombatController.OnFormSwitched.
@@ -71,27 +80,35 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
             return;
         }
 
-        if (scaleCoroutine != null)
-            StopCoroutine(scaleCoroutine);
+        if (flipCoroutine != null)
+            StopCoroutine(flipCoroutine);
 
-        scaleCoroutine = StartCoroutine(FlipRoutine());
+        flipCoroutine = StartCoroutine(FlipRoutine());
     }
+
 
     private System.Collections.IEnumerator FlipRoutine()
     {
         isFlipping = true;
+        try
+        {
+            Vector3 startScale = rectTransform.localScale;
+            float half = formFlipSeconds * 0.5f;
 
-        Vector3 startScale = rectTransform.localScale;
-        float half = formFlipSeconds * 0.5f;
+            yield return ScaleXTo(0f, startScale, half);
 
-        yield return ScaleXTo(0f, startScale, half);
+            ApplyArtForCurrentForm(); // swap the sprite while edge-on and invisible
 
-        ApplyArtForCurrentForm(); // swap the sprite while edge-on and invisible
+            yield return ScaleXTo(startScale.x, startScale, half);
 
-        yield return ScaleXTo(startScale.x, startScale, half);
-
-        rectTransform.localScale = startScale;
-        isFlipping = false;
+            rectTransform.localScale = startScale;
+        }
+        finally
+        {
+            // Guaranteed to run even if this coroutine gets stopped externally mid-flip, so
+            // RefreshArt() can never get stuck skipped forever again.
+            isFlipping = false;
+        }
     }
 
     private System.Collections.IEnumerator ScaleXTo(float targetX, Vector3 baseScaleForYZ, float duration)
@@ -110,7 +127,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         rectTransform.localScale = new Vector3(targetX, baseScaleForYZ.y, baseScaleForYZ.z);
     }
 
-    private Coroutine slideInCoroutine;
+    
 
     // Slides the card in from fromOffset (relative to its real, already-laid-out position) while
     // fading it in, optionally after a delay so a row of cards can be staggered in one after another.
@@ -176,6 +193,45 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         canvasGroup.alpha = isDead ? 0.35f : 1f;
         canvasGroup.blocksRaycasts = !isDead;
         canvasGroup.interactable = !isDead;
+
+        if (artImage != null)
+            artImage.color = isDead ? deadArtTint : Color.white;
+    }
+
+    public void PlayDeathFadeOut(System.Action onComplete)
+    {
+        if (artImage != null)
+            artImage.color = deadArtTint;
+
+        if (canvasGroup != null)
+        {
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
+        }
+
+        if (deathFadeCoroutine != null)
+            StopCoroutine(deathFadeCoroutine);
+
+        deathFadeCoroutine = StartCoroutine(DeathFadeOutRoutine(onComplete));
+    }
+
+    private System.Collections.IEnumerator DeathFadeOutRoutine(System.Action onComplete)
+    {
+        float startAlpha = canvasGroup != null ? canvasGroup.alpha : 1f;
+        float elapsed = 0f;
+
+        while (elapsed < deathFadeOutSeconds)
+        {
+            elapsed += Time.deltaTime;
+            if (canvasGroup != null)
+                canvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, elapsed / deathFadeOutSeconds);
+            yield return null;
+        }
+
+        if (canvasGroup != null)
+            canvasGroup.alpha = 0f;
+
+        onComplete?.Invoke();
     }
 
     public void Bind(CharacterInstance character, CombatUIManager manager)
