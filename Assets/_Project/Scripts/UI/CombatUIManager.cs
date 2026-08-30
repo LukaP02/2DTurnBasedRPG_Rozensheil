@@ -48,7 +48,9 @@ public class CombatUIManager : MonoBehaviour
     [Tooltip("Delay added per card so the row slides in one after another instead of all at once.")]
     public float cardSlideStaggerSeconds = 0.06f;
 
-    
+    [Tooltip("Vertical distance between each turn order icon's slot, in UI units. Should be roughly the icon's own height plus whatever gap you want between icons - the icons are positioned directly by this value rather than through a Vertical Layout Group.")]
+    public float turnOrderSlotHeight = 60f;
+
 
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
 
@@ -276,7 +278,11 @@ public class CombatUIManager : MonoBehaviour
     // Builds the fixed-size icon pool once (on first use) and forces an immediate layout rebuild
     // so each icon's VerticalLayoutGroup-assigned slot position is known and cached as its "home" -
     // the position the shift animation animates to/from later.
-    private void EnsureTurnOrderIconPool()
+    // Positions each pooled icon directly by index instead of relying on a live VerticalLayoutGroup
+    // rebuild - that approach measured each icon's slot position before it had a sprite assigned,
+    // which could give Unity's layout system inconsistent preferred sizes to work with and produce
+    // wrong, overlapping, or wildly displaced icons. This is fully deterministic instead.
+    private void EnsureTurnOrderIconPool(List<CharacterInstance> initialOrder)
     {
         if (turnOrderIcons.Count > 0) return;
 
@@ -284,20 +290,23 @@ public class CombatUIManager : MonoBehaviour
         {
             GameObject iconObj = Instantiate(turnOrderIconPrefab, turnOrderContainer);
             Image icon = iconObj.GetComponent<Image>();
+            RectTransform rt = icon.rectTransform;
+
+            rt.anchorMin = new Vector2(0.5f, 1f);
+            rt.anchorMax = new Vector2(0.5f, 1f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.anchoredPosition = new Vector2(0f, -i * turnOrderSlotHeight);
+
             turnOrderIcons.Add(icon);
+            turnOrderIconHomePositions.Add(rt.anchoredPosition);
+
+            ApplyTurnOrderIcon(icon, i < initialOrder.Count ? initialOrder[i] : null, i == 0);
         }
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(turnOrderContainer as RectTransform);
-
-        foreach (var icon in turnOrderIcons)
-            turnOrderIconHomePositions.Add(icon.rectTransform.anchoredPosition);
     }
 
     private void RefreshTurnOrder()
     {
         if (turnOrderContainer == null || turnOrderIconPrefab == null) return;
-
-        EnsureTurnOrderIconPool();
 
         List<CharacterInstance> newOrder = new List<CharacterInstance>();
         if (combatController.ActiveActor != null)
@@ -305,6 +314,11 @@ public class CombatUIManager : MonoBehaviour
 
         int upcomingCount = Mathf.Max(0, turnOrderVisibleCount - newOrder.Count);
         newOrder.AddRange(combatController.GetUpcomingTurnOrder(upcomingCount));
+
+        EnsureTurnOrderIconPool(newOrder);
+
+
+
 
         // A "simple shift" is the common case: the previous head just acted and everyone else
         // moved up one slot, with one new character appearing at the tail. Only that specific
