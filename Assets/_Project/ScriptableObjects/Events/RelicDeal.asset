@@ -12,8 +12,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e70547d8134d5943ac3fafcae79c9dc, type: 3}
   m_Name: RelicDeal
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  title: 
-  description: 
+  title: Mysterious meeting
+  description: 'A word got out that two criminal factions are having a secret deal
+    in a city tavern which includes an ancient dagger with some mystic properties.
+    This dagger could be worth a lot. Zavren knows one of the factions known as Raven''s
+    Grasp", as they are his former allies. He believes that getting a hold of this
+    knife might be a moderately simple task... '
   image: {fileID: 0}
   backgroundImage: {fileID: 0}
-  choices: []
+  choices:
+  - choiceText: Ignore the deal
+    outcomeText: Sometimes the reward is just not worth the risk. It's better to
+      prepare for the task at hand.
+    goldChange: 0
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []
+  - choiceText: Try to take the relic by force
+    outcomeText: Zavren's intel may have been correct when it came to his former
+      organization, but it seems that the other party doesn't take too kind to such
+      unexpected surprises. Alas, your party managed to take the relic by force,
+      albeit with a few bruises and scratches. (+700 gold, -30% HP)
+    goldChange: 700
+    hpChangePercent: 30
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []
+  - choiceText: Try to take the relic stealthly
+    outcomeText: Abdul's skills come in handy when it comes to these kinds of jobs.
+      After careful observation he found an opening and incapacitated a member of
+      the "Raven's Grasp" and took his clothes. With the help of Zavren and their
+      criminal background they knew what to expect and how to act the part. In the
+      end they used the organizations coin to which they had to add a bit and got
+      the dagger without raising the suspicion. (+500 gold)
+    goldChange: 500
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []

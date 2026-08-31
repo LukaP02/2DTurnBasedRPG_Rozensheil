@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e70547d8134d5943ac3fafcae79c9dc, type: 3}
+  m_Name: Start
+  m_EditorClassIdentifier: Assembly-CSharp::EventData
+  title: The beginning
+  description: 'This story starts after a brawl between four strangers that have
+    been accused of making a rucus in a Silver Talon Inn, a famous Dartmundian tavern
+    located at the southeast border. Luckily or unluckly for the strangers, the guards
+    who were on duty were drunk so taking care of them wasn''t too big of a problem.
+    Just as the last guard was defeated, a necklace containing a green gem was tossed
+    towards the commosion. A bright green light started eminating from the gem. '
+  image: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  choices:
+  - choiceText: Continue
+    outcomeText: 'While the light was still flashing everyone, a sudden change in
+      temperature could be felt. The air felt cold, much colder than it could ever
+      be at the south border of DartMund. '
+    goldChange: 50
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []

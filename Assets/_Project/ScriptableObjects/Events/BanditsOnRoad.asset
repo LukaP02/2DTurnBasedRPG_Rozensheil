@@ -12,8 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e70547d8134d5943ac3fafcae79c9dc, type: 3}
   m_Name: BanditsOnRoad
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  title: 
-  description: 
+  title: An encounter on the road
+  description: 'As you walk to the village, you notice a carriage coming your way.
+    The carriage is being dragged by a single horse. There are five hooded men acompanying
+    it. Olaf and Wagner don''t seem nervous but you never know. Soon they arrive
+    at the talking distance, some dwarvish words are exchanged, you notice one of
+    the hooded men discreetly show a few signs with his hand. '
   image: {fileID: 0}
   backgroundImage: {fileID: 0}
-  choices: []
+  choices:
+  - choiceText: (Abdul) Show a sign as an answer
+    outcomeText: Abdul recognized this sign as a sign of peace between thieves, answering
+      it means a truce between both parties. It seems unnecesary bloodshed can be
+      avoided
+    goldChange: 0
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []
+  - choiceText: Ignore the men
+    outcomeText: This seemed like a normal interaction between northerners, you didn't
+      want to concern yourself with this. After some time has passed you notice that
+      some coin is missing from your pouch... (-100)
+    goldChange: -100
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []
+  - choiceText: Be cautious but descreet while they pass
+    outcomeText: You ignored the sign, but remained suspicious of these men. Just
+      as they pass you, you notice one of them try to pickpocket you. Answering with
+      retalliation you beat the thieves and take some of their stuff. After all it's
+      only fair.
+    goldChange: 250
+    hpChangePercent: 20
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []

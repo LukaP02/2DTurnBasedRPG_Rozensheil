@@ -188,9 +188,27 @@ public class CombatUIManager : MonoBehaviour
 
     private void ClearCards()
     {
-        foreach (Transform child in allyContainer) Destroy(child.gameObject);
-        foreach (Transform child in enemyContainer) Destroy(child.gameObject);
+        ClearContainer(allyContainer);
+        ClearContainer(enemyContainer);
         cardLookup.Clear();
+    }
+
+    // Destroy() is deferred to the end of the frame - the old cards would still count as children
+    // of the container for the rest of this frame otherwise, so a same-frame forced layout rebuild
+    // (see PlayCombatStartSlideIn, called right after SetupCombatUI respawns cards for the new
+    // fight) would compute slot positions based on old-plus-new children coexisting, landing the
+    // new cards in the wrong spots. Detaching immediately removes them from the layout right away.
+    private void ClearContainer(Transform container)
+    {
+        List<Transform> children = new List<Transform>();
+        foreach (Transform child in container)
+            children.Add(child);
+
+        foreach (var child in children)
+        {
+            child.SetParent(null);
+            Destroy(child.gameObject);
+        }
     }
 
     private void SpawnCards(IReadOnlyList<CharacterInstance> characters, Transform container)
