@@ -70,6 +70,12 @@ public class GameFlowManager : MonoBehaviour
     {
         bool hasCombat = currentLevel.enemies != null && System.Array.Exists(currentLevel.enemies, e => e != null);
 
+        // Whatever event most recently cost the party HP (this node's own pre-level event, or an
+        // earlier node's post-level event) gets resolved right here: kept if this node is combat,
+        // forgiven with a full heal otherwise - so an event's HP cost only ever carries into the
+        // very next node, combat or not.
+        PartyManager.Instance.ResolvePendingEventPenalty(hasCombat);
+
         if (hasCombat)
             BeginCombat();
         else

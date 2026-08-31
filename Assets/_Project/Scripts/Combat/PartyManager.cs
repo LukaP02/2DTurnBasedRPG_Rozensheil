@@ -142,6 +142,29 @@ public class PartyManager : MonoBehaviour
         {
             instance.Heal(instance.maxHP);
         }
+
+        hasPendingEventPenalty = false;
+    }
+
+    // Set whenever an event choice costs HP (see EventController.ApplyEffects) - stays true until
+    // the next node's combat-or-not is decided, at which point ResolvePendingEventPenalty either
+    // lets it stand (going into combat) or forgives it with a full heal (a non-combat node), so an
+    // event's HP cost only ever carries into the very next node.
+    private bool hasPendingEventPenalty = false;
+
+    public void MarkPendingEventPenalty()
+    {
+        hasPendingEventPenalty = true;
+    }
+
+    public void ResolvePendingEventPenalty(bool enteringCombat)
+    {
+        if (!hasPendingEventPenalty) return;
+
+        if (!enteringCombat)
+            HealPartyFully(); // also clears the flag
+
+        hasPendingEventPenalty = false;
     }
 
     // --- Abilities / Loadout ---

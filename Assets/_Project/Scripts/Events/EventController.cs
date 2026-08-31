@@ -102,6 +102,12 @@ public class EventController : MonoBehaviour
                 if (amount > 0) character.Heal(amount);
                 else if (amount < 0) character.TakeDamage(-amount);
             }
+
+            // Costing HP only matters if the very next node turns out to be combat - see
+            // GameFlowManager.ProceedAfterIntro, which resolves this one way or the other for
+            // every node the player enters.
+            if (choice.hpChangePercent < 0 && PartyManager.Instance != null)
+                PartyManager.Instance.MarkPendingEventPenalty();
         }
         if (choice.recruitCharacter != null && PartyManager.Instance != null)
         {
@@ -128,6 +134,7 @@ public class EventController : MonoBehaviour
             }
         }
     }
+
 
     public void CloseOutcome()
     {
