@@ -5,6 +5,12 @@ public class LevelData : ScriptableObject
 {
     [Header("Identity")]
     public string levelName;
+    [Tooltip("Shown on the node preview panel under the level name (e.g. \"The Cave\" -> \"Northern Foothills\"). Purely descriptive, optional.")]
+    public string location;
+    [Tooltip("Flavor text shown on the node preview panel before the player commits to entering.")]
+    [TextArea] public string previewDescription;
+    [Tooltip("Small image shown on the node preview panel. Leave empty to hide the image area.")]
+    public Sprite previewImage;
 
     [Header("Map Node")]
     [Tooltip("Anchored position of this level's node on the overworld map (OverworldMapUI positions the spawned button here).")]

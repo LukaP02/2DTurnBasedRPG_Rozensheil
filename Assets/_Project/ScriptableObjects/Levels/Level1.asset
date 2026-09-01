@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: Start of the Journey
+  location: EisenDorph
+  previewDescription: Four strangers find themselves in a cold and unfamiliar place
+    after a bright green beam.
+  previewImage: {fileID: 0}
   mapPosition: {x: -350, y: 260}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 7f186bb01b5270b41a60d22a052d6456, type: 2}
@@ -29,7 +33,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
   postLevelEvent: {fileID: 11400000, guid: 1e24984a1e8a0654aa474efcce1458bd, type: 2}
   postLevelDialogue: {fileID: 11400000, guid: b4c7f504d9ddfcc4f9c9ac5e26730bc0, type: 2}
-  dialogueBeforePostEvent: 0
+  dialogueBeforePostEvent: 1
   maxEnemiesOnField: 5
   reinforcementPool:
   - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}

@@ -31,6 +31,13 @@ public class MainMenuUI : MonoBehaviour
     public void StartGame()
     {
         mainMenuPanel.SetActive(false);
+
+        // StartGame jumps straight into firstLevel, bypassing the normal unlock-gated flow
+        // entirely - so firstLevel must be explicitly marked unlocked here, or it never actually
+        // lands in PartyManager's unlocked set and its node silently never appears on the map
+        // once you return to it (even though you just completed it).
+        PartyManager.Instance.UnlockLevels(new LevelData[] { firstLevel });
+
         gameFlowManager.StartLevel(firstLevel, 0);
     }
 

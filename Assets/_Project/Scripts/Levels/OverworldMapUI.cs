@@ -22,6 +22,8 @@ public class OverworldMapUI : MonoBehaviour
     public GameObject lineSegmentPrefab;
 
     public GameFlowManager gameFlowManager;
+    [Tooltip("Small info panel shown when a node is clicked, before actually entering it. Leave empty to go back to entering a node immediately on click.")]
+    public LevelPreviewUI levelPreviewUI;
 
     private List<Button> spawnedButtons = new List<Button>();
     // Each line is only shown once its destination node is unlocked, so it's tracked alongside
@@ -109,7 +111,13 @@ public class OverworldMapUI : MonoBehaviour
             if (label != null) label.text = level.levelName;
 
             Button button = buttonObj.GetComponent<Button>();
-            button.onClick.AddListener(() => gameFlowManager.StartLevel(level, index));
+            button.onClick.AddListener(() =>
+            {
+                if (levelPreviewUI != null)
+                    levelPreviewUI.Show(level, index, gameFlowManager);
+                else
+                    gameFlowManager.StartLevel(level, index);
+            });
 
             spawnedButtons.Add(button);
 
@@ -143,4 +151,5 @@ public class OverworldMapUI : MonoBehaviour
         if (button.targetGraphic != null)
             button.targetGraphic.color = completed ? completedNodeColor : normalNodeColor;
     }
+
 }
