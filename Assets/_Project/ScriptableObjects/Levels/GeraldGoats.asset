@@ -13,14 +13,20 @@ MonoBehaviour:
   m_Name: GeraldGoats
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: Old Man Gerald
+  location: EisenDorph / Northern Gate Village
+  previewDescription: 'At the far North of the village, there lies an isolated house.
+    job posting says that a lonely old man needs some help with his goats. '
+  previewImage: {fileID: 0}
   mapPosition: {x: -260, y: 310}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 0}
+  dialogueBeforePreEvent: 0
   enemies: []
   postLevelEvent: {fileID: 11400000, guid: 7ec8965b55c1469419c71dc7b92f26eb, type: 2}
   postLevelDialogue: {fileID: 0}
+  dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0
   reinforcementPool: []
   killTarget: 0

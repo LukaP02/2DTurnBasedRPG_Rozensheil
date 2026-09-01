@@ -13,14 +13,20 @@ MonoBehaviour:
   m_Name: ALESSI.Eisendorph
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: ALESSI
+  location: 
+  previewDescription: A strange, luxurious carriage drawn by 2 beautiful white horses
+    approaches...
+  previewImage: {fileID: 0}
   mapPosition: {x: -500, y: 150}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 0}
+  dialogueBeforePreEvent: 0
   enemies: []
   postLevelEvent: {fileID: 11400000, guid: eeb0fac708153da48a7ff74210267510, type: 2}
   postLevelDialogue: {fileID: 0}
+  dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0
   reinforcementPool: []
   killTarget: 0

@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: The Cave
+  location: EisenDorph
+  previewDescription: There seems to be a job posted on the notice board that requires
+    a group of capable adventurers for investigating a cave south west of the village.
+    It seems that the previous group never came back from this journey. There is
+    also a bonus reward to finishing this task in under a day.
+  previewImage: {fileID: 0}
   mapPosition: {x: -420, y: 200}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 94788f5ac821a5f46a048bd8ffb0d65b, type: 2}

@@ -13,14 +13,20 @@ MonoBehaviour:
   m_Name: Dectus
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: Ruins of Dectus
+  location: EisenDorph / Dectus
+  previewDescription: After coming back from your investigation, a certain job catches
+    your eye. It seems to have been posted by Wagner.
+  previewImage: {fileID: 0}
   mapPosition: {x: -500, y: 250}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}
   preLevelEvent: {fileID: 11400000, guid: 77869062f01278f4e8d86ad586661f79, type: 2}
   introDialogue: {fileID: 0}
+  dialogueBeforePreEvent: 0
   enemies: []
   postLevelEvent: {fileID: 0}
   postLevelDialogue: {fileID: 0}
+  dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0
   reinforcementPool: []
   killTarget: 0

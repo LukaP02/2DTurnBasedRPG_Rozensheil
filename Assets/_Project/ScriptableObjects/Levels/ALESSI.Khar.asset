@@ -13,14 +13,20 @@ MonoBehaviour:
   m_Name: ALESSI.Khar
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: Ricky's Troubles
+  location: Khar / Lower Setekh
+  previewDescription: Exploring the bazzar of the grand city, you meet a familiar
+    face...
+  previewImage: {fileID: 0}
   mapPosition: {x: -200, y: -120}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 0}
+  dialogueBeforePreEvent: 0
   enemies: []
   postLevelEvent: {fileID: 11400000, guid: 01a70ba5a9569654a95ed40deb172c56, type: 2}
   postLevelDialogue: {fileID: 0}
+  dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0
   reinforcementPool: []
   killTarget: 0

@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Level3
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: The Colosseum
+  location: Khar / Colosseum
+  previewDescription: You find yourselves behind bars, unable to use magic and stripped
+    of your belongings.
+  previewImage: {fileID: 0}
   mapPosition: {x: -380, y: -150}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 2ce8c474912bd6c41b12ecd925a80ea2, type: 2}
@@ -21,9 +25,11 @@ MonoBehaviour:
   combatBackground: {fileID: 0}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 0}
+  dialogueBeforePreEvent: 0
   enemies: []
   postLevelEvent: {fileID: 0}
   postLevelDialogue: {fileID: 0}
+  dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0
   reinforcementPool: []
   killTarget: 0
