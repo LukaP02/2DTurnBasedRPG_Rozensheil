@@ -27,9 +27,7 @@ public class CombatController : MonoBehaviour
     private const float ENEMY_FOCUS_LOWEST_HP_CHANCE = 0.4f;
 
     [Header("Rewards")]
-    public int goldReward = 150;
-
-  
+    public int goldReward = 50;
 
     // --- Wave encounter (optional, configured per level via ConfigureWaveEncounter) ---
     private int maxEnemiesOnField;
@@ -54,6 +52,16 @@ public class CombatController : MonoBehaviour
     public event Action<CharacterInstance> OnEnemyRemoved;
     public event Action<CharacterInstance> OnFormSwitched;
     public event Action<CharacterInstance> OnCriticalOrWeaknessHit;
+    // Fired before a hit's damage/heal is applied, so the UI can play the ability's impact
+    // effect (particle/animation) on the target and call the passed callback once it's done -
+    // the hit's number and HP/status update are held back until then. If nothing is listening,
+    // or the ability has no impact effect configured, the wait is skipped entirely.
+    public event Action<CharacterInstance, AbilityData, Action> OnRequestImpactEffect;
+    // Fired right after a target's HP/energy/status actually changes (damage, heal, or a status
+    // application), once the matching OnDamageApplied/OnHealApplied number has already been
+    // shown - lets the UI refresh that one card's bars/icons in the same order every time:
+    // impact effect, then number, then HP/status.
+    public event Action<CharacterInstance> OnTargetUpdated;
     // --- Bonus action (Abdul's 3rd Ultimate option: act twice per turn for X turns) ---
     private bool bonusActionAvailableThisTurn;
 
@@ -139,7 +147,7 @@ public class CombatController : MonoBehaviour
 
         if (!isPlayerControlled)
         {
-            ResolveEnemyAction();
+            StartCoroutine(ResolveEnemyActionRoutine());
         }
     }
 
@@ -171,8 +179,16 @@ public class CombatController : MonoBehaviour
         }
 
         currentState = CombatState.Resolving;
+        OnStateChanged?.Invoke(); // hide action buttons/input right away, before the resolve sequence plays out
 
-        ExecuteAbility(activeActor, ability, targets);
+        StartCoroutine(ResolvePlayerActionRoutine(ability, targets));
+    }
+
+    private System.Collections.IEnumerator ResolvePlayerActionRoutine(AbilityData ability, List<CharacterInstance> targets)
+    {
+        CharacterInstance user = activeActor;
+
+        yield return ExecuteAbilityRoutine(user, ability, targets);
 
         if (ability.abilityType != AbilityType.Ultimate)
             partyState.ResolveAbilityCost(ability);
@@ -234,20 +250,21 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    private void ResolveEnemyAction()
+    private System.Collections.IEnumerator ResolveEnemyActionRoutine()
     {
         currentState = CombatState.Resolving;
 
-        AbilityData chosenAbility = ChooseEnemyAbility(activeActor);
-        List<CharacterInstance> targets = ChooseEnemyTargets(activeActor, chosenAbility);
+        CharacterInstance user = activeActor;
+        AbilityData chosenAbility = ChooseEnemyAbility(user);
+        List<CharacterInstance> targets = ChooseEnemyTargets(user, chosenAbility);
 
         if (chosenAbility != null && targets != null && targets.Count > 0)
         {
-            ExecuteAbility(activeActor, chosenAbility, targets);
+            yield return ExecuteAbilityRoutine(user, chosenAbility, targets);
         }
         else
         {
-            Debug.LogWarning($"{activeActor.data.characterName} had no valid action.");
+            Debug.LogWarning($"{user.data.characterName} had no valid action.");
         }
 
         OnStateChanged?.Invoke();
@@ -384,7 +401,12 @@ public class CombatController : MonoBehaviour
         return result;
     }
 
-    private void ExecuteAbility(CharacterInstance user, AbilityData ability, List<CharacterInstance> targets)
+    // Resolves one ability use target-by-target: for each target that actually takes a hit (damage
+    // or heal), it waits for that ability's impact effect to finish playing (see OnRequestImpactEffect)
+    // before applying the number and firing OnTargetUpdated - so every hit visibly plays out as
+    // effect, then number, then HP/status, in that order, and multiple targets resolve one after
+    // another instead of all at once.
+    private System.Collections.IEnumerator ExecuteAbilityRoutine(CharacterInstance user, AbilityData ability, List<CharacterInstance> targets)
     {
         LogMessage($"{user.data.characterName} uses {ability.abilityName}!");
 
@@ -398,7 +420,7 @@ public class CombatController : MonoBehaviour
             {
                 user.TakeDamage(hpCost);
                 OnDamageApplied?.Invoke(user, hpCost, ElementType.Physical); // self-cost isn't elemental, treat as Physical
-
+                OnTargetUpdated?.Invoke(user);
 
                 if (user.CheckAndMarkDeath())
                     HandleDeath(user);
@@ -413,10 +435,13 @@ public class CombatController : MonoBehaviour
 
             if (ability.power > 0)
             {
+                yield return WaitForImpactEffect(target, ability);
+
                 if (targetIsSameSideAsUser)
                 {
                     target.Heal(ability.power);
                     OnHealApplied?.Invoke(target, ability.power);
+                    OnTargetUpdated?.Invoke(target);
                 }
                 else
                 {
@@ -435,8 +460,6 @@ public class CombatController : MonoBehaviour
                         OnCriticalOrWeaknessHit?.Invoke(target);
 
                     // A killing hit clears the target's marks/stain/status in DealDamage -> don't
-
-                    // A killing hit clears the target's marks/stain/status in DealDamage -> don't
                     // let this same action's on-hit effects immediately re-apply them to the corpse.
                     if (target.isAlive)
                     {
@@ -453,6 +476,7 @@ public class CombatController : MonoBehaviour
             if (target.isAlive && ability.appliesStatusEffect != null && UnityEngine.Random.value <= ability.statusEffectChance)
             {
                 target.ApplyStatusEffect(ability.appliesStatusEffect, user);
+                OnTargetUpdated?.Invoke(target);
             }
         }
         // Lifesteal heals the caster based on the total damage dealt this cast, across every target hit.
@@ -463,6 +487,7 @@ public class CombatController : MonoBehaviour
             {
                 user.Heal(healAmount);
                 OnHealApplied?.Invoke(user, healAmount);
+                OnTargetUpdated?.Invoke(user);
             }
         }
         if (ability.triggersFormSwitch)
@@ -483,6 +508,22 @@ public class CombatController : MonoBehaviour
                 user.GainEnergy(SKILL_ENERGY_GAIN);
                 break;
         }
+        OnTargetUpdated?.Invoke(user);
+    }
+
+    // Gives the UI a chance to play this ability's impact effect on the target and holds this
+    // routine here until it reports back - if nobody's listening, or the ability has no impact
+    // effect configured, HandleRequestImpactEffect-side logic (or the null check below) resolves
+    // this immediately with no wait, so ability's without one behave exactly as before.
+    private System.Collections.IEnumerator WaitForImpactEffect(CharacterInstance target, AbilityData ability)
+    {
+        if (OnRequestImpactEffect == null)
+            yield break;
+
+        bool done = false;
+        OnRequestImpactEffect.Invoke(target, ability, () => done = true);
+
+        yield return new WaitUntil(() => done);
     }
 
     // Single entry point for applying damage: rolls the +/-10% variance, absorbs into shields,
@@ -495,6 +536,7 @@ public class CombatController : MonoBehaviour
         target.TakeDamage(actualDamage);
         target.GainEnergy(DAMAGE_TAKEN_ENERGY_GAIN);
         OnDamageApplied?.Invoke(target, actualDamage, element);
+        OnTargetUpdated?.Invoke(target);
 
         if (target.CheckAndMarkDeath())
             HandleDeath(target);
@@ -856,7 +898,7 @@ public class CombatController : MonoBehaviour
 
             if (!isPlayerControlled)
             {
-                ResolveEnemyAction();
+                StartCoroutine(ResolveEnemyActionRoutine());
             }
             return;
         }

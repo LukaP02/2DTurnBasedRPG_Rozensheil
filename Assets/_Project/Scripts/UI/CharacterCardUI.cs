@@ -44,6 +44,10 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     [Header("Floating Text")]
     public Transform floatingTextAnchor;
     public GameObject floatingTextPrefab;
+    [Header("Impact Effect")]
+    [Tooltip("Where an ability's impact effect prefab is spawned when this card is hit - defaults to this card's own transform if left empty.")]
+    public Transform impactEffectAnchor;
+    private Coroutine impactEffectCoroutine;
     private CharacterInstance boundCharacter;
     private CombatUIManager uiManager;
     private RectTransform rectTransform;
@@ -534,7 +538,36 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         uiManager?.OnCardClicked(boundCharacter);
     }
+    // Spawns an ability's impact effect prefab on this card and calls onComplete once it's had
+    // its configured duration to play - see CombatController.OnRequestImpactEffect. Resolves
+    // immediately with no visual if effectPrefab is null (ability has none configured).
+    public void PlayImpactEffect(GameObject effectPrefab, float duration, System.Action onComplete)
+    {
+        if (effectPrefab == null)
+        {
+            onComplete?.Invoke();
+            return;
+        }
 
+        Transform anchor = impactEffectAnchor != null ? impactEffectAnchor : transform;
+        GameObject fx = Instantiate(effectPrefab, anchor);
+        fx.transform.localPosition = Vector3.zero;
+
+        if (impactEffectCoroutine != null)
+            StopCoroutine(impactEffectCoroutine);
+
+        impactEffectCoroutine = StartCoroutine(ImpactEffectRoutine(fx, duration, onComplete));
+    }
+
+    private System.Collections.IEnumerator ImpactEffectRoutine(GameObject fx, float duration, System.Action onComplete)
+    {
+        yield return new WaitForSeconds(duration);
+
+        if (fx != null)
+            Destroy(fx);
+
+        onComplete?.Invoke();
+    }
     public void ShowFloatingText(int amount, bool isHeal, ElementType element)
     {
         if (floatingTextAnchor == null || floatingTextPrefab == null) return;

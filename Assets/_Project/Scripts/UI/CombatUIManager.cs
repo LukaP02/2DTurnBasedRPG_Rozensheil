@@ -73,6 +73,8 @@ public class CombatUIManager : MonoBehaviour
         combatController.OnEnemyReinforced += HandleEnemyReinforced;
         combatController.OnFormSwitched += HandleFormSwitched;
         combatController.OnCriticalOrWeaknessHit += HandleCriticalOrWeaknessHit;
+        combatController.OnRequestImpactEffect += HandleRequestImpactEffect;
+        combatController.OnTargetUpdated += HandleTargetUpdated;
     }
 
     private void OnDestroy()
@@ -86,6 +88,8 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnEnemyReinforced -= HandleEnemyReinforced;
             combatController.OnFormSwitched -= HandleFormSwitched;
             combatController.OnCriticalOrWeaknessHit -= HandleCriticalOrWeaknessHit;
+            combatController.OnRequestImpactEffect -= HandleRequestImpactEffect;
+            combatController.OnTargetUpdated -= HandleTargetUpdated;
         }
 
        
@@ -613,5 +617,28 @@ public class CombatUIManager : MonoBehaviour
             if (bossEnergyBar != null) bossCard.SetEnergyBarVisible(false);
         }
     }
+    // Combat holds the hit here until onComplete is called - see CombatController.OnRequestImpactEffect.
+    // A target with no card on screen (shouldn't normally happen) just resolves instantly.
+    private void HandleRequestImpactEffect(CharacterInstance target, AbilityData ability, System.Action onComplete)
+    {
+        if (cardLookup.TryGetValue(target, out var card))
+            card.PlayImpactEffect(ability.impactEffectPrefab, ability.impactEffectDuration, onComplete);
+        else
+            onComplete?.Invoke();
+    }
 
+    // Fires right after a target's HP/energy/status actually changed and its number's already
+    // showing - refreshes just that one card's bars/icons rather than waiting for the full
+    // end-of-turn RefreshUI, so the HP/status update lands right after the number as its own step.
+    private void HandleTargetUpdated(CharacterInstance character)
+    {
+        if (cardLookup.TryGetValue(character, out var card))
+        {
+            card.RefreshHP();
+            card.RefreshEnergy();
+            card.RefreshStatuses();
+        }
+
+        RefreshBossBars();
+    }
 }
