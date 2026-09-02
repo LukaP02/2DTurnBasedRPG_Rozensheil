@@ -34,6 +34,7 @@ public class CardDetailUI : MonoBehaviour
 
     public void Show(CharacterInstance character)
     {
+        Debug.Log($"[InspectZoomDebug] CardDetailUI.Show ENTERED, character null? {character == null}, frame {Time.frameCount}");
         if (character == null || character.data == null) return;
 
         CharacterCardData data = character.data;
@@ -59,8 +60,9 @@ public class CardDetailUI : MonoBehaviour
 
         if (passiveText != null)
             passiveText.text = BuildPassiveText(data);
-
+        Debug.Log($"[InspectZoomDebug] CardDetailUI.Show about to SetActive(true) on {detailPanel?.name}, frame {Time.frameCount}");
         detailPanel.SetActive(true);
+        Debug.Log($"[InspectZoomDebug] CardDetailUI.Show SetActive(true) done, activeSelf now {detailPanel.activeSelf}, frame {Time.frameCount}");
     }
 
     private string BuildAbilitiesText(CharacterInstance character)

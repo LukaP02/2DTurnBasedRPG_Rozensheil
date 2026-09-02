@@ -530,13 +530,16 @@ public class CombatUIManager : MonoBehaviour
 
         if (inspectZoomAnchor != null && cardLookup.TryGetValue(character, out var card))
         {
+            Debug.Log($"[InspectZoomDebug] OnInspectCard calling PlayInspectZoom, frame {Time.frameCount}");
             card.PlayInspectZoom(inspectZoomAnchor, () =>
             {
+                Debug.Log($"[InspectZoomDebug] onComplete callback ENTERED, frame {Time.frameCount}");
                 // Snap the field card back to its combat row slot right as the panel takes over -
                 // the panel is about to cover the whole screen anyway, so this is invisible. No
                 // need to wait for the panel to close later.
                 card.ResetInspectZoom();
                 cardDetailUI.Show(character);
+                Debug.Log($"[InspectZoomDebug] onComplete callback FINISHED (Show() called), frame {Time.frameCount}");
             });
         }
         else

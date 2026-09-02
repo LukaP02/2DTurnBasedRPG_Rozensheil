@@ -106,6 +106,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     private System.Collections.IEnumerator InspectZoomRoutine(RectTransform zoomAnchor, System.Action onComplete)
     {
+        Debug.Log($"[InspectZoomDebug] InspectZoomRoutine STARTED for {name}, frame {Time.frameCount}");
         preInspectParent = rectTransform.parent;
         preInspectSiblingIndex = rectTransform.GetSiblingIndex();
         preInspectAnchoredPosition = rectTransform.anchoredPosition;
@@ -133,8 +134,10 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         rectTransform.anchoredPosition = Vector2.zero;
         rectTransform.localScale = targetScale;
+        Debug.Log($"[InspectZoomDebug] InspectZoomRoutine FINISHED for {name}, frame {Time.frameCount}, onComplete is {(onComplete == null ? "NULL" : "set")}");
 
         onComplete?.Invoke();
+        Debug.Log($"[InspectZoomDebug] onComplete?.Invoke() returned for {name}, frame {Time.frameCount}");
     }
 
     public void ResetInspectZoom()
