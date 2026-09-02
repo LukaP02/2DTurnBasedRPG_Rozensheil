@@ -37,8 +37,12 @@ public class CharacterCardData : ScriptableObject
     public float threatWeight = 1f;
 
     [Header("Elemental")]
+    [Tooltip("Elements this character takes bonus damage from (see CombatController's fixed weakness multiplier).")]
     public ElementType[] weaknesses;
-    public ElementType[] resistances;
+    [Tooltip("Resistance to elements not listed in Element Resistances below (and not a weakness) - 0 = no reduction, 1 = fully negated. E.g. a Gladiator resistant to everything a little, but especially to Fire/Holy: set this to 0.1, then add Fire and Holy to Element Resistances at 0.3 each.")]
+    [Range(0f, 1f)] public float defaultResistancePercent = 0f;
+    [Tooltip("Per-element resistance overrides - each replaces Default Resistance Percent above for that specific element. Leave empty to use the default for every non-weakness element.")]
+    public ElementResistance[] resistances;
 
     [Header("Basic Attack - fixed (used if Basic Options is empty)")]
     public AbilityData basicAbility;
@@ -88,4 +92,10 @@ public class CharacterCardData : ScriptableObject
     [Tooltip("Enemy-only. Shows this character's HP on the boss health bar at the top of the combat screen (different art) instead of the normal per-card HP bar. If this character has a Phase Transition, flag Phase Two Card as a boss too so the top bar keeps showing after the swap.")]
     public bool isBoss = false;
 
+    [System.Serializable]
+    public class ElementResistance
+    {
+        public ElementType element;
+        [Range(0f, 1f)] public float reductionPercent = 0f;
+    }
 }

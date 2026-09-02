@@ -14,7 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Raindorf
   cardArt: {fileID: 6918554802959114315, guid: 69087dc869bc5b24f9a32f6a66900f37, type: 3}
-  description: 
+  icon: {fileID: 0}
+  description: EisenDorphian dwarf from the Bjornthar clan, a man who used to be
+    a savage brute and a hunter. After decades of raiding and pillaging different
+    snowy villages he and his brother were up against a warlock. In this clash Raindorf's
+    brother sacrifeced himself to protect Raindorf, turnned into stone with seemingly
+    no way to reverse the curse. Before beating the life out of the warlock Raindorf
+    found out that a cure exists but he will never know the answer to it. After that
+    moment Raindorf chose to abandon the path of the berserker and pick up a holy
+    book, and under Focalor the Just he chose to serve in hopes to get the knowladge
+    he desired and rid his brother of a fate meant for himself.
   isPlayableCharacter: 1
   role: 2
   maxHP: 250
@@ -26,7 +35,8 @@ MonoBehaviour:
   critRate: 0.05
   threatWeight: 1
   weaknesses: 
-  resistances: 
+  defaultResistancePercent: 0
+  resistances: []
   basicAbility: {fileID: 11400000, guid: 9e72f84069a1eb846a76ac07c22aca64, type: 2}
   basicOptions: []
   skillOptions:
@@ -49,6 +59,10 @@ MonoBehaviour:
   phaseTransitionHPPercent: 0.5
   phaseTransitionDialogue: {fileID: 0}
   phaseTransitionMessage: A new form emerges!
+  hpTriggeredReinforcements: []
+  hpTriggeredReinforcementPercent: 0.5
+  hpTriggeredReinforcementMessage: The Cyclops calls two wolves!
   extraBasicAbilities: []
   extraSkillAbilities: []
   extraUltimateAbilities: []
+  isBoss: 0

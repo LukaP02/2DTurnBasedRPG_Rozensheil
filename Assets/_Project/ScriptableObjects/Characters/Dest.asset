@@ -14,7 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Dest
   cardArt: {fileID: 7417892570511712460, guid: 12a5464dd31ceda40b51bb0e301a9ccf, type: 3}
-  description: 
+  icon: {fileID: 0}
+  description: 'Young, promising sailor whose crew got seperated after pirates  raided
+    his ship and sold everyone to different buyers. He spent a few months in this
+    prison, entertaining people through violence and gorish spectacle shown inside
+    the colosseum arena. His toughness and positive attitude is worthy of a captain
+    and his determination to find his missing crew is unvavering. Some say that his
+    arms are made of steel, hence why he keeps them wrapped, but what lies beneath
+    those bandages only Dest knows. '
   isPlayableCharacter: 1
   role: 1
   maxHP: 400
@@ -26,7 +33,8 @@ MonoBehaviour:
   critRate: 0.05
   threatWeight: 2
   weaknesses: 
-  resistances: 
+  defaultResistancePercent: 0
+  resistances: []
   basicAbility: {fileID: 11400000, guid: 10c8a6885e60b8f42b664de8e67879a4, type: 2}
   basicOptions: []
   skillOptions:
@@ -49,6 +57,10 @@ MonoBehaviour:
   phaseTransitionHPPercent: 0.5
   phaseTransitionDialogue: {fileID: 0}
   phaseTransitionMessage: A new form emerges!
+  hpTriggeredReinforcements: []
+  hpTriggeredReinforcementPercent: 0.5
+  hpTriggeredReinforcementMessage: The Cyclops calls two wolves!
   extraBasicAbilities: []
   extraSkillAbilities: []
   extraUltimateAbilities: []
+  isBoss: 0

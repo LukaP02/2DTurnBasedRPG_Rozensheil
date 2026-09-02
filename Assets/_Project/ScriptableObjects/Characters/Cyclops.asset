@@ -15,19 +15,22 @@ MonoBehaviour:
   characterName: Cyclops
   cardArt: {fileID: -8728374782289922796, guid: 995b689382452ca45b2c0c3927a12e6d, type: 3}
   icon: {fileID: 0}
-  description: 
+  description: Savage and ancient being thought to be almost extinct. Omnivore that
+    enjoys the taste of flash. Known for their ancient petrifying magic and endless
+    appetite, especially of dwarves.
   isPlayableCharacter: 0
   role: 1
-  maxHP: 1500
+  maxHP: 1000
   attack: 100
-  defense: 0
+  defense: 50
   speed: 100
   maxEnergy: 100
   energyRechargeRate: 1
   critRate: 0.05
   threatWeight: 1
-  weaknesses: 01000000
-  resistances: 
+  weaknesses: 0100000004000000
+  defaultResistancePercent: 0.1
+  resistances: []
   basicAbility: {fileID: 11400000, guid: 2f8971669aa59aa4ca84d586e0441851, type: 2}
   basicOptions: []
   skillOptions:
@@ -35,9 +38,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e38564dbe0b93b047acebfdce2bbe433, type: 2}
   ultimateOptions:
   - {fileID: 11400000, guid: c053179e42edd1b499f4ad87bdb4642e, type: 2}
-  defaultBasic: {fileID: 0}
-  defaultSkill: {fileID: 0}
-  defaultUltimate: {fileID: 0}
+  defaultBasic: {fileID: 11400000, guid: 2f8971669aa59aa4ca84d586e0441851, type: 2}
+  defaultSkill: {fileID: 11400000, guid: 170ce3a4977f5ee49ad2d3a64681574a, type: 2}
+  defaultUltimate: {fileID: 11400000, guid: c053179e42edd1b499f4ad87bdb4642e, type: 2}
   passive: {fileID: 0}
   hasForms: 0
   normalFormBasic: {fileID: 0}
@@ -53,8 +56,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
   - {fileID: 11400000, guid: d9a8046985651fb4d9a847e00825b3a2, type: 2}
   hpTriggeredReinforcementPercent: 0.5
-  hpTriggeredReinforcementMessage: The Cyclops calls two wolves!
+  hpTriggeredReinforcementMessage: The Cyclops calls his two wolves!
   extraBasicAbilities: []
-  extraSkillAbilities: []
+  extraSkillAbilities:
+  - {fileID: 11400000, guid: 170ce3a4977f5ee49ad2d3a64681574a, type: 2}
+  - {fileID: 11400000, guid: e38564dbe0b93b047acebfdce2bbe433, type: 2}
   extraUltimateAbilities: []
   isBoss: 1

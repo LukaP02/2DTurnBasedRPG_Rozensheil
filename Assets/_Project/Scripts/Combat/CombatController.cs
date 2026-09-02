@@ -27,12 +27,9 @@ public class CombatController : MonoBehaviour
     private const float ENEMY_FOCUS_LOWEST_HP_CHANCE = 0.4f;
 
     [Header("Rewards")]
-    public int goldReward = 50;
+    public int goldReward = 150;
 
-    [Header("Combat Tuning")]
-    [Range(0f, 1f)]
-    [Tooltip("Damage reduction fraction applied when a target resists the ability's element - 0 = no reduction (full damage), 1 = fully negated. Replaces the old fixed 50% reduction.")]
-    public float resistanceReduction = 0.5f;
+  
 
     // --- Wave encounter (optional, configured per level via ConfigureWaveEncounter) ---
     private int maxEnemiesOnField;
@@ -770,9 +767,11 @@ public class CombatController : MonoBehaviour
             raw = Mathf.RoundToInt(raw * WEAKNESS_MULTIPLIER);
             wasCritOrWeakness = true;
         }
-        else if (IsResistantTo(defender, ability.element))
+        else
         {
-            raw = Mathf.RoundToInt(raw * (1f - resistanceReduction));
+            float resistancePercent = GetResistancePercent(defender, ability.element);
+            if (resistancePercent > 0f)
+                raw = Mathf.RoundToInt(raw * (1f - resistancePercent));
         }
 
         if (ability.canCrit && UnityEngine.Random.value < attacker.currentCritRate)
@@ -795,15 +794,19 @@ public class CombatController : MonoBehaviour
         return false;
     }
 
-    private bool IsResistantTo(CharacterInstance target, ElementType element)
+    // A specific Element Resistances entry for this element overrides Default Resistance Percent;
+    // otherwise the default applies (0 if left unset, meaning no reduction).
+    private float GetResistancePercent(CharacterInstance target, ElementType element)
     {
-        if (target.data.resistances == null) return false;
-
-        foreach (var r in target.data.resistances)
+        if (target.data.resistances != null)
         {
-            if (r == element) return true;
+            foreach (var r in target.data.resistances)
+            {
+                if (r.element == element) return r.reductionPercent;
+            }
         }
-        return false;
+
+        return target.data.defaultResistancePercent;
     }
 
     private void EndTurn()

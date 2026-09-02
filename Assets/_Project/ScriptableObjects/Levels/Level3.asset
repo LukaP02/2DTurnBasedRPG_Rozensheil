@@ -26,7 +26,12 @@ MonoBehaviour:
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 0}
   dialogueBeforePreEvent: 0
-  enemies: []
+  enemies:
+  - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
+  - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
+  - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
+  - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
+  - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
   postLevelEvent: {fileID: 0}
   postLevelDialogue: {fileID: 0}
   dialogueBeforePostEvent: 0

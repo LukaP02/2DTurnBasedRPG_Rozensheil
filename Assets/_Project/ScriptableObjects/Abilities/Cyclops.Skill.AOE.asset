@@ -14,21 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Cleave
   icon: {fileID: 0}
-  description: 
+  description: The Cyclops screams with all his power, causing up to three targets
+    to take medium Physical damage.
   abilityType: 1
-  spCost: 2
+  spCost: 3
   spGain: 0
   power: 70
   element: 0
   energyCost: 100
   stackableEnergy: 0
   maxEnergyStacks: 1
-  attackScaling: 1
+  attackScaling: 0.4
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
-  canCrit: 1
-  targetShape: 1
+  canCrit: 0
+  targetShape: 2
   targetSide: 0
   appliesStatusEffect: {fileID: 0}
   statusEffectChance: 1

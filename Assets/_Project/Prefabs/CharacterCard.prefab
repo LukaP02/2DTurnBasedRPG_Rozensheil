@@ -1474,6 +1474,13 @@ MonoBehaviour:
   floatingTextAnchor: {fileID: 2211139393468191146}
   floatingTextPrefab: {fileID: 787407630971366531, guid: 1d095799167090443a6f7dd2553de3eb, type: 3}
   slideInSeconds: 0.7
+  formFlipSeconds: 0.3
+  deadArtTint: {r: 0.55, g: 0.55, b: 0.55, a: 1}
+  deathFadeOutSeconds: 0.4
+  shiverSeconds: 0.3
+  shiverDistance: 8
+  inspectZoomSeconds: 0.3
+  inspectZoomScale: 2.2
 --- !u!114 &3766489776467790449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2236,7 +2243,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -148, y: 0}
+  m_AnchoredPosition: {x: -163.36, y: 0}
   m_SizeDelta: {x: -154.2917, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &937011456765816452
@@ -2258,7 +2265,7 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0
-  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0

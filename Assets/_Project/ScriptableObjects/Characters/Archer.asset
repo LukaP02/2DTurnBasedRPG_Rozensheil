@@ -10,37 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfd8ad134fa89724ebaaee07cf4c01d4, type: 3}
-  m_Name: Gladiator
+  m_Name: Archer
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
-  characterName: Gladiator
-  cardArt: {fileID: -289328239768602692, guid: fa0949c1d9c3eb8489feb1e5d1e4cb14, type: 3}
+  characterName: Archer
+  cardArt: {fileID: 4766502569351617581, guid: f17a74bbc4de56a4e97d2db7d403d007, type: 3}
   icon: {fileID: 0}
-  description: 'Rebel, forced to entertain a crowd in this savage bloodsport. It
-    is not clear weather he enjoys it or despises it, as his face is fully covered
-    under an iron mask. '
-  isPlayableCharacter: 0
+  description: Kharian soldier, exceptional with ranged weapons. Usually serving
+    at the city borders where their precision compliments the terrain. Nevertheless
+    those that are stationed in the colosseum are to be respected no less than those
+    that give their service to the god of strength.
+  isPlayableCharacter: 1
   role: 0
-  maxHP: 200
-  attack: 70
-  defense: 50
-  speed: 85
+  maxHP: 0
+  attack: 0
+  defense: 0
+  speed: 0
   maxEnergy: 100
   energyRechargeRate: 1
   critRate: 0.05
   threatWeight: 1
-  weaknesses: 0400000000000000
-  defaultResistancePercent: 0.1
-  resistances:
-  - element: 1
-    reductionPercent: 0.3
-  basicAbility: {fileID: 11400000, guid: f23aa7da64fd453428d8ec5ce4150a4b, type: 2}
-  basicOptions:
-  - {fileID: 0}
-  skillOptions:
-  - {fileID: 0}
+  weaknesses: 
+  defaultResistancePercent: 0
+  resistances: []
+  basicAbility: {fileID: 0}
+  basicOptions: []
+  skillOptions: []
   ultimateOptions: []
-  defaultBasic: {fileID: 11400000, guid: f23aa7da64fd453428d8ec5ce4150a4b, type: 2}
-  defaultSkill: {fileID: 11400000, guid: 5b8110d5c8d399b4996131d6e4b284a6, type: 2}
+  defaultBasic: {fileID: 0}
+  defaultSkill: {fileID: 0}
   defaultUltimate: {fileID: 0}
   passive: {fileID: 0}
   hasForms: 0

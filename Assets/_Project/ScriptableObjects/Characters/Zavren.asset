@@ -14,7 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Zavren
   cardArt: {fileID: -4085457783064350272, guid: c140f9ca5f1fce24a9ca8006645668c1, type: 3}
-  description: 
+  icon: {fileID: 0}
+  description: 'Infernal Tiefling blessed with the elemental magic from birth. Abandoned
+    as a child by his parents because of his status as a sorcerer, who were hunted
+    by an underground organization known as the "Equalizers". To survive he joined
+    a criminal circle that helped keep him safe and teach him how to survive. Using
+    this arcane power came natural to him, so much that he started experimenting
+    with different ways of utilizing them to his advantage. '
   isPlayableCharacter: 1
   role: 3
   maxHP: 150
@@ -26,7 +32,8 @@ MonoBehaviour:
   critRate: 0.05
   threatWeight: 1
   weaknesses: 
-  resistances: 010000000200000005000000
+  defaultResistancePercent: 0
+  resistances: []
   basicAbility: {fileID: 0}
   basicOptions:
   - {fileID: 11400000, guid: c6b7b2672bfda4e4bbc7f3c76ac11f48, type: 2}
@@ -53,6 +60,10 @@ MonoBehaviour:
   phaseTransitionHPPercent: 0.5
   phaseTransitionDialogue: {fileID: 0}
   phaseTransitionMessage: A new form emerges!
+  hpTriggeredReinforcements: []
+  hpTriggeredReinforcementPercent: 0.5
+  hpTriggeredReinforcementMessage: The Cyclops calls two wolves!
   extraBasicAbilities: []
   extraSkillAbilities: []
   extraUltimateAbilities: []
+  isBoss: 0

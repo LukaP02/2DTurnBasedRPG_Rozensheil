@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Sicur
   cardArt: {fileID: -8968411516607468687, guid: f778fb1839cac4f48becd6f481accfea, type: 3}
-  description: 
+  icon: {fileID: 0}
+  description: High elf with a shroud of mystery around him. Not very talkative when
+    it comes to himself, be it for his safety or status as an Easterner noble. Very
+    tall and pale man, whose main characteristic is a red glowing eye that he got
+    from a pact with an unknown demon. Acording to him, this deal is a burden he
+    now has to bear for the rest of his life.
   isPlayableCharacter: 1
   role: 0
   maxHP: 180
@@ -26,7 +31,8 @@ MonoBehaviour:
   critRate: 0.05
   threatWeight: 1
   weaknesses: 
-  resistances: 
+  defaultResistancePercent: 0
+  resistances: []
   basicAbility: {fileID: 0}
   basicOptions: []
   skillOptions: []
@@ -46,6 +52,10 @@ MonoBehaviour:
   phaseTransitionHPPercent: 0.5
   phaseTransitionDialogue: {fileID: 0}
   phaseTransitionMessage: A new form emerges!
+  hpTriggeredReinforcements: []
+  hpTriggeredReinforcementPercent: 0.5
+  hpTriggeredReinforcementMessage: The Cyclops calls two wolves!
   extraBasicAbilities: []
   extraSkillAbilities: []
   extraUltimateAbilities: []
+  isBoss: 0

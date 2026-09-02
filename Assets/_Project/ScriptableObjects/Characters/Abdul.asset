@@ -15,7 +15,14 @@ MonoBehaviour:
   characterName: Abdul
   cardArt: {fileID: -292687858937536223, guid: 3a4d3b7160ccaa141bed74d33d424685, type: 3}
   icon: {fileID: 0}
-  description: 
+  description: 'Youngest among the strangers. Confident, agile and sneaky Kharian
+    boy who lost his mother at a young age. He swore revenge on the men that murdered
+    her by any means necessary. He joined a criminal group led by Henry, who he sees
+    as a father figure. Throughout the years Henry taught Abdul skills that would
+    help him in his quest. Young boy named Usman Abdul Jalil Shisha proved himself
+    a capable thief and assassin ready to take any task given to him at the ripe
+    age of 16. He lost his right arm to a mythical creature known as Bagman, which
+    he thankfully replaced with a mechanical prototype in Brasshaven. '
   isPlayableCharacter: 1
   role: 0
   maxHP: 200
@@ -27,7 +34,8 @@ MonoBehaviour:
   critRate: 0.05
   threatWeight: 1
   weaknesses: 
-  resistances: 
+  defaultResistancePercent: 0
+  resistances: []
   basicAbility: {fileID: 11400000, guid: 008d07eb9819f8c45a83799e63189b59, type: 2}
   basicOptions:
   - {fileID: 11400000, guid: 008d07eb9819f8c45a83799e63189b59, type: 2}

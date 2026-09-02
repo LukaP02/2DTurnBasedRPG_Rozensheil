@@ -14,24 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Petrifying Gaze
   icon: {fileID: 0}
-  description: 
+  description: The Cyclops uses his ancient magic to try and petrify one target.
   abilityType: 1
-  spCost: 4
+  spCost: 5
   spGain: 0
   power: 20
   element: 4
   energyCost: 100
   stackableEnergy: 0
   maxEnergyStacks: 1
-  attackScaling: 1
-  maxHPScaling: 0
+  attackScaling: 0
+  maxHPScaling: 0.2
   defenseScaling: 0
   speedScaling: 0
   canCrit: 1
   targetShape: 0
   targetSide: 0
   appliesStatusEffect: {fileID: 0}
-  statusEffectChance: 1
+  statusEffectChance: 0.67
   appliesMark: 0
   maxMarkStacks: 3
   consumesMark: 0

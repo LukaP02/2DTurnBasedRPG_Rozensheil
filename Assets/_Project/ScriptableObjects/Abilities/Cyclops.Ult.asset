@@ -14,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Pummel
   icon: {fileID: 0}
-  description: 
+  description: The Cyclops charges into a target throwing a flurry of punches with
+    devastating power.
   abilityType: 2
   spCost: 0
   spGain: 0
   power: 130
   element: 0
-  energyCost: 100
+  energyCost: 200
   stackableEnergy: 0
   maxEnergyStacks: 1
-  attackScaling: 1
+  attackScaling: 0.6
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0

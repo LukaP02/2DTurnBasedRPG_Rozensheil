@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Wolf
   cardArt: {fileID: -1671632898402556846, guid: 031a5d99ab70b8347a01011d9df0c1e7, type: 3}
-  description: 
+  icon: {fileID: 0}
+  description: A savage beast living in a harsh envierment. These beasts never hunt
+    alone, so one should be prepeared for a tough battle should they encounter one.
   isPlayableCharacter: 0
   role: 0
   maxHP: 130
@@ -26,7 +28,8 @@ MonoBehaviour:
   critRate: 0.05
   threatWeight: 1
   weaknesses: 
-  resistances: 
+  defaultResistancePercent: 0
+  resistances: []
   basicAbility: {fileID: 11400000, guid: 881fc088fd4ff314db1d1275b88b79d6, type: 2}
   basicOptions: []
   skillOptions: []
@@ -45,6 +48,10 @@ MonoBehaviour:
   phaseTransitionHPPercent: 0.5
   phaseTransitionDialogue: {fileID: 0}
   phaseTransitionMessage: A new form emerges!
+  hpTriggeredReinforcements: []
+  hpTriggeredReinforcementPercent: 0.5
+  hpTriggeredReinforcementMessage: The Cyclops calls two wolves!
   extraBasicAbilities: []
   extraSkillAbilities: []
   extraUltimateAbilities: []
+  isBoss: 0
