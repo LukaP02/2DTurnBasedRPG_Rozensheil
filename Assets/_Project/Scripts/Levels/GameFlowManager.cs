@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameFlowManager : MonoBehaviour
 {
@@ -12,6 +13,13 @@ public class GameFlowManager : MonoBehaviour
     public DefeatScreenUI defeatScreen;
     public VictoryScreenUI victoryScreen;
 
+    [Header("Party Setup Gate")]
+    [Tooltip("Shown between the intro event/dialogue and combat for a level with Prompt Party Selection Before Combat checked (see LevelData) - a separate PartySetupUI panel, not the one on the Overworld screen, since the overworld is hidden at this point. Must start inactive in the scene.")]
+    public GameObject partySetupGatePanel;
+    [Tooltip("Button on Party Setup Gate Panel that confirms the player's active party choice and continues on to combat.")]
+    public Button partySetupGateConfirmButton;
+
+
     [Header("Controllers")]
     public DialogueController dialogueController;
     public EventController eventController;
@@ -21,6 +29,7 @@ public class GameFlowManager : MonoBehaviour
 
     private LevelData currentLevel;
     private int currentLevelIndex;
+    private System.Action onPartySetupGateConfirmed;
 
     private void Awake()
     {
@@ -42,6 +51,8 @@ public class GameFlowManager : MonoBehaviour
         {
             victoryScreen.OnContinuePressed += OnVictoryContinuePressed;
         }
+        if (partySetupGateConfirmButton != null)
+            partySetupGateConfirmButton.onClick.AddListener(ConfirmPartySetupGate);
     }
 
     public void StartLevel(LevelData level, int levelIndex)
@@ -77,11 +88,35 @@ public class GameFlowManager : MonoBehaviour
         PartyManager.Instance.ResolvePendingEventPenalty(hasCombat);
 
         if (hasCombat)
+        {
+            if (currentLevel.promptPartySelectionBeforeCombat && partySetupGatePanel != null)
+                ShowPartySetupGate(BeginCombat);
+            else
+               
             BeginCombat();
+        }
+        
         else
             RunPostLevelSequence();
     }
 
+    // Shown between the intro sequence and combat for a level flagged via
+    // LevelData.promptPartySelectionBeforeCombat - e.g. right after the intro event recruits a new
+    // character, so the player can immediately choose whether to bring them into the active party.
+    private void ShowPartySetupGate(System.Action onComplete)
+    {
+        onPartySetupGateConfirmed = onComplete;
+        partySetupGatePanel.SetActive(true);
+    }
+
+    private void ConfirmPartySetupGate()
+    {
+        partySetupGatePanel.SetActive(false);
+
+        System.Action callback = onPartySetupGateConfirmed;
+        onPartySetupGateConfirmed = null;
+        callback?.Invoke();
+    }
     private void BeginCombat()
     {
         List<CharacterInstance> allies = PartyManager.Instance.GetPartyInstances();

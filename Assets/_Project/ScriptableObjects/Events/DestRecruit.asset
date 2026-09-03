@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e70547d8134d5943ac3fafcae79c9dc, type: 3}
-  m_Name: ALESSI.Eisendorph
+  m_Name: DestRecruit
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  title: ALESSI's Shop
-  description: ae
+  title: Partner in crime
+  description: 'You made a deal with Dest, he seems like a capable addition to the
+    team. His muscular physique and knowladge of the prison could come in handy,
+    but first things first, a preparation is required. '
   image: {fileID: 0}
   backgroundImage: {fileID: 0}
   choices:
-  - choiceText: buy armor
+  - choiceText: Continue
     outcomeText: 
-    goldChange: -200
+    goldChange: 0
     hpChangePercent: 0
-    recruitCharacter: {fileID: 0}
+    recruitCharacter: {fileID: 11400000, guid: efe5acc6088599d44a3ae589863b8399, type: 2}
     grantItems: []
-    costItems:
-    - {fileID: 11400000, guid: af6d7500e044be044b45bc9afc427c9e, type: 2}
+    costItems: []

@@ -27,6 +27,8 @@ public class LevelData : ScriptableObject
     public DialogueSequence introDialogue;
     [Tooltip("If true, Intro Dialogue plays before Pre Level Event. Default (false) plays the event first, then the dialogue.")]
     public bool dialogueBeforePreEvent = false;
+    [Tooltip("If true, after the intro event/dialogue finish (and before combat starts), the player is shown the Party Setup screen to pick their active party - e.g. a level whose intro event recruits a new character and should let the player choose whether to bring them in. Ignored for a no-combat node.")]
+    public bool promptPartySelectionBeforeCombat = false;
     [Tooltip("Leave empty for a no-combat node (event and/or dialogue only) - combat is skipped entirely.")]
     public CharacterCardData[] enemies;
     public EventData postLevelEvent;

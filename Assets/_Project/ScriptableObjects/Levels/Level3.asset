@@ -23,9 +23,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a497becf27a8ecb43ac6376ab95e9cee, type: 2}
   - {fileID: 11400000, guid: 8583541639a07d34e827f52fcec83e64, type: 2}
   combatBackground: {fileID: 0}
-  preLevelEvent: {fileID: 0}
+  preLevelEvent: {fileID: 11400000, guid: ff4853b9521a44a47a8e11c91c0a0462, type: 2}
   introDialogue: {fileID: 0}
-  dialogueBeforePreEvent: 0
+  dialogueBeforePreEvent: 1
+  promptPartySelectionBeforeCombat: 1
   enemies:
   - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
   - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
