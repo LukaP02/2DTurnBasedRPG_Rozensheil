@@ -28,6 +28,9 @@ public class CombatController : MonoBehaviour
 
     [Header("Rewards")]
     public int goldReward = 50;
+    [Header("Status Effect Feedback")]
+    [Tooltip("Minimum time (seconds) combat pauses right after a status effect is newly applied to a target, so the player has a chance to actually see it (status icon, card tint) before turn order gets a chance to clear it again - important for a 1-turn effect like Freeze/Petrified when the affected character's turn comes up immediately next.")]
+    public float statusEffectAppliedPauseSeconds = 0.6f;
 
     // --- Wave encounter (optional, configured per level via ConfigureWaveEncounter) ---
     private int maxEnemiesOnField;
@@ -481,6 +484,13 @@ public class CombatController : MonoBehaviour
             {
                 target.ApplyStatusEffect(ability.appliesStatusEffect, user);
                 OnTargetUpdated?.Invoke(target);
+
+                // Without this, a freshly applied 1-turn effect (e.g. Freeze/Petrified) on a
+                // status-only ability can get ticked off and reverted again before this coroutine
+                // ever yields to let a frame render - invisible to the player even though it did
+                // apply. This guarantees at least a beat of real time to actually see it (icon,
+                // card tint, etc.) before turn order has a chance to clear it again.
+                yield return new WaitForSeconds(statusEffectAppliedPauseSeconds);
             }
         }
         // Lifesteal heals the caster based on the total damage dealt this cast, across every target hit.
