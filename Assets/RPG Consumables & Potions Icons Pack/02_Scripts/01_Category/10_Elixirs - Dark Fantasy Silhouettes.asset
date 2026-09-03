@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe346b9fe066f64f97e6907ae4309d9, type: 3}
+  m_Name: 10_Elixirs - Dark Fantasy Silhouettes
+  m_EditorClassIdentifier: 
+  categoryName: Elixirs & Dark Fantasy Silhouettes
+  icons:
+  - {fileID: 21300000, guid: feb6a91e4d52e4b4ca42cb479521af36, type: 3}
+  - {fileID: 21300000, guid: 5eff65aa9957ff44896ec25edeac017e, type: 3}
+  - {fileID: 21300000, guid: 0e649c7b4f86181409280280639ff33c, type: 3}
+  - {fileID: 21300000, guid: 7e4b6f9cc16c77243a78793cf4cb1ea0, type: 3}
+  - {fileID: 21300000, guid: 27c8c4276b87997468223ad2821fa3ec, type: 3}
+  - {fileID: 21300000, guid: 14f0d5bde9d1a8c43972f8dbc0014c6a, type: 3}
+  - {fileID: 21300000, guid: a0af14e7b6cd4234681785ad0a0093e3, type: 3}
+  - {fileID: 21300000, guid: 0deec8aff1cc89c4db858e91b01abc42, type: 3}
+  - {fileID: 21300000, guid: d3a98f725e01f1741a726974c98ac7f5, type: 3}
+  - {fileID: 21300000, guid: d47840c7ce196dd4790e768e82974404, type: 3}
+  - {fileID: 21300000, guid: 7068c6d34db594644bead2e443efb162, type: 3}
+  - {fileID: 21300000, guid: 8aeffbd2326ca6f4f8873a2153162927, type: 3}
+  - {fileID: 21300000, guid: 045af937511743b46a07d1cba0d15b42, type: 3}
+  - {fileID: 21300000, guid: 1bef799b5be7d03499cdd1188a32a164, type: 3}
+  - {fileID: 21300000, guid: f3bd5596a54bdb8459af07fe2604884d, type: 3}

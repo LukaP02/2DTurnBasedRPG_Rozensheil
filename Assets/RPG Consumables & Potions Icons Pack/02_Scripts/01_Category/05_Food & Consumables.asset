@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe346b9fe066f64f97e6907ae4309d9, type: 3}
+  m_Name: 05_Food & Consumables
+  m_EditorClassIdentifier: 
+  categoryName: Food & Consumables
+  icons:
+  - {fileID: 21300000, guid: bf2b7c0cfe862f841ae9f475663fa037, type: 3}
+  - {fileID: 21300000, guid: 17a224cc0a3969644a05445ef5eff52a, type: 3}
+  - {fileID: 21300000, guid: 7b3e2ccf80795684ea1edfee9528003b, type: 3}
+  - {fileID: 21300000, guid: 6b5271705c281dc42a7ef64e57fd0d41, type: 3}
+  - {fileID: 21300000, guid: 0f6d4fcc986f34a4dab0d4452afeb2c3, type: 3}
+  - {fileID: 21300000, guid: 1af74ae808c676e4f90d74e83fa5256c, type: 3}
+  - {fileID: 21300000, guid: a6af9ecba9e903547b940e4441bcf071, type: 3}
+  - {fileID: 21300000, guid: 768f9f6c5475bbf49856d7ac2c5b7522, type: 3}
+  - {fileID: 21300000, guid: 29a57172674a44748875e0b8cbcb8bec, type: 3}
+  - {fileID: 21300000, guid: 0fd61ada417574a49b9ee83a4f5dd496, type: 3}
+  - {fileID: 21300000, guid: e0d9aa484d67c314dae95273d0025d32, type: 3}
+  - {fileID: 21300000, guid: 6b2b53c545b82934a8b0f20f52d121b8, type: 3}
+  - {fileID: 21300000, guid: 53cca8b3798ce26468fcb188962a3fd9, type: 3}
+  - {fileID: 21300000, guid: e03a95c803450a944b7f833246709b3b, type: 3}
+  - {fileID: 21300000, guid: d654ce36e4c3c65498890dabc18274c4, type: 3}

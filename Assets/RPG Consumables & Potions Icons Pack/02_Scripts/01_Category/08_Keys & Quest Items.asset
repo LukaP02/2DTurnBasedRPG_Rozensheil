@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe346b9fe066f64f97e6907ae4309d9, type: 3}
+  m_Name: 08_Keys & Quest Items
+  m_EditorClassIdentifier: 
+  categoryName: Keys & Quest Items
+  icons:
+  - {fileID: 21300000, guid: ad5eb6586ecf1f24bbcd3e014904901d, type: 3}
+  - {fileID: 21300000, guid: 3f12a659c16826f40aea8ba96ec08320, type: 3}
+  - {fileID: 21300000, guid: 053944b5b9273934eadc63e5d120deaf, type: 3}
+  - {fileID: 21300000, guid: 2595cb82c1f1e114dbe7147fb043e9c0, type: 3}
+  - {fileID: 21300000, guid: a1f43495da9dc86458cde42539c8d512, type: 3}
+  - {fileID: 21300000, guid: dd0b9b721f605db43b8da3a6a6ed6676, type: 3}
+  - {fileID: 21300000, guid: 81d1374c3beabbe43bccaacccc43b064, type: 3}
+  - {fileID: 21300000, guid: 49e8b2b024298fd449dff49c85dbdd1e, type: 3}
+  - {fileID: 21300000, guid: f0e9d420b2b3a954baabd5d4f572392f, type: 3}
+  - {fileID: 21300000, guid: b853cb04720025347bbd5f7209fc5061, type: 3}
+  - {fileID: 21300000, guid: e494ac1e50295a547b4590bb5dd76af9, type: 3}
+  - {fileID: 21300000, guid: 62e4a12d5272b9f4ca2b53b9fdd8ab69, type: 3}
+  - {fileID: 21300000, guid: 193e5466bb08fac40b500767ac4ba7df, type: 3}
+  - {fileID: 21300000, guid: b8e449d6bfc4489428c6c8b4a0dc2288, type: 3}
+  - {fileID: 21300000, guid: f0da8fe8a91acac47a40a8edfb454811, type: 3}

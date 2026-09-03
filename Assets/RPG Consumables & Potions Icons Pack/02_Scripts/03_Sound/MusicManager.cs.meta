@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b53b47d80851ae14a819102a3d1a5313
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 385610
+  packageName: RPG Consumables & Potions Icons Pack
+  packageVersion: 1.0
+  assetPath: Assets/RPG Consumables & Potions Icons Pack/02_Scripts/03_Sound/MusicManager.cs
+  uploadId: 930418

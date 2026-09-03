@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe346b9fe066f64f97e6907ae4309d9, type: 3}
+  m_Name: 03_Stamina & Energy
+  m_EditorClassIdentifier: 
+  categoryName: Stamina & Energy
+  icons:
+  - {fileID: 21300000, guid: 34aa14168c33a03419b2999afbab30b3, type: 3}
+  - {fileID: 21300000, guid: 5b50467037127d044b91ca00caa9651e, type: 3}
+  - {fileID: 21300000, guid: 6a8ce1a4a08a3974c9642d101ed7de7b, type: 3}
+  - {fileID: 21300000, guid: 24650cbc170b0444fb8a42c22718a1e2, type: 3}
+  - {fileID: 21300000, guid: 8b47373799306ef4d96f8ef15adce3c4, type: 3}
+  - {fileID: 21300000, guid: f3ce15a11260cb34fa2cdc18b8b7d9a8, type: 3}
+  - {fileID: 21300000, guid: 027112594928bd84ab08d52020dc3508, type: 3}
+  - {fileID: 21300000, guid: 97d821d0c32d74947818b47074d0ea2d, type: 3}
+  - {fileID: 21300000, guid: ade2c488cfe8d9c46b005b63b95d2daf, type: 3}
+  - {fileID: 21300000, guid: 0566392679e4ee447b00810030ac3072, type: 3}
+  - {fileID: 21300000, guid: 0b3d1b2f2995f114fb355747874f1c31, type: 3}
+  - {fileID: 21300000, guid: e75c4e7ddb40ed3479b02c59fd3b3637, type: 3}
+  - {fileID: 21300000, guid: 056056078eb4e234dbfbfd73d2dae700, type: 3}
+  - {fileID: 21300000, guid: 3f55a7903490d12498bebc5cf1fc8310, type: 3}
+  - {fileID: 21300000, guid: 8e5a07c3557c4814f91d4a6e63bf4e27, type: 3}

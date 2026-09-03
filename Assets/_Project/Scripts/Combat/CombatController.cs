@@ -57,6 +57,10 @@ public class CombatController : MonoBehaviour
     // the hit's number and HP/status update are held back until then. If nothing is listening,
     // or the ability has no impact effect configured, the wait is skipped entirely.
     public event Action<CharacterInstance, AbilityData, Action> OnRequestImpactEffect;
+    // Fired before OnRequestImpactEffect (only if the ability has a Projectile Prefab set), so the
+    // UI can animate it traveling from the caster's card to the target's card and call the passed
+    // callback once it arrives - the impact effect and hit still wait for this to finish first.
+    public event Action<CharacterInstance, CharacterInstance, AbilityData, Action> OnRequestProjectile;
     // Fired right after a target's HP/energy/status actually changes (damage, heal, or a status
     // application), once the matching OnDamageApplied/OnHealApplied number has already been
     // shown - lets the UI refresh that one card's bars/icons in the same order every time:
@@ -435,7 +439,7 @@ public class CombatController : MonoBehaviour
 
             if (ability.power > 0)
             {
-                yield return WaitForImpactEffect(target, ability);
+                yield return WaitForHitEffects(user, target, ability);
 
                 if (targetIsSameSideAsUser)
                 {
@@ -515,15 +519,28 @@ public class CombatController : MonoBehaviour
     // routine here until it reports back - if nobody's listening, or the ability has no impact
     // effect configured, HandleRequestImpactEffect-side logic (or the null check below) resolves
     // this immediately with no wait, so ability's without one behave exactly as before.
-    private System.Collections.IEnumerator WaitForImpactEffect(CharacterInstance target, AbilityData ability)
+    // Gives the UI a chance to play this ability's projectile (caster -> target travel) and then
+    // its impact effect (on the target) before this hit's number/HP update land, holding this
+    // routine here until each stage reports back. Either or both stages are skipped instantly if
+    // nobody's listening, or the ability has nothing configured for that stage - so an ability
+    // with neither behaves exactly as before either of these existed.
+    private System.Collections.IEnumerator WaitForHitEffects(CharacterInstance user, CharacterInstance target, AbilityData ability)
     {
-        if (OnRequestImpactEffect == null)
-            yield break;
+        if (ability.projectilePrefab != null && OnRequestProjectile != null)
+        {
+            bool arrived = false;
+            OnRequestProjectile.Invoke(user, target, ability, () => arrived = true);
 
-        bool done = false;
-        OnRequestImpactEffect.Invoke(target, ability, () => done = true);
+            yield return new WaitUntil(() => arrived);
+        }
 
-        yield return new WaitUntil(() => done);
+        if (OnRequestImpactEffect != null)
+        {
+            bool done = false;
+            OnRequestImpactEffect.Invoke(target, ability, () => done = true);
+
+            yield return new WaitUntil(() => done);
+        }
     }
 
     // Single entry point for applying damage: rolls the +/-10% variance, absorbs into shields,

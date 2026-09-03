@@ -12,6 +12,9 @@ public class CombatUIManager : MonoBehaviour
     public GameObject cardPrefab;
     public Transform allyContainer;
     public Transform enemyContainer;
+    [Header("Projectiles")]
+    [Tooltip("Parent a Projectile Prefab is spawned under and travels across - a RectTransform on the same Canvas as the cards (a dedicated empty layer above the cards works well, so the projectile draws over them). Only needed for abilities that set AbilityData.projectilePrefab.")]
+    public RectTransform projectileLayer;
 
     [Header("Combat Log")]
     public TMP_Text combatLogText;
@@ -74,6 +77,7 @@ public class CombatUIManager : MonoBehaviour
         combatController.OnFormSwitched += HandleFormSwitched;
         combatController.OnCriticalOrWeaknessHit += HandleCriticalOrWeaknessHit;
         combatController.OnRequestImpactEffect += HandleRequestImpactEffect;
+        combatController.OnRequestProjectile += HandleRequestProjectile;
         combatController.OnTargetUpdated += HandleTargetUpdated;
     }
 
@@ -89,6 +93,7 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnFormSwitched -= HandleFormSwitched;
             combatController.OnCriticalOrWeaknessHit -= HandleCriticalOrWeaknessHit;
             combatController.OnRequestImpactEffect -= HandleRequestImpactEffect;
+            combatController.OnRequestProjectile -= HandleRequestProjectile;
             combatController.OnTargetUpdated -= HandleTargetUpdated;
         }
 
@@ -625,6 +630,69 @@ public class CombatUIManager : MonoBehaviour
             card.PlayImpactEffect(ability.impactEffectPrefab, ability.impactEffectDuration, onComplete);
         else
             onComplete?.Invoke();
+    }
+    // Spawns the ability's projectile prefab on the caster's card and animates it to the target's
+    // card before calling onArrived - combat holds the hit here until then, same idea as
+    // HandleRequestImpactEffect. Resolves instantly (no visual) if Projectile Layer isn't set, or
+    // either side has no card on screen.
+    private void HandleRequestProjectile(CharacterInstance user, CharacterInstance target, AbilityData ability, System.Action onArrived)
+    {
+        if (projectileLayer == null
+            || !cardLookup.TryGetValue(user, out var userCard)
+            || !cardLookup.TryGetValue(target, out var targetCard))
+        {
+            onArrived?.Invoke();
+            return;
+        }
+
+        GameObject fx = Instantiate(ability.projectilePrefab, projectileLayer);
+        RectTransform fxRect = fx.transform as RectTransform;
+
+        if (fxRect == null)
+        {
+            Debug.LogWarning($"{ability.abilityName}: Projectile Prefab has no RectTransform (isn't a UI prefab) - destroying it and skipping the travel animation.");
+            Destroy(fx);
+            onArrived?.Invoke();
+            return;
+        }
+
+        StartCoroutine(ProjectileTravelRoutine(fxRect, userCard.CardRectTransform, targetCard.CardRectTransform, ability.projectileTravelSeconds, onArrived));
+    }
+
+    private System.Collections.IEnumerator ProjectileTravelRoutine(RectTransform fx, RectTransform from, RectTransform to, float duration, System.Action onArrived)
+    {
+        Vector2 startPos = WorldRectToLocalPointInLayer(from);
+        Vector2 endPos = WorldRectToLocalPointInLayer(to);
+
+        fx.anchoredPosition = startPos;
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            fx.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
+            yield return null;
+        }
+
+        fx.anchoredPosition = endPos;
+
+        if (fx != null)
+            Destroy(fx.gameObject);
+
+        onArrived?.Invoke();
+    }
+
+    // Converts a card's position into Projectile Layer's local space, so the projectile can be
+    // parented under a different RectTransform than the cards yet still line up on screen.
+    // Assumes a Screen Space - Overlay canvas (no camera needed for the screen-point conversion) -
+    // if your Canvas is Screen Space - Camera or World Space instead, pass that canvas's camera in
+    // place of the two `null`s below.
+    private Vector2 WorldRectToLocalPointInLayer(RectTransform source)
+    {
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(null, source.position);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(projectileLayer, screenPoint, null, out Vector2 localPoint);
+        return localPoint;
     }
 
     // Fires right after a target's HP/energy/status actually changed and its number's already

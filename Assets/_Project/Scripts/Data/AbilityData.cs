@@ -60,10 +60,16 @@ public class AbilityData : ScriptableObject
     public bool triggersFormSwitch;
     public bool costsHPPercentOfMissing;
     [Range(0f, 1f)] public float hpCostPercent;
-   
+
+    [Header("Projectile (optional)")]
+    [Tooltip("Prefab spawned at the caster's card and animated across the screen to each target's card before the hit lands - use for a ranged/thrown ability. Leave empty for a melee/instant hit (Impact Effect Prefab below still applies normally either way).")]
+    public GameObject projectilePrefab;
+    [Tooltip("How long (seconds) the projectile takes to travel from caster to target. Only used if Projectile Prefab is set.")]
+    public float projectileTravelSeconds = 0.4f;
     [Header("Impact Effect")]
     [Tooltip("Particle/animation prefab spawned on each target this ability hits. Combat waits for it to finish playing before showing the damage/heal number and updating HP/status - leave empty to skip straight to the number with no wait, same as before this existed.")]
     public GameObject impactEffectPrefab;
     [Tooltip("How long (seconds) Impact Effect Prefab above plays before it's removed and the number appears. Match this to the prefab's own animation/particle duration. Only used if Impact Effect Prefab is set.")]
     public float impactEffectDuration = 0.5f;
+
 }

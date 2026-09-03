@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe346b9fe066f64f97e6907ae4309d9, type: 3}
+  m_Name: 04_Antidote & Cure
+  m_EditorClassIdentifier: 
+  categoryName: Antidote & Cure
+  icons:
+  - {fileID: 21300000, guid: 3b680ad3bf9972c4baf5d81f59d505ed, type: 3}
+  - {fileID: 21300000, guid: 0f6784ad791073c45ae4ec2ee0c61aac, type: 3}
+  - {fileID: 21300000, guid: 30e8b2c6e27f91c48876bc8532e121a9, type: 3}
+  - {fileID: 21300000, guid: bfc7ee513398ea84794f491a7eb98e7e, type: 3}
+  - {fileID: 21300000, guid: 748c66dbaace5cc439525cdc7181d181, type: 3}
+  - {fileID: 21300000, guid: ea2ccfd6183394e4d88005651cfd9979, type: 3}
+  - {fileID: 21300000, guid: a3bc9e7feac76414f968b6b740deb45a, type: 3}
+  - {fileID: 21300000, guid: be9d563e7ba9d1143a94acd0659d31b5, type: 3}
+  - {fileID: 21300000, guid: 68c4ac797545cd246bb07427d573d813, type: 3}
+  - {fileID: 21300000, guid: 178cd1de712af904baf4d5aef7468bfc, type: 3}
+  - {fileID: 21300000, guid: 291276536e8abce4e8e6d19905409b8f, type: 3}
+  - {fileID: 21300000, guid: a20c63b78a6d3034088c77b658b934ad, type: 3}
+  - {fileID: 21300000, guid: aa7cdf6dff5d6d745acb6dd9e230b34f, type: 3}
+  - {fileID: 21300000, guid: 07c12794aebe2f74d9b040c3284f24e0, type: 3}
+  - {fileID: 21300000, guid: 3d217ba36fc28a74caa24a0d991a82cc, type: 3}

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe346b9fe066f64f97e6907ae4309d9, type: 3}
+  m_Name: 11_Jewelry & Accessories
+  m_EditorClassIdentifier: 
+  categoryName: Jewelry & Accessories
+  icons:
+  - {fileID: 21300000, guid: fc873a982e000164b95019d9596c5d98, type: 3}
+  - {fileID: 21300000, guid: 2a21f9445817aeb40a4acb84c44eff19, type: 3}
+  - {fileID: 21300000, guid: a3af02b30929d7e4c93d1fb9f668b650, type: 3}
+  - {fileID: 21300000, guid: 1e4291aa9d8604e4da72700ba3eb2479, type: 3}
+  - {fileID: 21300000, guid: 57352c55b6764c442b53f3dbd061f275, type: 3}
+  - {fileID: 21300000, guid: a0e2b6157fe111545947a4bfcd00a5b8, type: 3}
+  - {fileID: 21300000, guid: c58aba227fba4054ca1e29a8215728d0, type: 3}
+  - {fileID: 21300000, guid: 64b8a3410b8589046ab583e9939f5f0d, type: 3}
+  - {fileID: 21300000, guid: f9cc58844d90dcd4ab92dbe820e01ccf, type: 3}
+  - {fileID: 21300000, guid: 4112e0edc826334409bdc92b9e7af245, type: 3}
+  - {fileID: 21300000, guid: dc3e76c1ed61f0040b7b20d316ebd98e, type: 3}
+  - {fileID: 21300000, guid: d10ca1f343ddefd49ba8e7c57a2899d0, type: 3}
+  - {fileID: 21300000, guid: c61c3b434eec0fb469c094204ae11f7e, type: 3}
+  - {fileID: 21300000, guid: 7b686059200589a45b4ecc5736bd6421, type: 3}
+  - {fileID: 21300000, guid: 20d13813c8355354a8776a1c83b81cfe, type: 3}

@@ -290,7 +290,9 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     }
 
     public CharacterInstance BoundCharacter => boundCharacter;
-
+    // Used by CombatUIManager to find where this card actually is on screen - e.g. so a
+    // projectile effect knows where to travel from/to. See CombatUIManager.HandleRequestProjectile.
+    public RectTransform CardRectTransform => rectTransform;
     private void Awake()
     {
         rectTransform = transform as RectTransform;

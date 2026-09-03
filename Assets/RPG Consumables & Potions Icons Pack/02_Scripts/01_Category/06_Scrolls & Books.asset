@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe346b9fe066f64f97e6907ae4309d9, type: 3}
+  m_Name: 06_Scrolls & Books
+  m_EditorClassIdentifier: 
+  categoryName: Scrolls & Books
+  icons:
+  - {fileID: 21300000, guid: 82597b84b7151e2418bc665f0976a36b, type: 3}
+  - {fileID: 21300000, guid: 59e7b011ffb9b75449aeb6520832813f, type: 3}
+  - {fileID: 21300000, guid: 1843e071ac8ace844afd8030f65bba43, type: 3}
+  - {fileID: 21300000, guid: 11a1887b1acdf4f4d91dea6e976aab20, type: 3}
+  - {fileID: 21300000, guid: 8c045151d07869a43a9264f9245ab54a, type: 3}
+  - {fileID: 21300000, guid: abef27686fbba634d9660462b2e9b2a7, type: 3}
+  - {fileID: 21300000, guid: 839cf0a13feb67b45a8ea4807f743fa0, type: 3}
+  - {fileID: 21300000, guid: f22feb80186937f479df4a3470b86d71, type: 3}
+  - {fileID: 21300000, guid: 093ad185a575ad440b9c2e549f803b35, type: 3}
+  - {fileID: 21300000, guid: c866803b6968eea4f8915e897d4bf1a7, type: 3}
+  - {fileID: 21300000, guid: 540bbe052848d864cbb1f696af295074, type: 3}
+  - {fileID: 21300000, guid: 3f2d40ea60030b24abb601e51ac3af93, type: 3}
+  - {fileID: 21300000, guid: e162af9486915984b972846a5b9861b0, type: 3}
+  - {fileID: 21300000, guid: 9f6bf06be3f73504580eb8f7cbb941f8, type: 3}
+  - {fileID: 21300000, guid: 0814e648434d3ee488eda6862c37b3b3, type: 3}

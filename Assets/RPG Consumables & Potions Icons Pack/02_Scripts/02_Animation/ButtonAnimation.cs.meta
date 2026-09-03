@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1c92c0271298dd848b1a3f9f70d59be0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 385610
+  packageName: RPG Consumables & Potions Icons Pack
+  packageVersion: 1.0
+  assetPath: Assets/RPG Consumables & Potions Icons Pack/02_Scripts/02_Animation/ButtonAnimation.cs
+  uploadId: 930418
