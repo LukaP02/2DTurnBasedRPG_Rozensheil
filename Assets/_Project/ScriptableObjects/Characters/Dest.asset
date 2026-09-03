@@ -24,11 +24,11 @@ MonoBehaviour:
     those bandages only Dest knows. '
   isPlayableCharacter: 1
   role: 1
-  maxHP: 400
+  maxHP: 500
   attack: 20
-  defense: 10
+  defense: 60
   speed: 90
-  maxEnergy: 100
+  maxEnergy: 200
   energyRechargeRate: 1
   critRate: 0.05
   threatWeight: 2

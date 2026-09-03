@@ -63,4 +63,9 @@ public class StatusEffectData : ScriptableObject
     public bool scaleWithSpeed;
     [Tooltip("Multiplier applied to the caster's Speed, added on top of the base amount.")]
     public float speedScaling = 0f;
+    [Header("Card Visual (optional)")]
+    [Tooltip("If checked, this effect tints the affected character's card art for as long as it's active - e.g. bluish for Freeze, grayish for Petrified. Reverts to normal automatically once the effect ends.")]
+    public bool tintsCardArt;
+    [Tooltip("Only used if Tints Card Art is checked. Keep Alpha at 255 - this replaces the art's color outright rather than blending.")]
+    public Color cardTintColor = Color.white;
 }

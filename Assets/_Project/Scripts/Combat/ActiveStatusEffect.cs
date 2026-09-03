@@ -23,6 +23,9 @@ public class ActiveStatusEffect
     public int stackCount = 1;
     public int maxStacks = 1;
     public bool stackable;
+    public bool tintsCardArt;
+    public Color cardTintColor;
+
 
     public CharacterInstance source;
 }

@@ -466,7 +466,11 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void RefreshStatuses()
     {
-        if (boundCharacter == null || statusIconContainer == null) return;
+        if (boundCharacter == null) return;
+
+        ApplyStatusTint();
+
+        if (statusIconContainer == null) return;
 
         foreach (Transform child in statusIconContainer)
             Destroy(child.gameObject);
@@ -479,6 +483,16 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
             StatusIconUI iconUI = iconObj.GetComponent<StatusIconUI>();
             iconUI.Bind(status);
         }
+    }
+
+    // Tints the card art for whichever active status effect wants one (e.g. Freeze/Petrified - see
+    // StatusEffectData.tintsCardArt), reverting to white when none do. Skipped once the character
+    // is dead - SetDeadVisual/PlayDeathFadeOut own the art color from that point on.
+    private void ApplyStatusTint()
+    {
+        if (artImage == null || !boundCharacter.isAlive) return;
+
+        artImage.color = boundCharacter.GetCardTintColor() ?? Color.white;
     }
 
     // Guarded: while a form-flip animation is playing, it owns the sprite swap itself (timed to

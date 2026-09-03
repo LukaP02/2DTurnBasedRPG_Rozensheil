@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eec06ca7a9c4403c99cdaf9f9cb0bc03, type: 3}
-  m_Name: CC.Freeze
+  m_Name: CC.Petrified
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectData
-  effectName: Freeze
+  effectName: Petrified
   icon: {fileID: 0}
   description: The target skips their next turn.
   category: 2
@@ -37,4 +37,4 @@ MonoBehaviour:
   scaleWithSpeed: 0
   speedScaling: 0
   tintsCardArt: 1
-  cardTintColor: {r: 0.49803922, g: 0.78431374, b: 1, a: 1}
+  cardTintColor: {r: 0.54901963, g: 0.54901963, b: 0.54901963, a: 1}

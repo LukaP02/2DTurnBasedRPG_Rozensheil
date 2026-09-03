@@ -30,7 +30,7 @@ MonoBehaviour:
   canCrit: 1
   targetShape: 0
   targetSide: 0
-  appliesStatusEffect: {fileID: 0}
+  appliesStatusEffect: {fileID: 11400000, guid: 5ea382f10cfcb1b4d9c96f713af4e9e5, type: 2}
   statusEffectChance: 0.67
   appliesMark: 0
   maxMarkStacks: 3
@@ -40,3 +40,7 @@ MonoBehaviour:
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0
+  projectilePrefab: {fileID: 0}
+  projectileTravelSeconds: 0.4
+  impactEffectPrefab: {fileID: 0}
+  impactEffectDuration: 0.5

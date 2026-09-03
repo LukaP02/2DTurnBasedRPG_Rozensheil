@@ -17,13 +17,14 @@ MonoBehaviour:
   previewDescription: A battle with the Champion is going to be fierce, better prepare
     yourselves.
   previewImage: {fileID: 0}
-  mapPosition: {x: -320, y: -180}
+  mapPosition: {x: -280, y: -200}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 93fb02922b82fdd48925285eb60011ed, type: 2}
   combatBackground: {fileID: 0}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 0}
   dialogueBeforePreEvent: 0
+  promptPartySelectionBeforeCombat: 0
   enemies: []
   postLevelEvent: {fileID: 0}
   postLevelDialogue: {fileID: 0}

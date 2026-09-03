@@ -25,7 +25,7 @@ MonoBehaviour:
   role: 3
   maxHP: 150
   attack: 45
-  defense: 60
+  defense: 70
   speed: 90
   maxEnergy: 100
   energyRechargeRate: 1

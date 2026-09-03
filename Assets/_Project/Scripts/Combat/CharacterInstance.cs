@@ -299,6 +299,8 @@ public class CharacterInstance
                 stackCount = 1,
                 maxStacks = data.maxStacks,
                 stackable = data.stackable,
+                tintsCardArt = data.tintsCardArt,
+                cardTintColor = data.cardTintColor,
                 source = source
             });
         }
@@ -366,6 +368,14 @@ public class CharacterInstance
     public bool HasSkipTurnEffect()
     {
         return activeEffects.Any(e => e.category == StatusEffectCategory.CrowdControl && e.skipTurn);
+    }
+    // Card art tint for whichever active effect wants one (e.g. Freeze/Petrified) - null if none
+    // of this character's active effects have Tints Card Art checked. If more than one such effect
+    // is active at once, whichever was applied first (earliest in activeEffects) wins.
+    public Color? GetCardTintColor()
+    {
+        var effect = activeEffects.FirstOrDefault(e => e.tintsCardArt);
+        return effect != null ? effect.cardTintColor : (Color?)null;
     }
     // Blocks Skill and Ultimate abilities; Basic is still usable.
     public bool IsSilenced()
