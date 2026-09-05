@@ -33,6 +33,8 @@ public class DialogueController : MonoBehaviour
     public Image[] dialogueBoxArtImages;
     public float portraitFadeSeconds = 0.25f;
     public float boxFadeSeconds = 0.3f;
+    [Tooltip("How far (UI units) the portrait and dialogue box art slide up from below while fading in - both on the initial dialogue open and on every speaker change.")]
+    public float speakerSlideDistance = 30f;
 
     [Header("Typewriter Effect")]
     public float typewriterSecondsPerChar = 0.02f;
@@ -132,7 +134,7 @@ public class DialogueController : MonoBehaviour
         if (boxFadeCoroutine != null)
             StopCoroutine(boxFadeCoroutine);
 
-        boxFadeCoroutine = StartCoroutine(FadeImagesAlpha(dialogueBoxArtImages, 1f, boxFadeSeconds));
+        boxFadeCoroutine = StartCoroutine(FadeSlideImagesIn(dialogueBoxArtImages, boxFadeSeconds, speakerSlideDistance));
 
         // Only mid-battle/phase-transition dialogue (suppressBackground) darkens the scene behind
         // it - normal dialogue (intro, post-level) has its own background art and shouldn't dim.
@@ -178,7 +180,7 @@ public class DialogueController : MonoBehaviour
 
         if (portraitImage != null)
         {
-            // Only replay the fade when the portrait actually changes, so the same speaker
+            // Only replay the fade-slide when the portrait actually changes, so the same speaker
             // talking across consecutive lines doesn't flicker every line.
             if (line.speakerPortrait != lastPortraitSprite)
             {
@@ -189,22 +191,30 @@ public class DialogueController : MonoBehaviour
                     portraitAspectFitter.aspectRatio = r.width / r.height;
                 }
 
-                float targetAlpha = line.speakerPortrait != null ? 1f : 0f;
-
                 if (portraitFadeCoroutine != null)
                     StopCoroutine(portraitFadeCoroutine);
 
-                // Snap to fully transparent first so there's actually something to fade *from* -
-                // interpolating from whatever alpha it already happened to be at (usually 1) is invisible.
-                Color startColor = portraitImage.color;
-                startColor.a = 0f;
-                portraitImage.color = startColor;
+                if (line.speakerPortrait != null)
+                {
+                    // New speaker appearing - Hades-style fade-slide-up, and the box art pops
+                    // along with it on the same trigger.
+                    portraitFadeCoroutine = StartCoroutine(FadeSlideImageIn(portraitImage, portraitFadeSeconds, speakerSlideDistance));
 
-                portraitFadeCoroutine = StartCoroutine(FadeImageAlpha(portraitImage, targetAlpha, portraitFadeSeconds));
+                    if (boxFadeCoroutine != null)
+                        StopCoroutine(boxFadeCoroutine);
+
+                    boxFadeCoroutine = StartCoroutine(FadeSlideImagesIn(dialogueBoxArtImages, boxFadeSeconds, speakerSlideDistance));
+                }
+                else
+                {
+                    // No portrait for this line - just fade out, nothing to slide.
+                    portraitFadeCoroutine = StartCoroutine(FadeImageAlpha(portraitImage, 0f, portraitFadeSeconds));
+                }
 
                 lastPortraitSprite = line.speakerPortrait;
             }
-        }
+        
+    }
 
         // Leaving a line's backgroundImage empty keeps whatever background is already showing,
         // so a sequence doesn't need to repeat the same sprite on every line.
@@ -275,63 +285,97 @@ public class DialogueController : MonoBehaviour
         flashCoroutine = null;
     }
 
-    private IEnumerator FadeImageAlpha(Image image, float targetAlpha, float duration)
+    // Fades a single image in from alpha 0 to 1 while it slides up into its current (home)
+    // position from slideDistance below - the Hades-style "pop" used for the speaker portrait.
+    // Snaps to alpha 0 and the start offset first, so there's always something to animate
+    // from regardless of the image's alpha/position when this is called.
+    private IEnumerator FadeSlideImageIn(Image image, float duration, float slideDistance)
     {
-        Color color = image.color;
-        float startAlpha = color.a;
-        float elapsed = 0f;
+        RectTransform rt = image.rectTransform;
+        Vector2 home = rt.anchoredPosition;
+        Vector2 start = home + new Vector2(0f, -slideDistance);
 
-        // duration of 0 (or less) just snaps straight to the target alpha.
+        Color color = image.color;
+        color.a = 0f;
+        image.color = color;
+        rt.anchoredPosition = start;
+
+        float elapsed = 0f;
         while (duration > 0f && elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            color.a = Mathf.Lerp(startAlpha, targetAlpha, elapsed / duration);
+            float t = elapsed / duration;
+            float eased = t * t * (3f - 2f * t);
+
+            rt.anchoredPosition = Vector2.Lerp(start, home, eased);
+            color.a = eased;
             image.color = color;
             yield return null;
         }
 
-        color.a = targetAlpha;
+        rt.anchoredPosition = home;
+        color.a = 1f;
         image.color = color;
     }
 
-    private IEnumerator FadeImagesAlpha(Image[] images, float targetAlpha, float duration)
+    // Same idea as FadeSlideImageIn, for a whole set of images at once (e.g. the dialogue box's
+    // separate art pieces) - each keeps its own home position, so pieces placed differently on
+    // screen all slide up by the same distance rather than converging on one spot.
+    private IEnumerator FadeSlideImagesIn(Image[] images, float duration, float slideDistance)
     {
         if (images == null || images.Length == 0) yield break;
 
-        foreach (var image in images)
+        var rects = new RectTransform[images.Length];
+        var homes = new Vector2[images.Length];
+        var starts = new Vector2[images.Length];
+
+        for (int i = 0; i < images.Length; i++)
         {
-            if (image == null) continue;
-            Color c = image.color;
+            if (images[i] == null) continue;
+
+            rects[i] = images[i].rectTransform;
+            homes[i] = rects[i].anchoredPosition;
+            starts[i] = homes[i] + new Vector2(0f, -slideDistance);
+
+            Color c = images[i].color;
             c.a = 0f;
-            image.color = c;
+            images[i].color = c;
+            rects[i].anchoredPosition = starts[i];
         }
 
         float elapsed = 0f;
-
         while (duration > 0f && elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(0f, targetAlpha, elapsed / duration);
+            float t = elapsed / duration;
+            float eased = t * t * (3f - 2f * t);
 
-            foreach (var image in images)
+            for (int i = 0; i < images.Length; i++)
             {
-                if (image == null) continue;
-                Color c = image.color;
-                c.a = alpha;
-                image.color = c;
+                if (images[i] == null) continue;
+
+                rects[i].anchoredPosition = Vector2.Lerp(starts[i], homes[i], eased);
+                Color c = images[i].color;
+                c.a = eased;
+                images[i].color = c;
             }
 
             yield return null;
         }
 
-        foreach (var image in images)
+        for (int i = 0; i < images.Length; i++)
         {
-            if (image == null) continue;
-            Color c = image.color;
-            c.a = targetAlpha;
-            image.color = c;
+            if (images[i] == null) continue;
+
+            rects[i].anchoredPosition = homes[i];
+            Color c = images[i].color;
+            c.a = 1f;
+            images[i].color = c;
         }
     }
+
+   
+    
 
     private void CompleteCurrentLine()
     {
