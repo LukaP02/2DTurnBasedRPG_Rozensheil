@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4edc39daefc18074ea4c6a1cedbc6688
+guid: c932ff4e013e6284c9848cfa7d1b4080
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3499546294969629898
-    second: boss_healthbar_ornament_03_0
+      213: 1945522822489224851
+    second: dialogue_box_03_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boss_healthbar_ornament_03_0
+      name: dialogue_box_03_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 25
-        width: 1989
-        height: 215
+        x: 0
+        y: 0
+        width: 2898
+        height: 834
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6330d45af2d1f6fc0800000000000000
-      internalID: -3499546294969629898
+      spriteID: 396b2e003b2effa10800000000000000
+      internalID: 1945522822489224851
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      boss_healthbar_ornament_03_0: -3499546294969629898
+      dialogue_box_03_0: 1945522822489224851
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
