@@ -284,6 +284,24 @@ public class DialogueController : MonoBehaviour
 
         flashCoroutine = null;
     }
+    private IEnumerator FadeImageAlpha(Image image, float targetAlpha, float duration)
+    {
+        Color color = image.color;
+        float startAlpha = color.a;
+        float elapsed = 0f;
+
+        // duration of 0 (or less) just snaps straight to the target alpha.
+        while (duration > 0f && elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            color.a = Mathf.Lerp(startAlpha, targetAlpha, elapsed / duration);
+            image.color = color;
+            yield return null;
+        }
+
+        color.a = targetAlpha;
+        image.color = color;
+    }
 
     // Fades a single image in from alpha 0 to 1 while it slides up into its current (home)
     // position from slideDistance below - the Hades-style "pop" used for the speaker portrait.
