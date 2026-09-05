@@ -23,8 +23,9 @@ MonoBehaviour:
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 0}
   dialogueBeforePreEvent: 0
+  promptPartySelectionBeforeCombat: 0
   enemies: []
-  postLevelEvent: {fileID: 11400000, guid: 01a70ba5a9569654a95ed40deb172c56, type: 2}
+  postLevelEvent: {fileID: 11400000, guid: 840ad322993f791499df798bba168dd3, type: 2}
   postLevelDialogue: {fileID: 0}
   dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0

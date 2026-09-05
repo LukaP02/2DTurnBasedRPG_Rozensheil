@@ -13,15 +13,51 @@ MonoBehaviour:
   m_Name: ALESSI.Eisendorph
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   title: ALESSI's Shop
-  description: ae
+  description: ALESSI is inspired by your pressence and is willing add a touch of
+    his creativity by providing you with a custom attire, for a generous price.
   image: {fileID: 0}
   backgroundImage: {fileID: 0}
   choices:
-  - choiceText: buy armor
-    outcomeText: 
+  - choiceText: Buy armor  for Abdul (200 gold)
+    outcomeText: You chose to get a custom creation for Abdul. You have been granted
+      an item.
     goldChange: -200
     hpChangePercent: 0
     recruitCharacter: {fileID: 0}
-    grantItems: []
-    costItems:
+    grantItems:
+    - {fileID: 11400000, guid: 742c9855d0bae4249a3b4f76002da756, type: 2}
+    costItems: []
+  - choiceText: Buy armor for Raindorf (200 gold)
+    outcomeText: You chose to get a custom creation for Raindorf. You have been granted
+      an item.
+    goldChange: -200
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems:
     - {fileID: 11400000, guid: af6d7500e044be044b45bc9afc427c9e, type: 2}
+    costItems: []
+  - choiceText: Buy Robe for Sicur (200 gold)
+    outcomeText: You chose to get a custom creation for Sicur. You have been granted
+      an item.
+    goldChange: -200
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems:
+    - {fileID: 11400000, guid: 3f2ecd481badc544386996eebc4968d4, type: 2}
+    costItems: []
+  - choiceText: Buy Robe for Zavren (200 gold)
+    outcomeText: You chose to get a custom creation for Zavren. You have been granted
+      an item.
+    goldChange: -200
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems:
+    - {fileID: 11400000, guid: c23402ad2fde17946ab939e4224c82a6, type: 2}
+    costItems: []
+  - choiceText: Decline the offer
+    outcomeText: 'You chose to pass the offer.  '
+    goldChange: 0
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []

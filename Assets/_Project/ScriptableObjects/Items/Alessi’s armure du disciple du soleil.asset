@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c18e9ed249bc1c45b52784e338dca54, type: 3}
   m_Name: "Alessi\u2019s armure du disciple du soleil"
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: "Alessi\u2019s armure du disciple du soleil"
+  itemName: "Alessi\u2019s armure de Justicier"
   icon: {fileID: 1692727944525520721, guid: 20664720b1477004fb42487d9bbc1d1a, type: 3}
   description: '+100 Defense
 

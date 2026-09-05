@@ -64,6 +64,8 @@ public class EventController : MonoBehaviour
 
         foreach (var choice in currentEvent.choices)
         {
+            if (!IsChoiceAvailable(choice)) continue;
+
             GameObject buttonObj = Instantiate(choiceButtonPrefab, choiceButtonContainer);
 
             TMP_Text label = buttonObj.GetComponentInChildren<TMP_Text>();
@@ -72,6 +74,30 @@ public class EventController : MonoBehaviour
             Button button = buttonObj.GetComponent<Button>();
             button.onClick.AddListener(() => SelectChoice(choice));
         }
+    }
+
+    // Hides a choice entirely (rather than showing it disabled) when picking it wouldn't make
+    // sense right now: it grants something already owned (e.g. re-offering an item bought on an
+    // earlier visit to the same vendor), or it costs more gold than the player currently has. A
+    // choice with no granted items and no gold cost (e.g. a "Leave" option) never gets hidden by
+    // either check, so as long as an event has one, it can never end up with zero choices shown.
+    private bool IsChoiceAvailable(EventChoice choice)
+    {
+        if (PartyManager.Instance == null) return true;
+
+        if (choice.grantItems != null)
+        {
+            foreach (var item in choice.grantItems)
+            {
+                if (item != null && PartyManager.Instance.OwnsItem(item))
+                    return false;
+            }
+        }
+
+        if (choice.goldChange < 0 && PartyManager.Instance.Gold < -choice.goldChange)
+            return false;
+
+        return true;
     }
 
     private void SelectChoice(EventChoice choice)
