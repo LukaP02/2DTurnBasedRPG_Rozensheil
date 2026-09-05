@@ -29,7 +29,8 @@ public class DialogueController : MonoBehaviour
 
     [Header("Fade-In")]
     // Drag your box art pieces here (e.g. DialogueBoxArt, DialogueBoxOrnament, DialogueBoxOrnament (1), NameBoxArt).
-    // They fade in once, together, when the dialogue box opens.
+    // They fade-slide in together both when the dialogue box first opens and every time the
+    // portrait's does (see speakerSlideDistance below) - a Hades-style "pop" on a new speaker.
     public Image[] dialogueBoxArtImages;
     public float portraitFadeSeconds = 0.25f;
     public float boxFadeSeconds = 0.3f;
@@ -54,6 +55,11 @@ public class DialogueController : MonoBehaviour
     private Coroutine flashCoroutine;
     private Sprite lastPortraitSprite;
     private bool suppressBackground;
+
+    // Captured once (Awake) rather than re-read live each time the fade-slide plays - re-reading
+    // the live position would let repeated mid-animation interruptions permanently drift the
+    // portrait/box away from their true designed position (each interruption would freeze it at
+    // a halfway point, which the next trigger would then treat as "home").
     private Vector2 portraitHomePosition;
     private Vector2[] boxArtHomePositions;
 
@@ -89,6 +95,7 @@ public class DialogueController : MonoBehaviour
 
         if (skipButton != null)
             skipButton.onClick.AddListener(SkipDialogue);
+
         if (portraitImage != null)
             portraitHomePosition = portraitImage.rectTransform.anchoredPosition;
 
@@ -218,11 +225,6 @@ public class DialogueController : MonoBehaviour
                         StopCoroutine(boxFadeCoroutine);
 
                     boxFadeCoroutine = StartCoroutine(FadeSlideImagesIn(dialogueBoxArtImages, boxArtHomePositions, boxFadeSeconds, speakerSlideDistance));
-
-                    if (boxFadeCoroutine != null)
-                        StopCoroutine(boxFadeCoroutine);
-
-                    boxFadeCoroutine = StartCoroutine(FadeSlideImagesIn(dialogueBoxArtImages, boxFadeSeconds, speakerSlideDistance));
                 }
                 else
                 {
@@ -305,6 +307,7 @@ public class DialogueController : MonoBehaviour
 
         flashCoroutine = null;
     }
+
     private IEnumerator FadeImageAlpha(Image image, float targetAlpha, float duration)
     {
         Color color = image.color;
@@ -330,10 +333,9 @@ public class DialogueController : MonoBehaviour
         image.sprite = null;
     }
 
-    // Fades a single image in from alpha 0 to 1 while it slides up into its current (home)
-    // position from slideDistance below - the Hades-style "pop" used for the speaker portrait.
-    // Snaps to alpha 0 and the start offset first, so there's always something to animate
-    // from regardless of the image's alpha/position when this is called.
+    // Fades a single image in from alpha 0 to 1 while it slides up into its home position from
+    // slideDistance below - the Hades-style "pop" used for the speaker portrait. home is passed
+    // in (captured once in Awake) rather than read live, so repeated interruptions can't drift it.
     private IEnumerator FadeSlideImageIn(Image image, Vector2 home, float duration, float slideDistance)
     {
         RectTransform rt = image.rectTransform;
@@ -362,6 +364,10 @@ public class DialogueController : MonoBehaviour
         image.color = color;
     }
 
+    // Same idea as FadeSlideImageIn, for a whole set of images at once (e.g. the dialogue box's
+    // separate art pieces) - each keeps its own home position (captured once in Awake), so pieces
+    // placed differently on screen all slide up by the same distance rather than converging on
+    // one spot, and can't drift from repeated interruptions either.
     private IEnumerator FadeSlideImagesIn(Image[] images, Vector2[] homes, float duration, float slideDistance)
     {
         if (images == null || images.Length == 0) yield break;
@@ -412,65 +418,6 @@ public class DialogueController : MonoBehaviour
             images[i].color = c;
         }
     }
-
-    // Same idea as FadeSlideImageIn, for a whole set of images at once (e.g. the dialogue box's
-    // separate art pieces) - each keeps its own home position, so pieces placed differently on
-    // screen all slide up by the same distance rather than converging on one spot.
-    private IEnumerator FadeSlideImagesIn(Image[] images, float duration, float slideDistance)
-    {
-        if (images == null || images.Length == 0) yield break;
-
-        var rects = new RectTransform[images.Length];
-        var homes = new Vector2[images.Length];
-        var starts = new Vector2[images.Length];
-
-        for (int i = 0; i < images.Length; i++)
-        {
-            if (images[i] == null) continue;
-
-            rects[i] = images[i].rectTransform;
-            homes[i] = rects[i].anchoredPosition;
-            starts[i] = homes[i] + new Vector2(0f, -slideDistance);
-
-            Color c = images[i].color;
-            c.a = 0f;
-            images[i].color = c;
-            rects[i].anchoredPosition = starts[i];
-        }
-
-        float elapsed = 0f;
-        while (duration > 0f && elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            float eased = t * t * (3f - 2f * t);
-
-            for (int i = 0; i < images.Length; i++)
-            {
-                if (images[i] == null) continue;
-
-                rects[i].anchoredPosition = Vector2.Lerp(starts[i], homes[i], eased);
-                Color c = images[i].color;
-                c.a = eased;
-                images[i].color = c;
-            }
-
-            yield return null;
-        }
-
-        for (int i = 0; i < images.Length; i++)
-        {
-            if (images[i] == null) continue;
-
-            rects[i].anchoredPosition = homes[i];
-            Color c = images[i].color;
-            c.a = 1f;
-            images[i].color = c;
-        }
-    }
-
-   
-    
 
     private void CompleteCurrentLine()
     {
