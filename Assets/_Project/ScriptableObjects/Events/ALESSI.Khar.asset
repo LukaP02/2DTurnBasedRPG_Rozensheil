@@ -45,7 +45,7 @@ MonoBehaviour:
     grantItems:
     - {fileID: 11400000, guid: 3f2ecd481badc544386996eebc4968d4, type: 2}
     costItems: []
-  - choiceText: Buy Robe for Zavren (200 gold)
+  - choiceText: Buy Mantle for Zavren (200 gold)
     outcomeText: You chose to get a custom creation for Zavren. You have been granted
       an item.
     goldChange: -200
@@ -54,7 +54,7 @@ MonoBehaviour:
     grantItems:
     - {fileID: 11400000, guid: c23402ad2fde17946ab939e4224c82a6, type: 2}
     costItems: []
-  - choiceText: Buy Robe for Zavren (200 gold)
+  - choiceText: Buy Robe for Dest (200 gold)
     outcomeText: You chose to get a custom creation for Dest. You have been granted
       an item.
     goldChange: -200
