@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hellfire Hourglass Charm
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Hellfire Hourglass Charm
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 3e04ed65ee41dbd408db215015762a50, type: 3}
   description: '+60 Attack
 
     +50 Speed'

@@ -54,6 +54,8 @@ public class DialogueController : MonoBehaviour
     private Coroutine flashCoroutine;
     private Sprite lastPortraitSprite;
     private bool suppressBackground;
+    private Vector2 portraitHomePosition;
+    private Vector2[] boxArtHomePositions;
 
     public event Action OnDialogueEnded;
 
@@ -87,6 +89,18 @@ public class DialogueController : MonoBehaviour
 
         if (skipButton != null)
             skipButton.onClick.AddListener(SkipDialogue);
+        if (portraitImage != null)
+            portraitHomePosition = portraitImage.rectTransform.anchoredPosition;
+
+        if (dialogueBoxArtImages != null)
+        {
+            boxArtHomePositions = new Vector2[dialogueBoxArtImages.Length];
+            for (int i = 0; i < dialogueBoxArtImages.Length; i++)
+            {
+                if (dialogueBoxArtImages[i] != null)
+                    boxArtHomePositions[i] = dialogueBoxArtImages[i].rectTransform.anchoredPosition;
+            }
+        }
     }
 
     // suppressBackground: pass true for dialogue shown over a scene that should stay visible
@@ -134,7 +148,7 @@ public class DialogueController : MonoBehaviour
         if (boxFadeCoroutine != null)
             StopCoroutine(boxFadeCoroutine);
 
-        boxFadeCoroutine = StartCoroutine(FadeSlideImagesIn(dialogueBoxArtImages, boxFadeSeconds, speakerSlideDistance));
+        boxFadeCoroutine = StartCoroutine(FadeSlideImagesIn(dialogueBoxArtImages, boxArtHomePositions, boxFadeSeconds, speakerSlideDistance));
 
         // Only mid-battle/phase-transition dialogue (suppressBackground) darkens the scene behind
         // it - normal dialogue (intro, post-level) has its own background art and shouldn't dim.
@@ -198,7 +212,12 @@ public class DialogueController : MonoBehaviour
                     // New speaker appearing - Hades-style fade-slide-up, and the box art pops
                     // along with it on the same trigger.
                     portraitImage.sprite = line.speakerPortrait;
-                    portraitFadeCoroutine = StartCoroutine(FadeSlideImageIn(portraitImage, portraitFadeSeconds, speakerSlideDistance));
+                    portraitFadeCoroutine = StartCoroutine(FadeSlideImageIn(portraitImage, portraitHomePosition, portraitFadeSeconds, speakerSlideDistance));
+
+                    if (boxFadeCoroutine != null)
+                        StopCoroutine(boxFadeCoroutine);
+
+                    boxFadeCoroutine = StartCoroutine(FadeSlideImagesIn(dialogueBoxArtImages, boxArtHomePositions, boxFadeSeconds, speakerSlideDistance));
 
                     if (boxFadeCoroutine != null)
                         StopCoroutine(boxFadeCoroutine);
@@ -315,10 +334,9 @@ public class DialogueController : MonoBehaviour
     // position from slideDistance below - the Hades-style "pop" used for the speaker portrait.
     // Snaps to alpha 0 and the start offset first, so there's always something to animate
     // from regardless of the image's alpha/position when this is called.
-    private IEnumerator FadeSlideImageIn(Image image, float duration, float slideDistance)
+    private IEnumerator FadeSlideImageIn(Image image, Vector2 home, float duration, float slideDistance)
     {
         RectTransform rt = image.rectTransform;
-        Vector2 home = rt.anchoredPosition;
         Vector2 start = home + new Vector2(0f, -slideDistance);
 
         Color color = image.color;
@@ -342,6 +360,57 @@ public class DialogueController : MonoBehaviour
         rt.anchoredPosition = home;
         color.a = 1f;
         image.color = color;
+    }
+
+    private IEnumerator FadeSlideImagesIn(Image[] images, Vector2[] homes, float duration, float slideDistance)
+    {
+        if (images == null || images.Length == 0) yield break;
+
+        var rects = new RectTransform[images.Length];
+        var starts = new Vector2[images.Length];
+
+        for (int i = 0; i < images.Length; i++)
+        {
+            if (images[i] == null) continue;
+
+            rects[i] = images[i].rectTransform;
+            starts[i] = homes[i] + new Vector2(0f, -slideDistance);
+
+            Color c = images[i].color;
+            c.a = 0f;
+            images[i].color = c;
+            rects[i].anchoredPosition = starts[i];
+        }
+
+        float elapsed = 0f;
+        while (duration > 0f && elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            float eased = t * t * (3f - 2f * t);
+
+            for (int i = 0; i < images.Length; i++)
+            {
+                if (images[i] == null) continue;
+
+                rects[i].anchoredPosition = Vector2.Lerp(starts[i], homes[i], eased);
+                Color c = images[i].color;
+                c.a = eased;
+                images[i].color = c;
+            }
+
+            yield return null;
+        }
+
+        for (int i = 0; i < images.Length; i++)
+        {
+            if (images[i] == null) continue;
+
+            rects[i].anchoredPosition = homes[i];
+            Color c = images[i].color;
+            c.a = 1f;
+            images[i].color = c;
+        }
     }
 
     // Same idea as FadeSlideImageIn, for a whole set of images at once (e.g. the dialogue box's

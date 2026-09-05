@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c18e9ed249bc1c45b52784e338dca54, type: 3}
-  m_Name: Martial Glaive
+  m_Name: Ring of Aggression
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Martial Glaive
-  icon: {fileID: 0}
+  itemName: Ring of Aggression
+  icon: {fileID: 21300000, guid: fc873a982e000164b95019d9596c5d98, type: 3}
   description: +40 Attack
   price: 120
   attackBonus: 40

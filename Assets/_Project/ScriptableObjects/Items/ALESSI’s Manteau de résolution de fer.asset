@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "ALESSI\u2019s Manteau de r\xE9solution de fer"
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "ALESSI\u2019s Manteau de r\xE9solution de fer "
-  icon: {fileID: 0}
+  icon: {fileID: -4088502301691153682, guid: 033c012b11a988141b5c44c9a9c8a54c, type: 3}
   description: '+100 Health
 
     +40% Crit Chance

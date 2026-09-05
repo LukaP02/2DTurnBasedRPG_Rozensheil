@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Alessi\u2019s manteau d'eau courante"
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "Alessi\u2019s manteau d'eau courante"
-  icon: {fileID: 0}
+  icon: {fileID: 3499615691234891969, guid: 48473a396bef3774983420cf9ae52522, type: 3}
   description: '+200 Health
 
     +10 Speed

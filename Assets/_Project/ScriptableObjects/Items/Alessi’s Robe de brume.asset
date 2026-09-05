@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "Alessi\u2019s Robe de brume"
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "Alessi\u2019s Robe de brume"
-  icon: {fileID: 0}
+  icon: {fileID: -5066755183732052775, guid: ee5a81bc086b546428f6b63e0a0f463b, type: 3}
   description: '+30 Attack
 
     +40 Speed

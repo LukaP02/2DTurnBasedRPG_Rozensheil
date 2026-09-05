@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Belt of Eisen Will
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Belt of Eisen Will
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 7b686059200589a45b4ecc5736bd6421, type: 3}
   description: '+40 Health
 
     +20% Energy Recharge'

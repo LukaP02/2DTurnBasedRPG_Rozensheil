@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Steel Bulwark
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Steel Bulwark
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c61c3b434eec0fb469c094204ae11f7e, type: 3}
   description: '+20 Defense
 
     +60 Health'

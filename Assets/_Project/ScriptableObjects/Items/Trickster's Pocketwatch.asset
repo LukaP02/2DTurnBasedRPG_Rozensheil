@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Trickster's Pocketwatch
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Trickster's Pocketwatch
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 57352c55b6764c442b53f3dbd061f275, type: 3}
   description: '+40 Attack
 
     +40 Speed'
