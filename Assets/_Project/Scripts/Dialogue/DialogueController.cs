@@ -184,7 +184,6 @@ public class DialogueController : MonoBehaviour
             // talking across consecutive lines doesn't flicker every line.
             if (line.speakerPortrait != lastPortraitSprite)
             {
-                portraitImage.sprite = line.speakerPortrait;
                 if (portraitAspectFitter != null && line.speakerPortrait != null)
                 {
                     Rect r = line.speakerPortrait.rect;
@@ -198,6 +197,7 @@ public class DialogueController : MonoBehaviour
                 {
                     // New speaker appearing - Hades-style fade-slide-up, and the box art pops
                     // along with it on the same trigger.
+                    portraitImage.sprite = line.speakerPortrait;
                     portraitFadeCoroutine = StartCoroutine(FadeSlideImageIn(portraitImage, portraitFadeSeconds, speakerSlideDistance));
 
                     if (boxFadeCoroutine != null)
@@ -207,14 +207,16 @@ public class DialogueController : MonoBehaviour
                 }
                 else
                 {
-                    // No portrait for this line - just fade out, nothing to slide.
-                    portraitFadeCoroutine = StartCoroutine(FadeImageAlpha(portraitImage, 0f, portraitFadeSeconds));
+                    // No portrait for this line - fade the current one out first, then clear its
+                    // sprite. Clearing the sprite immediately (before the fade) would leave the
+                    // Image with no sprite but still-visible alpha, which Unity renders as a
+                    // plain white rectangle instead of nothing.
+                    portraitFadeCoroutine = StartCoroutine(FadeOutThenClearSprite(portraitImage, portraitFadeSeconds));
                 }
 
                 lastPortraitSprite = line.speakerPortrait;
             }
-        
-    }
+        }
 
         // Leaving a line's backgroundImage empty keeps whatever background is already showing,
         // so a sequence doesn't need to repeat the same sprite on every line.
@@ -301,6 +303,12 @@ public class DialogueController : MonoBehaviour
 
         color.a = targetAlpha;
         image.color = color;
+    }
+
+    private IEnumerator FadeOutThenClearSprite(Image image, float duration)
+    {
+        yield return FadeImageAlpha(image, 0f, duration);
+        image.sprite = null;
     }
 
     // Fades a single image in from alpha 0 to 1 while it slides up into its current (home)
