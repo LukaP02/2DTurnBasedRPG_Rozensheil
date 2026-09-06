@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Cyclops
   cardArt: {fileID: -8728374782289922796, guid: 995b689382452ca45b2c0c3927a12e6d, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: -5356448091792781400, guid: 63cb5af921cf1064da717a00a7d4bd33, type: 3}
   description: Savage and ancient being thought to be almost extinct. Omnivore that
     enjoys the taste of flash. Known for their ancient petrifying magic and endless
     appetite, especially of dwarves.
@@ -63,3 +63,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e38564dbe0b93b047acebfdce2bbe433, type: 2}
   extraUltimateAbilities: []
   isBoss: 1
+  markIcon: {fileID: 0}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Raindorf
   cardArt: {fileID: 6918554802959114315, guid: 69087dc869bc5b24f9a32f6a66900f37, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: -1938504069114926021, guid: ac972db522174f1488e9f47a5c67fcee, type: 3}
   description: EisenDorphian dwarf from the Bjornthar clan, a man who used to be
     a savage brute and a hunter. After decades of raiding and pillaging different
     snowy villages he and his brother were up against a warlock. In this clash Raindorf's
@@ -66,3 +66,4 @@ MonoBehaviour:
   extraSkillAbilities: []
   extraUltimateAbilities: []
   isBoss: 0
+  markIcon: {fileID: 0}

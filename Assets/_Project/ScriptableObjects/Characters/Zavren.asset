@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Zavren
   cardArt: {fileID: -4085457783064350272, guid: c140f9ca5f1fce24a9ca8006645668c1, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 2051646698709803393, guid: 3010bd225f2b5c54589cf159c287186a, type: 3}
   description: 'Infernal Tiefling blessed with the elemental magic from birth. Abandoned
     as a child by his parents because of his status as a sorcerer, who were hunted
     by an underground organization known as the "Equalizers". To survive he joined
@@ -67,3 +67,4 @@ MonoBehaviour:
   extraSkillAbilities: []
   extraUltimateAbilities: []
   isBoss: 0
+  markIcon: {fileID: 0}

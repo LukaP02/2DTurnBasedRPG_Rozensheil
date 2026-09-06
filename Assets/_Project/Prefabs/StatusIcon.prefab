@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatusIconUI
   labelText: {fileID: 0}
   countText: {fileID: 1428130985879252464}
-  iconImage: {fileID: 0}
+  iconImage: {fileID: 6982270226090620146}
 --- !u!1 &4294007061021977766
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Abdul
   cardArt: {fileID: -292687858937536223, guid: 3a4d3b7160ccaa141bed74d33d424685, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 3449289228964316884, guid: 325993d5372cc0f4b8ad657ba98d1900, type: 3}
   description: 'Youngest among the strangers. Confident, agile and sneaky Kharian
     boy who lost his mother at a young age. He swore revenge on the men that murdered
     her by any means necessary. He joined a criminal group led by Henry, who he sees

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Dest
   cardArt: {fileID: 7417892570511712460, guid: 12a5464dd31ceda40b51bb0e301a9ccf, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 8586817953171502256, guid: 737e300f6a905f94ab996b9b873622d2, type: 3}
   description: 'Young, promising sailor whose crew got seperated after pirates  raided
     his ship and sold everyone to different buyers. He spent a few months in this
     prison, entertaining people through violence and gorish spectacle shown inside
@@ -64,3 +64,4 @@ MonoBehaviour:
   extraSkillAbilities: []
   extraUltimateAbilities: []
   isBoss: 0
+  markIcon: {fileID: 0}

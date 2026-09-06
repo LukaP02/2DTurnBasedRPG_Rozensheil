@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Wolf
   cardArt: {fileID: -1671632898402556846, guid: 031a5d99ab70b8347a01011d9df0c1e7, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 1949464903884538799, guid: 7864cca11d0944846b9effc69cb72402, type: 3}
   description: A savage beast living in a harsh envierment. These beasts never hunt
     alone, so one should be prepeared for a tough battle should they encounter one.
   isPlayableCharacter: 0
@@ -55,3 +55,4 @@ MonoBehaviour:
   extraSkillAbilities: []
   extraUltimateAbilities: []
   isBoss: 0
+  markIcon: {fileID: 0}

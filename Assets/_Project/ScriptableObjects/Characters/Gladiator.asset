@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Gladiator
   cardArt: {fileID: -289328239768602692, guid: fa0949c1d9c3eb8489feb1e5d1e4cb14, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 694134554278937573, guid: 132f8527e2c1a1f439909ca67ed23e1b, type: 3}
   description: 'Rebel, forced to entertain a crowd in this savage bloodsport. It
     is not clear weather he enjoys it or despises it, as his face is fully covered
     under an iron mask. '
@@ -60,3 +60,4 @@ MonoBehaviour:
   extraSkillAbilities: []
   extraUltimateAbilities: []
   isBoss: 0
+  markIcon: {fileID: 0}

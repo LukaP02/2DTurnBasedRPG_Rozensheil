@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Archer
   cardArt: {fileID: 4766502569351617581, guid: f17a74bbc4de56a4e97d2db7d403d007, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: -1197907139160311267, guid: eeff221e4322c5e4e90689479464e205, type: 3}
   description: Kharian soldier, exceptional with ranged weapons. Usually serving
     at the city borders where their precision compliments the terrain. Nevertheless
     those that are stationed in the colosseum are to be respected no less than those
@@ -57,3 +57,4 @@ MonoBehaviour:
   extraSkillAbilities: []
   extraUltimateAbilities: []
   isBoss: 0
+  markIcon: {fileID: 0}

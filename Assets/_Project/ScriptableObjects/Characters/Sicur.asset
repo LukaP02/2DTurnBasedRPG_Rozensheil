@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: Sicur
   cardArt: {fileID: -8968411516607468687, guid: f778fb1839cac4f48becd6f481accfea, type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: -1184554453355029226, guid: ea89d7f58c3fce34d96f26801441a382, type: 3}
   description: High elf with a shroud of mystery around him. Not very talkative when
     it comes to himself, be it for his safety or status as an Easterner noble. Very
     tall and pale man, whose main characteristic is a red glowing eye that he got
@@ -59,3 +59,4 @@ MonoBehaviour:
   extraSkillAbilities: []
   extraUltimateAbilities: []
   isBoss: 0
+  markIcon: {fileID: 0}
