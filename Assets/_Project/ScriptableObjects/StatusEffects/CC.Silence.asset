@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CC.Silence
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectData
   effectName: Silence
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: fcb5a3761647f3b4d805e0027d662557, type: 3}
   description: This unit cant use skills or ultimates for 2 turns.
   category: 2
   isDebuff: 1
@@ -36,3 +36,5 @@ MonoBehaviour:
   maxHPScaling: 0
   scaleWithSpeed: 0
   speedScaling: 0
+  tintsCardArt: 0
+  cardTintColor: {r: 1, g: 1, b: 1, a: 1}

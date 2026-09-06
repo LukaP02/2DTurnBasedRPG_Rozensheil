@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Abdul.Buff
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectData
   effectName: Extra Turn
-  icon: {fileID: 0}
+  icon: {fileID: 485823971, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
   description: This unit can act more often.
   category: 2
   isDebuff: 0
@@ -36,3 +36,5 @@ MonoBehaviour:
   maxHPScaling: 0
   scaleWithSpeed: 0
   speedScaling: 0
+  tintsCardArt: 0
+  cardTintColor: {r: 1, g: 1, b: 1, a: 1}

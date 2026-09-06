@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,9 +21,15 @@ public class EventController : MonoBehaviour
     public TMP_Text outcomeText;
     public Button outcomeContinueButton;
 
+    [Header("Typewriter Effect")]
+    [Tooltip("Title, then Description, type out on the prompt panel (choices stay hidden until both finish); Outcome Text does the same on the outcome panel (Continue button stays hidden until it finishes).")]
+    public float typewriterSecondsPerChar = 0.02f;
+
     [NonSerialized] public List<CharacterInstance> currentParty;
 
     private EventData currentEvent;
+    private Coroutine promptTypewriterCoroutine;
+    private Coroutine outcomeTypewriterCoroutine;
 
     public event Action OnEventClosed;
 
@@ -42,19 +49,55 @@ public class EventController : MonoBehaviour
 
         currentEvent = eventData;
 
-        titleText.text = eventData.title;
-        descriptionText.text = eventData.description;
-
         if (eventImage != null)
             eventImage.sprite = eventData.image;
 
         if (backgroundImage != null && eventData.backgroundImage != null)
             backgroundImage.sprite = eventData.backgroundImage;
 
+        // Choices are built now (so IsChoiceAvailable reads current state right away) but stay
+        // hidden until the title/description typewriter below finishes.
         PopulateChoices();
+        if (choiceButtonContainer != null)
+            choiceButtonContainer.gameObject.SetActive(false);
 
         eventPanel.SetActive(true);
         outcomePanel.SetActive(false);
+
+        if (promptTypewriterCoroutine != null)
+            StopCoroutine(promptTypewriterCoroutine);
+
+        promptTypewriterCoroutine = StartCoroutine(PlayPromptTypewriter(eventData.title, eventData.description));
+    }
+
+    // Types the title, then the description, one after the other, then reveals the choices -
+    // matches the "read the setup before you're asked to decide" pacing of the outcome panel below.
+    private IEnumerator PlayPromptTypewriter(string title, string description)
+    {
+        yield return TypewriterReveal(titleText, title);
+        yield return TypewriterReveal(descriptionText, description);
+
+        if (choiceButtonContainer != null)
+            choiceButtonContainer.gameObject.SetActive(true);
+
+        promptTypewriterCoroutine = null;
+    }
+
+    // Setting the full string up front lets TMP compute word-wrap once, so the layout never
+    // shifts mid-reveal; only maxVisibleCharacters changes as the line types out.
+    private IEnumerator TypewriterReveal(TMP_Text target, string fullText)
+    {
+        target.text = fullText;
+        target.maxVisibleCharacters = 0;
+        target.ForceMeshUpdate();
+
+        int totalChars = target.textInfo.characterCount;
+
+        for (int i = 0; i <= totalChars; i++)
+        {
+            target.maxVisibleCharacters = i;
+            yield return new WaitForSeconds(typewriterSecondsPerChar);
+        }
     }
 
     private void PopulateChoices()
@@ -105,8 +148,27 @@ public class EventController : MonoBehaviour
         ApplyEffects(choice);
 
         eventPanel.SetActive(false);
-        outcomeText.text = choice.outcomeText;
+
+        // Continue stays hidden until the outcome text finishes typing, same idea as the choices above.
+        if (outcomeContinueButton != null)
+            outcomeContinueButton.gameObject.SetActive(false);
+
         outcomePanel.SetActive(true);
+
+        if (outcomeTypewriterCoroutine != null)
+            StopCoroutine(outcomeTypewriterCoroutine);
+
+        outcomeTypewriterCoroutine = StartCoroutine(PlayOutcomeTypewriter(choice.outcomeText));
+    }
+
+    private IEnumerator PlayOutcomeTypewriter(string text)
+    {
+        yield return TypewriterReveal(outcomeText, text);
+
+        if (outcomeContinueButton != null)
+            outcomeContinueButton.gameObject.SetActive(true);
+
+        outcomeTypewriterCoroutine = null;
     }
 
     private void ApplyEffects(EventChoice choice)

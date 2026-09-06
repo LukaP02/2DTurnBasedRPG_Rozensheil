@@ -98,4 +98,6 @@ public class CharacterCardData : ScriptableObject
         public ElementType element;
         [Range(0f, 1f)] public float reductionPercent = 0f;
     }
+    [Header("Mark Icon (optional, only relevant if this character applies marks - e.g. Abdul)")]
+    public Sprite markIcon;
 }

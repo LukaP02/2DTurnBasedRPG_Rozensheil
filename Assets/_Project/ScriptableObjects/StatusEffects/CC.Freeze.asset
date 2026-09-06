@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CC.Freeze
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectData
   effectName: Freeze
-  icon: {fileID: 0}
+  icon: {fileID: 1719004807736590062, guid: e8f3a3d4148b4064f94610b31e20235e, type: 3}
   description: The target skips their next turn.
   category: 2
   isDebuff: 1

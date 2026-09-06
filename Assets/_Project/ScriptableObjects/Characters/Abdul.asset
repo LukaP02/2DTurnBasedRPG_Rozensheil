@@ -67,3 +67,4 @@ MonoBehaviour:
   extraSkillAbilities: []
   extraUltimateAbilities: []
   isBoss: 0
+  markIcon: {fileID: -4063526355098390845, guid: c3b232fd98b6c2446849d4e3a90b5f8e, type: 3}

@@ -21,7 +21,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     [Header("Boss")]
     [Tooltip("Resting-size multiplier applied when this card is bound to a boss (CharacterCardData.isBoss). Layered under Hover Scale, so hovering still grows a boss card a bit further from its own larger base size.")]
-    public float bossCardScale = 1.25f;
+    public float bossCardScale = 1.1f;
 
     [Header("Hover")]
     // Shown while an ability is selected and this card is a valid target for it.
@@ -40,6 +40,9 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     [Header("Status Icons")]
     public Transform statusIconContainer;
     public GameObject statusIconPrefab;
+    public Sprite fireStainIcon;
+    public Sprite iceStainIcon;
+    public Sprite electroStainIcon;
 
     [Header("Floating Text")]
     public Transform floatingTextAnchor;
@@ -60,6 +63,16 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Coroutine deathFadeCoroutine;
     private Coroutine shiverCoroutine;
     private Coroutine inspectZoomCoroutine;
+    private Sprite GetStainIcon(ElementType element)
+    {
+        switch (element)
+        {
+            case ElementType.Fire: return fireStainIcon;
+            case ElementType.Ice: return iceStainIcon;
+            case ElementType.Electro: return electroStainIcon;
+            default: return null;
+        }
+    }
 
     [Header("Slide-In")]
     public float slideInSeconds = 0.35f;
@@ -479,6 +492,14 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         foreach (var status in statuses)
         {
+            if (status.icon == null)
+            {
+                if (status.stainElement.HasValue)
+                    status.icon = GetStainIcon(status.stainElement.Value);
+                else if (status.markSourceCharacter != null)
+                    status.icon = status.markSourceCharacter.markIcon;
+            }
+
             GameObject iconObj = Instantiate(statusIconPrefab, statusIconContainer);
             StatusIconUI iconUI = iconObj.GetComponent<StatusIconUI>();
             iconUI.Bind(status);
@@ -615,6 +636,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
             default:
                 return Color.white;
         }
+
     }
 
     // Hidden for a boss (CharacterCardData.isBoss) whose HP is instead shown on the top boss

@@ -13,6 +13,8 @@ public class StatusEffectInstance
     public string label;
     public int stackCount;
     public Sprite icon;
+    public ElementType? stainElement;
+    public CharacterCardData markSourceCharacter;
 }
 
 public class CharacterInstance
@@ -467,13 +469,13 @@ public class CharacterInstance
             if (kvp.Value > 0)
             {
                 string sourceName = kvp.Key != null ? kvp.Key.data.characterName : "Unknown";
-                list.Add(new StatusEffectInstance { label = $"Mark ({sourceName})", stackCount = kvp.Value });
+                list.Add(new StatusEffectInstance { label = $"Mark ({sourceName})", stackCount = kvp.Value, markSourceCharacter = kvp.Key?.data });
             }
         }
 
         if (currentStain.HasValue)
         {
-            list.Add(new StatusEffectInstance { label = $"{currentStain.Value} Stain", stackCount = 1 });
+            list.Add(new StatusEffectInstance { label = $"{currentStain.Value} Stain", stackCount = 1, stainElement = currentStain });
         }
 
         return list;

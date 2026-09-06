@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zavren.EnergyGain
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectData
   effectName: Energized Power
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: f73f68fe6815f5548a6c2a61b9e49add, type: 3}
   description: Attack increased by 30% for 3 turns.
   category: 0
   isDebuff: 0
@@ -36,3 +36,5 @@ MonoBehaviour:
   maxHPScaling: 0
   scaleWithSpeed: 0
   speedScaling: 0
+  tintsCardArt: 0
+  cardTintColor: {r: 1, g: 1, b: 1, a: 1}

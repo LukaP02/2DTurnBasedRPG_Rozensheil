@@ -1471,6 +1471,9 @@ MonoBehaviour:
   ultButton: {fileID: 6440254831866240502}
   statusIconContainer: {fileID: 7848332228649068517}
   statusIconPrefab: {fileID: 216610058052462429, guid: 3f848597f410f644b85bd5744fd8a0dc, type: 3}
+  fireStainIcon: {fileID: 695775810, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  iceStainIcon: {fileID: 1401011104, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  electroStainIcon: {fileID: 2062015785, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
   floatingTextAnchor: {fileID: 2211139393468191146}
   floatingTextPrefab: {fileID: 787407630971366531, guid: 1d095799167090443a6f7dd2553de3eb, type: 3}
   impactEffectAnchor: {fileID: 0}
