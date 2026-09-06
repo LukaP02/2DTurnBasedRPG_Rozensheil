@@ -169,7 +169,22 @@ public class CombatUIManager : MonoBehaviour
         bossCard.transform.SetSiblingIndex(index++);
         foreach (var e in right)
             cardLookup[e].transform.SetSiblingIndex(index++);
+        // An enemy that just died but whose card hasn't finished its death fade-out yet (see
+        // RefreshUI's wave-encounter branch) is skipped by the "others" filter above (isAlive is
+        // already false), so it never gets a SetSiblingIndex call here - but its card is still a
+        // sibling physically sitting in the container. Left alone, it can land in the middle of
+        // the row just arranged above and throw off spacing. This matters most when one AoE hit
+        // kills several reinforcements at once: each death can trigger its own reinforcement
+        // spawn (and its own call to this method) before the earlier dead cards have actually
+        // been destroyed, so several of these can be lingering at once mid-resolution. Push any
+        // of them explicitly to the end so they're out of the living row's way while they fade.
+        foreach (var kvp in cardLookup)
+        {
+            if (!kvp.Key.isAlive && combatController.Enemies.Contains(kvp.Key))
+                kvp.Value.transform.SetAsLastSibling();
     }
+    
+}
 
   
 
