@@ -19,9 +19,17 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public TMP_Text energyText;
     public GameObject activeTurnHighlight;
 
+    [Header("Ghost HP")]
+    [Tooltip("Optional trailing bar drawn behind the main HP bar (Image Type Filled, Horizontal) - holds at the old HP level for a beat after damage, then drains down to match, leaving a 'chip damage' afterimage of what was just lost. Leave empty to skip the effect.")]
+    public Image ghostHpFillImage;
+    [Tooltip("How long the ghost bar holds at the old HP level before it starts draining down.")]
+    public float ghostHpDelaySeconds = 0.4f;
+    [Tooltip("How long the ghost bar takes to drain down to the new HP level once it starts.")]
+    public float ghostHpDrainSeconds = 0.5f;
+
     [Header("Boss")]
     [Tooltip("Resting-size multiplier applied when this card is bound to a boss (CharacterCardData.isBoss). Layered under Hover Scale, so hovering still grows a boss card a bit further from its own larger base size.")]
-    public float bossCardScale = 1.1f;
+    public float bossCardScale = 1.25f;
 
     [Header("Hover")]
     // Shown while an ability is selected and this card is a valid target for it.
@@ -40,8 +48,11 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     [Header("Status Icons")]
     public Transform statusIconContainer;
     public GameObject statusIconPrefab;
+    [Tooltip("Icon shown on a Fire stain's status icon (see CombatController's stain/combo system, e.g. Zavren). Leave empty to show it with no icon, just the label.")]
     public Sprite fireStainIcon;
+    [Tooltip("Icon shown on an Ice stain's status icon. Leave empty to show it with no icon, just the label.")]
     public Sprite iceStainIcon;
+    [Tooltip("Icon shown on an Electro stain's status icon. Leave empty to show it with no icon, just the label.")]
     public Sprite electroStainIcon;
 
     [Header("Floating Text")]
@@ -63,16 +74,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Coroutine deathFadeCoroutine;
     private Coroutine shiverCoroutine;
     private Coroutine inspectZoomCoroutine;
-    private Sprite GetStainIcon(ElementType element)
-    {
-        switch (element)
-        {
-            case ElementType.Fire: return fireStainIcon;
-            case ElementType.Ice: return iceStainIcon;
-            case ElementType.Electro: return electroStainIcon;
-            default: return null;
-        }
-    }
+    private Coroutine ghostHpCoroutine;
 
     [Header("Slide-In")]
     public float slideInSeconds = 0.35f;
@@ -123,7 +125,6 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     private System.Collections.IEnumerator InspectZoomRoutine(RectTransform zoomAnchor, System.Action onComplete)
     {
-        Debug.Log($"[InspectZoomDebug] InspectZoomRoutine STARTED for {name}, frame {Time.frameCount}");
         preInspectParent = rectTransform.parent;
         preInspectSiblingIndex = rectTransform.GetSiblingIndex();
         preInspectAnchoredPosition = rectTransform.anchoredPosition;
@@ -151,10 +152,8 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         rectTransform.anchoredPosition = Vector2.zero;
         rectTransform.localScale = targetScale;
-        Debug.Log($"[InspectZoomDebug] InspectZoomRoutine FINISHED for {name}, frame {Time.frameCount}, onComplete is {(onComplete == null ? "NULL" : "set")}");
 
         onComplete?.Invoke();
-        Debug.Log($"[InspectZoomDebug] onComplete?.Invoke() returned for {name}, frame {Time.frameCount}");
     }
 
     public void ResetInspectZoom()
@@ -259,8 +258,6 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         rectTransform.localScale = new Vector3(targetX, baseScaleForYZ.y, baseScaleForYZ.z);
     }
-
-    
 
     // Slides the card in from fromOffset (relative to its real, already-laid-out position) while
     // fading it in, optionally after a delay so a row of cards can be staggered in one after another.
@@ -461,9 +458,55 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         if (boundCharacter == null) return;
 
+        float previousFraction = hpSlider.maxValue > 0f ? hpSlider.value / hpSlider.maxValue : 0f;
+
         hpSlider.maxValue = boundCharacter.maxHP;
         hpSlider.value = boundCharacter.currentHP;
         hpText.text = $"{boundCharacter.currentHP} / {boundCharacter.maxHP}";
+
+        UpdateGhostHP(previousFraction);
+    }
+
+    // Lets the ghost bar trail behind on damage - holds at the old fraction, then drains down to
+    // the new one after a delay, instead of snapping instantly like the main bar. The gap left
+    // between the two bars while it drains is what reads as "damage just taken". A heal (or the
+    // very first refresh, where there's nothing to trail) has nothing to show off, so the ghost
+    // just snaps straight to the new value instead.
+    private void UpdateGhostHP(float previousFraction)
+    {
+        if (ghostHpFillImage == null || boundCharacter.maxHP <= 0) return;
+
+        float newFraction = (float)boundCharacter.currentHP / boundCharacter.maxHP;
+
+        if (ghostHpCoroutine != null)
+            StopCoroutine(ghostHpCoroutine);
+
+        if (newFraction < previousFraction)
+        {
+            ghostHpFillImage.fillAmount = previousFraction;
+            ghostHpCoroutine = StartCoroutine(GhostHpDrainRoutine(previousFraction, newFraction));
+        }
+        else
+        {
+            ghostHpFillImage.fillAmount = newFraction;
+        }
+    }
+
+    private System.Collections.IEnumerator GhostHpDrainRoutine(float from, float to)
+    {
+        if (ghostHpDelaySeconds > 0f)
+            yield return new WaitForSeconds(ghostHpDelaySeconds);
+
+        float elapsed = 0f;
+        while (elapsed < ghostHpDrainSeconds)
+        {
+            elapsed += Time.deltaTime;
+            ghostHpFillImage.fillAmount = Mathf.Lerp(from, to, elapsed / ghostHpDrainSeconds);
+            yield return null;
+        }
+
+        ghostHpFillImage.fillAmount = to;
+        ghostHpCoroutine = null;
     }
 
     public void RefreshEnergy()
@@ -492,6 +535,9 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         foreach (var status in statuses)
         {
+            // Stains and marks arrive with icon left null (see CharacterInstance.GetStatusDisplayList) -
+            // resolve the actual sprite here instead, since the source character/element only
+            // makes sense to look up at the UI layer, not baked into the data-side status class.
             if (status.icon == null)
             {
                 if (status.stainElement.HasValue)
@@ -503,6 +549,17 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
             GameObject iconObj = Instantiate(statusIconPrefab, statusIconContainer);
             StatusIconUI iconUI = iconObj.GetComponent<StatusIconUI>();
             iconUI.Bind(status);
+        }
+    }
+
+    private Sprite GetStainIcon(ElementType element)
+    {
+        switch (element)
+        {
+            case ElementType.Fire: return fireStainIcon;
+            case ElementType.Ice: return iceStainIcon;
+            case ElementType.Electro: return electroStainIcon;
+            default: return null;
         }
     }
 
@@ -636,7 +693,6 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
             default:
                 return Color.white;
         }
-
     }
 
     // Hidden for a boss (CharacterCardData.isBoss) whose HP is instead shown on the top boss
