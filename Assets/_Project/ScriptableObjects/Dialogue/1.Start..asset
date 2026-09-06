@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
   lines:
   - speakerName: Abdul
-    speakerPortrait: {fileID: -7937446064975466645, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
     text: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       Lorem Ipsum has been the industry's standard dummy text ever since 1966, when
       designers at Letraset and James Mosley, the librarian at St Bride Printing
@@ -30,7 +30,7 @@ MonoBehaviour:
     flashHoldSeconds: 1
     flashFadeOutSeconds: -1
   - speakerName: Sicur
-    speakerPortrait: {fileID: -1230591729272067444, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
     text: Test 2
     backgroundImage: {fileID: 0}
     flashColor: {r: 0, g: 0, b: 0, a: 0}

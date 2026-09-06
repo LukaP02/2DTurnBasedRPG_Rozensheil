@@ -22,7 +22,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: ???
-    speakerPortrait: {fileID: -8893783173514606634, guid: b973f43e1779ce346b1a51d00261cde4, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: b973f43e1779ce346b1a51d00261cde4, type: 3}
     text: 'You guys alright? Seems the wildlife got a bit desperate searching for
       food. '
     backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
@@ -31,7 +31,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Olaf
-    speakerPortrait: {fileID: -8893783173514606634, guid: b973f43e1779ce346b1a51d00261cde4, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: b973f43e1779ce346b1a51d00261cde4, type: 3}
     text: Name's Olaf, nice to meet you!
     backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
@@ -39,7 +39,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Olaf
-    speakerPortrait: {fileID: -8893783173514606634, guid: b973f43e1779ce346b1a51d00261cde4, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: b973f43e1779ce346b1a51d00261cde4, type: 3}
     text: This mage that is responsible for the burnt puppies is Wagner, my hunting
       friend.
     backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
@@ -48,7 +48,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Wagner
-    speakerPortrait: {fileID: 4434543577002779261, guid: 87e2f8bdfc2178042a69742e30c7817c, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: 87e2f8bdfc2178042a69742e30c7817c, type: 3}
     text: 'Nice to make your acquaintance. '
     backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
@@ -56,7 +56,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Zavren
-    speakerPortrait: {fileID: 3331766120017348383, guid: ea391b21d3571b74891285752549baee, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
     text: Likewise. Name's Zavren, thanks for your help.
     backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Raindorf
-    speakerPortrait: {fileID: -7709468997125455044, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
     text: 'I''m Raindorf. Your help will not be forgotten, brother. '
     backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
@@ -72,7 +72,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Abdul
-    speakerPortrait: {fileID: -7937446064975466645, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
     text: We almost had it, but nevertheless thank you. Call me Abdul.
     backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
@@ -80,7 +80,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Sicur
-    speakerPortrait: {fileID: -1230591729272067444, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
     text: Sicur...
     backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Wagner
-    speakerPortrait: {fileID: 4434543577002779261, guid: 87e2f8bdfc2178042a69742e30c7817c, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: 87e2f8bdfc2178042a69742e30c7817c, type: 3}
     text: When we saw that light, we just had to see what it was about. Glad we made
       it in time, although it is strange that animals would go towards it rather
       than be scared and run away.
@@ -98,7 +98,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Olaf
-    speakerPortrait: {fileID: -8893783173514606634, guid: b973f43e1779ce346b1a51d00261cde4, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: b973f43e1779ce346b1a51d00261cde4, type: 3}
     text: 'You guys seem injured, we can take you to our village and patch those
       wounds. It''s not too far. '
     backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
@@ -107,7 +107,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Abdul
-    speakerPortrait: {fileID: -7937446064975466645, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
     text: That would be great, we could use a shelter from this cold. Lead the way.
     backgroundImage: {fileID: -6133942402064407019, guid: ca0fd372226fa2f4a902a12c3f1710f2, type: 3}
     flashColor: {r: 0, g: 0, b: 0, a: 0}

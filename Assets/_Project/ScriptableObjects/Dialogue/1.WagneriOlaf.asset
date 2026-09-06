@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
   lines:
   - speakerName: Raindorf
-    speakerPortrait: {fileID: -7709468997125455044, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
     text: They just keep coming! Gods can only help so much!
     backgroundImage: {fileID: 0}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
@@ -22,7 +22,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Zavren
-    speakerPortrait: {fileID: 2899803954951420851, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
     text: At this point we might need some kind of a miracle.
     backgroundImage: {fileID: 0}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
   - speakerName: Abdul
-    speakerPortrait: {fileID: -7937446064975466645, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
     text: Oh, shit! ABOVE US !
     backgroundImage: {fileID: 0}
     flashColor: {r: 0, g: 0, b: 0, a: 0}

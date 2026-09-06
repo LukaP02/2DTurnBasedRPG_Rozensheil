@@ -14,172 +14,336 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
   lines:
   - speakerName: Abdul
-    speakerPortrait: {fileID: -7937446064975466645, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
     text: Can't believe we finally made it. Almost froze my toes...
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Zavren
-    speakerPortrait: {fileID: 3331766120017348383, guid: ea391b21d3571b74891285752549baee, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
     text: I- I can barely feel my feet. Thank the gods it's over...
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Raindorf
-    speakerPortrait: {fileID: -7709468997125455044, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
     text: HAHAHA, dont forget we still have to walk all the way back to the village.
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Sicur
-    speakerPortrait: {fileID: -1230591729272067444, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
     text: Sir Raindorf, may I ask how is it that you appear so energetic after a
       twelve  hour walk. i understand you are from these lands, but still.
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Raindorf
-    speakerPortrait: {fileID: -7709468997125455044, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
     text: These lands... Yeah, that is part of it for sure. But there is another
       thing...
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Raindorf
-    speakerPortrait: {fileID: -7709468997125455044, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
     text: DRINKING ALE EVERYTIME WE HAD TO MAKE A STOP ON OUR WAY!!! HAHAHAHAHAHA!
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Raindorf (echo)
     speakerPortrait: {fileID: 0}
     text: HAHAHAHAHAHA...
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Raindorf (echo)
     speakerPortrait: {fileID: 0}
     text: HAHAHAHAHAHA...
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Raindorf (echo)
     speakerPortrait: {fileID: 0}
     text: HAHAHAHAHAHA
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Zavren
-    speakerPortrait: {fileID: 3331766120017348383, guid: ea391b21d3571b74891285752549baee, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
     text: 'Anyways, let''s get moving. '
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Zavren
-    speakerPortrait: {fileID: 2899803954951420851, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
     text: 'I will light the path ahead. '
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Abdul
-    speakerPortrait: {fileID: -7937446064975466645, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
     text: Neat trick, the sooner we finish this , the bigger the bonus.
     backgroundImage: {fileID: -4954213466883300142, guid: 49554344b1f45654ca97eb63521945a1, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: Deeper in the cave
     backgroundImage: {fileID: 8061429965007914114, guid: caba0c91a9cdf6945b8e3916805e1c1a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Abdul
-    speakerPortrait: {fileID: -7937446064975466645, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
     text: Must say, I am a bit jealous that Sifur can see in the dark.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Sicur
-    speakerPortrait: {fileID: -1230591729272067444, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
     text: It's Sicur and don't be, this ability is more of a burden than a blessing.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Raindorf
-    speakerPortrait: {fileID: -7709468997125455044, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
     text: I see a path lads, over that ravine.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Zavren
-    speakerPortrait: {fileID: 2899803954951420851, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
     text: I see it, but how do we get across. Not like we can jump it.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Abdul
-    speakerPortrait: {fileID: -7937446064975466645, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
     text: There is a tree log, we can use it to cross!
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Sicur
     speakerPortrait: {fileID: -1230591729272067444, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
     text: I see, well I shall use my misty step to get over and help reinforce the
       log.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: Sicur warps over the ravine and checks the log, giving a thumbs up.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: Abdul nimbly crosses the log.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Zavren
-    speakerPortrait: {fileID: 2899803954951420851, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
     text: I guess I'll go next...
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: Zavren starts balancing over the log.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Zavren
-    speakerPortrait: {fileID: 2899803954951420851, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
     text: So far, so goo-
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Zavren
-    speakerPortrait: {fileID: 2899803954951420851, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
     text: Shit!
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: At the halfway mark, a loud snap is heard, breaking under Zavren's feet,
       sending him falling into the ravine.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: About three seconds later, a loud splashing sound is heard from the ravine.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Raindorf
-    speakerPortrait: {fileID: -7709468997125455044, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
     text: ZAVREN! LADS LOOK AROUND FOR A WAY AHEAD, I`M GOING AFTER HIM!
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: Raindorf jumps into the ravine falling into the water.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: Strenght of the stream starts pushing him further down the cave with seemingly
       no way out.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: With no light source to guide him, Raindorf starts praying to his Goddess
       for both of their wellbeing.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: Every now and then Zavren's magic can be seen further down the stream
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Raindorf
-    speakerPortrait: {fileID: -7709468997125455044, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
     text: 'Hold on-! I''m right behind you Zavren! '
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: After what felt like hours, they miraculously got out unscatted.
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: 'Apart from some minor scratches and bruises. '
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Sicur
-    speakerPortrait: {fileID: -1230591729272067444, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
     text: 'Over here, Abdul! Sirs, are you alright? '
     backgroundImage: {fileID: -2057071991875456856, guid: 40fb31e3ecd9ec8458b70df2c35fe77d, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Zavren
-    speakerPortrait: {fileID: 3331766120017348383, guid: ea391b21d3571b74891285752549baee, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
     text: I- I think so. Thanks...
     backgroundImage: {fileID: -2057071991875456856, guid: 40fb31e3ecd9ec8458b70df2c35fe77d, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Sicur
-    speakerPortrait: {fileID: -1230591729272067444, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
     text: 'Thankfully it was a short ride, only hundred  meters or so, I presume. '
     backgroundImage: {fileID: -2057071991875456856, guid: 40fb31e3ecd9ec8458b70df2c35fe77d, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Zavren
-    speakerPortrait: {fileID: 3331766120017348383, guid: ea391b21d3571b74891285752549baee, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
     text: Honestly, felt like eternity to me. Glad it's over though.
     backgroundImage: {fileID: -2057071991875456856, guid: 40fb31e3ecd9ec8458b70df2c35fe77d, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: Abdul
-    speakerPortrait: {fileID: -7937446064975466645, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
     text: Fellas, we have company!
     backgroundImage: {fileID: -2057071991875456856, guid: 40fb31e3ecd9ec8458b70df2c35fe77d, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: ???
     speakerPortrait: {fileID: 0}
     text: WRAHHHHHHHGG!!!
     backgroundImage: {fileID: -2057071991875456856, guid: 40fb31e3ecd9ec8458b70df2c35fe77d, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
