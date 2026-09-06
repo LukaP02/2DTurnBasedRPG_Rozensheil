@@ -53,6 +53,8 @@ public class CombatUIManager : MonoBehaviour
 
     [Tooltip("Vertical distance between each turn order icon's slot, in UI units. Should be roughly the icon's own height plus whatever gap you want between icons - the icons are positioned directly by this value rather than through a Vertical Layout Group.")]
     public float turnOrderSlotHeight = 60f;
+    [Tooltip("How much bigger (scale multiplier) the current actor's turn order slot is than the others. Increase Turn Order Slot Height above too if this starts overlapping neighboring slots.")]
+    public float activeTurnOrderIconScale = 1.3f;
 
 
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
@@ -63,6 +65,10 @@ public class CombatUIManager : MonoBehaviour
     // per refresh like the old version, so a specific icon's identity can persist across a refresh
     // and be animated sliding from one slot to the next instead of just popping into place.
     private List<Image> turnOrderIcons = new List<Image>();
+    // Root RectTransform of each pooled slot (background art + the "Icon" child on top of it) -
+    // separate from turnOrderIcons because that list now points at the character-art child, not
+    // the slot itself. Positioning/scaling always targets the slot as a whole.
+    private List<RectTransform> turnOrderSlotRects = new List<RectTransform>();
     private List<Vector2> turnOrderIconHomePositions = new List<Vector2>();
     private List<CharacterInstance> lastTurnOrderCharacters = new List<CharacterInstance>();
     private Coroutine turnOrderShiftCoroutine;
@@ -96,8 +102,6 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnRequestProjectile -= HandleRequestProjectile;
             combatController.OnTargetUpdated -= HandleTargetUpdated;
         }
-
-       
     }
 
     private void HandleFormSwitched(CharacterInstance character)
@@ -111,15 +115,6 @@ public class CombatUIManager : MonoBehaviour
         if (cardLookup.TryGetValue(character, out var card))
             card.PlayShiver();
     }
-
-    
-
-  
-
-    // Alternates which side of the boss the next reinforcement lands on, so the boss's card
-    // stays centered (roughly) as reinforcements pile up on both sides instead of the row just
-    // growing off to one end.
-
 
     private void HandleEnemyReinforced(CharacterInstance enemy)
     {
@@ -182,11 +177,8 @@ public class CombatUIManager : MonoBehaviour
         {
             if (!kvp.Key.isAlive && combatController.Enemies.Contains(kvp.Key))
                 kvp.Value.transform.SetAsLastSibling();
+        }
     }
-    
-}
-
-  
 
     private void HandleCombatLogMessage(string message)
     {
@@ -331,8 +323,11 @@ public class CombatUIManager : MonoBehaviour
         for (int i = 0; i < turnOrderVisibleCount; i++)
         {
             GameObject iconObj = Instantiate(turnOrderIconPrefab, turnOrderContainer);
-            Image icon = iconObj.GetComponent<Image>();
-            RectTransform rt = icon.rectTransform;
+            RectTransform rt = iconObj.GetComponent<RectTransform>();
+            // The per-character icon is a child named "Icon" layered on top of the slot's own
+            // background Image (on the root) - children render after their parent, so this is
+            // what actually puts the character art above the background frame.
+            Image icon = iconObj.transform.Find("Icon").GetComponent<Image>();
 
             rt.anchorMin = new Vector2(0.5f, 1f);
             rt.anchorMax = new Vector2(0.5f, 1f);
@@ -340,9 +335,10 @@ public class CombatUIManager : MonoBehaviour
             rt.anchoredPosition = new Vector2(0f, -i * turnOrderSlotHeight);
 
             turnOrderIcons.Add(icon);
+            turnOrderSlotRects.Add(rt);
             turnOrderIconHomePositions.Add(rt.anchoredPosition);
 
-            ApplyTurnOrderIcon(icon, i < initialOrder.Count ? initialOrder[i] : null, i == 0);
+            ApplyTurnOrderIcon(icon, rt, i < initialOrder.Count ? initialOrder[i] : null, i == 0);
         }
     }
 
@@ -358,9 +354,6 @@ public class CombatUIManager : MonoBehaviour
         newOrder.AddRange(combatController.GetUpcomingTurnOrder(upcomingCount));
 
         EnsureTurnOrderIconPool(newOrder);
-
-
-
 
         // A "simple shift" is the common case: the previous head just acted and everyone else
         // moved up one slot, with one new character appearing at the tail. Only that specific
@@ -380,8 +373,13 @@ public class CombatUIManager : MonoBehaviour
         lastTurnOrderCharacters = newOrder;
     }
 
-    private void ApplyTurnOrderIcon(Image icon, CharacterInstance character, bool isActive)
+    private void ApplyTurnOrderIcon(Image icon, RectTransform slotRect, CharacterInstance character, bool isActive)
     {
+        // Scales the whole slot (background + icon together), not just the character art, so the
+        // active actor's frame visibly grows too rather than the art just looking bigger inside a
+        // same-size frame.
+        slotRect.localScale = Vector3.one * (isActive ? activeTurnOrderIconScale : 1f);
+
         if (character == null)
         {
             icon.enabled = false;
@@ -403,8 +401,8 @@ public class CombatUIManager : MonoBehaviour
 
         for (int i = 0; i < turnOrderIcons.Count; i++)
         {
-            ApplyTurnOrderIcon(turnOrderIcons[i], i < order.Count ? order[i] : null, i == 0);
-            turnOrderIcons[i].rectTransform.anchoredPosition = turnOrderIconHomePositions[i];
+            ApplyTurnOrderIcon(turnOrderIcons[i], turnOrderSlotRects[i], i < order.Count ? order[i] : null, i == 0);
+            turnOrderSlotRects[i].anchoredPosition = turnOrderIconHomePositions[i];
         }
     }
 
@@ -428,8 +426,8 @@ public class CombatUIManager : MonoBehaviour
         // while it slides instead of just appearing.
         for (int i = 0; i <= lastIndex; i++)
         {
-            ApplyTurnOrderIcon(turnOrderIcons[i], i < newOrder.Count ? newOrder[i] : null, i == 0);
-            turnOrderIcons[i].rectTransform.anchoredPosition = turnOrderIconHomePositions[i] + new Vector2(0f, slotHeight);
+            ApplyTurnOrderIcon(turnOrderIcons[i], turnOrderSlotRects[i], i < newOrder.Count ? newOrder[i] : null, i == 0);
+            turnOrderSlotRects[i].anchoredPosition = turnOrderIconHomePositions[i] + new Vector2(0f, slotHeight);
         }
 
         Image lastIcon = turnOrderIcons[lastIndex];
@@ -446,7 +444,7 @@ public class CombatUIManager : MonoBehaviour
             for (int i = 0; i <= lastIndex; i++)
             {
                 Vector2 home = turnOrderIconHomePositions[i];
-                turnOrderIcons[i].rectTransform.anchoredPosition = Vector2.Lerp(home + new Vector2(0f, slotHeight), home, eased);
+                turnOrderSlotRects[i].anchoredPosition = Vector2.Lerp(home + new Vector2(0f, slotHeight), home, eased);
             }
 
             lastIcon.color = new Color(lastColor.r, lastColor.g, lastColor.b, eased);
@@ -454,7 +452,7 @@ public class CombatUIManager : MonoBehaviour
         }
 
         for (int i = 0; i <= lastIndex; i++)
-            turnOrderIcons[i].rectTransform.anchoredPosition = turnOrderIconHomePositions[i];
+            turnOrderSlotRects[i].anchoredPosition = turnOrderIconHomePositions[i];
 
         lastIcon.color = lastColor;
     }
@@ -554,16 +552,13 @@ public class CombatUIManager : MonoBehaviour
 
         if (inspectZoomAnchor != null && cardLookup.TryGetValue(character, out var card))
         {
-            Debug.Log($"[InspectZoomDebug] OnInspectCard calling PlayInspectZoom, frame {Time.frameCount}");
             card.PlayInspectZoom(inspectZoomAnchor, () =>
             {
-                Debug.Log($"[InspectZoomDebug] onComplete callback ENTERED, frame {Time.frameCount}");
                 // Snap the field card back to its combat row slot right as the panel takes over -
                 // the panel is about to cover the whole screen anyway, so this is invisible. No
                 // need to wait for the panel to close later.
                 card.ResetInspectZoom();
                 cardDetailUI.Show(character);
-                Debug.Log($"[InspectZoomDebug] onComplete callback FINISHED (Show() called), frame {Time.frameCount}");
             });
         }
         else
