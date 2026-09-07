@@ -21,6 +21,8 @@ public class LevelData : ScriptableObject
     [Header("Visuals")]
     [Tooltip("Shown behind the combat screen for this level. Leave empty to keep whatever background is already set on the combat scene.")]
     public Sprite combatBackground;
+    [Tooltip("Music played during combat for this level. Leave empty to keep whatever combat music is already playing (or GameFlowManager's default, if set).")]
+    public AudioClip combatMusic;
 
     [Header("Flow (all optional)")]
     public EventData preLevelEvent;

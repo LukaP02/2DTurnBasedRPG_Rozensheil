@@ -13,6 +13,12 @@ public class GameFlowManager : MonoBehaviour
     public DefeatScreenUI defeatScreen;
     public VictoryScreenUI victoryScreen;
 
+    [Header("Music")]
+    public AudioClip overworldMusic;
+    public AudioClip defaultCombatMusic;
+    public AudioClip victoryStinger;
+    public AudioClip defeatStinger;
+
     [Header("Party Setup Gate")]
     [Tooltip("Shown between the intro event/dialogue and combat for a level with Prompt Party Selection Before Combat checked (see LevelData) - a separate PartySetupUI panel, not the one on the Overworld screen, since the overworld is hidden at this point. Must start inactive in the scene.")]
     public GameObject partySetupGatePanel;
@@ -142,6 +148,9 @@ public class GameFlowManager : MonoBehaviour
         combatScreen.SetActive(true);
 
         combatUIManager.SetupCombatUI(currentLevel.combatBackground);
+        combatUIManager.SetupCombatUI(currentLevel.combatBackground);
+
+        AudioManager.Instance?.PlayMusic(currentLevel.combatMusic != null ? currentLevel.combatMusic : defaultCombatMusic);
     }
 
     // Shows the mid-battle dialogue on top of the still-active combat screen (combat is not hidden).
@@ -183,6 +192,7 @@ public class GameFlowManager : MonoBehaviour
             combatController.OnPhaseTransitionRequested -= HandlePhaseTransitionRequested;
             combatScreen.SetActive(false);
 
+            AudioManager.Instance?.PlaySFX(victoryStinger);
             PartyManager.Instance.HealPartyFully();
 
             victoryScreen.Show(combatController.goldReward);
@@ -193,6 +203,8 @@ public class GameFlowManager : MonoBehaviour
             combatController.OnMidBattleDialogueRequested -= HandleMidBattleDialogueRequested;
             combatController.OnPhaseTransitionRequested -= HandlePhaseTransitionRequested;
             combatScreen.SetActive(false);
+
+            AudioManager.Instance?.PlaySFX(defeatStinger);
             OnCombatDefeat();
         }
     }
@@ -273,11 +285,15 @@ public class GameFlowManager : MonoBehaviour
         PartyManager.Instance.UnlockLevels(currentLevel.unlocksOnComplete);
         overworldMapUI.RefreshNodes();
         overworldPanel.SetActive(true);
+
+        AudioManager.Instance?.PlayMusic(overworldMusic);
     }
 
     private void ReturnToOverworldWithoutUnlocking()
     {
         overworldPanel.SetActive(true);
+
+        AudioManager.Instance?.PlayMusic(overworldMusic);
     }
 
 }

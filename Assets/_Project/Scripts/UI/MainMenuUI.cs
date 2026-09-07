@@ -20,12 +20,19 @@ public class MainMenuUI : MonoBehaviour
     // development; just don't hook it up in a shipped build.
     public Button unlockAllButton;
 
+    [Header("Music")]
+    public AudioClip menuMusic;
+
     private void Awake()
     {
         if (startButton != null) startButton.onClick.AddListener(StartGame);
         if (optionsButton != null) optionsButton.onClick.AddListener(OpenOptions);
         if (quitButton != null) quitButton.onClick.AddListener(QuitGame);
         if (unlockAllButton != null) unlockAllButton.onClick.AddListener(UnlockAllAndGoToOverworld);
+    }
+    private void Start()
+    {
+        AudioManager.Instance?.PlayMusic(menuMusic);
     }
 
     public void StartGame()

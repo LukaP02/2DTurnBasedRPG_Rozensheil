@@ -36,6 +36,11 @@ public class CombatUIManager : MonoBehaviour
     public Color allyTargetColor = Color.yellow;
     public Color enemyTargetColor = Color.red;
 
+    [Header("Audio")]
+    public AudioClip hitSound;
+    public AudioClip healSound;
+    public AudioClip critSound;
+
     [Header("Background")]
     public Image backgroundImage;
 
@@ -114,6 +119,8 @@ public class CombatUIManager : MonoBehaviour
     {
         if (cardLookup.TryGetValue(character, out var card))
             card.PlayShiver();
+
+        AudioManager.Instance?.PlaySFX(critSound);
     }
 
     private void HandleEnemyReinforced(CharacterInstance enemy)
@@ -192,6 +199,8 @@ public class CombatUIManager : MonoBehaviour
         {
             card.ShowFloatingText(amount, false, element);
         }
+
+        AudioManager.Instance?.PlaySFX(hitSound);
     }
 
     private void HandleHealApplied(CharacterInstance target, int amount)
@@ -200,6 +209,8 @@ public class CombatUIManager : MonoBehaviour
         {
             card.ShowFloatingText(amount, true, ElementType.Physical); // element unused for heals
         }
+
+        AudioManager.Instance?.PlaySFX(healSound);
     }
 
     private void ClearCards()
