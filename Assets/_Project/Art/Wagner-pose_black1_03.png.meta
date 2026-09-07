@@ -1,0 +1,1183 @@
+fileFormatVersion: 2
+guid: cd0ffe96cdf0130448ff2182dc123c98
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7725912648842432843
+    second: Wagner-pose_black1_03_0
+  - first:
+      213: -6009845387141439496
+    second: Wagner-pose_black1_03_1
+  - first:
+      213: -530194978475231247
+    second: Wagner-pose_black1_03_2
+  - first:
+      213: 1240679207453219805
+    second: Wagner-pose_black1_03_3
+  - first:
+      213: 6214792631421983013
+    second: Wagner-pose_black1_03_4
+  - first:
+      213: -5643114006881343460
+    second: Wagner-pose_black1_03_5
+  - first:
+      213: -2441319237923455042
+    second: Wagner-pose_black1_03_6
+  - first:
+      213: 4422587522778143633
+    second: Wagner-pose_black1_03_7
+  - first:
+      213: -8771072677152160150
+    second: Wagner-pose_black1_03_8
+  - first:
+      213: -583803016707304053
+    second: Wagner-pose_black1_03_9
+  - first:
+      213: -522077095982155992
+    second: Wagner-pose_black1_03_10
+  - first:
+      213: 2259495635846923701
+    second: Wagner-pose_black1_03_11
+  - first:
+      213: 1489698240711118017
+    second: Wagner-pose_black1_03_12
+  - first:
+      213: -3600452861978321381
+    second: Wagner-pose_black1_03_13
+  - first:
+      213: -7338879337265908475
+    second: Wagner-pose_black1_03_14
+  - first:
+      213: 4677447832049563612
+    second: Wagner-pose_black1_03_15
+  - first:
+      213: -5537744708696759266
+    second: Wagner-pose_black1_03_16
+  - first:
+      213: 2946059248181340692
+    second: Wagner-pose_black1_03_17
+  - first:
+      213: -6329293352184613809
+    second: Wagner-pose_black1_03_18
+  - first:
+      213: 6688949291609681185
+    second: Wagner-pose_black1_03_19
+  - first:
+      213: 3564673312886689820
+    second: Wagner-pose_black1_03_20
+  - first:
+      213: 3214541523120105711
+    second: Wagner-pose_black1_03_21
+  - first:
+      213: -2687065848076193877
+    second: Wagner-pose_black1_03_22
+  - first:
+      213: 8876349095199846559
+    second: Wagner-pose_black1_03_23
+  - first:
+      213: 8947904975039326427
+    second: Wagner-pose_black1_03_24
+  - first:
+      213: 664043389102549173
+    second: Wagner-pose_black1_03_25
+  - first:
+      213: -7763157126108757478
+    second: Wagner-pose_black1_03_26
+  - first:
+      213: 7514093526728623442
+    second: Wagner-pose_black1_03_27
+  - first:
+      213: 1739337572241342272
+    second: Wagner-pose_black1_03_28
+  - first:
+      213: -5011308980029166628
+    second: Wagner-pose_black1_03_29
+  - first:
+      213: 8223982663268032447
+    second: Wagner-pose_black1_03_30
+  - first:
+      213: -155085477374588385
+    second: Wagner-pose_black1_03_31
+  - first:
+      213: 4185837082111500304
+    second: Wagner-pose_black1_03_32
+  - first:
+      213: 6011117652775652234
+    second: Wagner-pose_black1_03_33
+  - first:
+      213: -7661180941413757069
+    second: Wagner-pose_black1_03_34
+  - first:
+      213: -2695828188050902958
+    second: Wagner-pose_black1_03_35
+  - first:
+      213: -4499770274152859354
+    second: Wagner-pose_black1_03_36
+  - first:
+      213: -8819214136873216919
+    second: Wagner-pose_black1_03_37
+  - first:
+      213: 8753864724230643394
+    second: Wagner-pose_black1_03_38
+  - first:
+      213: -2932436392264537142
+    second: Wagner-pose_black1_03_39
+  - first:
+      213: -1519488614978242366
+    second: Wagner-pose_black1_03_40
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_0
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 2550
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4153f7de94f73b60800000000000000
+      internalID: 7725912648842432843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 0
+        width: 1593
+        height: 2525
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ff1a60467db89ca0800000000000000
+      internalID: -6009845387141439496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_2
+      rect:
+        serializedVersion: 2
+        x: 1435
+        y: 1700
+        width: 87
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f7b946e97e54a8f0800000000000000
+      internalID: -530194978475231247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_3
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 1462
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddb56707a27c73110800000000000000
+      internalID: 1240679207453219805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_4
+      rect:
+        serializedVersion: 2
+        x: 1399
+        y: 888
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5295f9c88f06f3650800000000000000
+      internalID: 6214792631421983013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_5
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 493
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c186ec095b1afa1b0800000000000000
+      internalID: -5643114006881343460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_6
+      rect:
+        serializedVersion: 2
+        x: 1397
+        y: 405
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebfbe387611be1ed0800000000000000
+      internalID: -2441319237923455042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_7
+      rect:
+        serializedVersion: 2
+        x: 1401
+        y: 401
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19b144b8bef206d30800000000000000
+      internalID: 4422587522778143633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_8
+      rect:
+        serializedVersion: 2
+        x: 1409
+        y: 404
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a66063b0fd3e64680800000000000000
+      internalID: -8771072677152160150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_9
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 389
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b851c5adf3ae5e7f0800000000000000
+      internalID: -583803016707304053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_10
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 394
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 827bd94b5a531c8f0800000000000000
+      internalID: -522077095982155992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_11
+      rect:
+        serializedVersion: 2
+        x: 1604
+        y: 329
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b5833a3f475b5f10800000000000000
+      internalID: 2259495635846923701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_12
+      rect:
+        serializedVersion: 2
+        x: 1608
+        y: 324
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cc4c1c38a87ca410800000000000000
+      internalID: 1489698240711118017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_13
+      rect:
+        serializedVersion: 2
+        x: 1609
+        y: 313
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1e5e33b23f980ec0800000000000000
+      internalID: -3600452861978321381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_14
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 239
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 505bfc43020172a90800000000000000
+      internalID: -7338879337265908475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_15
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 256
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd73cb46502a9e040800000000000000
+      internalID: 4677447832049563612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_16
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 130
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e14a455178af523b0800000000000000
+      internalID: -5537744708696759266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_17
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 135
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41a6a1ff64182e820800000000000000
+      internalID: 2946059248181340692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_18
+      rect:
+        serializedVersion: 2
+        x: 1473
+        y: 126
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f447bcfea35d928a0800000000000000
+      internalID: -6329293352184613809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_19
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 116
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12deefee0fbe3dc50800000000000000
+      internalID: 6688949291609681185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_20
+      rect:
+        serializedVersion: 2
+        x: 1486
+        y: 119
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c101deadd73487130800000000000000
+      internalID: 3564673312886689820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_21
+      rect:
+        serializedVersion: 2
+        x: 1630
+        y: 122
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe82151eb785c9c20800000000000000
+      internalID: 3214541523120105711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_22
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 110
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bafa55d09df95bad0800000000000000
+      internalID: -2687065848076193877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_23
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 109
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f903fb129702f2b70800000000000000
+      internalID: 8876349095199846559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_24
+      rect:
+        serializedVersion: 2
+        x: 1651
+        y: 101
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd86b21ba285d2c70800000000000000
+      internalID: 8947904975039326427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_25
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 77
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b867e2b1f7273900800000000000000
+      internalID: 664043389102549173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_26
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 35
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a12ceba89b9b34490800000000000000
+      internalID: -7763157126108757478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_27
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 0
+        width: 23
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 255c8bd404c674860800000000000000
+      internalID: 7514093526728623442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_28
+      rect:
+        serializedVersion: 2
+        x: 1390
+        y: 45
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04f7fe97e4e532810800000000000000
+      internalID: 1739337572241342272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_29
+      rect:
+        serializedVersion: 2
+        x: 1390
+        y: 39
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdbe2a1a801447ab0800000000000000
+      internalID: -5011308980029166628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_30
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 29
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbfdf03e8a4712270800000000000000
+      internalID: 8223982663268032447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_31
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 35
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1a044b749609ddf0800000000000000
+      internalID: -155085477374588385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_32
+      rect:
+        serializedVersion: 2
+        x: 1484
+        y: 31
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 010e9ee06a4171a30800000000000000
+      internalID: 4185837082111500304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_33
+      rect:
+        serializedVersion: 2
+        x: 1494
+        y: 28
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8bc5cc28a7cb6350800000000000000
+      internalID: 6011117652775652234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_34
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 17
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37f4a0346840ea590800000000000000
+      internalID: -7661180941413757069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_35
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 10
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 250bdbbcb8e769ad0800000000000000
+      internalID: -2695828188050902958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_36
+      rect:
+        serializedVersion: 2
+        x: 1430
+        y: 10
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 629b146c6ca9d81c0800000000000000
+      internalID: -4499770274152859354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_37
+      rect:
+        serializedVersion: 2
+        x: 1486
+        y: 13
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 964919df77bdb9580800000000000000
+      internalID: -8819214136873216919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_38
+      rect:
+        serializedVersion: 2
+        x: 1502
+        y: 9
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ce17933699fb7970800000000000000
+      internalID: 8753864724230643394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_39
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 7
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acbe4a053a4ed47d0800000000000000
+      internalID: -2932436392264537142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wagner-pose_black1_03_40
+      rect:
+        serializedVersion: 2
+        x: 1493
+        y: 7
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c8b8ffb721b9eae0800000000000000
+      internalID: -1519488614978242366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Wagner-pose_black1_03_0: 7725912648842432843
+      Wagner-pose_black1_03_1: -6009845387141439496
+      Wagner-pose_black1_03_10: -522077095982155992
+      Wagner-pose_black1_03_11: 2259495635846923701
+      Wagner-pose_black1_03_12: 1489698240711118017
+      Wagner-pose_black1_03_13: -3600452861978321381
+      Wagner-pose_black1_03_14: -7338879337265908475
+      Wagner-pose_black1_03_15: 4677447832049563612
+      Wagner-pose_black1_03_16: -5537744708696759266
+      Wagner-pose_black1_03_17: 2946059248181340692
+      Wagner-pose_black1_03_18: -6329293352184613809
+      Wagner-pose_black1_03_19: 6688949291609681185
+      Wagner-pose_black1_03_2: -530194978475231247
+      Wagner-pose_black1_03_20: 3564673312886689820
+      Wagner-pose_black1_03_21: 3214541523120105711
+      Wagner-pose_black1_03_22: -2687065848076193877
+      Wagner-pose_black1_03_23: 8876349095199846559
+      Wagner-pose_black1_03_24: 8947904975039326427
+      Wagner-pose_black1_03_25: 664043389102549173
+      Wagner-pose_black1_03_26: -7763157126108757478
+      Wagner-pose_black1_03_27: 7514093526728623442
+      Wagner-pose_black1_03_28: 1739337572241342272
+      Wagner-pose_black1_03_29: -5011308980029166628
+      Wagner-pose_black1_03_3: 1240679207453219805
+      Wagner-pose_black1_03_30: 8223982663268032447
+      Wagner-pose_black1_03_31: -155085477374588385
+      Wagner-pose_black1_03_32: 4185837082111500304
+      Wagner-pose_black1_03_33: 6011117652775652234
+      Wagner-pose_black1_03_34: -7661180941413757069
+      Wagner-pose_black1_03_35: -2695828188050902958
+      Wagner-pose_black1_03_36: -4499770274152859354
+      Wagner-pose_black1_03_37: -8819214136873216919
+      Wagner-pose_black1_03_38: 8753864724230643394
+      Wagner-pose_black1_03_39: -2932436392264537142
+      Wagner-pose_black1_03_4: 6214792631421983013
+      Wagner-pose_black1_03_40: -1519488614978242366
+      Wagner-pose_black1_03_5: -5643114006881343460
+      Wagner-pose_black1_03_6: -2441319237923455042
+      Wagner-pose_black1_03_7: 4422587522778143633
+      Wagner-pose_black1_03_8: -8771072677152160150
+      Wagner-pose_black1_03_9: -583803016707304053
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum CombatState { Starting, WaitingForActor, PlayerTurn, EnemyTurn, Resolving, Victory, Defeat }
@@ -446,8 +447,9 @@ public class CombatController : MonoBehaviour
 
                 if (targetIsSameSideAsUser)
                 {
-                    target.Heal(ability.power);
-                    OnHealApplied?.Invoke(target, ability.power);
+                    int healAmount = CalculateScaledPower(user, ability);
+                    target.Heal(healAmount);
+                    OnHealApplied?.Invoke(target, healAmount);
                     OnTargetUpdated?.Invoke(target);
                 }
                 else
@@ -813,15 +815,23 @@ public class CombatController : MonoBehaviour
         }
     }
 
+    // Base power before any defense/weakness/crit modifiers - shared by damage and heals so a
+    // heal's scaling fields (e.g. Raindorf's maxHPScaling) aren't silently dropped the way they
+    // were when heals just used ability.power directly.
+    private int CalculateScaledPower(CharacterInstance caster, AbilityData ability)
+    {
+        return ability.power
+            + Mathf.RoundToInt(caster.currentAttack * ability.attackScaling)
+            + Mathf.RoundToInt(caster.maxHP * ability.maxHPScaling)
+            + Mathf.RoundToInt(caster.currentDefense * ability.defenseScaling)
+            + Mathf.RoundToInt(caster.currentSpeed * ability.speedScaling);
+    }
+
     private int CalculateDamage(CharacterInstance attacker, CharacterInstance defender, AbilityData ability, out bool wasCritOrWeakness)
     {
         wasCritOrWeakness = false;
 
-        int raw = ability.power
-            + Mathf.RoundToInt(attacker.currentAttack * ability.attackScaling)
-            + Mathf.RoundToInt(attacker.maxHP * ability.maxHPScaling)
-            + Mathf.RoundToInt(attacker.currentDefense * ability.defenseScaling)
-            + Mathf.RoundToInt(attacker.currentSpeed * ability.speedScaling);
+        int raw = CalculateScaledPower(attacker, ability);
 
         // Diminishing-returns defense: def = 100 / (100 + defense). Each point of the defender's
         // Defense reduces incoming damage by a shrinking amount instead of 1-for-1, so defense
