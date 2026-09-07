@@ -148,7 +148,7 @@ public class GameFlowManager : MonoBehaviour
         combatScreen.SetActive(true);
 
         combatUIManager.SetupCombatUI(currentLevel.combatBackground);
-        combatUIManager.SetupCombatUI(currentLevel.combatBackground);
+        
 
         AudioManager.Instance?.PlayMusic(currentLevel.combatMusic != null ? currentLevel.combatMusic : defaultCombatMusic);
     }
