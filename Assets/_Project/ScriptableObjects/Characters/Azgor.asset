@@ -13,21 +13,22 @@ MonoBehaviour:
   m_Name: Azgor
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
   characterName: 
-  cardArt: {fileID: 0}
-  icon: {fileID: 0}
+  cardArt: {fileID: -2847048657661523345, guid: caac1ba1a00a76240b704a51bac009b7, type: 3}
+  icon: {fileID: 3573542943813701069, guid: 1fdc9e93757a66041b5efb50867e331f, type: 3}
   description: 
   isPlayableCharacter: 0
-  role: 0
-  maxHP: 0
-  attack: 0
-  defense: 0
-  speed: 0
-  maxEnergy: 100
+  role: 1
+  maxHP: 1000
+  attack: 100
+  defense: 200
+  speed: 100
+  maxEnergy: 300
   energyRechargeRate: 1
   critRate: 0.05
   threatWeight: 1
   weaknesses: 
-  resistances: 
+  defaultResistancePercent: 0
+  resistances: []
   basicAbility: {fileID: 0}
   basicOptions: []
   skillOptions: []
@@ -53,3 +54,4 @@ MonoBehaviour:
   extraSkillAbilities: []
   extraUltimateAbilities: []
   isBoss: 1
+  markIcon: {fileID: 0}

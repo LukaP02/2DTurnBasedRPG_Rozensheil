@@ -28,6 +28,7 @@ MonoBehaviour:
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
+  castSound: {fileID: 8300000, guid: 27f35acf53e2fb14e8f80987f0318f70, type: 3}
   canCrit: 1
   targetShape: 3
   targetSide: 0
@@ -41,3 +42,7 @@ MonoBehaviour:
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0
+  projectilePrefab: {fileID: 0}
+  projectileTravelSeconds: 0.4
+  impactEffectPrefab: {fileID: 0}
+  impactEffectDuration: 0.5

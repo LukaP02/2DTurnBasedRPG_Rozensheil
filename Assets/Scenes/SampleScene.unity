@@ -3386,7 +3386,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Title Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ac1934895c6879e428f74b32830d4af1, type: 2}
   m_sharedMaterial: {fileID: 8838204487025311244, guid: ac1934895c6879e428f74b32830d4af1, type: 2}
@@ -9973,7 +9973,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Description text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0283054f1cda9ac4cbf819eb95b030a6, type: 2}
   m_sharedMaterial: {fileID: 1247139150440321822, guid: 0283054f1cda9ac4cbf819eb95b030a6, type: 2}
@@ -12246,8 +12246,8 @@ MonoBehaviour:
   - {fileID: 1001164778}
   - {fileID: 1496901546}
   - {fileID: 150290373}
-  portraitFadeSeconds: 0.15
-  boxFadeSeconds: 0.15
+  portraitFadeSeconds: 0.25
+  boxFadeSeconds: 0.25
   speakerSlideDistance: 10
   typewriterSecondsPerChar: 0.03
   skipButton: {fileID: 541501033}
@@ -13925,9 +13925,9 @@ MonoBehaviour:
   inspectZoomAnchor: {fileID: 704496218}
   allyTargetColor: {r: 0.854902, g: 0.6470588, b: 0.1254902, a: 1}
   enemyTargetColor: {r: 0.5450981, g: 0, b: 0, a: 1}
-  hitSound: {fileID: 0}
-  healSound: {fileID: 0}
-  critSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: d4ece41915b6fc449bbc36e58587be97, type: 3}
+  healSound: {fileID: 8300000, guid: cc6572d75ed3a9646b84ca31d6b8a760, type: 3}
+  critSound: {fileID: 8300000, guid: 205cb9f3619becd4095b35ee762a282e, type: 3}
   backgroundImage: {fileID: 409716536}
   bossHealthBar: {fileID: 1646441566}
   bossEnergyBar: {fileID: 1646441567}
