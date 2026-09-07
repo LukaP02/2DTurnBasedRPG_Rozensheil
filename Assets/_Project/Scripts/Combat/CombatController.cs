@@ -24,7 +24,7 @@ public class CombatController : MonoBehaviour
     // Enemy AI tuning: how often enemies prefer their Skill over their Basic (when both are usable),
     // and how often they focus the lowest-HP% target instead of picking by threat weight.
     private const float ENEMY_SKILL_PREFERENCE_CHANCE = 0.6f;
-    private const float ENEMY_FOCUS_LOWEST_HP_CHANCE = 0.4f;
+    private const float ENEMY_FOCUS_LOWEST_HP_CHANCE = 0.2f;
 
     [Header("Rewards")]
     public int goldReward = 50;
