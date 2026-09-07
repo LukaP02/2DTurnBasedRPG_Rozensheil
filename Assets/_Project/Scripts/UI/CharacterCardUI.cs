@@ -75,6 +75,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Coroutine shiverCoroutine;
     private Coroutine inspectZoomCoroutine;
     private Coroutine ghostHpCoroutine;
+    private float lastGhostHpFraction = -1f;
 
     [Header("Slide-In")]
     public float slideInSeconds = 0.35f;
@@ -458,25 +459,32 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         if (boundCharacter == null) return;
 
-        float previousFraction = hpSlider.maxValue > 0f ? hpSlider.value / hpSlider.maxValue : 0f;
-
         hpSlider.maxValue = boundCharacter.maxHP;
         hpSlider.value = boundCharacter.currentHP;
         hpText.text = $"{boundCharacter.currentHP} / {boundCharacter.maxHP}";
 
-        UpdateGhostHP(previousFraction);
+        UpdateGhostHP();
     }
 
     // Lets the ghost bar trail behind on damage - holds at the old fraction, then drains down to
-    // the new one after a delay, instead of snapping instantly like the main bar. The gap left
-    // between the two bars while it drains is what reads as "damage just taken". A heal (or the
-    // very first refresh, where there's nothing to trail) has nothing to show off, so the ghost
-    // just snaps straight to the new value instead.
-    private void UpdateGhostHP(float previousFraction)
+    // the new one after a delay, instead of snapping instantly like the main bar. Tracks its own
+    // "last known" fraction rather than reading the previous value back off hpSlider, because
+    // RefreshHP fires twice per hit: once from CombatController.OnTargetUpdated right as the
+    // damage lands, then again moments later from the broader OnStateChanged/RefreshUI pass at
+    // the end of the action. hpSlider already shows the new value by that second call, so
+    // comparing against it would see "no change" and stomp the ghost mid-drain before it's had
+    // any time to show.
+    private void UpdateGhostHP()
     {
         if (ghostHpFillImage == null || boundCharacter.maxHP <= 0) return;
 
         float newFraction = (float)boundCharacter.currentHP / boundCharacter.maxHP;
+
+        if (Mathf.Approximately(newFraction, lastGhostHpFraction))
+            return; // already processed this HP value - leave whatever's currently showing alone
+
+        float previousFraction = lastGhostHpFraction < 0f ? newFraction : lastGhostHpFraction;
+        lastGhostHpFraction = newFraction;
 
         if (ghostHpCoroutine != null)
             StopCoroutine(ghostHpCoroutine);
