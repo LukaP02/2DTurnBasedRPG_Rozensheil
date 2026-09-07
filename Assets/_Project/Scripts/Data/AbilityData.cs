@@ -34,6 +34,10 @@ public class AbilityData : ScriptableObject
     [Tooltip("Multiplier applied to the caster's Speed stat and added to Power (0 = no Speed scaling).")]
     public float speedScaling = 0f;
 
+    [Header("Audio")]
+    [Tooltip("Played the moment this ability activates, before targets are hit. Leave empty for no cast sound.")]
+    public AudioClip castSound;
+
     [Header("Critical Hits")]
     [Tooltip("Whether this ability is allowed to roll a critical hit at all.")]
     public bool canCrit = true;

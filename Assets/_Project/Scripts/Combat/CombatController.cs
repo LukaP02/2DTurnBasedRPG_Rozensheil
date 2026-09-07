@@ -417,6 +417,7 @@ public class CombatController : MonoBehaviour
     private System.Collections.IEnumerator ExecuteAbilityRoutine(CharacterInstance user, AbilityData ability, List<CharacterInstance> targets)
     {
         LogMessage($"{user.data.characterName} uses {ability.abilityName}!");
+        AudioManager.Instance?.PlaySFX(ability.castSound);
 
         bool userIsAlly = turnOrder.allies.Contains(user);
 
