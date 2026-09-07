@@ -23,6 +23,8 @@ public class PassiveData : ScriptableObject
     [Header("Behavior")]
     public PassiveTrigger trigger;
     public int value;
+    [Tooltip("Optional sound played when this passive actually triggers (currently only fires for OnAnyDeath - see PassiveTrigger).")]
+    public AudioClip triggerSound;
 
     [Header("Stat Scaling (only used if trigger = PassiveStatScaling)")]
     [Range(0f, 1f)] public float bonusHPPercent;

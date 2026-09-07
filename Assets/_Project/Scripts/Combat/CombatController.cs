@@ -813,6 +813,7 @@ public class CombatController : MonoBehaviour
 
             character.Heal(character.data.passive.value);
             OnHealApplied?.Invoke(character, character.data.passive.value);
+            AudioManager.Instance?.PlaySFX(character.data.passive.triggerSound);
         }
     }
 
