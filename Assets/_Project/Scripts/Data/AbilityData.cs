@@ -37,6 +37,8 @@ public class AbilityData : ScriptableObject
     [Header("Audio")]
     [Tooltip("Played the moment this ability activates, before targets are hit. Leave empty for no cast sound.")]
     public AudioClip castSound;
+    [Tooltip("Played on impact instead of CombatUIManager's generic Hit Sound, if set. Leave empty to just use the generic one.")]
+    public AudioClip impactSound;
 
     [Header("Critical Hits")]
     [Tooltip("Whether this ability is allowed to roll a critical hit at all.")]

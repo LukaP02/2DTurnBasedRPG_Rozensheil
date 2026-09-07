@@ -193,14 +193,15 @@ public class CombatUIManager : MonoBehaviour
             combatLogText.text = message;
     }
 
-    private void HandleDamageApplied(CharacterInstance target, int amount, ElementType element)
+    private void HandleDamageApplied(CharacterInstance target, int amount, ElementType element, AbilityData ability)
     {
         if (cardLookup.TryGetValue(target, out var card))
         {
             card.ShowFloatingText(amount, false, element);
         }
 
-        AudioManager.Instance?.PlaySFX(hitSound);
+        AudioClip sound = (ability != null && ability.impactSound != null) ? ability.impactSound : hitSound;
+        AudioManager.Instance?.PlaySFX(sound);
     }
 
     private void HandleHealApplied(CharacterInstance target, int amount)

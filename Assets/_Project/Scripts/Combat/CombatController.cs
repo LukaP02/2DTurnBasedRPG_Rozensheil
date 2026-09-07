@@ -48,7 +48,7 @@ public class CombatController : MonoBehaviour
 
     public event Action OnStateChanged;
     public event Action<CharacterInstance, int> OnHealApplied;
-    public event Action<CharacterInstance, int, ElementType> OnDamageApplied;
+    public event Action<CharacterInstance, int, ElementType, AbilityData> OnDamageApplied;
     public event Action<string> OnCombatLogMessage;
     public event Action<DialogueSequence> OnMidBattleDialogueRequested;
     public event Action<CharacterInstance> OnEnemyReinforced;
@@ -72,6 +72,7 @@ public class CombatController : MonoBehaviour
     public event Action<CharacterInstance> OnTargetUpdated;
     // --- Bonus action (Abdul's 3rd Ultimate option: act twice per turn for X turns) ---
     private bool bonusActionAvailableThisTurn;
+    
 
     // Logs to the console and broadcasts to any on-screen combat log listener.
     private void LogMessage(string message)
@@ -428,7 +429,7 @@ public class CombatController : MonoBehaviour
             if (hpCost > 0)
             {
                 user.TakeDamage(hpCost);
-                OnDamageApplied?.Invoke(user, hpCost, ElementType.Physical); // self-cost isn't elemental, treat as Physical
+                OnDamageApplied?.Invoke(user, hpCost, ElementType.Physical, ability); // self-cost isn't elemental, treat as Physical
                 OnTargetUpdated?.Invoke(user);
 
                 if (user.CheckAndMarkDeath())
@@ -559,14 +560,15 @@ public class CombatController : MonoBehaviour
     // Single entry point for applying damage: rolls the +/-10% variance, absorbs into shields,
     // then HP, then fires the shared events. Every damage source (abilities, stain combos) funnels
     // through here, so the variance roll applies uniformly without each call site handling it.
-    private int DealDamage(CharacterInstance target, int amount, ElementType element)
+    private int DealDamage(CharacterInstance target, int amount, ElementType element, AbilityData ability = null)
     {
         int variedAmount = ApplyDamageVariance(amount);
         int actualDamage = target.AbsorbDamage(variedAmount);
         target.TakeDamage(actualDamage);
         target.GainEnergy(DAMAGE_TAKEN_ENERGY_GAIN);
-        OnDamageApplied?.Invoke(target, actualDamage, element);
+        OnDamageApplied?.Invoke(target, actualDamage, element, ability);
         OnTargetUpdated?.Invoke(target);
+        
 
         if (target.CheckAndMarkDeath())
             HandleDeath(target);
@@ -673,7 +675,7 @@ public class CombatController : MonoBehaviour
         {
             int amount = enemy.currentHP;
             enemy.TakeDamage(amount);
-            OnDamageApplied?.Invoke(enemy, amount, ElementType.Physical);
+            OnDamageApplied?.Invoke(enemy, amount, ElementType.Physical, null);
 
             if (enemy.CheckAndMarkDeath())
                 TriggerOnAnyDeathPassives();
