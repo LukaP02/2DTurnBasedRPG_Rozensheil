@@ -64,7 +64,7 @@ public class CombatUIManager : MonoBehaviour
 
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
     [Tooltip("Horizontal distance between each fixed enemy slot, in UI units.")]
-    public float enemySlotSpacing = 200f;
+    public float enemySlotSpacing = 340f;
 
     private Dictionary<CharacterInstance, int> enemySlotAssignment = new Dictionary<CharacterInstance, int>();
     private int enemySlotCount;
