@@ -39,7 +39,7 @@ MonoBehaviour:
   maxMarkStacks: 3
   consumesMark: 0
   bonusDamagePerMarkStack: 0
-  lifestealPercent: 0
+  lifestealPercent: 0.1
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 1
   hpCostPercent: 0.15

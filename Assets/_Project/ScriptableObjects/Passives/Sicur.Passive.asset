@@ -15,8 +15,13 @@ MonoBehaviour:
   passiveName: Fiendish Vigor
   description: Sicur's patron rewards him with vitality any time he witnesses a death.
   trigger: 6
-  value: 40
+  value: 60
+  triggerSound: {fileID: 8300000, guid: f6c41fd6cbdad36488fecb321626ed51, type: 3}
   bonusHPPercent: 0
   bonusAttackPercent: 0
   bonusDefensePercent: 0
   bonusSpeedPercent: 0
+  fireIceBonusDamage: 0
+  fireElectroSpreadDamage: 0
+  defShredAmount: 0
+  defShredDuration: 0
