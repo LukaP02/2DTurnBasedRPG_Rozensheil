@@ -63,7 +63,12 @@ public class CombatUIManager : MonoBehaviour
 
 
     private Dictionary<CharacterInstance, CharacterCardUI> cardLookup = new Dictionary<CharacterInstance, CharacterCardUI>();
+    [Tooltip("Horizontal distance between each fixed enemy slot, in UI units.")]
+    public float enemySlotSpacing = 200f;
 
+    private Dictionary<CharacterInstance, int> enemySlotAssignment = new Dictionary<CharacterInstance, int>();
+    private int enemySlotCount;
+    private int bossSlotIndex;
     private AbilityData selectedAbility;
     private bool waitingForTarget;
     // Fixed-size pool, built once and reused for the rest of the fight - never destroyed/recreated
@@ -77,6 +82,7 @@ public class CombatUIManager : MonoBehaviour
     private List<Vector2> turnOrderIconHomePositions = new List<Vector2>();
     private List<CharacterInstance> lastTurnOrderCharacters = new List<CharacterInstance>();
     private Coroutine turnOrderShiftCoroutine;
+    private List<int> enemySlotFillOrder = new List<int>();
 
     private void Awake()
     {
@@ -130,13 +136,13 @@ public class CombatUIManager : MonoBehaviour
         card.Bind(enemy, this);
         cardLookup[enemy] = card;
 
-        ReorderEnemyCardsAroundBoss();
+        AssignEnemySlot(enemy);
+        card.CardRectTransform.anchoredPosition = GetEnemySlotPosition(enemySlotAssignment[enemy]);
 
         // Slides the new card down into place from off the top of the screen (same direction
         // enemies enter from at combat start - see PlayCombatStartSlideIn) instead of just
         // popping in, so it visibly arrives while the card it's replacing fades out (see
         // RefreshUI's wave-encounter branch below).
-        LayoutRebuilder.ForceRebuildLayoutImmediate(enemyContainer as RectTransform);
         card.PlaySlideIn(new Vector2(0f, cardSlideDistance));
     }
 
@@ -144,47 +150,60 @@ public class CombatUIManager : MonoBehaviour
     // centered no matter how the alive/dead mix changes - a reinforcement joining, or an enemy on
     // either side dying, both call this rather than nudging siblings incrementally (which drifted
     // the boss toward whichever side happened to lose a card).
-    private void ReorderEnemyCardsAroundBoss()
+    // Builds the fight's fixed enemy slots: the boss always takes the middle slot, everyone else
+    // fills the remaining slots in spawn order. A card's slot never changes once assigned - a
+    // reinforcement just claims whichever slot opened up (see AssignEnemySlot), so simultaneous
+    // deaths/reinforcements from one AoE can't scramble spacing or make cards collide.
+    private void SetupEnemySlots(IReadOnlyList<CharacterInstance> enemies)
     {
-        CharacterInstance boss = combatController.Enemies.FirstOrDefault(e => e.isAlive && e.data.isBoss);
-        if (boss == null || !cardLookup.TryGetValue(boss, out var bossCard))
-            return; // no boss in this fight - leave whatever order the cards are already in
+        enemySlotAssignment.Clear();
+        enemySlotCount = combatController.IsWaveEncounter ? combatController.MaxEnemiesOnField : enemies.Count;
+        bossSlotIndex = enemySlotCount / 2;
+        BuildEnemySlotFillOrder();
 
-        // combatController.Enemies keeps its append order (spawn order) even as enemies die, so
-        // filtering to the currently-alive ones gives a stable, reproducible ordering to split.
-        List<CharacterInstance> others = combatController.Enemies
-            .Where(e => e != boss && e.isAlive && cardLookup.ContainsKey(e))
-            .ToList();
+        CharacterInstance boss = enemies.FirstOrDefault(e => e.data.isBoss);
+        if (boss != null)
+            enemySlotAssignment[boss] = bossSlotIndex;
 
-        List<CharacterInstance> left = new List<CharacterInstance>();
-        List<CharacterInstance> right = new List<CharacterInstance>();
-        for (int i = 0; i < others.Count; i++)
+        foreach (var enemy in enemies)
         {
-            if (i % 2 == 0) right.Add(others[i]);
-            else left.Add(others[i]);
+            if (enemy != boss)
+                AssignEnemySlot(enemy);
         }
-        left.Reverse(); // furthest-from-boss spawn ends up furthest-from-boss on screen
+    }
 
-        int index = 0;
-        foreach (var e in left)
-            cardLookup[e].transform.SetSiblingIndex(index++);
-        bossCard.transform.SetSiblingIndex(index++);
-        foreach (var e in right)
-            cardLookup[e].transform.SetSiblingIndex(index++);
-        // An enemy that just died but whose card hasn't finished its death fade-out yet (see
-        // RefreshUI's wave-encounter branch) is skipped by the "others" filter above (isAlive is
-        // already false), so it never gets a SetSiblingIndex call here - but its card is still a
-        // sibling physically sitting in the container. Left alone, it can land in the middle of
-        // the row just arranged above and throw off spacing. This matters most when one AoE hit
-        // kills several reinforcements at once: each death can trigger its own reinforcement
-        // spawn (and its own call to this method) before the earlier dead cards have actually
-        // been destroyed, so several of these can be lingering at once mid-resolution. Push any
-        // of them explicitly to the end so they're out of the living row's way while they fade.
-        foreach (var kvp in cardLookup)
+    // Gives this enemy the lowest-numbered free slot (boss slot excluded) - used both for the
+    // fight's starting roster and for a reinforcement taking over whatever slot its predecessor's
+    // death just freed up.
+    private void AssignEnemySlot(CharacterInstance enemy)
+    {
+        foreach (int slot in enemySlotFillOrder)
         {
-            if (!kvp.Key.isAlive && combatController.Enemies.Contains(kvp.Key))
-                kvp.Value.transform.SetAsLastSibling();
+            if (!IsEnemySlotFree(slot)) continue;
+
+            enemySlotAssignment[enemy] = slot;
+            return;
         }
+
+        Debug.LogWarning($"CombatUIManager: no free enemy slot for {enemy.data.characterName} - Enemy Slot Count ({enemySlotCount}) may need to be higher than Max Enemies On Field.");
+    }
+    // A slot counts as free as soon as whoever held it dies - no separate bookkeeping needed since
+    // CharacterInstance.isAlive already flips the moment DealDamage kills them, before any
+    // reinforcement this death triggers ever asks for a slot.
+    private bool IsEnemySlotFree(int slot)
+    {
+        foreach (var kvp in enemySlotAssignment)
+        {
+            if (kvp.Value == slot && kvp.Key.isAlive) return false;
+        }
+        return true;
+    }
+
+    private Vector2 GetEnemySlotPosition(int slotIndex)
+    {
+        float totalWidth = (enemySlotCount - 1) * enemySlotSpacing;
+        float x = -totalWidth / 2f + slotIndex * enemySlotSpacing;
+        return new Vector2(x, 0f);
     }
 
     private void HandleCombatLogMessage(string message)
@@ -279,7 +298,6 @@ public class CombatUIManager : MonoBehaviour
                 deadCard.PlayDeathFadeOut(() =>
                 {
                     Destroy(deadCard.gameObject);
-                    ReorderEnemyCardsAroundBoss();
                 });
             }
         }
@@ -586,8 +604,12 @@ public class CombatUIManager : MonoBehaviour
 
         SpawnCards(combatController.Allies, allyContainer);
         SpawnCards(combatController.Enemies, enemyContainer);
-        ReorderEnemyCardsAroundBoss(); // in case the level places the boss anywhere but the middle of its enemy list
-
+        SetupEnemySlots(combatController.Enemies);
+        foreach (var enemy in combatController.Enemies)
+        {
+            if (cardLookup.TryGetValue(enemy, out var card) && enemySlotAssignment.TryGetValue(enemy, out int slot))
+                card.CardRectTransform.anchoredPosition = GetEnemySlotPosition(slot);
+        }
         // Leaving a level's Combat Background empty keeps whatever's already set on the scene.
         if (background != null && backgroundImage != null)
             backgroundImage.sprite = background;
@@ -604,7 +626,7 @@ public class CombatUIManager : MonoBehaviour
     private void PlayCombatStartSlideIn()
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(allyContainer as RectTransform);
-        LayoutRebuilder.ForceRebuildLayoutImmediate(enemyContainer as RectTransform);
+       
 
         int i = 0;
         foreach (var ally in combatController.Allies)
@@ -730,5 +752,30 @@ public class CombatUIManager : MonoBehaviour
         }
 
         RefreshBossBars();
+    }
+    // Assigns a stable left/right side for this enemy, decided once here rather than recomputed
+    // from list position on every reorder - a card never flips sides mid-fight just because other
+    // enemies happened to die or spawn around it (which used to scramble spacing whenever several
+    // reinforcements arrived from one AoE kill).
+
+
+    // Non-boss slots fill outward from the boss instead of strictly left-to-right - e.g. with 5
+    // slots (boss at 2) the priority is 1, 3, 0, 4: immediate neighbors first, then the next ring
+    // out, left before right at each distance - keeps the row looking populated around the boss
+    // instead of lopsided while enemies are still being added.
+    private void BuildEnemySlotFillOrder()
+    {
+        enemySlotFillOrder.Clear();
+        enemySlotFillOrder.Add(bossSlotIndex);
+
+        int maxDistance = Mathf.Max(bossSlotIndex, enemySlotCount - 1 - bossSlotIndex);
+        for (int distance = 1; distance <= maxDistance; distance++)
+        {
+            int left = bossSlotIndex - distance;
+            int right = bossSlotIndex + distance;
+
+            if (left >= 0) enemySlotFillOrder.Add(left);
+            if (right < enemySlotCount) enemySlotFillOrder.Add(right);
+        }
     }
 }

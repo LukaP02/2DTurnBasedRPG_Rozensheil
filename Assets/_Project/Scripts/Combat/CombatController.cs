@@ -92,6 +92,7 @@ public class CombatController : MonoBehaviour
     // (like a boss with a couple of adds) never sets this, even if it uses HP-triggered or
     // phase-transition reinforcements separately.
     public bool IsWaveEncounter => maxEnemiesOnField > 0;
+    public int MaxEnemiesOnField => maxEnemiesOnField;
     public IReadOnlyList<CharacterInstance> Allies => turnOrder.allies;
     public IReadOnlyList<CharacterInstance> Enemies => turnOrder.enemies;
     public List<CharacterInstance> GetUpcomingTurnOrder(int count) => turnOrder.PeekUpcomingOrder(count);
