@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum CombatState { Starting, WaitingForActor, PlayerTurn, EnemyTurn, Resolving, Victory, Defeat }
@@ -15,11 +14,11 @@ public class CombatController : MonoBehaviour
     private CharacterInstance activeActor;
 
     private const float WEAKNESS_MULTIPLIER = 1.5f;
-    private const float CRIT_DAMAGE_MULTIPLIER = 1.5f;
+    private const float CRIT_DAMAGE_MULTIPLIER = 2f;
     private const float DAMAGE_VARIANCE = 0.1f; // damage from every source rolls +/- this fraction
 
     private const int BASIC_ENERGY_GAIN = 20;
-    private const int SKILL_ENERGY_GAIN = 10;
+    private const int SKILL_ENERGY_GAIN = 40;
     private const int DAMAGE_TAKEN_ENERGY_GAIN = 10;
 
     // Enemy AI tuning: how often enemies prefer their Skill over their Basic (when both are usable),
@@ -383,12 +382,20 @@ public class CombatController : MonoBehaviour
 
         return null;
     }
+    private List<CharacterInstance> enemyVisualOrder = new List<CharacterInstance>();
 
+    // Called by CombatUIManager whenever enemy slot assignments change - lets Cleave/Spread
+    // targeting use the actual on-screen left-to-right order instead of raw spawn order, since
+    // those can now differ (enemy slots fill outward from the boss, not left-to-right by spawn).
+    public void SetEnemyVisualOrder(List<CharacterInstance> orderedEnemies)
+    {
+        enemyVisualOrder = orderedEnemies;
+    }
     public List<CharacterInstance> BuildTargetGroup(TargetShape shape, CharacterInstance clicked)
     {
         List<CharacterInstance> sideList = turnOrder.allies.Contains(clicked)
-            ? turnOrder.allies.Where(a => a.isAlive).ToList()
-            : turnOrder.enemies.Where(e => e.isAlive).ToList();
+     ? turnOrder.allies.Where(a => a.isAlive).ToList()
+     : enemyVisualOrder.Where(e => e.isAlive).ToList();
 
         int index = sideList.IndexOf(clicked);
         List<CharacterInstance> result = new List<CharacterInstance> { clicked };

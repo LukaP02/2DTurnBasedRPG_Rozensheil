@@ -138,6 +138,7 @@ public class CombatUIManager : MonoBehaviour
 
         AssignEnemySlot(enemy);
         card.CardRectTransform.anchoredPosition = GetEnemySlotPosition(enemySlotAssignment[enemy]);
+        PushEnemyVisualOrderToController();
 
         // Slides the new card down into place from off the top of the screen (same direction
         // enemies enter from at combat start - see PlayCombatStartSlideIn) instead of just
@@ -170,7 +171,10 @@ public class CombatUIManager : MonoBehaviour
             if (enemy != boss)
                 AssignEnemySlot(enemy);
         }
-    }
+
+        PushEnemyVisualOrderToController();
+    
+}
 
     // Gives this enemy the lowest-numbered free slot (boss slot excluded) - used both for the
     // fight's starting roster and for a reinforcement taking over whatever slot its predecessor's
@@ -185,7 +189,15 @@ public class CombatUIManager : MonoBehaviour
             return;
         }
 
-        Debug.LogWarning($"CombatUIManager: no free enemy slot for {enemy.data.characterName} - Enemy Slot Count ({enemySlotCount}) may need to be higher than Max Enemies On Field.");
+        // Ran out of pre-built slots (e.g. an HP-triggered reinforcement arriving on top of an
+        // already-full fixed-roster fight, which Max Enemies On Field doesn't account for) -
+        // rather than dropping the new card with no position, grow the row by one slot on the
+        // fly. Already-placed cards keep their existing positions; only this arrival (and any
+        // after it) use the wider layout.
+        int newSlot = enemySlotCount;
+        enemySlotCount++;
+        enemySlotFillOrder.Add(newSlot);
+        enemySlotAssignment[enemy] = newSlot;
     }
     // A slot counts as free as soon as whoever held it dies - no separate bookkeeping needed since
     // CharacterInstance.isAlive already flips the moment DealDamage kills them, before any
@@ -777,5 +789,17 @@ public class CombatUIManager : MonoBehaviour
             if (left >= 0) enemySlotFillOrder.Add(left);
             if (right < enemySlotCount) enemySlotFillOrder.Add(right);
         }
+    }
+    // Keeps CombatController's targeting logic in sync with the actual on-screen order, since
+    // enemy slots fill outward from the boss rather than left-to-right by spawn - call this
+    // anytime enemySlotAssignment changes.
+    private void PushEnemyVisualOrderToController()
+    {
+        List<CharacterInstance> ordered = enemySlotAssignment
+            .OrderBy(kvp => kvp.Value)
+            .Select(kvp => kvp.Key)
+            .ToList();
+
+        combatController.SetEnemyVisualOrder(ordered);
     }
 }
