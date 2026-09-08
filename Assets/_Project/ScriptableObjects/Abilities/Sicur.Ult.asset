@@ -21,7 +21,7 @@ MonoBehaviour:
   spGain: 0
   power: 0
   element: 4
-  energyCost: 30
+  energyCost: 200
   stackableEnergy: 0
   maxEnergyStacks: 1
   attackScaling: 1

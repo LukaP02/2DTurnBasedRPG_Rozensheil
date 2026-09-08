@@ -83,6 +83,7 @@ public class CombatUIManager : MonoBehaviour
     private List<CharacterInstance> lastTurnOrderCharacters = new List<CharacterInstance>();
     private Coroutine turnOrderShiftCoroutine;
     private List<int> enemySlotFillOrder = new List<int>();
+    private int enemySlotFillDistance;
 
     private void Awake()
     {
@@ -181,23 +182,18 @@ public class CombatUIManager : MonoBehaviour
     // death just freed up.
     private void AssignEnemySlot(CharacterInstance enemy)
     {
-        foreach (int slot in enemySlotFillOrder)
+        while (true)
         {
-            if (!IsEnemySlotFree(slot)) continue;
+            foreach (int slot in enemySlotFillOrder)
+            {
+                if (!IsEnemySlotFree(slot)) continue;
 
-            enemySlotAssignment[enemy] = slot;
-            return;
+                enemySlotAssignment[enemy] = slot;
+                return;
+            }
+
+            ExtendEnemySlotFillOrder(allowGrowth: true);
         }
-
-        // Ran out of pre-built slots (e.g. an HP-triggered reinforcement arriving on top of an
-        // already-full fixed-roster fight, which Max Enemies On Field doesn't account for) -
-        // rather than dropping the new card with no position, grow the row by one slot on the
-        // fly. Already-placed cards keep their existing positions; only this arrival (and any
-        // after it) use the wider layout.
-        int newSlot = enemySlotCount;
-        enemySlotCount++;
-        enemySlotFillOrder.Add(newSlot);
-        enemySlotAssignment[enemy] = newSlot;
     }
     // A slot counts as free as soon as whoever held it dies - no separate bookkeeping needed since
     // CharacterInstance.isAlive already flips the moment DealDamage kills them, before any
@@ -213,8 +209,7 @@ public class CombatUIManager : MonoBehaviour
 
     private Vector2 GetEnemySlotPosition(int slotIndex)
     {
-        float totalWidth = (enemySlotCount - 1) * enemySlotSpacing;
-        float x = -totalWidth / 2f + slotIndex * enemySlotSpacing;
+        float x = (slotIndex - bossSlotIndex) * enemySlotSpacing;
         return new Vector2(x, 0f);
     }
 
@@ -779,15 +774,34 @@ public class CombatUIManager : MonoBehaviour
     {
         enemySlotFillOrder.Clear();
         enemySlotFillOrder.Add(bossSlotIndex);
+        enemySlotFillDistance = 0;
 
-        int maxDistance = Mathf.Max(bossSlotIndex, enemySlotCount - 1 - bossSlotIndex);
-        for (int distance = 1; distance <= maxDistance; distance++)
+        int initialMaxDistance = Mathf.Max(bossSlotIndex, enemySlotCount - 1 - bossSlotIndex);
+        while (enemySlotFillDistance < initialMaxDistance)
+            ExtendEnemySlotFillOrder(allowGrowth: false);
+    }
+
+    // Adds the next ring outward from the boss (one slot further left, one further right) to the
+    // fill order. Called up front to cover the fight's planned slot count (allowGrowth: false -
+    // a candidate past the planned edge is just skipped, same as before), and again on demand if
+    // AssignEnemySlot ever runs out (allowGrowth: true - a candidate past the current edge grows
+    // the row instead of being skipped) - same left-before-right, ring-by-ring symmetry either way,
+    // so an HP-triggered reinforcement on a small fixed-roster fight still lands symmetrically
+    // around the boss instead of piling onto one side.
+    private void ExtendEnemySlotFillOrder(bool allowGrowth)
+    {
+        enemySlotFillDistance++;
+        int left = bossSlotIndex - enemySlotFillDistance;
+        int right = bossSlotIndex + enemySlotFillDistance;
+
+        if (left >= 0 || allowGrowth)
+            enemySlotFillOrder.Add(left);
+
+        if (right < enemySlotCount || allowGrowth)
         {
-            int left = bossSlotIndex - distance;
-            int right = bossSlotIndex + distance;
-
-            if (left >= 0) enemySlotFillOrder.Add(left);
-            if (right < enemySlotCount) enemySlotFillOrder.Add(right);
+            enemySlotFillOrder.Add(right);
+            if (right >= enemySlotCount)
+                enemySlotCount = right + 1;
         }
     }
     // Keeps CombatController's targeting logic in sync with the actual on-screen order, since
