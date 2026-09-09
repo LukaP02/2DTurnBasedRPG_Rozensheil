@@ -38,7 +38,8 @@ MonoBehaviour:
   defaultResistancePercent: 0
   resistances: []
   basicAbility: {fileID: 11400000, guid: 9e72f84069a1eb846a76ac07c22aca64, type: 2}
-  basicOptions: []
+  basicOptions:
+  - {fileID: 11400000, guid: 9e72f84069a1eb846a76ac07c22aca64, type: 2}
   skillOptions:
   - {fileID: 11400000, guid: 61604477d96be93468ea83ec0c377594, type: 2}
   - {fileID: 11400000, guid: b910e9bc0807743419dd0fe60c646de6, type: 2}

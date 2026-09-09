@@ -8,15 +8,19 @@ public class OptionsMenuUI : MonoBehaviour
     public GameObject mainMenuPanel;
 
     [Header("Audio")]
-    public Slider volumeSlider;
+    public Slider musicVolumeSlider;
+    public Slider sfxVolumeSlider;
 
     [Header("Buttons")]
     public Button backButton;
 
     private void Awake()
     {
-        if (volumeSlider != null)
-            volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+        if (musicVolumeSlider != null)
+            musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
+
+        if (sfxVolumeSlider != null)
+            sfxVolumeSlider.onValueChanged.AddListener(OnSFXVolumeChanged);
 
         if (backButton != null)
             backButton.onClick.AddListener(Back);
@@ -24,14 +28,25 @@ public class OptionsMenuUI : MonoBehaviour
 
     private void OnEnable()
     {
-        if (volumeSlider != null && AudioManager.Instance != null)
-            volumeSlider.SetValueWithoutNotify(AudioManager.Instance.MasterVolume);
+        if (AudioManager.Instance == null) return;
+
+        if (musicVolumeSlider != null)
+            musicVolumeSlider.SetValueWithoutNotify(AudioManager.Instance.MusicVolume);
+
+        if (sfxVolumeSlider != null)
+            sfxVolumeSlider.SetValueWithoutNotify(AudioManager.Instance.SFXVolume);
     }
 
-    private void OnVolumeChanged(float value)
+    private void OnMusicVolumeChanged(float value)
     {
         if (AudioManager.Instance != null)
-            AudioManager.Instance.SetMasterVolume(value);
+            AudioManager.Instance.SetMusicVolume(value);
+    }
+
+    private void OnSFXVolumeChanged(float value)
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetSFXVolume(value);
     }
 
     public void Back()

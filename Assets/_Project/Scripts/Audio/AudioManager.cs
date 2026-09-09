@@ -1,33 +1,24 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
-    [Header("Music")]
-    [Tooltip("Two sources so one track can fade out while the next fades in, instead of a hard cut. Both must be on this GameObject, Play On Awake off, Loop on.")]
-    public AudioSource musicSourceA;
-    public AudioSource musicSourceB;
-    [Range(0f, 1f)] public float musicVolume = 0.6f;
+    [Tooltip("Mixer exposing two float parameters named exactly \"MusicVolume\" and \"SFXVolume\" (in decibels) - see the Music/SFX child groups.")]
+    public AudioMixer audioMixer;
 
-    [Header("SFX")]
-    [Tooltip("Pool size for simultaneous one-shot sound effects - built automatically at runtime, no manual setup needed.")]
-    public int sfxPoolSize = 8;
-    [Range(0f, 1f)] public float sfxVolume = 1f;
+    private const string MUSIC_MIXER_PARAM = "MusicVolume";
+    private const string SFX_MIXER_PARAM = "SFXVolume";
 
-    private const string VOLUME_PREF_KEY = "MasterVolume";
-    private const float DEFAULT_VOLUME = 1f;
+    private const string MUSIC_PREF_KEY = "MusicVolume";
+    private const string SFX_PREF_KEY = "SFXVolume";
 
-    public float MasterVolume { get; private set; }
+    // Linear 0-1 slider value. Lower than the old 1f default so a fresh install isn't blasting.
+    private const float DEFAULT_VOLUME = 0.5f;
 
-    private AudioSource activeMusicSource;
-    private AudioSource inactiveMusicSource;
-    private AudioClip currentMusicClip;
-    private Coroutine musicFadeCoroutine;
-
-    private AudioSource[] sfxPool;
-    private int nextSfxIndex;
+    public float MusicVolume { get; private set; }
+    public float SFXVolume { get; private set; }
 
     private void Awake()
     {
@@ -40,129 +31,41 @@ public class AudioManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        MasterVolume = PlayerPrefs.GetFloat(VOLUME_PREF_KEY, DEFAULT_VOLUME);
-        ApplyVolume();
+        MusicVolume = PlayerPrefs.GetFloat(MUSIC_PREF_KEY, DEFAULT_VOLUME);
+        SFXVolume = PlayerPrefs.GetFloat(SFX_PREF_KEY, DEFAULT_VOLUME);
 
-        activeMusicSource = musicSourceA;
-        inactiveMusicSource = musicSourceB;
-        activeMusicSource.loop = true;
-        inactiveMusicSource.loop = true;
-        activeMusicSource.volume = musicVolume;
-        inactiveMusicSource.volume = 0f;
-
-        BuildSfxPool();
+        ApplyMusicVolume();
+        ApplySFXVolume();
     }
 
-    private void BuildSfxPool()
+    public void SetMusicVolume(float value)
     {
-        sfxPool = new AudioSource[Mathf.Max(1, sfxPoolSize)];
-        for (int i = 0; i < sfxPool.Length; i++)
-        {
-            AudioSource src = gameObject.AddComponent<AudioSource>();
-            src.playOnAwake = false;
-            src.loop = false;
-            sfxPool[i] = src;
-        }
-    }
+        MusicVolume = Mathf.Clamp01(value);
+        ApplyMusicVolume();
 
-    public void SetMasterVolume(float value)
-    {
-        MasterVolume = Mathf.Clamp01(value);
-        ApplyVolume();
-
-        PlayerPrefs.SetFloat(VOLUME_PREF_KEY, MasterVolume);
+        PlayerPrefs.SetFloat(MUSIC_PREF_KEY, MusicVolume);
         PlayerPrefs.Save();
     }
 
-    private void ApplyVolume()
+    public void SetSFXVolume(float value)
     {
-        AudioListener.volume = MasterVolume;
+        SFXVolume = Mathf.Clamp01(value);
+        ApplySFXVolume();
+
+        PlayerPrefs.SetFloat(SFX_PREF_KEY, SFXVolume);
+        PlayerPrefs.Save();
     }
 
-    // Plays a one-shot SFX from the pool - round-robins across sfxPoolSize AudioSources so
-    // several overlapping hits (e.g. an AoE) don't cut each other off the way a single shared
-    // AudioSource.PlayOneShot can on retrigger.
-    public void PlaySFX(AudioClip clip, float volumeScale = 1f)
+    private void ApplyMusicVolume() => SetMixerVolume(MUSIC_MIXER_PARAM, MusicVolume);
+    private void ApplySFXVolume() => SetMixerVolume(SFX_MIXER_PARAM, SFXVolume);
+
+    // A 0-1 slider isn't perceptually linear on a mixer fader, so convert to decibels; treat
+    // near-zero as -80dB (silent) instead of letting log10(0) blow up to -infinity.
+    private void SetMixerVolume(string parameterName, float linearValue)
     {
-        if (clip == null || sfxPool == null || sfxPool.Length == 0) return;
+        if (audioMixer == null) return;
 
-        AudioSource src = sfxPool[nextSfxIndex];
-        nextSfxIndex = (nextSfxIndex + 1) % sfxPool.Length;
-
-        src.pitch = 1f;
-        src.PlayOneShot(clip, sfxVolume * volumeScale);
-    }
-
-    // Crossfades to newTrack over fadeSeconds. No-ops if newTrack is already playing, so callers
-    // can call this on every scene/state change without worrying about restarting a track that's
-    // already going (e.g. re-entering the overworld doesn't restart the overworld music).
-    public void PlayMusic(AudioClip newTrack, float fadeSeconds = 1f)
-    {
-        if (newTrack == null || newTrack == currentMusicClip) return;
-
-        currentMusicClip = newTrack;
-
-        if (musicFadeCoroutine != null)
-            StopCoroutine(musicFadeCoroutine);
-
-        musicFadeCoroutine = StartCoroutine(CrossfadeMusicRoutine(newTrack, fadeSeconds));
-    }
-
-    public void StopMusic(float fadeSeconds = 1f)
-    {
-        currentMusicClip = null;
-
-        if (musicFadeCoroutine != null)
-            StopCoroutine(musicFadeCoroutine);
-
-        musicFadeCoroutine = StartCoroutine(FadeOutMusicRoutine(fadeSeconds));
-    }
-
-    private IEnumerator CrossfadeMusicRoutine(AudioClip newTrack, float fadeSeconds)
-    {
-        inactiveMusicSource.clip = newTrack;
-        inactiveMusicSource.volume = 0f;
-        inactiveMusicSource.Play();
-
-        float startActiveVolume = activeMusicSource.volume;
-        float elapsed = 0f;
-
-        while (elapsed < fadeSeconds)
-        {
-            elapsed += Time.deltaTime;
-            float t = fadeSeconds > 0f ? Mathf.Clamp01(elapsed / fadeSeconds) : 1f;
-
-            activeMusicSource.volume = Mathf.Lerp(startActiveVolume, 0f, t);
-            inactiveMusicSource.volume = Mathf.Lerp(0f, musicVolume, t);
-            yield return null;
-        }
-
-        activeMusicSource.volume = 0f;
-        activeMusicSource.Stop();
-        inactiveMusicSource.volume = musicVolume;
-
-        AudioSource swap = activeMusicSource;
-        activeMusicSource = inactiveMusicSource;
-        inactiveMusicSource = swap;
-
-        musicFadeCoroutine = null;
-    }
-
-    private IEnumerator FadeOutMusicRoutine(float fadeSeconds)
-    {
-        float startVolume = activeMusicSource.volume;
-        float elapsed = 0f;
-
-        while (elapsed < fadeSeconds)
-        {
-            elapsed += Time.deltaTime;
-            float t = fadeSeconds > 0f ? Mathf.Clamp01(elapsed / fadeSeconds) : 1f;
-            activeMusicSource.volume = Mathf.Lerp(startVolume, 0f, t);
-            yield return null;
-        }
-
-        activeMusicSource.volume = 0f;
-        activeMusicSource.Stop();
-        musicFadeCoroutine = null;
+        float dB = linearValue > 0.0001f ? Mathf.Log10(linearValue) * 20f : -80f;
+        audioMixer.SetFloat(parameterName, dB);
     }
 }
