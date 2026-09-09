@@ -263,6 +263,10 @@ public class PartyManager : MonoBehaviour
 
     // Toggles item on/off for this character: unequips it if already equipped, otherwise equips it
     // (up to MaxEquippedItemsPerCharacter - equipping a 4th while at the cap is a no-op).
+    // Toggles item on/off for this character: unequips it if already equipped, otherwise equips it
+    // (up to MaxEquippedItemsPerCharacter - equipping a 4th while at the cap is a no-op). An item
+    // can only ever be equipped by one character at a time (you own a single copy of it), so
+    // equipping it here unequips it from whoever else currently has it first.
     public void EquipItem(CharacterCardData character, ItemData item)
     {
         List<ItemData> items = GetEquippedItems(character);
@@ -279,12 +283,28 @@ public class PartyManager : MonoBehaviour
                 return;
             }
 
+            UnequipFromEveryoneElse(character, item);
             items.Add(item);
         }
 
         if (allInstances.TryGetValue(character, out var instance))
         {
             instance.RecalculateStats();
+        }
+    }
+
+    // An owned item can only be equipped by one character at a time - pulls it off whoever else
+    // has it equipped (and recalculates their stats) before handing it to a new character.
+    private void UnequipFromEveryoneElse(CharacterCardData newHolder, ItemData item)
+    {
+        foreach (var entry in equippedItems)
+        {
+            if (entry.Key == newHolder) continue;
+
+            if (entry.Value.Remove(item) && allInstances.TryGetValue(entry.Key, out var instance))
+            {
+                instance.RecalculateStats();
+            }
         }
     }
 
