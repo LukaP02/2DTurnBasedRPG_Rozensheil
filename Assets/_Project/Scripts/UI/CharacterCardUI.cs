@@ -38,6 +38,8 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public float hoverScaleSeconds = 0.12f;
     [Tooltip("Turn off to disable the hover scale-up entirely for this card instance (e.g. a read-only display card, like the one in LoadoutMenuUI, where hover-to-target doesn't apply).")]
     public bool hoverScaleEnabled = true;
+    [Tooltip("Sub-object scaled on hover instead of the whole card - should contain the art, name, and ability buttons but NOT the HP/Energy bar containers, so those stay a fixed size while everything else zooms. Falls back to the card's own root if left empty.")]
+    public RectTransform hoverZoomRoot;
 
     [Header("Action Buttons")]
     public GameObject actionButtonsContainer;
@@ -109,6 +111,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Vector2 preInspectAnchoredPosition;
     private Vector3 preInspectScale;
     private bool isZoomedForInspect;
+    private Vector3 hoverZoomBaseScale;
 
     public void PlayInspectZoom(RectTransform zoomAnchor, System.Action onComplete)
     {
@@ -309,8 +312,10 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         rectTransform = transform as RectTransform;
         baseScale = rectTransform != null ? rectTransform.localScale : Vector3.one;
 
-        if (targetHoverHighlight != null)
-            targetHoverHighlightImage = targetHoverHighlight.GetComponent<Image>();
+
+        if (hoverZoomRoot == null)
+            hoverZoomRoot = rectTransform;
+        hoverZoomBaseScale = hoverZoomRoot != null ? hoverZoomRoot.localScale : Vector3.one;
 
         // Added at runtime rather than requiring prefab wiring - used only to dim/disable a dead
         // card in a fixed-roster fight where it stays on screen instead of being destroyed.
