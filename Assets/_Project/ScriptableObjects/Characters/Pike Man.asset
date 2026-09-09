@@ -21,18 +21,18 @@ MonoBehaviour:
     men.
   isPlayableCharacter: 1
   role: 0
-  maxHP: 0
-  attack: 0
-  defense: 0
-  speed: 0
+  maxHP: 200
+  attack: 60
+  defense: 80
+  speed: 80
   maxEnergy: 100
   energyRechargeRate: 1
   critRate: 0.05
   threatWeight: 1
-  weaknesses: 04000000
-  defaultResistancePercent: 0
+  weaknesses: 0400000005000000
+  defaultResistancePercent: 0.1
   resistances: []
-  basicAbility: {fileID: 0}
+  basicAbility: {fileID: 11400000, guid: f23aa7da64fd453428d8ec5ce4150a4b, type: 2}
   basicOptions: []
   skillOptions: []
   ultimateOptions: []

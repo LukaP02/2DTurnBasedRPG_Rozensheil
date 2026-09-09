@@ -33,6 +33,9 @@ public class EventController : MonoBehaviour
 
     public event Action OnEventClosed;
 
+    private bool isTyping;
+    private bool skipTypewriter;
+
     private void Awake()
     {
         if (eventPanel != null) eventPanel.SetActive(false);
@@ -99,12 +102,33 @@ public class EventController : MonoBehaviour
         target.ForceMeshUpdate();
 
         int totalChars = target.textInfo.characterCount;
+        isTyping = true;
+        skipTypewriter = false;
 
         for (int i = 0; i <= totalChars; i++)
         {
+            if (skipTypewriter)
+            {
+                target.maxVisibleCharacters = totalChars;
+                break;
+            }
+
             target.maxVisibleCharacters = i;
             yield return new WaitForSeconds(typewriterSecondsPerChar);
         }
+
+        isTyping = false;
+        skipTypewriter = false;
+    }
+
+    // Click-to-fast-forward, same idea as DialogueController.AdvanceDialogue - completes whichever
+    // text is currently typing instead of stopping the coroutine outright, so for the prompt panel
+    // (title then description, sequenced through one outer coroutine) completing the title doesn't
+    // kill the description that's supposed to type out next.
+    public void AdvanceTypewriter()
+    {
+        if (isTyping)
+            skipTypewriter = true;
     }
 
     private void PopulateChoices()
