@@ -147,44 +147,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1049519793960338325
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8372005269833391030}
-  m_Layer: 5
-  m_Name: HoverZoomRoot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &8372005269833391030
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049519793960338325}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3700943957055363685}
-  - {fileID: 7094839774233180279}
-  - {fileID: 7748931033330995815}
-  m_Father: {fileID: 1423106966923696761}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1249670186006120114
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +177,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8372005269833391030}
+  m_Father: {fileID: 1423106966923696761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1425,11 +1387,13 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7935187987125531670}
+  - {fileID: 3700943957055363685}
+  - {fileID: 7094839774233180279}
+  - {fileID: 7748931033330995815}
   - {fileID: 7848332228649068517}
   - {fileID: 5671378896167306448}
   - {fileID: 1582285111002083077}
   - {fileID: 2211139393468191146}
-  - {fileID: 8372005269833391030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1504,7 +1468,6 @@ MonoBehaviour:
   hoverScale: 1.08
   hoverScaleSeconds: 0.12
   hoverScaleEnabled: 1
-  hoverZoomRoot: {fileID: 8372005269833391030}
   actionButtonsContainer: {fileID: 7730004895804804695}
   basicButton: {fileID: 2648095450941225846}
   skillButton: {fileID: 4415636309132726117}
@@ -1869,7 +1832,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8372005269833391030}
+  m_Father: {fileID: 1423106966923696761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2322,7 +2285,7 @@ RectTransform:
   - {fileID: 8664261272701723698}
   - {fileID: 7463393387569289016}
   - {fileID: 8481356712134564766}
-  m_Father: {fileID: 8372005269833391030}
+  m_Father: {fileID: 1423106966923696761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

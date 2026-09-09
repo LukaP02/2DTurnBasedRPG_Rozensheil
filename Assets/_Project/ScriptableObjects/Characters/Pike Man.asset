@@ -15,6 +15,7 @@ MonoBehaviour:
   characterName: Kharian Guard
   cardArt: {fileID: 7634019329870392861, guid: f3773c3c69e5b37498390ca0710a1e6d, type: 3}
   icon: {fileID: -5793331676406316199, guid: 512186bed01beaf4a8fb536ddb90c622, type: 3}
+  deadArt: {fileID: -5924314217675297873, guid: ba8d2b7149d5f15458d88ce3f2f7ec37, type: 3}
   description: Kharian guard is a typical sight in the city and around the outskirts.
     It is said that gaining the title of a guard is no easy task, but gaining the
     opportunity to serve inside the colosseum is an achievement worthy of only dozen

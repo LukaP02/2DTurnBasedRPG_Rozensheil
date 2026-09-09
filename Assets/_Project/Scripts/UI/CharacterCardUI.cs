@@ -38,8 +38,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public float hoverScaleSeconds = 0.12f;
     [Tooltip("Turn off to disable the hover scale-up entirely for this card instance (e.g. a read-only display card, like the one in LoadoutMenuUI, where hover-to-target doesn't apply).")]
     public bool hoverScaleEnabled = true;
-    [Tooltip("Sub-object scaled on hover instead of the whole card - should contain the art, name, and ability buttons but NOT the HP/Energy bar containers, so those stay a fixed size while everything else zooms. Falls back to the card's own root if left empty.")]
-    public RectTransform hoverZoomRoot;
+    
 
     [Header("Action Buttons")]
     public GameObject actionButtonsContainer;
@@ -111,7 +110,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Vector2 preInspectAnchoredPosition;
     private Vector3 preInspectScale;
     private bool isZoomedForInspect;
-    private Vector3 hoverZoomBaseScale;
+    
 
     public void PlayInspectZoom(RectTransform zoomAnchor, System.Action onComplete)
     {
@@ -313,9 +312,6 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         baseScale = rectTransform != null ? rectTransform.localScale : Vector3.one;
 
 
-        if (hoverZoomRoot == null)
-            hoverZoomRoot = rectTransform;
-        hoverZoomBaseScale = hoverZoomRoot != null ? hoverZoomRoot.localScale : Vector3.one;
 
         // Added at runtime rather than requiring prefab wiring - used only to dim/disable a dead
         // card in a fixed-roster fight where it stays on screen instead of being destroyed.
@@ -328,27 +324,43 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     // dead enemy's card is left in place instead of being destroyed - see CombatUIManager.RefreshUI.
     public void SetDeadVisual(bool isDead)
     {
-        canvasGroup.alpha = isDead ? 0.35f : 1f;
         canvasGroup.blocksRaycasts = !isDead;
         canvasGroup.interactable = !isDead;
 
-        if (artImage != null)
-            artImage.color = isDead ? deadArtTint : Color.white;
+        bool hasDeadArt = isDead && boundCharacter != null && boundCharacter.data.deadArt != null;
+
+        if (hasDeadArt)
+        {
+            canvasGroup.alpha = 1f;
+            artImage.sprite = boundCharacter.data.deadArt;
+            artImage.color = Color.white;
+        }
+        else
+        {
+            canvasGroup.alpha = isDead ? 0.35f : 1f;
+
+            if (artImage != null)
+                artImage.color = isDead ? deadArtTint : Color.white;
+
+            if (!isDead)
+                RefreshArt();
+        }
     }
 
     public void PlayDeathFadeOut(System.Action onComplete)
     {
         if (artImage != null)
-            artImage.color = deadArtTint;
-
-        if (canvasGroup != null)
         {
-            canvasGroup.blocksRaycasts = false;
-            canvasGroup.interactable = false;
+            if (boundCharacter != null && boundCharacter.data.deadArt != null)
+            {
+                artImage.sprite = boundCharacter.data.deadArt;
+                artImage.color = Color.white;
+            }
+            else
+            {
+                artImage.color = deadArtTint;
+            }
         }
-
-        if (deathFadeCoroutine != null)
-            StopCoroutine(deathFadeCoroutine);
 
         deathFadeCoroutine = StartCoroutine(DeathFadeOutRoutine(onComplete));
     }
@@ -721,4 +733,5 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         if (energyBarContainer != null)
             energyBarContainer.SetActive(visible);
     }
+
 }

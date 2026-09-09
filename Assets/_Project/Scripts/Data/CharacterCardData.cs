@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum CharacterRole { Damage, Tank, Sustain, Hybrid }
 
@@ -10,6 +11,8 @@ public class CharacterCardData : ScriptableObject
     public Sprite cardArt;
     [Tooltip("Small icon version of the art - used for turn order icons and the Loadout character list. Falls back to Card Art if left empty.")]
     public Sprite icon;
+    [Tooltip("Card art swapped in when this character dies, replacing Card Art entirely instead of the default gray-tint/fade treatment. Leave empty to fall back to the old dimmed/tinted look.")]
+    public Sprite deadArt;
     [TextArea] public string description;
 
     [Header("Type")]
@@ -92,12 +95,15 @@ public class CharacterCardData : ScriptableObject
     [Tooltip("Enemy-only. Shows this character's HP on the boss health bar at the top of the combat screen (different art) instead of the normal per-card HP bar. If this character has a Phase Transition, flag Phase Two Card as a boss too so the top bar keeps showing after the swap.")]
     public bool isBoss = false;
 
+    [Header("Mark Icon (optional, only relevant if this character applies marks - e.g. Abdul)")]
+    public Sprite markIcon;
     [System.Serializable]
     public class ElementResistance
     {
         public ElementType element;
         [Range(0f, 1f)] public float reductionPercent = 0f;
     }
-    [Header("Mark Icon (optional, only relevant if this character applies marks - e.g. Abdul)")]
-    public Sprite markIcon;
+  
+    
+    
 }

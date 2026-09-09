@@ -15,6 +15,7 @@ MonoBehaviour:
   characterName: Cyclops
   cardArt: {fileID: -8728374782289922796, guid: 995b689382452ca45b2c0c3927a12e6d, type: 3}
   icon: {fileID: -5356448091792781400, guid: 63cb5af921cf1064da717a00a7d4bd33, type: 3}
+  deadArt: {fileID: -7348534127562300267, guid: 4cb8a030cb689c744b94b4c27f5dd1e5, type: 3}
   description: Savage and ancient being thought to be almost extinct. Omnivore that
     enjoys the taste of flash. Known for their ancient petrifying magic and endless
     appetite, especially of dwarves.

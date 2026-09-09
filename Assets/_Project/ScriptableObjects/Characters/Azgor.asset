@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd8ad134fa89724ebaaee07cf4c01d4, type: 3}
   m_Name: Azgor
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
-  characterName: 
+  characterName: Azgor
   cardArt: {fileID: -2847048657661523345, guid: caac1ba1a00a76240b704a51bac009b7, type: 3}
   icon: {fileID: 3573542943813701069, guid: 1fdc9e93757a66041b5efb50867e331f, type: 3}
+  deadArt: {fileID: 8515753132208691781, guid: 5492a8a90f58d0c4bbff6f01fa078cd8, type: 3}
   description: 
   isPlayableCharacter: 0
   role: 1
