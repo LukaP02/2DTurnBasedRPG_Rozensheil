@@ -136,11 +136,13 @@ public class PartyManager : MonoBehaviour
         return activeParty.Select(c => allInstances[c]).ToList();
     }
 
-    public void HealPartyFully()
+    // Full post-battle reset for every recruited character (active or benched): HP to max,
+    // energy to 0, all status effects/marks/stain cleared, and form back to Normal.
+    public void ResetPartyAfterBattle()
     {
         foreach (var instance in allInstances.Values)
         {
-            instance.Heal(instance.maxHP);
+            instance.ResetForNewBattle();
         }
 
         hasPendingEventPenalty = false;
@@ -162,7 +164,7 @@ public class PartyManager : MonoBehaviour
         if (!hasPendingEventPenalty) return;
 
         if (!enteringCombat)
-            HealPartyFully(); // also clears the flag
+            ResetPartyAfterBattle(); // also clears the flag
 
         hasPendingEventPenalty = false;
     }

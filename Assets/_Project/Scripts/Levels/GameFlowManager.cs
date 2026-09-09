@@ -193,7 +193,7 @@ public class GameFlowManager : MonoBehaviour
             combatScreen.SetActive(false);
 
             AudioManager.Instance?.PlaySFX(victoryStinger);
-            PartyManager.Instance.HealPartyFully();
+            PartyManager.Instance.ResetPartyAfterBattle();
 
             victoryScreen.Show(combatController.goldReward);
         }
@@ -268,7 +268,7 @@ public class GameFlowManager : MonoBehaviour
     {
         defeatScreen.Hide();
 
-        PartyManager.Instance.HealPartyFully();
+        PartyManager.Instance.ResetPartyAfterBattle();
 
         ReturnToOverworldWithoutUnlocking();
     }

@@ -223,6 +223,24 @@ public class CharacterInstance
         RefreshAbilities();
     }
 
+    // Called on every recruited character after a battle ends (see
+    // PartyManager.ResetPartyAfterBattle) - nothing from one fight should carry into the next.
+    public void ResetForNewBattle()
+    {
+        currentForm = CharacterForm.Normal;
+        activeEffects.Clear();
+        marksBySource.Clear();
+        currentStain = null;
+        deathProcessed = false;
+        phaseTransitionProcessed = false;
+        hpReinforcementProcessed = false;
+        currentEnergy = 0;
+
+        RefreshAbilities();
+        RecalculateStats();
+        currentHP = maxHP;
+    }
+
     public void TakeDamage(int amount)
     {
         currentHP -= amount;
