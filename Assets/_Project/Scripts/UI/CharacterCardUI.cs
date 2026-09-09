@@ -38,7 +38,6 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public float hoverScaleSeconds = 0.12f;
     [Tooltip("Turn off to disable the hover scale-up entirely for this card instance (e.g. a read-only display card, like the one in LoadoutMenuUI, where hover-to-target doesn't apply).")]
     public bool hoverScaleEnabled = true;
-    
 
     [Header("Action Buttons")]
     public GameObject actionButtonsContainer;
@@ -73,6 +72,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Coroutine slideInCoroutine;
     private Coroutine flipCoroutine;
     private Coroutine deathFadeCoroutine;
+    private bool hasAppliedDeadVisual;
     private Coroutine shiverCoroutine;
     private Coroutine inspectZoomCoroutine;
     private Coroutine ghostHpCoroutine;
@@ -88,10 +88,12 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private bool isFlipping;
 
     [Header("Death Visual")]
-    [Tooltip("Tint applied to a dead character's art - used both for a card left in place after death (fixed-roster enemies and allies) and for a wave-encounter card while it fades out before being replaced. White = no change; lower RGB = more washed-out/gray.")]
+    [Tooltip("Fallback tint applied to a dead character's art when that character has no CharacterCardData.deadArt configured - used both for a card left in place after death (fixed-roster enemies and allies) and for a wave-encounter card before being replaced. White = no change; lower RGB = more washed-out/gray.")]
     public Color deadArtTint = new Color(0.55f, 0.55f, 0.55f, 1f);
-    [Tooltip("How long a wave-encounter enemy's card takes to fade out before being destroyed and replaced by a reinforcement's card.")]
+    [Tooltip("How long a wave-encounter enemy's card holds on its dead-card art before being destroyed and replaced by a reinforcement's card. Should be >= Dead Art Fade Seconds.")]
     public float deathFadeOutSeconds = 0.4f;
+    [Tooltip("How long the crossfade from live art to dead art takes (split evenly between fading the old art out and the dead art in). Only used for a character with Dead Art configured - the tint-only fallback swaps instantly.")]
+    public float deadArtFadeSeconds = 0.3f;
 
     [Header("Shiver")]
     [Tooltip("How long the shiver (crit hit or elemental weakness hit) animation lasts.")]
@@ -110,7 +112,6 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Vector2 preInspectAnchoredPosition;
     private Vector3 preInspectScale;
     private bool isZoomedForInspect;
-    
 
     public void PlayInspectZoom(RectTransform zoomAnchor, System.Action onComplete)
     {
@@ -311,8 +312,6 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         rectTransform = transform as RectTransform;
         baseScale = rectTransform != null ? rectTransform.localScale : Vector3.one;
 
-
-
         // Added at runtime rather than requiring prefab wiring - used only to dim/disable a dead
         // card in a fixed-roster fight where it stays on screen instead of being destroyed.
         canvasGroup = GetComponent<CanvasGroup>();
@@ -320,67 +319,125 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
     }
 
-    // Dims the card and blocks all pointer interaction (hover, click, right-click inspect) once a
-    // dead enemy's card is left in place instead of being destroyed - see CombatUIManager.RefreshUI.
+    // Crossfades in this character's dedicated dead-card art (CharacterCardData.deadArt) and blocks
+    // all pointer interaction (hover, click, right-click inspect) once a dead enemy's card is left
+    // in place instead of being destroyed - see CombatUIManager.RefreshUI. Falls back to an instant
+    // dim/gray-tint for a character that doesn't have dead art configured yet.
+    // RefreshUI calls this with isDead:true on every refresh for as long as the character stays
+    // dead (not just once at the moment of death) - hasAppliedDeadVisual guards the fade so it
+    // plays exactly once instead of restarting from scratch on every subsequent turn.
     public void SetDeadVisual(bool isDead)
     {
         canvasGroup.blocksRaycasts = !isDead;
         canvasGroup.interactable = !isDead;
 
-        bool hasDeadArt = isDead && boundCharacter != null && boundCharacter.data.deadArt != null;
+        if (!isDead)
+        {
+            hasAppliedDeadVisual = false;
+
+            if (deathFadeCoroutine != null)
+            {
+                StopCoroutine(deathFadeCoroutine);
+                deathFadeCoroutine = null;
+            }
+
+            canvasGroup.alpha = 1f;
+            if (artImage != null) artImage.color = Color.white;
+            RefreshArt(); // restore the correct live sprite (current form) when un-dimming
+            return;
+        }
+
+        canvasGroup.alpha = 1f;
+
+        bool hasDeadArt = boundCharacter != null && boundCharacter.data.deadArt != null;
+
+        if (!hasDeadArt)
+        {
+            canvasGroup.alpha = 0.35f;
+            if (artImage != null) artImage.color = deadArtTint;
+            return;
+        }
+
+        if (hasAppliedDeadVisual) return; // transition already played - leave it alone
+        hasAppliedDeadVisual = true;
+
+        if (deathFadeCoroutine != null)
+            StopCoroutine(deathFadeCoroutine);
+
+        deathFadeCoroutine = StartCoroutine(FadeToDeadArtRoutine(boundCharacter.data.deadArt, Color.white, 0f, null));
+    }
+
+    // Crossfades to the dead-card art (or falls back to an instant gray tint if this character has
+    // none configured), holding for the remainder of deathFadeOutSeconds after the fade finishes,
+    // then calls onComplete - keeps the same overall timing the wave-encounter reinforcement
+    // slide-in relies on.
+    public void PlayDeathFadeOut(System.Action onComplete)
+    {
+        if (canvasGroup != null)
+        {
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
+        }
+
+        bool hasDeadArt = boundCharacter != null && boundCharacter.data.deadArt != null;
+
+        if (deathFadeCoroutine != null)
+            StopCoroutine(deathFadeCoroutine);
 
         if (hasDeadArt)
         {
-            canvasGroup.alpha = 1f;
-            artImage.sprite = boundCharacter.data.deadArt;
-            artImage.color = Color.white;
+            float holdAfter = Mathf.Max(0f, deathFadeOutSeconds - deadArtFadeSeconds);
+            deathFadeCoroutine = StartCoroutine(FadeToDeadArtRoutine(boundCharacter.data.deadArt, Color.white, holdAfter, onComplete));
         }
         else
         {
-            canvasGroup.alpha = isDead ? 0.35f : 1f;
-
-            if (artImage != null)
-                artImage.color = isDead ? deadArtTint : Color.white;
-
-            if (!isDead)
-                RefreshArt();
+            if (artImage != null) artImage.color = deadArtTint;
+            deathFadeCoroutine = StartCoroutine(DeathFadeOutRoutine(onComplete));
         }
     }
 
-    public void PlayDeathFadeOut(System.Action onComplete)
+    // Fades artImage's alpha to 0, swaps to newSprite, then fades back up to targetColor - a
+    // crossfade in everything but name, since a single Image can't blend between two different
+    // sprites directly. Optionally holds for holdAfterSeconds more before calling onComplete.
+    private System.Collections.IEnumerator FadeToDeadArtRoutine(Sprite newSprite, Color targetColor, float holdAfterSeconds, System.Action onComplete)
     {
-        if (artImage != null)
-        {
-            if (boundCharacter != null && boundCharacter.data.deadArt != null)
-            {
-                artImage.sprite = boundCharacter.data.deadArt;
-                artImage.color = Color.white;
-            }
-            else
-            {
-                artImage.color = deadArtTint;
-            }
-        }
+        float half = deadArtFadeSeconds * 0.5f;
+        Color startColor = artImage.color;
+        float elapsed = 0f;
 
-        deathFadeCoroutine = StartCoroutine(DeathFadeOutRoutine(onComplete));
+        while (half > 0f && elapsed < half)
+        {
+            elapsed += Time.deltaTime;
+            float a = Mathf.Lerp(startColor.a, 0f, elapsed / half);
+            artImage.color = new Color(startColor.r, startColor.g, startColor.b, a);
+            yield return null;
+        }
+        artImage.color = new Color(startColor.r, startColor.g, startColor.b, 0f);
+
+        artImage.sprite = newSprite;
+
+        elapsed = 0f;
+        while (half > 0f && elapsed < half)
+        {
+            elapsed += Time.deltaTime;
+            float a = Mathf.Lerp(0f, targetColor.a, elapsed / half);
+            artImage.color = new Color(targetColor.r, targetColor.g, targetColor.b, a);
+            yield return null;
+        }
+        artImage.color = targetColor;
+
+        if (holdAfterSeconds > 0f)
+            yield return new WaitForSeconds(holdAfterSeconds);
+
+        deathFadeCoroutine = null;
+        onComplete?.Invoke();
     }
 
     private System.Collections.IEnumerator DeathFadeOutRoutine(System.Action onComplete)
     {
-        float startAlpha = canvasGroup != null ? canvasGroup.alpha : 1f;
-        float elapsed = 0f;
+        yield return new WaitForSeconds(deathFadeOutSeconds);
 
-        while (elapsed < deathFadeOutSeconds)
-        {
-            elapsed += Time.deltaTime;
-            if (canvasGroup != null)
-                canvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, elapsed / deathFadeOutSeconds);
-            yield return null;
-        }
-
-        if (canvasGroup != null)
-            canvasGroup.alpha = 0f;
-
+        deathFadeCoroutine = null;
         onComplete?.Invoke();
     }
 
@@ -388,6 +445,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         boundCharacter = character;
         uiManager = manager;
+        hasAppliedDeadVisual = false;
         // Enlarges the card's resting size for a boss. Updates baseScale (not just the live
         // transform) so hover-in/out still scales relative to this bigger size instead of
         // fighting against it or snapping back to the normal card size on hover-exit.
@@ -600,10 +658,14 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     // Guarded: while a form-flip animation is playing, it owns the sprite swap itself (timed to
     // the flip's midpoint via ApplyArtForCurrentForm below) - so RefreshUI's blanket per-card
-    // refresh must not jump the sprite to the new form early and spoil the reveal.
+    // refresh must not jump the sprite to the new form early and spoil the reveal. Also skipped
+    // once the character is dead - SetDeadVisual/PlayDeathFadeOut own the sprite from that point
+    // on, and RefreshUI calls this every refresh, which would otherwise stomp the dead-art swap
+    // straight back to the live sprite on the very next turn.
     public void RefreshArt()
     {
         if (isFlipping) return;
+        if (boundCharacter != null && !boundCharacter.isAlive) return;
         ApplyArtForCurrentForm();
     }
 
@@ -733,5 +795,4 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         if (energyBarContainer != null)
             energyBarContainer.SetActive(visible);
     }
-
 }
