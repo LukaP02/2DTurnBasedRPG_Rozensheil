@@ -15,13 +15,18 @@ public class MainMenuUI : MonoBehaviour
     public Button startButton;
     public Button optionsButton;
     public Button quitButton;
-    // Debug/dev shortcut - unlocks every level/event node and jumps straight to the overworld,
-    // skipping the normal intro-dialogue/first-level flow. Fine to leave wired up during
-    // development; just don't hook it up in a shipped build.
+    // Debug/dev shortcut - unlocks every level/event node, recruits every playable character,
+    // grants a pile of gold, and jumps straight to the overworld, skipping the normal
+    // intro-dialogue/first-level flow. Kept in intentionally for thesis demo/testing purposes.
     public Button unlockAllButton;
-
+   
     [Header("Music")]
     public AudioClip menuMusic;
+
+    [Header("Debug")]
+    [Tooltip("Every playable character the debug button should unlock - populate with all recruitable CharacterCardData assets.")]
+    public CharacterCardData[] allPlayableCharacters;
+    public int debugGoldAmount = 9999;
 
     private void Awake()
     {
@@ -57,6 +62,11 @@ public class MainMenuUI : MonoBehaviour
         // nodes) before this, so RefreshNodes() below always has something to update.
         PartyManager.Instance.UnlockLevels(gameFlowManager.overworldMapUI.levelsInOrder);
         gameFlowManager.overworldMapUI.RefreshNodes();
+
+        PartyManager.Instance.AddGold(debugGoldAmount);
+
+        foreach (var character in allPlayableCharacters)
+            PartyManager.Instance.RecruitCharacter(character);
     }
 
     public void OpenOptions()

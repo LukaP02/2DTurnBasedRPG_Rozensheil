@@ -87,8 +87,15 @@ public class EventController : MonoBehaviour
     // shifts mid-reveal; only maxVisibleCharacters changes as the line types out.
     private IEnumerator TypewriterReveal(TMP_Text target, string fullText)
     {
-        target.text = fullText;
+        target.text = string.Empty;
         target.maxVisibleCharacters = 0;
+
+        yield return null; // let the panel's just-activated layout/canvas fully settle before
+                           // assigning the real text - otherwise TextMeshPro can briefly render
+                           // the fully-typed text for one frame before maxVisibleCharacters
+                           // properly takes effect.
+
+        target.text = fullText;
         target.ForceMeshUpdate();
 
         int totalChars = target.textInfo.characterCount;
