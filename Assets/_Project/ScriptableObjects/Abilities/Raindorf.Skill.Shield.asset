@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Raindorf.Skill.Shield
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Cleric's Protection
-  icon: {fileID: 0}
+  icon: {fileID: -1834450415141493148, guid: ef9447af524e91548aa7b39e0ae83730, type: 3}
   description: Raindorf shields an ally for 100 + 50% DEF  with Holy energy, absorbing
     all damage taken for the next 3 turns until broken.
   abilityType: 1
@@ -29,6 +29,7 @@ MonoBehaviour:
   defenseScaling: 0.5
   speedScaling: 0
   castSound: {fileID: 8300000, guid: 190523af813fd1e49b2fa700516239ed, type: 3}
+  impactSound: {fileID: 0}
   canCrit: 1
   targetShape: 0
   targetSide: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Raindorf.Basic
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Mace Bludgeon
-  icon: {fileID: 0}
+  icon: {fileID: 7422188201018988776, guid: 6d2679fe08757554ebfbfa8cd055bfae, type: 3}
   description: Raindorf strikes a single target with his mace dealing low physical
     damage.
   abilityType: 0
@@ -29,6 +29,7 @@ MonoBehaviour:
   defenseScaling: 0
   speedScaling: 0
   castSound: {fileID: 8300000, guid: b88ee05364c04fc4ab3695cb3ae7e0ae, type: 3}
+  impactSound: {fileID: 0}
   canCrit: 1
   targetShape: 0
   targetSide: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dest.Basic
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Ice Punch
-  icon: {fileID: 0}
+  icon: {fileID: -2729528666084820526, guid: 7bd3387f1ac5dea40b633908769bc454, type: 3}
   description: Dest strikes a single target with his fist dealing low ice damage.
   abilityType: 0
   spCost: 0

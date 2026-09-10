@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zavren.Ult.DMG
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Elemental Genesis
-  icon: {fileID: 0}
+  icon: {fileID: 7155325587868913739, guid: b65325a213411364e92906592340f2e3, type: 3}
   description: Zavren combines his elemental magic combusting it with a big explosion
     dealing 120+120% ATK fire damage to all enemies.
   abilityType: 2

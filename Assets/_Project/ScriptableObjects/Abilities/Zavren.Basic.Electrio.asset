@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zavren.Basic.Electrio
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Electro Bolt
-  icon: {fileID: 0}
+  icon: {fileID: -7596442941244597777, guid: 49338415ea5061449b980f10df203487, type: 3}
   description: 'Zavren fires an electric projectile chaining 2 targets and dealing
     low electro damage. '
   abilityType: 0

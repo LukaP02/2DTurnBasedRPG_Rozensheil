@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zavren.Ult.Buff
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Fires of Initiative
-  icon: {fileID: 0}
+  icon: {fileID: 8750876001038956542, guid: 4a4cd8ea831e79e478d8bac82556866c, type: 3}
   description: Zavren recovers 5 Skill points for the party.
   abilityType: 2
   spCost: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Raindorf.Ult.DMG
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: The Bjornthal Way
-  icon: {fileID: 0}
+  icon: {fileID: -2241703181812838928, guid: 1daa4eadedf09a3458bf4ff15cf52637, type: 3}
   description: Raindorf shows his hidden might, hitting all enemies on the field
     for 100 + 110% ATK with a physical strike.
   abilityType: 2
@@ -29,6 +29,7 @@ MonoBehaviour:
   defenseScaling: 0
   speedScaling: 0
   castSound: {fileID: 8300000, guid: 27f35acf53e2fb14e8f80987f0318f70, type: 3}
+  impactSound: {fileID: 0}
   canCrit: 1
   targetShape: 3
   targetSide: 0
