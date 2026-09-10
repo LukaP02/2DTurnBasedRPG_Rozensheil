@@ -1,4 +1,4 @@
-using System.Text;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -15,13 +15,26 @@ public class CardDetailUI : MonoBehaviour
 
     [Header("Left Box - Description")]
     public TMP_Text descriptionText;
+    [Tooltip("Shown directly under the description - lists the status effects currently on the inspected character (e.g. 'Burn x2, Fire Stain'). Empty/hidden when there are none.")]
+    public TMP_Text statusText;
+    [Tooltip("Icon row for the same status effects listed in Status Text. Reuse the same prefab CharacterCardUI.statusIconPrefab points at.")]
+    public Transform statusIconContainer;
+    public GameObject statusIconPrefab;
+    [Tooltip("Icon shown on a Fire stain's status icon. Leave empty to show it with no icon, just the label.")]
+    public Sprite fireStainIcon;
+    [Tooltip("Icon shown on an Ice stain's status icon. Leave empty to show it with no icon, just the label.")]
+    public Sprite iceStainIcon;
+    [Tooltip("Icon shown on an Electro stain's status icon. Leave empty to show it with no icon, just the label.")]
+    public Sprite electroStainIcon;
 
     [Header("Right Box - Info")]
     public TMP_Text nameText;
     public TMP_Text roleText;
-    public TMP_Text abilitiesText;
+    [Tooltip("Container the ability rows get instantiated into - one AbilityRowUI per active ability.")]
+    public Transform abilityListContainer;
+    public GameObject abilityRowPrefab;
     public TMP_Text passiveText;
-   
+
 
     private void Awake()
     {
@@ -34,7 +47,6 @@ public class CardDetailUI : MonoBehaviour
 
     public void Show(CharacterInstance character)
     {
-        Debug.Log($"[InspectZoomDebug] CardDetailUI.Show ENTERED, character null? {character == null}, frame {Time.frameCount}");
         if (character == null || character.data == null) return;
 
         CharacterCardData data = character.data;
@@ -49,37 +61,91 @@ public class CardDetailUI : MonoBehaviour
         if (descriptionText != null)
             descriptionText.text = data.description;
 
+        RefreshStatuses(character);
+
         if (nameText != null)
             nameText.text = data.characterName;
 
         if (roleText != null)
             roleText.text = data.role.ToString();
 
-        if (abilitiesText != null)
-            abilitiesText.text = BuildAbilitiesText(character);
+        PopulateAbilityRows(character);
 
         if (passiveText != null)
             passiveText.text = BuildPassiveText(data);
-        Debug.Log($"[InspectZoomDebug] CardDetailUI.Show about to SetActive(true) on {detailPanel?.name}, frame {Time.frameCount}");
+
         detailPanel.SetActive(true);
-        Debug.Log($"[InspectZoomDebug] CardDetailUI.Show SetActive(true) done, activeSelf now {detailPanel.activeSelf}, frame {Time.frameCount}");
     }
 
-    private string BuildAbilitiesText(CharacterInstance character)
+    private void RefreshStatuses(CharacterInstance character)
     {
-        StringBuilder sb = new StringBuilder();
+        List<StatusEffectInstance> statuses = character.GetStatusDisplayList();
+
+        if (statusText != null)
+        {
+            if (statuses.Count == 0)
+            {
+                statusText.text = "No active status effects";
+            }
+            else
+            {
+                var labels = new List<string>();
+                foreach (var status in statuses)
+                    labels.Add(status.stackCount > 1 ? $"{status.label} x{status.stackCount}" : status.label);
+
+                statusText.text = string.Join(", ", labels);
+            }
+        }
+
+        if (statusIconContainer == null || statusIconPrefab == null) return;
+
+        foreach (Transform child in statusIconContainer)
+            Destroy(child.gameObject);
+
+        foreach (var status in statuses)
+        {
+            // Stains and marks arrive with icon left null (see CharacterInstance.GetStatusDisplayList) -
+            // resolve the actual sprite here, same as CharacterCardUI.RefreshStatuses does.
+            if (status.icon == null)
+            {
+                if (status.stainElement.HasValue)
+                    status.icon = GetStainIcon(status.stainElement.Value);
+                else if (status.markSourceCharacter != null)
+                    status.icon = status.markSourceCharacter.markIcon;
+            }
+
+            GameObject iconObj = Instantiate(statusIconPrefab, statusIconContainer);
+            StatusIconUI iconUI = iconObj.GetComponent<StatusIconUI>();
+            iconUI.Bind(status);
+        }
+    }
+
+    private Sprite GetStainIcon(ElementType element)
+    {
+        switch (element)
+        {
+            case ElementType.Fire: return fireStainIcon;
+            case ElementType.Ice: return iceStainIcon;
+            case ElementType.Electro: return electroStainIcon;
+            default: return null;
+        }
+    }
+
+    private void PopulateAbilityRows(CharacterInstance character)
+    {
+        if (abilityListContainer == null || abilityRowPrefab == null) return;
+
+        foreach (Transform child in abilityListContainer)
+            Destroy(child.gameObject);
 
         foreach (var ability in character.activeAbilities)
         {
             if (ability == null) continue;
 
-            sb.AppendLine($"<b>{ability.abilityName}</b> ({ability.abilityType})");
-            if (!string.IsNullOrEmpty(ability.description))
-                sb.AppendLine(ability.description);
-            sb.AppendLine();
+            GameObject rowObj = Instantiate(abilityRowPrefab, abilityListContainer);
+            AbilityRowUI rowUI = rowObj.GetComponent<AbilityRowUI>();
+            rowUI.Bind(ability);
         }
-
-        return sb.ToString().TrimEnd();
     }
 
     private string BuildPassiveText(CharacterCardData data)

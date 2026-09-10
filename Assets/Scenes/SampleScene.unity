@@ -8184,6 +8184,7 @@ RectTransform:
   - {fileID: 344114952}
   - {fileID: 1248829887}
   - {fileID: 779745196}
+  - {fileID: 910716378}
   m_Father: {fileID: 150015129}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8207,9 +8208,16 @@ MonoBehaviour:
   zoomedArt: {fileID: 2082939554}
   closeButton: {fileID: 779745197}
   descriptionText: {fileID: 2124376205}
+  statusText: {fileID: 460948683}
+  statusIconContainer: {fileID: 0}
+  statusIconPrefab: {fileID: 216610058052462429, guid: 3f848597f410f644b85bd5744fd8a0dc, type: 3}
+  fireStainIcon: {fileID: 695775810, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  iceStainIcon: {fileID: 1401011104, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
+  electroStainIcon: {fileID: 2062015785, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
   nameText: {fileID: 1229603407}
   roleText: {fileID: 686767190}
-  abilitiesText: {fileID: 1248829888}
+  abilityListContainer: {fileID: 910716378}
+  abilityRowPrefab: {fileID: 1644957852168403854, guid: 7f23cba77d648fa4599c57f4ca4a4b25, type: 3}
   passiveText: {fileID: 344114953}
 --- !u!114 &771472623
 MonoBehaviour:
@@ -9735,6 +9743,68 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &910716377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 910716378}
+  - component: {fileID: 910716379}
+  m_Layer: 5
+  m_Name: AbilityListContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &910716378
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910716377}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 771472621}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 330, y: -181.67}
+  m_SizeDelta: {x: 100, y: 515.67}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &910716379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910716377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!222 &914763202
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10937,7 +11007,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1127834892
 MonoBehaviour:
   m_ObjectHideFlags: 0
