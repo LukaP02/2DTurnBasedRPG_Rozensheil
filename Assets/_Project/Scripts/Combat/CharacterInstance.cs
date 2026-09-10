@@ -11,6 +11,7 @@ public enum CharacterForm
 public class StatusEffectInstance
 {
     public string label;
+    public string description;
     public int stackCount;
     public Sprite icon;
     public ElementType? stainElement;
@@ -304,6 +305,7 @@ public class CharacterInstance
             activeEffects.Add(new ActiveStatusEffect
             {
                 label = data.effectName,
+                description = data.description,
                 icon = data.icon,
                 category = data.category,
                 isDebuff = data.isDebuff,
@@ -479,7 +481,7 @@ public class CharacterInstance
                 ? $"{effect.label} ({effect.shieldRemaining})"
                 : effect.label;
 
-            list.Add(new StatusEffectInstance { label = label, stackCount = effect.stackCount, icon = effect.icon });
+            list.Add(new StatusEffectInstance { label = label, description = effect.description, stackCount = effect.stackCount, icon = effect.icon });
         }
 
         foreach (var kvp in marksBySource)
@@ -487,13 +489,25 @@ public class CharacterInstance
             if (kvp.Value > 0)
             {
                 string sourceName = kvp.Key != null ? kvp.Key.data.characterName : "Unknown";
-                list.Add(new StatusEffectInstance { label = $"Mark ({sourceName})", stackCount = kvp.Value, markSourceCharacter = kvp.Key?.data });
+                list.Add(new StatusEffectInstance
+                {
+                    label = $"Mark ({sourceName})",
+                    description = $"Consumed by {sourceName}'s mark-consuming attacks for bonus damage per stack.",
+                    stackCount = kvp.Value,
+                    markSourceCharacter = kvp.Key?.data
+                });
             }
         }
 
         if (currentStain.HasValue)
         {
-            list.Add(new StatusEffectInstance { label = $"{currentStain.Value} Stain", stackCount = 1, stainElement = currentStain });
+            list.Add(new StatusEffectInstance
+            {
+                label = $"{currentStain.Value} Stain",
+                description = "Reacts with the next hit of a different element to trigger a combo effect.",
+                stackCount = 1,
+                stainElement = currentStain
+            });
         }
 
         return list;

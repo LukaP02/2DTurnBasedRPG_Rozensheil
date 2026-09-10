@@ -4,6 +4,7 @@ using UnityEngine;
 public class ActiveStatusEffect
 {
     public string label;
+    public string description;
     public Sprite icon;
     public StatusEffectCategory category;
     public bool isDebuff;

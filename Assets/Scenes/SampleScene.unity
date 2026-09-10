@@ -4333,7 +4333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &460948682
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8211,7 +8211,7 @@ MonoBehaviour:
   descriptionText: {fileID: 2124376205}
   statusText: {fileID: 460948683}
   statusIconContainer: {fileID: 1341267183}
-  statusIconPrefab: {fileID: 216610058052462429, guid: 3f848597f410f644b85bd5744fd8a0dc, type: 3}
+  statusIconPrefab: {fileID: 216610058052462429, guid: 5d2398712149bca47a64de7d7c2c1df9, type: 3}
   fireStainIcon: {fileID: 695775810, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
   iceStainIcon: {fileID: 1401011104, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
   electroStainIcon: {fileID: 2062015785, guid: 080cb6d98b00c2645b2c41df5f69bc78, type: 3}
@@ -9799,7 +9799,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 8
+  m_Spacing: 20
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -11023,7 +11023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1127834892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12797,8 +12797,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -904.33, y: -219.74995}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -981.0001, y: -51}
+  m_SizeDelta: {x: 50, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1341267184
 MonoBehaviour:
@@ -12832,7 +12832,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 6
+  m_Spacing: 40
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1

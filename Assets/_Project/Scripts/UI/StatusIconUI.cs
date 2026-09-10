@@ -5,6 +5,7 @@ using TMPro;
 public class StatusIconUI : MonoBehaviour
 {
     public TMP_Text labelText;
+    public TMP_Text descriptionText;
     public TMP_Text countText;
     public Image iconImage;
 
@@ -12,6 +13,14 @@ public class StatusIconUI : MonoBehaviour
     {
         if (labelText != null)
             labelText.text = status.label;
+
+        if (descriptionText != null)
+        {
+            bool hasDescription = !string.IsNullOrEmpty(status.description);
+            descriptionText.gameObject.SetActive(hasDescription);
+            if (hasDescription)
+                descriptionText.text = status.description;
+        }
 
         if (countText != null)
         {
