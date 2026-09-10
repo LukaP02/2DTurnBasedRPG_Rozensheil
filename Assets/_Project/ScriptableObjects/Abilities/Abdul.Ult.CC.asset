@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Abdul.Ult.CC
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: 'Command: Silence'
-  icon: {fileID: 0}
+  icon: {fileID: 8801778332508486440, guid: 6c954ac4aa5e90c4b905f612ebe71ecf, type: 3}
   description: Abdul discharges energy from his mechanical arm, dealing 150 + 100%
     ATK Physical damage to a single enemy and silencing them for 2 turns.
   abilityType: 2
@@ -28,6 +28,8 @@ MonoBehaviour:
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
+  castSound: {fileID: 0}
+  impactSound: {fileID: 0}
   canCrit: 1
   targetShape: 0
   targetSide: 0
@@ -41,3 +43,7 @@ MonoBehaviour:
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0
+  projectilePrefab: {fileID: 0}
+  projectileTravelSeconds: 0.4
+  impactEffectPrefab: {fileID: 0}
+  impactEffectDuration: 0.5

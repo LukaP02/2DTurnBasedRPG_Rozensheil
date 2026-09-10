@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zavren.Skill.Electro
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Charging Storm
-  icon: {fileID: 0}
+  icon: {fileID: 1566761851324501434, guid: 2a9cd547792c05a4aa88a3e143eba78d, type: 3}
   description: Zavren produces an energizing bolt which he shoots at an enemy for
     a medium electro damage. This ability also decreases target's ATK by 30% for
     2 turns.

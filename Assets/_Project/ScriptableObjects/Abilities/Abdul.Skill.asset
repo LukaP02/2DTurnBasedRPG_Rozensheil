@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Abdul.Skill
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Kharian Special
-  icon: {fileID: 268288345900054466, guid: 30c10d272347b0842b1afe8c5d88022f, type: 3}
+  icon: {fileID: -4263865113880265335, guid: ce9647ca13ba2cf4dbfdd53093c54bee, type: 3}
   description: Abdul shanks a target for low damage.
   abilityType: 1
   spCost: 1

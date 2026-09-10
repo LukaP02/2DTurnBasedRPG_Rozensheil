@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Abdul.Ult.Heal
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: 'Command: Heal'
-  icon: {fileID: 0}
+  icon: {fileID: 7475836935178077409, guid: 78b8b44990c83914792bfa799f40d876, type: 3}
   description: Abdul discharges energy from his mechanical arm, dealing 80+200% ATK
     + 50% Speed Holy damage to 3 targets. Abdul heals for 80% of the damage dealt
     from this move.

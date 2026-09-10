@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zavren.Skill.Fire
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Fire Charge
-  icon: {fileID: 0}
+  icon: {fileID: -3528357656219536912, guid: f51eb07b8fbcfb249a6c0180f76ed0c2, type: 3}
   description: Zavren hurls fire missles on an enemy dealing medium damage or if
     cast at himself heals for the same amount.
   abilityType: 1

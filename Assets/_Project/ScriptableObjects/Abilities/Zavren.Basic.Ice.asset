@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zavren.Basic.Ice
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Ice Bolt
-  icon: {fileID: 0}
+  icon: {fileID: 2612031717660002171, guid: 8f5529c828827384291b4cbe0e4b010e, type: 3}
   description: 'Zavren fires an icy projectile on a single target dealing low ice
     damage with a very low chance of freezing the target. '
   abilityType: 0

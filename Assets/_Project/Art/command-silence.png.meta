@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 50ca279f277eabf49a381982b405fe53
+guid: 6c954ac4aa5e90c4b905f612ebe71ecf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2256384685524649423
-    second: focalor's-judgement_0
+      213: 8801778332508486440
+    second: command-silence_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: focalor's-judgement_0
+      name: command-silence_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 3
         y: 0
-        width: 380
-        height: 384
+        width: 377
+        height: 434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fc50459aae9405f10800000000000000
-      internalID: 2256384685524649423
+      spriteID: 82bf5e472c2362a70800000000000000
+      internalID: 8801778332508486440
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      focalor's-judgement_0: 2256384685524649423
+      command-silence_0: 8801778332508486440
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

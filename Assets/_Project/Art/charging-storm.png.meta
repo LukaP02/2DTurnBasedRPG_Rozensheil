@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 50ca279f277eabf49a381982b405fe53
+guid: 2a9cd547792c05a4aa88a3e143eba78d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2256384685524649423
-    second: focalor's-judgement_0
+      213: 1566761851324501434
+    second: charging-storm_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: focalor's-judgement_0
+      name: charging-storm_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 380
-        height: 384
+        height: 379
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fc50459aae9405f10800000000000000
-      internalID: 2256384685524649423
+      spriteID: abd84db4a914eb510800000000000000
+      internalID: 1566761851324501434
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      focalor's-judgement_0: 2256384685524649423
+      charging-storm_0: 1566761851324501434
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

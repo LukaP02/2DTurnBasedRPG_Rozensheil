@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Abdul.Ult.Buff
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: 'Command: Haste'
-  icon: {fileID: 0}
+  icon: {fileID: 2332700173614319542, guid: f7a5ac4b08e5bcf46ad414f0a6ddb62c, type: 3}
   description: Abdul discharges energy from his mechanical arm gaining greater reflexes.
     Abdul can act two times per turn for 3 turns.
   abilityType: 2

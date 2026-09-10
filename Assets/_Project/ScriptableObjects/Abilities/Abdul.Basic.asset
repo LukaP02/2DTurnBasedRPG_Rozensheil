@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Abdul.Basic
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Rapier Pierce
-  icon: {fileID: 0}
+  icon: {fileID: 4327215472545501956, guid: ae9c16cd81b6c5444ac8845e4aa6850c, type: 3}
   description: Abdul strikes a single target with his rapier dealing low physical
     damage.
   abilityType: 0

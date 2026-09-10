@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Raindorf.Ult.Sup
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Focalor's Judgement
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 50ca279f277eabf49a381982b405fe53, type: 3}
   description: 'Raindorf channels his divine authority to his Goddess asking for
     a favor:
 

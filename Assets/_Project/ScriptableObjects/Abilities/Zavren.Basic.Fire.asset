@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zavren.Basic.Fire
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Fire Bolt
-  icon: {fileID: 0}
+  icon: {fileID: 5229722933418092125, guid: 72cc1314934aa6047b28a6e5e2c2acae, type: 3}
   description: 'Zavren fires a fiery projectile on a single target dealing low fire
     damage. '
   abilityType: 0
@@ -28,6 +28,8 @@ MonoBehaviour:
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
+  castSound: {fileID: 0}
+  impactSound: {fileID: 0}
   canCrit: 1
   targetShape: 0
   targetSide: 0
@@ -41,3 +43,7 @@ MonoBehaviour:
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0
+  projectilePrefab: {fileID: 0}
+  projectileTravelSeconds: 0.4
+  impactEffectPrefab: {fileID: 0}
+  impactEffectDuration: 0.5
