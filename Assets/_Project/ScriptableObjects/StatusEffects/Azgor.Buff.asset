@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eec06ca7a9c4403c99cdaf9f9cb0bc03, type: 3}
-  m_Name: Raindorf.Shield
+  m_Name: Azgor.Buff
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectData
-  effectName: Shield
-  icon: {fileID: -638173576198958074, guid: 19c01c2ab1fee7145ad13d367cc7d132, type: 3}
-  description: This unit has a shield that absorbs damage until broken.
-  category: 1
+  effectName: Unmovable Determination
+  icon: {fileID: 2471006640865384186, guid: b238223e583c8de4d8009f911b785e77, type: 3}
+  description: This unit's Defence and Attack are increased by 30 and 20 respectively.
+  category: 0
   isDebuff: 0
   duration: 3
-  stackable: 1
-  maxStacks: 5
+  stackable: 0
+  maxStacks: 1
   modifiedStat: 0
   isPercent: 0
   flatAmount: 0
   percentAmount: 0
-  shieldAmount: 50
+  shieldAmount: 0
   skipTurn: 0
   silences: 0
   grantsDoubleAction: 0
   scaleWithAttack: 0
   attackScaling: 0
-  scaleWithDefense: 1
-  defenseScaling: 0.5
+  scaleWithDefense: 0
+  defenseScaling: 0
   scaleWithMaxHP: 0
   maxHPScaling: 0
   scaleWithSpeed: 0

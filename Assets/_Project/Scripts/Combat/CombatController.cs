@@ -576,17 +576,19 @@ public class CombatController : MonoBehaviour
         target.GainEnergy(DAMAGE_TAKEN_ENERGY_GAIN);
         OnDamageApplied?.Invoke(target, actualDamage, element, ability);
         OnTargetUpdated?.Invoke(target);
-        
 
-        if (target.CheckAndMarkDeath())
-            HandleDeath(target);
-        else
+        // Checked first and on purpose: at 0 HP, isAlive is already false, so a hit that kills a
+        // boss with a Phase Transition HP Percent of 0 must not fall into the death branch below -
+        // it needs to become Phase 2 instead of being processed as a real kill.
+        if (!TryTriggerPhaseTransition(target))
         {
-            TryTriggerPhaseTransition(target);
-            TryTriggerHpReinforcements(target);
+            if (target.CheckAndMarkDeath())
+                HandleDeath(target);
+            else
+                TryTriggerHpReinforcements(target);
         }
-        return actualDamage;
 
+        return actualDamage;
     }
 
     // Checks a still-living enemy's HP against its configured HP Triggered Reinforcement Percent and
@@ -697,15 +699,21 @@ public class CombatController : MonoBehaviour
     // Checks a still-living enemy's HP against its configured Phase Transition HP Percent. Fires at
     // most once per enemy (phaseTransitionProcessed) and pauses combat for the transition dialogue
     // via the same request/resolve pattern as the mid-battle wave-encounter dialogue.
-    private void TryTriggerPhaseTransition(CharacterInstance target)
+    // Checks a still-living enemy's HP against its configured Phase Transition HP Percent. Fires at
+    // most once per enemy (phaseTransitionProcessed) and pauses combat for the transition dialogue
+    // via the same request/resolve pattern as the mid-battle wave-encounter dialogue. Returns true if
+    // the transition fired this call, so DealDamage can treat that as taking priority over death - a
+    // hit that brings HP to exactly 0 would otherwise get processed as a real death first (isAlive is
+    // already false at 0 HP), which is wrong for a boss whose Phase Transition HP Percent is 0.
+    private bool TryTriggerPhaseTransition(CharacterInstance target)
     {
-        if (waitingForPhaseTransition) return;
-        if (target.phaseTransitionProcessed) return;
-        if (target.data.phaseTwoCard == null) return;
-        if (!turnOrder.enemies.Contains(target)) return;
+        if (waitingForPhaseTransition) return false;
+        if (target.phaseTransitionProcessed) return false;
+        if (target.data.phaseTwoCard == null) return false;
+        if (!turnOrder.enemies.Contains(target)) return false;
 
         float hpPercent = (float)target.currentHP / target.maxHP;
-        if (hpPercent > target.data.phaseTransitionHPPercent) return;
+        if (hpPercent > target.data.phaseTransitionHPPercent) return false;
 
         target.phaseTransitionProcessed = true;
         waitingForPhaseTransition = true;
@@ -715,6 +723,7 @@ public class CombatController : MonoBehaviour
             LogMessage(target.data.phaseTransitionMessage);
 
         OnPhaseTransitionRequested?.Invoke(target.data.phaseTransitionDialogue);
+        return true;
     }
 
     // Called once the phase-transition dialogue (if any) has closed. Removes the Phase 1 enemy from

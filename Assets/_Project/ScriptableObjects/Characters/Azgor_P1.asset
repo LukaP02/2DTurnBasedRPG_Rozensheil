@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd8ad134fa89724ebaaee07cf4c01d4, type: 3}
+  m_Name: Azgor_P1
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterCardData
+  characterName: Azgor
+  cardArt: {fileID: -2847048657661523345, guid: caac1ba1a00a76240b704a51bac009b7, type: 3}
+  icon: {fileID: 3573542943813701069, guid: 1fdc9e93757a66041b5efb50867e331f, type: 3}
+  deadArt: {fileID: 8515753132208691781, guid: 5492a8a90f58d0c4bbff6f01fa078cd8, type: 3}
+  description: 'Legend of Setekh, an ancient warrior who has lived for over four
+    hundred years. No one knows the secret to his long life, but he is deeply respected
+    as a follower of the Golden Path also known as the religion that worships Khar,
+    god of Strenght and Competition. Colloseum of Setekh was built under Azgor''s
+    order during his Conquering years as a gift to Kord hundred years ago. Each year
+    in Kord''s name, a tournament is being held in which criminals fight to the death
+    and their blood becomes a tribute to the God. '
+  isPlayableCharacter: 0
+  role: 1
+  maxHP: 1000
+  attack: 100
+  defense: 200
+  speed: 100
+  maxEnergy: 300
+  energyRechargeRate: 1
+  critRate: 0.05
+  threatWeight: 1
+  weaknesses: 
+  defaultResistancePercent: 0.2
+  resistances:
+  - element: 0
+    reductionPercent: 0.5
+  basicAbility: {fileID: 0}
+  basicOptions: []
+  skillOptions: []
+  ultimateOptions: []
+  defaultBasic: {fileID: 0}
+  defaultSkill: {fileID: 0}
+  defaultUltimate: {fileID: 0}
+  passive: {fileID: 11400000, guid: da87de48834cc3d4ca9bd2f62fae9a7a, type: 2}
+  hasForms: 0
+  normalFormBasic: {fileID: 0}
+  normalFormSkill: {fileID: 0}
+  demonFormBasic: {fileID: 0}
+  demonFormSkill: {fileID: 0}
+  demonFormArt: {fileID: 0}
+  phaseTwoCard: {fileID: 0}
+  phaseTransitionHPPercent: 0.5
+  phaseTransitionDialogue: {fileID: 0}
+  phaseTransitionMessage: A new form emerges!
+  hpTriggeredReinforcements: []
+  hpTriggeredReinforcementPercent: 0.5
+  hpTriggeredReinforcementMessage: 
+  extraBasicAbilities: []
+  extraSkillAbilities: []
+  extraUltimateAbilities: []
+  isBoss: 1
+  markIcon: {fileID: 0}

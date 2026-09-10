@@ -30,15 +30,15 @@ MonoBehaviour:
   energyRechargeRate: 1
   critRate: 0.05
   threatWeight: 1
-  weaknesses: 
-  defaultResistancePercent: 0
+  weaknesses: 0400000005000000
+  defaultResistancePercent: 0.1
   resistances: []
-  basicAbility: {fileID: 0}
+  basicAbility: {fileID: 11400000, guid: 5966baa402ba21244aa28a7cdc682088, type: 2}
   basicOptions: []
   skillOptions: []
   ultimateOptions: []
-  defaultBasic: {fileID: 0}
-  defaultSkill: {fileID: 0}
+  defaultBasic: {fileID: 11400000, guid: 5966baa402ba21244aa28a7cdc682088, type: 2}
+  defaultSkill: {fileID: 11400000, guid: d3722efbc3e2f2241883152dbbbfa6f8, type: 2}
   defaultUltimate: {fileID: 0}
   passive: {fileID: 0}
   hasForms: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dest.Shield
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectData
   effectName: Ice Barrier
-  icon: {fileID: 6677731270861431046, guid: 1870bfa56a741cc4aaa6df9ba7d96d16, type: 3}
+  icon: {fileID: 5881778774360294599, guid: b84fad6ceab51814485620f9f477d9fe, type: 3}
   description: 
   category: 1
   isDebuff: 0
