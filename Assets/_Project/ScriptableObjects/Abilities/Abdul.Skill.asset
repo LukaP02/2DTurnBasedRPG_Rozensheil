@@ -18,15 +18,15 @@ MonoBehaviour:
   abilityType: 1
   spCost: 1
   spGain: 0
-  power: 10
+  power: 20
   element: 0
   energyCost: 100
   stackableEnergy: 0
   maxEnergyStacks: 1
-  attackScaling: 1
+  attackScaling: 1.5
   maxHPScaling: 0
   defenseScaling: 0
-  speedScaling: 0
+  speedScaling: 0.5
   castSound: {fileID: 0}
   impactSound: {fileID: 0}
   canCrit: 1
@@ -37,7 +37,7 @@ MonoBehaviour:
   appliesMark: 0
   maxMarkStacks: 3
   consumesMark: 1
-  bonusDamagePerMarkStack: 15
+  bonusDamagePerMarkStack: 30
   lifestealPercent: 0
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0

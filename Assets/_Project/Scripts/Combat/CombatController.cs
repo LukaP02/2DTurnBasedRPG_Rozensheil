@@ -472,7 +472,7 @@ public class CombatController : MonoBehaviour
                     }
 
                     int rawDamage = CalculateDamage(user, target, ability, out bool wasCritOrWeakness) + bonusFromMarks;
-                    totalDamageDealt += DealDamage(target, rawDamage, ability.element);
+                    totalDamageDealt += DealDamage(user, target, rawDamage, ability.element, ability);
 
                     // Skip the shiver on a killing blow - the death-fade/dim visual takes over instead.
                     if (wasCritOrWeakness && target.isAlive)
@@ -568,7 +568,7 @@ public class CombatController : MonoBehaviour
     // Single entry point for applying damage: rolls the +/-10% variance, absorbs into shields,
     // then HP, then fires the shared events. Every damage source (abilities, stain combos) funnels
     // through here, so the variance roll applies uniformly without each call site handling it.
-    private int DealDamage(CharacterInstance target, int amount, ElementType element, AbilityData ability = null)
+    private int DealDamage(CharacterInstance attacker, CharacterInstance target, int amount, ElementType element, AbilityData ability = null)
     {
         int variedAmount = ApplyDamageVariance(amount);
         int actualDamage = target.AbsorbDamage(variedAmount);
@@ -583,12 +583,30 @@ public class CombatController : MonoBehaviour
         if (!TryTriggerPhaseTransition(target))
         {
             if (target.CheckAndMarkDeath())
+            {
                 HandleDeath(target);
+                TriggerOnKillPassive(attacker);
+            }
             else
                 TryTriggerHpReinforcements(target);
         }
 
         return actualDamage;
+    }
+
+    // Heals attacker if they carry an OnKill passive - fires only for the specific hit that
+    // actually killed target (CheckAndMarkDeath just returned true for it above), unlike
+    // TriggerOnAnyDeathPassives which broadcasts to every OnAnyDeath passive for any death in the fight.
+    private void TriggerOnKillPassive(CharacterInstance attacker)
+    {
+        if (attacker == null || !attacker.isAlive) return;
+        if (attacker.data.passive == null) return;
+        if (attacker.data.passive.trigger != PassiveTrigger.OnKill) return;
+
+        attacker.Heal(attacker.data.passive.value);
+        OnHealApplied?.Invoke(attacker, attacker.data.passive.value);
+        OnTargetUpdated?.Invoke(attacker);
+        AudioManager.Instance?.PlaySFX(attacker.data.passive.triggerSound);
     }
 
     // Checks a still-living enemy's HP against its configured HP Triggered Reinforcement Percent and
@@ -798,7 +816,7 @@ public class CombatController : MonoBehaviour
         if (isFireIce)
         {
             Debug.Log($"Stain combo (Fire+Ice): bonus damage to {target.data.characterName}.");
-            DealDamage(target, passive.fireIceBonusDamage, ElementType.Fire);
+            DealDamage(enabler, target, passive.fireIceBonusDamage, ElementType.Fire);
         }
         else if (isFireElectro)
         {
@@ -808,7 +826,7 @@ public class CombatController : MonoBehaviour
 
             foreach (var spreadTarget in spreadTargets)
             {
-                DealDamage(spreadTarget, passive.fireElectroSpreadDamage, ElementType.Fire);
+                DealDamage(enabler, spreadTarget, passive.fireElectroSpreadDamage, ElementType.Fire);
             }
         }
         else if (isIceElectro)

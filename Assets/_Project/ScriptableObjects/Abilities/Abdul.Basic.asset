@@ -19,7 +19,7 @@ MonoBehaviour:
   abilityType: 0
   spCost: 0
   spGain: 1
-  power: 18
+  power: 20
   element: 0
   energyCost: 100
   stackableEnergy: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
   attackScaling: 1
   maxHPScaling: 0
   defenseScaling: 0
-  speedScaling: 0
+  speedScaling: 0.2
   castSound: {fileID: 0}
   impactSound: {fileID: 0}
   canCrit: 1

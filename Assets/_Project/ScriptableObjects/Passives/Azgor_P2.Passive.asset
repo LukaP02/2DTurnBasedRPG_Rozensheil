@@ -15,7 +15,7 @@ MonoBehaviour:
   passiveName: Kord's Tribute
   description: 'After killing a target, Azgor heals for 150 Health. '
   trigger: 5
-  value: 0
+  value: 150
   triggerSound: {fileID: 0}
   bonusHPPercent: 0
   bonusAttackPercent: 0

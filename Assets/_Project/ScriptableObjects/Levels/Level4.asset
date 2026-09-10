@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level4
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: Azgor
-  location: Khar / Colosseum arena
+  location: Khar / Colosseum Arena
   previewDescription: A battle with the Champion is going to be fierce, better prepare
     yourselves.
   previewImage: {fileID: 0}
@@ -21,11 +21,13 @@ MonoBehaviour:
   unlocksOnComplete:
   - {fileID: 11400000, guid: 93fb02922b82fdd48925285eb60011ed, type: 2}
   combatBackground: {fileID: 0}
+  combatMusic: {fileID: 0}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 0}
   dialogueBeforePreEvent: 0
   promptPartySelectionBeforeCombat: 0
-  enemies: []
+  enemies:
+  - {fileID: 11400000, guid: 97f22a3bf691c90488bfc21c9e841d09, type: 2}
   postLevelEvent: {fileID: 0}
   postLevelDialogue: {fileID: 0}
   dialogueBeforePostEvent: 0

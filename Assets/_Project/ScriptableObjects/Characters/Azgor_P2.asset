@@ -58,8 +58,13 @@ MonoBehaviour:
   hpTriggeredReinforcements: []
   hpTriggeredReinforcementPercent: 0.5
   hpTriggeredReinforcementMessage: The Cyclops calls two wolves!
-  extraBasicAbilities: []
-  extraSkillAbilities: []
-  extraUltimateAbilities: []
-  isBoss: 0
+  extraBasicAbilities:
+  - {fileID: 11400000, guid: 32942213078f3c847b397d421499fe54, type: 2}
+  - {fileID: 11400000, guid: d08c9b1fad9d73342b20c1abfa3d1af8, type: 2}
+  extraSkillAbilities:
+  - {fileID: 11400000, guid: b7b24520a74d07941b5906814556fb08, type: 2}
+  - {fileID: 0}
+  extraUltimateAbilities:
+  - {fileID: 11400000, guid: 35536a0c8b3d87c4caee1b30a99fa2d6, type: 2}
+  isBoss: 1
   markIcon: {fileID: 0}

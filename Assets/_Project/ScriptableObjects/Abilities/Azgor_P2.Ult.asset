@@ -10,29 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
-  m_Name: Abdul.Ult.Heal
+  m_Name: Azgor_P2.Ult
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: 'Command: Heal'
+  abilityName: Divine Smite
   icon: {fileID: 0}
-  description: Abdul discharges energy from his mechanical arm, dealing 80+200% ATK
-    + 50% Speed Holy damage to 3 targets. Abdul heals for 80% of the damage dealt
-    from this move.
+  description: Azgor channels his Holy powers into his Greatsword and swing it at
+    a single target dealing high Holy Damage.
   abilityType: 2
   spCost: 0
   spGain: 0
   power: 80
   element: 3
-  energyCost: 160
+  energyCost: 200
   stackableEnergy: 0
   maxEnergyStacks: 1
-  attackScaling: 1.5
-  maxHPScaling: 0
+  attackScaling: 1.2
+  maxHPScaling: 0.05
   defenseScaling: 0
-  speedScaling: 0.5
+  speedScaling: 0
   castSound: {fileID: 0}
   impactSound: {fileID: 0}
   canCrit: 1
-  targetShape: 2
+  targetShape: 0
   targetSide: 0
   appliesStatusEffect: {fileID: 0}
   statusEffectChance: 1
@@ -40,7 +39,7 @@ MonoBehaviour:
   maxMarkStacks: 3
   consumesMark: 0
   bonusDamagePerMarkStack: 0
-  lifestealPercent: 0.8
+  lifestealPercent: 0
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0
