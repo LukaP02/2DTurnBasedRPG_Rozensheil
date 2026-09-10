@@ -44,6 +44,10 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public Button basicButton;
     public Button skillButton;
     public Button ultButton;
+    [Tooltip("Icon Image on each ability button - set to that ability's AbilityData.icon whenever the buttons are (re)shown. Leave a slot empty if that button has no separate icon child.")]
+    public Image basicButtonIcon;
+    public Image skillButtonIcon;
+    public Image ultButtonIcon;
 
     [Header("Status Icons")]
     public Transform statusIconContainer;
@@ -692,12 +696,12 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public void ShowActionButtons(AbilityData basic, AbilityData skill, AbilityData ult)
     {
         actionButtonsContainer.SetActive(true);
-        SetupButton(basicButton, basic);
-        SetupButton(skillButton, skill);
-        SetupButton(ultButton, ult);
+        SetupButton(basicButton, basicButtonIcon, basic);
+        SetupButton(skillButton, skillButtonIcon, skill);
+        SetupButton(ultButton, ultButtonIcon, ult);
     }
 
-    private void SetupButton(Button button, AbilityData ability)
+    private void SetupButton(Button button, Image icon, AbilityData ability)
     {
         if (ability == null)
         {
@@ -708,6 +712,9 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         button.gameObject.SetActive(true);
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => uiManager?.OnAbilitySelected(boundCharacter, ability));
+
+        if (icon != null)
+            icon.sprite = ability.icon;
     }
 
     public void HideActionButtons()
