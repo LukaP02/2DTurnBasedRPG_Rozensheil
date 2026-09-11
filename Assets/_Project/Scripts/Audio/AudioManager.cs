@@ -115,6 +115,33 @@ public class AudioManager : MonoBehaviour
         if (crossfadeRoutine != null) StopCoroutine(crossfadeRoutine);
         crossfadeRoutine = StartCoroutine(CrossfadeMusicRoutine(clip));
     }
+    // Fades whatever's currently playing out to silence instead of crossfading into a new track.
+    public void StopMusic()
+    {
+        currentMusicClip = null;
+
+        if (crossfadeRoutine != null) StopCoroutine(crossfadeRoutine);
+        crossfadeRoutine = StartCoroutine(FadeOutMusicRoutine());
+    }
+
+    private IEnumerator FadeOutMusicRoutine()
+    {
+        AudioSource outgoing = activeMusicSource;
+        float startVolume = outgoing.volume;
+        float elapsed = 0f;
+
+        while (elapsed < musicCrossfadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = musicCrossfadeDuration > 0f ? elapsed / musicCrossfadeDuration : 1f;
+            outgoing.volume = Mathf.Lerp(startVolume, 0f, t);
+            yield return null;
+        }
+
+        outgoing.Stop();
+        outgoing.volume = 1f;
+        crossfadeRoutine = null;
+    }
 
     private IEnumerator CrossfadeMusicRoutine(AudioClip clip)
     {

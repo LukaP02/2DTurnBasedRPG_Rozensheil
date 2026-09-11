@@ -17,3 +17,8 @@ MonoBehaviour:
     speakerPortrait: {fileID: 0}
     text: 
     backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  music: {fileID: 8300000, guid: e4dc44d6d98f608499885a7eeca506c3, type: 3}

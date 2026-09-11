@@ -55,6 +55,7 @@ public class DialogueController : MonoBehaviour
     private Coroutine flashCoroutine;
     private Sprite lastPortraitSprite;
     private bool suppressBackground;
+    private bool dialogueMusicActive;
 
     // Captured once (Awake) rather than re-read live each time the fade-slide plays - re-reading
     // the live position would let repeated mid-animation interruptions permanently drift the
@@ -133,6 +134,12 @@ public class DialogueController : MonoBehaviour
         isActive = true;
         lastPortraitSprite = null;
         this.suppressBackground = suppressBackground;
+        // Mid-battle/phase-transition dialogue (suppressBackground) never touches music - the
+        // combat track keeps playing underneath uninterrupted. Only normal dialogue (intro,
+        // post-level) switches to its own track, and only if one's actually assigned.
+        dialogueMusicActive = !suppressBackground && sequence.music != null;
+        if (dialogueMusicActive)
+            AudioManager.Instance?.PlayMusic(sequence.music);
 
         if (portraitImage != null)
         {
@@ -463,6 +470,14 @@ public class DialogueController : MonoBehaviour
         isTyping = false;
         currentSequence = null;
         dialoguePanel.SetActive(false);
+        // Stop the dialogue's own track (if one was playing) so whatever screen comes next starts
+        // from silence rather than this dialogue's music lingering - the next screen is responsible
+        // for starting its own music (GameFlowManager already does this for overworld/combat).
+        if (dialogueMusicActive)
+        {
+            AudioManager.Instance?.StopMusic();
+            dialogueMusicActive = false;
+        }
 
         OnDialogueEnded?.Invoke();
     }

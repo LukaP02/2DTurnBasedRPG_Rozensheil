@@ -2457,7 +2457,7 @@ MonoBehaviour:
   combatScreen: {fileID: 1140029267}
   defeatScreen: {fileID: 1852621484}
   victoryScreen: {fileID: 1147618770}
-  overworldMusic: {fileID: 0}
+  overworldMusic: {fileID: 8300000, guid: 7734a4170ce9fe84a8c79becf0dc65ce, type: 3}
   defaultCombatMusic: {fileID: 0}
   victoryStinger: {fileID: 0}
   defeatStinger: {fileID: 0}

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Ricky.End
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
   lines: []
+  music: {fileID: 8300000, guid: e4dc44d6d98f608499885a7eeca506c3, type: 3}
