@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e6ab000fae30449af21579ca9cebbf, type: 3}
   m_Name: Archer.Skill
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
-  abilityName: Volley
+  abilityName: Fire Volley
   icon: {fileID: 0}
-  description: Archer shoots a volley of arrows at the target in a spread pattern
-    dealing medium Physical damage.
+  description: Archer shoots a volley of flaming arrows at the target in a spread
+    pattern dealing medium Fire damage.
   abilityType: 1
   spCost: 3
   spGain: 0
   power: 30
-  element: 0
+  element: 1
   energyCost: 100
   stackableEnergy: 0
   maxEnergyStacks: 1
@@ -28,7 +28,7 @@ MonoBehaviour:
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
-  castSound: {fileID: 0}
+  castSound: {fileID: 8300000, guid: c06a13e787cb1984a9f7a7c06365fca9, type: 3}
   impactSound: {fileID: 0}
   canCrit: 0
   targetShape: 2

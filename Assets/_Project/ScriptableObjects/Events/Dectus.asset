@@ -12,13 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e70547d8134d5943ac3fafcae79c9dc, type: 3}
   m_Name: Dectus
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  title: 
-  description: 
+  title: Ruins of Dectus
+  description: You find the ruins of the tower collapsed around the hill enveloped
+    in this eternel snow. On your way into the fallen town, you notice blood traces
+    leading to an open platoe. There lied Olaf, bleeding but still alive. In front
+    of him a man in bandages pointing a Glaive at the dwarf. You choose to help the
+    man that saved you before, soon realizing that the bandaged man is blind. Still
+    he proved to be a serious threat, but not one that you could't conquer. Gods
+    only know how this would end had he not been robbed of his sight.
   image: {fileID: 0}
   backgroundImage: {fileID: 0}
   choices:
-  - choiceText: 
-    outcomeText: 
+  - choiceText: Continue
+    outcomeText: The fight was hard, but thanks to Olaf's determination he joined
+      the fight to help you. This was his grave mistake, as even he couldn't hold
+      the weight of his wounds. In the end he died fighting like a true warrior.
+      You took his sword and swore to return it to Wagner as his last memento.
     goldChange: 0
     hpChangePercent: 0
     recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []

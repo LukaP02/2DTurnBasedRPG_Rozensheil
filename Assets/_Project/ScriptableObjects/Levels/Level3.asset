@@ -23,6 +23,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a497becf27a8ecb43ac6376ab95e9cee, type: 2}
   - {fileID: 11400000, guid: 8583541639a07d34e827f52fcec83e64, type: 2}
   combatBackground: {fileID: 0}
+  combatMusic: {fileID: 8300000, guid: 4e016355f242aef4cbb112f96d710e8b, type: 3}
   preLevelEvent: {fileID: 11400000, guid: ff4853b9521a44a47a8e11c91c0a0462, type: 2}
   introDialogue: {fileID: 0}
   dialogueBeforePreEvent: 1

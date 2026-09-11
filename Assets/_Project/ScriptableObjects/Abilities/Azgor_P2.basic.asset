@@ -27,7 +27,7 @@ MonoBehaviour:
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
-  castSound: {fileID: 0}
+  castSound: {fileID: 8300000, guid: 767131b277b01a34991d309217dbecc7, type: 3}
   impactSound: {fileID: 0}
   canCrit: 1
   targetShape: 0

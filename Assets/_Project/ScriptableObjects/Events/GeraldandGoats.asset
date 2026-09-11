@@ -12,8 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e70547d8134d5943ac3fafcae79c9dc, type: 3}
   m_Name: GeraldandGoats
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  title: 
-  description: 
+  title: Gerald's Goats
+  description: On your way to the grassland, the goats started acting funny... All
+    of them broke off their leashes and started scattering in all directions. Getting
+    them back is now your first priority.
   image: {fileID: 0}
   backgroundImage: {fileID: 0}
-  choices: []
+  choices:
+  - choiceText: Ignore the goats and leave the village
+    outcomeText: You missed the part where that's your problem. Leaving the village
+      seems to be the best thing to do now. These goats are probably just happy to
+      stretch their legs for a while. They will come back on their own... surely.
+      Right?
+    goldChange: 0
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []
+  - choiceText: (Zavren) Use elemental magic
+    outcomeText: Zavren used his elemental magic to accelerate food growth for the
+      goats, after about 15 minutes they all returned to Gerald with their stomach's
+      full and Gerald happy. (+5 gold, + item)
+    goldChange: 5
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems:
+    - {fileID: 11400000, guid: b5978f5efd036c343b81cf7a09074f58, type: 2}
+    costItems: []
+  - choiceText: Chase after them
+    outcomeText: 'Each one of you took note of one goat and started chasing after
+      it. After about one hour of running around the village, you managed to catch
+      them all. This didn''t come without some acidents though... (+5 gold, -5% HP) '
+    goldChange: 5
+    hpChangePercent: 5
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []

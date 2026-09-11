@@ -21,7 +21,7 @@ MonoBehaviour:
   unlocksOnComplete:
   - {fileID: 11400000, guid: 93fb02922b82fdd48925285eb60011ed, type: 2}
   combatBackground: {fileID: 0}
-  combatMusic: {fileID: 0}
+  combatMusic: {fileID: 8300000, guid: 34caefe7978b6874ab6b1f6174d51468, type: 3}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 0}
   dialogueBeforePreEvent: 0

@@ -12,4 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2d31c0a575d374f9b00d77d5d88faf, type: 3}
   m_Name: CarriageRide
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
-  lines: []
+  lines:
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: After putting a stop to this sadistic tradition, you decide it is time
+      to go to the next destination.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: With the help of Henry, head of Abdul's group, you are granted a free ride
+      in one of his carriages.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: With the group now one member bigger, you feel confident with tackling
+      any challange that comes your way.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: At first four strangers, now five, you have a common goal that you want
+      to see to the end.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: This adventure has made you closer, but work is still to be done. You board
+      the carriage and wait for your arrival at EwigenStadt, misty city of DartMund.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0

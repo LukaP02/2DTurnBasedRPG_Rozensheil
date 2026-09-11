@@ -54,7 +54,7 @@ Material:
     - _AlphaCutoff: 0.5
     - _Cull: 2
     - _Dst: 10
-    - _EmissiveIntensity: 1
+    - _EmissiveIntensity: 5
     - _ErosionSmoothness: 0.6
     - _LUTAmplitude: 1
     - _LUTErosion: 0
