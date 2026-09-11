@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 2446189022778612136}
   - component: {fileID: 192244217638408561}
   - component: {fileID: 6624190804083583036}
+  - component: {fileID: 2948799062605504438}
   m_Layer: 5
   m_Name: ItemOptionButton
   m_TagString: Untagged
@@ -352,6 +353,19 @@ MonoBehaviour:
   nameText: {fileID: 6013813223772566277}
   button: {fileID: 192244217638408561}
   equippedHighlight: {fileID: 5501362586767485571}
+--- !u!114 &2948799062605504438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5643266061911099810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdc74db15cff9ec49a08e88ed81663d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonClickSFX
+  clickSound: {fileID: 8300000, guid: cf273707fee80ee4ea2a55b33625ae2e, type: 3}
 --- !u!1 &8732203509207702486
 GameObject:
   m_ObjectHideFlags: 0
