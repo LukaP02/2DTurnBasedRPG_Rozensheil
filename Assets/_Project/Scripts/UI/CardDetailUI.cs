@@ -72,8 +72,6 @@ public class CardDetailUI : MonoBehaviour
 
         PopulateAbilityRows(character);
 
-        PopulateAbilityRows(character);
-
         if (passiveIcon != null)
         {
             bool hasIcon = data.passive != null && data.passive.icon != null;
@@ -84,6 +82,8 @@ public class CardDetailUI : MonoBehaviour
 
         if (passiveText != null)
             passiveText.text = BuildPassiveText(data);
+
+        detailPanel.SetActive(true);
     }
 
     private void RefreshStatuses(CharacterInstance character)
