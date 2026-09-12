@@ -669,7 +669,19 @@ public class CombatController : MonoBehaviour
         if (!waitingForMidBattleSequence)
             TrySpawnReinforcement();
     }
+    // Boss phase transitions swap the Phase 1 CharacterInstance out for a brand new Phase 2 one
+    // (see CombatController.ResolvePhaseTransition) - Phase 1's card needs to actually leave the
+    // field for this, same fade-then-destroy treatment as a wave-encounter death, or it just sits
+    // there forever alongside Phase 2's card since it was never really "killed".
+    private void HandleEnemyRemoved(CharacterInstance enemy)
+    {
+        if (!cardLookup.TryGetValue(enemy, out var card)) return;
 
+        cardLookup.Remove(enemy);
+        enemySlotAssignment.Remove(enemy);
+
+        card.PlayDeathFadeOut(() => Destroy(card.gameObject));
+    }
     private void TrySpawnReinforcement()
     {
         if (maxEnemiesOnField <= 0 || reinforcementQueue.Count == 0)

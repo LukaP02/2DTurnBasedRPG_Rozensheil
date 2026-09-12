@@ -92,6 +92,7 @@ public class CombatUIManager : MonoBehaviour
         combatController.OnHealApplied += HandleHealApplied;
         combatController.OnCombatLogMessage += HandleCombatLogMessage;
         combatController.OnEnemyReinforced += HandleEnemyReinforced;
+        combatController.OnEnemyRemoved += HandleEnemyRemoved;
         combatController.OnFormSwitched += HandleFormSwitched;
         combatController.OnCriticalOrWeaknessHit += HandleCriticalOrWeaknessHit;
         combatController.OnRequestImpactEffect += HandleRequestImpactEffect;
@@ -108,6 +109,7 @@ public class CombatUIManager : MonoBehaviour
             combatController.OnHealApplied -= HandleHealApplied;
             combatController.OnCombatLogMessage -= HandleCombatLogMessage;
             combatController.OnEnemyReinforced -= HandleEnemyReinforced;
+            combatController.OnEnemyRemoved -= HandleEnemyRemoved;
             combatController.OnFormSwitched -= HandleFormSwitched;
             combatController.OnCriticalOrWeaknessHit -= HandleCriticalOrWeaknessHit;
             combatController.OnRequestImpactEffect -= HandleRequestImpactEffect;
@@ -329,8 +331,10 @@ public class CombatUIManager : MonoBehaviour
             kvp.Value.SetActiveTurn(kvp.Key == combatController.ActiveActor);
             kvp.Value.HideActionButtons();
             kvp.Value.SetTargetHighlight(false, enemyTargetColor);
-            kvp.Value.SetHPBarVisible(true); // reset; overridden below for the current boss, if any
-            kvp.Value.SetEnergyBarVisible(true);
+            // Reset to alive-matching visibility; overridden below for the current living boss's
+            // own bars (replaced by the dedicated boss bar UI) - a dead card just stays hidden.
+            kvp.Value.SetHPBarVisible(kvp.Key.isAlive);
+            kvp.Value.SetEnergyBarVisible(kvp.Key.isAlive);
         }
 
         RefreshBossBars();
@@ -815,5 +819,14 @@ public class CombatUIManager : MonoBehaviour
             .ToList();
 
         combatController.SetEnemyVisualOrder(ordered);
+    }
+    private void HandleEnemyRemoved(CharacterInstance enemy)
+    {
+        if (!cardLookup.TryGetValue(enemy, out var card)) return;
+
+        cardLookup.Remove(enemy);
+        enemySlotAssignment.Remove(enemy);
+
+        card.PlayDeathFadeOut(() => Destroy(card.gameObject));
     }
 }

@@ -99,6 +99,7 @@ public class EventController : MonoBehaviour
                            // properly takes effect.
 
         target.text = fullText;
+        target.maxVisibleCharacters = 0; // re-assert - assigning .text can reset this on its own
         target.ForceMeshUpdate();
 
         int totalChars = target.textInfo.characterCount;

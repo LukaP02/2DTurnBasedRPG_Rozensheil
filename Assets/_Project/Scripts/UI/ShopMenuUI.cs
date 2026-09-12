@@ -18,7 +18,11 @@ public class ShopMenuUI : MonoBehaviour
     public TMP_Text selectedItemNameText;
     public TMP_Text selectedItemDescriptionText;
 
-    private void Start()
+    // OnEnable rather than Start - the panel is only ever shown/hidden via SetActive (see
+    // OverworldMenuUI), so Start would only ever run once at scene load and gold/stock would go
+    // stale after that (e.g. gold earned from a level wouldn't show until the next scene reload).
+    // OnEnable re-runs every time the shop is actually opened.
+    private void OnEnable()
     {
         if (selectedItemPanel != null)
             selectedItemPanel.SetActive(false);
@@ -65,7 +69,11 @@ public class ShopMenuUI : MonoBehaviour
     {
         bool success = PartyManager.Instance.TryPurchase(item);
 
-        if (!success)
+        if (success)
+        {
+            AudioManager.Instance?.PlaySFX(purchaseSound);
+        }
+        else
         {
             Debug.Log($"Could not purchase {item.itemName} (insufficient gold or already owned).");
         }

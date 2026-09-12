@@ -29,4 +29,63 @@ MonoBehaviour:
     flashFadeInSeconds: -1
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
+  - speakerName: Raindorf
+    speakerPortrait: {fileID: 21300000, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    text: 'Whoa, that is an expesive ride. Doesn''t seem to be from these parts. '
+    backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ???
+    speakerPortrait: {fileID: 21300000, guid: 7ca186b6bf414e44a9826793b41c0019, type: 3}
+    text: Ho- what do we have here? Well, hello there strangers!
+    backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ???
+    speakerPortrait: {fileID: 21300000, guid: 7ca186b6bf414e44a9826793b41c0019, type: 3}
+    text: What a colorful cast of characters you are, Messieurs. Certainly not something
+      you see everyday, espacially this far North.
+    backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: Same to you friend, not everyday you see an beautiful carriage with stellarons
+      like that.
+    backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ALESSI
+    speakerPortrait: {fileID: 21300000, guid: 7ca186b6bf414e44a9826793b41c0019, type: 3}
+    text: 'Merci mon ami, merci. Ah where are my manners, my name is ALESSI the greatest
+      fashion designer that ever lived in the whole of RozensHeil. '
+    backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: A fashion designer? That sounds - interesting? What brings you here?
+    backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ALESSI
+    speakerPortrait: {fileID: 21300000, guid: 7ca186b6bf414e44a9826793b41c0019, type: 3}
+    text: 'Well thank you for asking, young boy. It is my sense of adventure and '
+    backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   music: {fileID: 8300000, guid: e4dc44d6d98f608499885a7eeca506c3, type: 3}
