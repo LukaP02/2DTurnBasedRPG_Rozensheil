@@ -20,7 +20,7 @@ MonoBehaviour:
     He is basicaly a walking corpse and may have been for a long time. That would
     explain how he could live for all these years. Even so, this power couldn't be
     infinite, this resurrection must have used a lot of power out of the gem.
-  isPlayableCharacter: 1
+  isPlayableCharacter: 0
   role: 0
   maxHP: 800
   attack: 80
@@ -37,7 +37,7 @@ MonoBehaviour:
     reductionPercent: 0.9
   - element: 2
     reductionPercent: 0.5
-  basicAbility: {fileID: 0}
+  basicAbility: {fileID: 11400000, guid: 32942213078f3c847b397d421499fe54, type: 2}
   basicOptions: []
   skillOptions: []
   ultimateOptions: []

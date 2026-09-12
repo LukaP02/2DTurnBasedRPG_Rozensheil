@@ -12,5 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2d31c0a575d374f9b00d77d5d88faf, type: 3}
   m_Name: Ricky.End
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
-  lines: []
+  lines:
+  - speakerName: ALESSI
+    speakerPortrait: {fileID: 21300000, guid: 7ca186b6bf414e44a9826793b41c0019, type: 3}
+    text: Bonjour, mes ami! Tell me, how happy are you to have stumbled upon me again!
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Ricky
+    speakerPortrait: {fileID: 0}
+    text: Master ALESSI, i bring the items you requested, these fine gentlemen, they
+      helped me get the items back from a desperate thief.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: ALESSI
+    speakerPortrait: {fileID: 21300000, guid: 7ca186b6bf414e44a9826793b41c0019, type: 3}
+    text: You don't say, my boy. Well then, i must extend my thanks to you lot. What
+      fine gentlemen you are indeed. I knew i saw something in those eyes, my gut
+      feeling never lies!
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: ALESSI
+    speakerPortrait: {fileID: 21300000, guid: 7ca186b6bf414e44a9826793b41c0019, type: 3}
+    text: Well then, as a reward for your selflessness, the usual...
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
   music: {fileID: 8300000, guid: e4dc44d6d98f608499885a7eeca506c3, type: 3}

@@ -40,7 +40,9 @@ public class PassiveData : ScriptableObject
     [Tooltip("Fire + Electro: bonus damage that spreads to the target's neighbors too")]
     public int fireElectroSpreadDamage;
 
-    [Tooltip("Ice + Electro: DEF shred")]
-    public int defShredAmount;
+    [Tooltip("Ice + Electro: DEF shred, as a percent of the target's Defense (0.2 = -20%).")]
+    [Range(0f, 1f)] public float defShredPercent;
     public int defShredDuration;
+    [Tooltip("Icon shown for the DEF Shred status effect in the card detail panel. Leave empty to show it with no icon, just the label.")]
+    public Sprite defShredIcon;
 }

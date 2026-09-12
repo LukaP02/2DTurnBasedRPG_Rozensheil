@@ -13,10 +13,136 @@ MonoBehaviour:
   m_Name: 3.End
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
   lines:
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: We made it, thank the Gods. I though that I would spend the rest of my
+      time in there.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: No way. You are a skilled fighter Dest. Surviving there would be a trivial
+      thing for you.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: I suppose, but the mental pressure it has on you... it can break a man
+      much more than any physical trauma.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: The magic absorbing walls in those cells don't help the case either.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: Agreed. I just hope Raindorf is ok.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: It is unfortunate that we were seperated. Still we have to gather our strenght
+      if we think to get out of here alive. The escape has just begun.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: 8519536599c40ae47a63c37549b69ffe, type: 3}
+    text: Don't worry, that was definetly the hardest part. Now, we need the clothes.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: Here, I found it on our way out.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
   - speakerName: 
     speakerPortrait: {fileID: 0}
-    text: 
-    backgroundImage: {fileID: 0}
+    text: You all get dressed.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: So, how do we get Raindorf back?
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: Well, I know a guy... He used to be a coworker. I could ask him for some
+      help.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: Is he reliable? Can he be trusted?
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: Of course... the trusted part. When it comes to being reliable... well,
+      he gets by, i guess.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: bb680456bc018df4c966efbe0232b4d6, type: 3}
+    text: Honestly, sounds like our best bet. I'm in.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: I don't hear a better plan, so...
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: ... Alright.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
     flashFadeInSeconds: -1
     flashHoldSeconds: -1

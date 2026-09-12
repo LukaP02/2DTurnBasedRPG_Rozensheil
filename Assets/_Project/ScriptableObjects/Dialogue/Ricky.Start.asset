@@ -12,5 +12,202 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2d31c0a575d374f9b00d77d5d88faf, type: 3}
   m_Name: Ricky.Start
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
-  lines: []
+  lines:
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: Good thing we got our clothes back, makes it easier to blend in.
+    backgroundImage: {fileID: -8729184345987915486, guid: a44f559a6e54c094daec21594f191ba7, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: bb680456bc018df4c966efbe0232b4d6, type: 3}
+    text: Indeed, but I must say, the lack of guards in the city worries me.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: That is because they are ocuppied with reinforcing the colosseum. Most
+      of them are there during the day while the games are on.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: Hey, isn't that.. Ricky, ALESSI's buttler.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: Oh, yeah, that is him. Should we say hello?
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: I'm not sure that is the best idea. We are still wanted in this town. Who
+      knows if he is to be trused
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: Come on Sifur, you know him, he isn't a snitch. I can tell.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: It's S- uh, never mind. Listen, you can never be too sure about these things.
+      Besides what makes you think he won't snitch us. We are wanted and probably
+      worth a good sum of gold.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: I am a good judge of character. Telling what someone is thinking about
+      is easy for me. That is how I got to where I am now.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: Where you are now? Hiding from the law as a fugitive. Great judge of character,
+      kid.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: Ricky spots you from a far and starts going towards you.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: bb680456bc018df4c966efbe0232b4d6, type: 3}
+    text: Guys, I think your friend spotted you.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: Well, there you go, I guess that is fate for you. Hey, Ricky, long time
+      no see!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Ricky
+    speakerPortrait: {fileID: 0}
+    text: Monsieur Abdul, pleasure to see you. Mes ami, i'm honored to see you well.
+      What brings you here?
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: Long story, but we are looking for a place to crash for a time. Also we
+      will need to get Raindorf from the Colosseum.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Ricky
+    speakerPortrait: {fileID: 0}
+    text: Ah, mensieur Raindorf is in the colosseum? Must be a fan of the tournament.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: Haha...  Something like that. What brings you here?
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Ricky
+    speakerPortrait: {fileID: 0}
+    text: Ah, just running some errands for Master ALESSI. Getting some food, some
+      special silk and threads. Oh and also this...
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: Ricky shows you a small jewel box. The reflection from the Sun makes it
+      stand out so beautifuly.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Ricky
+    speakerPortrait: {fileID: 0}
+    text: Take a look, it's a rare gem only found in Setekh mines. Precious stone
+      with changing color depending on the angle you look at it from.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: As soon as Ricky opened the box, a passerby in the hood takes the chance
+      to snatch the stone from it's box.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Ricky
+    speakerPortrait: {fileID: 0}
+    text: WAIT, DON'T! DEAR FOCALOR, PLEASE BE MERCIFUL!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: No way he tried that. Come on quick!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
   music: {fileID: 8300000, guid: 8304d5d84951d95428ef7af8e3bd4167, type: 3}

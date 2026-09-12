@@ -28,5 +28,6 @@ MonoBehaviour:
   bonusSpeedPercent: 0
   fireIceBonusDamage: 80
   fireElectroSpreadDamage: 40
-  defShredAmount: 80
-  defShredDuration: 2
+  defShredPercent: 0.4
+  defShredDuration: 3
+  defShredIcon: {fileID: -2308616684755886630, guid: fc4c38d156221f14293cfda3033bd813, type: 3}

@@ -863,7 +863,7 @@ public class CombatController : MonoBehaviour
         else if (isIceElectro)
         {
             Debug.Log($"Stain combo (Ice+Electro): {target.data.characterName} DEF shredded.");
-            target.ApplyRawStatModifier("DEF Shred", ModifiedStat.Defense, -passive.defShredAmount, passive.defShredDuration, enabler);
+            target.ApplyRawStatModifier("DEF Shred", ModifiedStat.Defense, -passive.defShredPercent, passive.defShredDuration, enabler, passive.defShredIcon);
         }
     }
 

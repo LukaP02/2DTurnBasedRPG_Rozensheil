@@ -348,16 +348,17 @@ public class CharacterInstance
     }
 
     // For procedurally generated modifiers that don't have a backing asset (e.g. stain-combo DEF shred).
-    public void ApplyRawStatModifier(string label, ModifiedStat stat, int flatDelta, int duration, CharacterInstance source)
+    public void ApplyRawStatModifier(string label, ModifiedStat stat, float percentAmount, int duration, CharacterInstance source, Sprite icon = null)
     {
         activeEffects.Add(new ActiveStatusEffect
         {
             label = label,
+            icon = icon,
             category = StatusEffectCategory.StatModifier,
-            isDebuff = flatDelta < 0,
+            isDebuff = percentAmount < 0,
             modifiedStat = stat,
-            isPercent = false,
-            flatAmount = flatDelta,
+            isPercent = true,
+            percentAmount = percentAmount,
             turnsRemaining = duration,
             stackCount = 1,
             maxStacks = 1,
