@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sicur.Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveData
   passiveName: Fiendish Vigor
+  icon: {fileID: -7313545990615908080, guid: 366d4c1803326574d953c5cffd9d89c6, type: 3}
   description: Sicur's patron rewards him with vitality any time he witnesses a death.
   trigger: 6
   value: 60

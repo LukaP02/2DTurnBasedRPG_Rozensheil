@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: Dest.Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveData
   passiveName: Dragon's Presence
+  icon: {fileID: -8662838577868627879, guid: 7a405005c08bd0b4b8f66a2043b904ab, type: 3}
   description: Dest emits an intimidating presence making him twice as likely to
     be targeted.
   trigger: 0
   value: 0
+  triggerSound: {fileID: 0}
   bonusHPPercent: 0
   bonusAttackPercent: 0
   bonusDefensePercent: 0
   bonusSpeedPercent: 0
+  fireIceBonusDamage: 0
+  fireElectroSpreadDamage: 0
+  defShredAmount: 0
+  defShredDuration: 0

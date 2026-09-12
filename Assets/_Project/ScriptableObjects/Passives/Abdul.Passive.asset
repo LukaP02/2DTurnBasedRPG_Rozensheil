@@ -13,12 +13,18 @@ MonoBehaviour:
   m_Name: Abdul.Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveData
   passiveName: Assassin's Mark
+  icon: {fileID: 5529675976791732734, guid: fcc4bf9b4308da74fb1591945c3ecbad, type: 3}
   description: When Abdul uses his Rapier Slash it applies a mark to the target up
     to 3 marks. Using any of Abdul's Skills consumes the mark for extra damage based
     on the number of marks consumed.
   trigger: 0
   value: 0
+  triggerSound: {fileID: 0}
   bonusHPPercent: 0
   bonusAttackPercent: 0
   bonusDefensePercent: 0
   bonusSpeedPercent: 0
+  fireIceBonusDamage: 0
+  fireElectroSpreadDamage: 0
+  defShredAmount: 0
+  defShredDuration: 0

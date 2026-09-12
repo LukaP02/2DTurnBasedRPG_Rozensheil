@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Raindorf.Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveData
   passiveName: Dwarven Might
+  icon: {fileID: -6673962448316839779, guid: c2ad11e602fd53f4a80cf25ba35057f8, type: 3}
   description: Raindorf gains bonus Health and Defense based on 20% of his max Health
     and Defense respectively.
   trigger: 8
   value: 0
+  triggerSound: {fileID: 0}
   bonusHPPercent: 0.2
   bonusAttackPercent: 0
   bonusDefensePercent: 0.2

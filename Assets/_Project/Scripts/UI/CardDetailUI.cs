@@ -33,6 +33,7 @@ public class CardDetailUI : MonoBehaviour
     [Tooltip("Container the ability rows get instantiated into - one AbilityRowUI per active ability.")]
     public Transform abilityListContainer;
     public GameObject abilityRowPrefab;
+    public Image passiveIcon;
     public TMP_Text passiveText;
 
 
@@ -71,10 +72,18 @@ public class CardDetailUI : MonoBehaviour
 
         PopulateAbilityRows(character);
 
+        PopulateAbilityRows(character);
+
+        if (passiveIcon != null)
+        {
+            bool hasIcon = data.passive != null && data.passive.icon != null;
+            passiveIcon.gameObject.SetActive(hasIcon);
+            if (hasIcon)
+                passiveIcon.sprite = data.passive.icon;
+        }
+
         if (passiveText != null)
             passiveText.text = BuildPassiveText(data);
-
-        detailPanel.SetActive(true);
     }
 
     private void RefreshStatuses(CharacterInstance character)
@@ -153,7 +162,7 @@ public class CardDetailUI : MonoBehaviour
         if (data.passive == null)
             return "None";
 
-        string text = $"<b>{data.passive.passiveName}</b>";
+        string text = $"<b>{data.passive.passiveName} (Passive)</b>";
         if (!string.IsNullOrEmpty(data.passive.description))
             text += $"\n{data.passive.description}";
 

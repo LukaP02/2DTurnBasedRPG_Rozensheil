@@ -18,6 +18,7 @@ public class PassiveData : ScriptableObject
 {
     [Header("Identity")]
     public string passiveName;
+    public Sprite icon;
     [TextArea] public string description;
 
     [Header("Behavior")]
