@@ -23,16 +23,16 @@ MonoBehaviour:
   combatBackground: {fileID: 0}
   combatMusic: {fileID: 8300000, guid: 34caefe7978b6874ab6b1f6174d51468, type: 3}
   preLevelEvent: {fileID: 0}
-  introDialogue: {fileID: 0}
+  introDialogue: {fileID: 11400000, guid: f4775677a6cf7f34d8ba351d7fdb4202, type: 2}
   dialogueBeforePreEvent: 0
   promptPartySelectionBeforeCombat: 0
   enemies:
   - {fileID: 11400000, guid: 97f22a3bf691c90488bfc21c9e841d09, type: 2}
   postLevelEvent: {fileID: 0}
-  postLevelDialogue: {fileID: 0}
+  postLevelDialogue: {fileID: 11400000, guid: f2f1c2cd0e5d0a94aa20092a0154382c, type: 2}
   dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0
   reinforcementPool: []
   killTarget: 0
-  midBattleDialogue: {fileID: 0}
+  midBattleDialogue: {fileID: 11400000, guid: 8ea736e4e35edb4499729c2f5bacd230, type: 2}
   wipeMessage: The remaining enemies are struck down!

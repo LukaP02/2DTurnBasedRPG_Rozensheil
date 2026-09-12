@@ -23,15 +23,15 @@ public class EventController : MonoBehaviour
 
     [Header("Typewriter Effect")]
     [Tooltip("Title, then Description, type out on the prompt panel (choices stay hidden until both finish); Outcome Text does the same on the outcome panel (Continue button stays hidden until it finishes).")]
-    public float typewriterSecondsPerChar = 0.02f;
+    public float typewriterSecondsPerChar = 0.05f;
     [Tooltip("Blank pause before each panel starts typing - one beat before the prompt panel's title, and one beat before the outcome panel's text.")]
     public float delayBeforeTypewriter = 1f;
     [Tooltip("Played once per revealed character while text types out (skipped for whitespace). Leave empty for a silent typewriter.")]
     public AudioClip typewriterBlipSound;
-    [Tooltip("Base pitch the blip plays at - turn this down (e.g. 0.7) if your clip sounds too high-pitched.")]
-    [Range(0.1f, 2f)] public float typewriterBlipBasePitch = 1f;
-    [Tooltip("Each blip's pitch is randomized by +/- this much around the base pitch (0.15 = +/-15%) so a fast repeated sound doesn't sound mechanical.")]
-    [Range(0f, 0.5f)] public float typewriterBlipPitchVariance = 0.15f;
+    [Tooltip("Playback speed for the blip sound (1 = normal/unchanged). Below 1 plays it slower and lower, above 1 faster and higher.")]
+    [Range(0.1f, 2f)] public float typewriterBlipSpeed = 1f;
+    [Tooltip("Volume multiplier for the blip sound (1 = clip's own volume, unchanged). Can go above 1 to boost a quiet clip.")]
+    [Range(0f, 3f)] public float typewriterBlipVolume = 1f;
 
     [NonSerialized] public List<CharacterInstance> currentParty;
 
@@ -44,20 +44,34 @@ public class EventController : MonoBehaviour
     private bool isTyping;
     private bool skipTypewriter;
 
-    // Dedicated AudioSource rather than routing through AudioManager's shared SFX pool - lets each
-    // new blip cut off the previous one (Stop() in PlayTypewriterBlip) instead of letting several
-    // overlapping copies ring out and stack into a wall of sound that outlasts the visible typing.
+    // Single source, not a pool - a typewriter click is meant to interrupt the previous one, like
+    // a real key striking mid-clack. Playing a full fresh copy of the clip per character without
+    // cutting the last one off (the earlier pooled version) let several copies of the same clip
+    // overlap slightly out of phase, which is what made it sound flangy/weird instead of like the
+    // clip itself. Cutting the previous voice each time keeps only one clean copy playing at once.
     private AudioSource typewriterBlipSource;
 
     private void Awake()
     {
         if (eventPanel != null) eventPanel.SetActive(false);
         if (outcomePanel != null) outcomePanel.SetActive(false);
+    }
 
-        typewriterBlipSource = gameObject.AddComponent<AudioSource>();
-        typewriterBlipSource.playOnAwake = false;
-        if (AudioManager.Instance != null)
-            typewriterBlipSource.outputAudioMixerGroup = AudioManager.Instance.sfxMixerGroup;
+    // Created lazily on first use rather than in Awake - Awake() ordering between EventController
+    // and AudioManager isn't guaranteed, so grabbing AudioManager.Instance.sfxMixerGroup there could
+    // silently skip the mixer routing if AudioManager's own Awake hadn't set Instance yet. By the
+    // time an event actually plays, every Awake in the scene has long since run.
+    private AudioSource EnsureBlipSource()
+    {
+        if (typewriterBlipSource == null)
+        {
+            typewriterBlipSource = gameObject.AddComponent<AudioSource>();
+            typewriterBlipSource.playOnAwake = false;
+            if (AudioManager.Instance != null)
+                typewriterBlipSource.outputAudioMixerGroup = AudioManager.Instance.sfxMixerGroup;
+        }
+
+        return typewriterBlipSource;
     }
 
     public void StartEvent(EventData eventData)
@@ -164,21 +178,28 @@ public class EventController : MonoBehaviour
         skipTypewriter = false;
 
         // Cut the blip off the instant typing stops (whether it finished or was skipped) - without
-        // this, whatever the clip's own natural length is keeps ringing out after the text is done.
+        // this, whatever the last note's natural length is keeps ringing out after the text is done.
         typewriterBlipSource?.Stop();
     }
 
     private void PlayTypewriterBlip()
     {
-        if (typewriterBlipSound == null || typewriterBlipSource == null) return;
+        if (typewriterBlipSound == null) return;
 
-        // Stop the previous blip before starting the next one - back-to-back characters at a fast
-        // typewriterSecondsPerChar would otherwise overlap several copies of the clip on top of
-        // each other, which is what made it sound like it dragged on past the last character.
-        typewriterBlipSource.Stop();
-        typewriterBlipSource.pitch = typewriterBlipBasePitch + UnityEngine.Random.Range(-typewriterBlipPitchVariance, typewriterBlipPitchVariance);
-        typewriterBlipSource.clip = typewriterBlipSound;
-        typewriterBlipSource.Play();
+        AudioSource source = EnsureBlipSource();
+
+        // Stop the previous blip before starting the next one - this is what keeps each keystroke
+        // sounding like a single clean play of the clip instead of several overlapping copies
+        // layering into a flangy mess.
+        source.Stop();
+
+        // AudioSource.pitch also controls playback speed - this is the actual "how fast does the
+        // clip itself play" knob, separate from typewriterSecondsPerChar (which only controls how
+        // often a new blip fires).
+        source.pitch = typewriterBlipSpeed;
+        source.volume = typewriterBlipVolume;
+        source.clip = typewriterBlipSound;
+        source.Play();
     }
 
     // Click-to-fast-forward, same idea as DialogueController.AdvanceDialogue - completes whichever

@@ -25,7 +25,7 @@ MonoBehaviour:
   combatBackground: {fileID: 1661176648179860357, guid: 48842e044c6dd7e4d8091c334e117454, type: 3}
   combatMusic: {fileID: 8300000, guid: 4e016355f242aef4cbb112f96d710e8b, type: 3}
   preLevelEvent: {fileID: 11400000, guid: ff4853b9521a44a47a8e11c91c0a0462, type: 2}
-  introDialogue: {fileID: 0}
+  introDialogue: {fileID: 11400000, guid: 01af42908f411fa4289bdc359a691d6e, type: 2}
   dialogueBeforePreEvent: 1
   promptPartySelectionBeforeCombat: 1
   enemies:
@@ -33,7 +33,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
   - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
   postLevelEvent: {fileID: 11400000, guid: d0a007d62b9ff2a4494c96b6ddbb28b4, type: 2}
-  postLevelDialogue: {fileID: 0}
+  postLevelDialogue: {fileID: 11400000, guid: 4ae8d7e0cafbf6a41b742760894c66e7, type: 2}
   dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0
   reinforcementPool: []

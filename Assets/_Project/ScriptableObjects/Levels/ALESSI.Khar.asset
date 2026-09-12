@@ -22,13 +22,13 @@ MonoBehaviour:
   combatBackground: {fileID: 0}
   combatMusic: {fileID: 0}
   preLevelEvent: {fileID: 11400000, guid: 453ac220e852c444f8fe7647cf125c54, type: 2}
-  introDialogue: {fileID: 0}
-  dialogueBeforePreEvent: 0
+  introDialogue: {fileID: 11400000, guid: 8eb59b71e6d5bb84e9312741efa367fe, type: 2}
+  dialogueBeforePreEvent: 1
   promptPartySelectionBeforeCombat: 0
   enemies: []
   postLevelEvent: {fileID: 11400000, guid: 840ad322993f791499df798bba168dd3, type: 2}
-  postLevelDialogue: {fileID: 0}
-  dialogueBeforePostEvent: 0
+  postLevelDialogue: {fileID: 11400000, guid: 653681f3c24f425439ebfccce1e63f64, type: 2}
+  dialogueBeforePostEvent: 1
   maxEnemiesOnField: 0
   reinforcementPool: []
   killTarget: 0

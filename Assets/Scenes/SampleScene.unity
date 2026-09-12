@@ -14731,10 +14731,10 @@ MonoBehaviour:
   outcomeText: {fileID: 2019285663}
   outcomeContinueButton: {fileID: 760625497}
   typewriterSecondsPerChar: 0.02
-  delayBeforeTypewriter: 1
+  delayBeforeTypewriter: 0.5
   typewriterBlipSound: {fileID: 8300000, guid: 0e477efb508caae4ab5780c99d950e6d, type: 3}
-  typewriterBlipBasePitch: 0.8
-  typewriterBlipPitchVariance: 0.1
+  typewriterBlipSpeed: 1
+  typewriterBlipVolume: 0
 --- !u!4 &1550024062
 Transform:
   m_ObjectHideFlags: 0
