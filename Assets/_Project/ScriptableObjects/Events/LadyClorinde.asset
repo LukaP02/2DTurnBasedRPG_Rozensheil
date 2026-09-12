@@ -12,8 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e70547d8134d5943ac3fafcae79c9dc, type: 3}
   m_Name: LadyClorinde
   m_EditorClassIdentifier: Assembly-CSharp::EventData
-  title: 
-  description: 
+  title: Woman with a gemmed necklace
+  description: 'As you are about to pay for your stay in the inn, a mysterious person
+    catches your attention. Hooded woman with a necklace made of rubies. Her gaze
+    pierces your eyes, making it hard to keep eye contact. You decide to ignore it,
+    after all the journey here was too tiring, you could only think of getting in
+    a soft bed after all these days of sleeping on the hard wooden floor. The woman
+    gets up and crosses path with Zavren, her soft voice whispers something to him.
+    Zavren''s surprised reaction made everyone else vary of the hooded woman. She
+    calmly went outside the inn and gave a gesture to follow her. '
   image: {fileID: 0}
   backgroundImage: {fileID: 0}
-  choices: []
+  choices:
+  - choiceText: Continue
+    outcomeText: 'You followed her reluctantly, where she revealed her face to you.
+      It was a white haired woman with red eyes, glowing like the ruby she had. This
+      woman wasn''t someone Zavren recognized, but the uniform she wore, the symbol
+      on it. He could never forget it. She was a part of the Mage hunters. She drew
+      her sword and musket and with lightning reflexes beat the party to the ground.
+      Her speed, technique and power were unmatched. '
+    goldChange: 0
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []

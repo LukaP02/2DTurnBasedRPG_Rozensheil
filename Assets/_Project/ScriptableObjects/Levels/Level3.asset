@@ -32,7 +32,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
   - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
   - {fileID: 11400000, guid: 076be8a3504dd21429523cf99e9c6560, type: 2}
-  postLevelEvent: {fileID: 0}
+  postLevelEvent: {fileID: 11400000, guid: d0a007d62b9ff2a4494c96b6ddbb28b4, type: 2}
   postLevelDialogue: {fileID: 0}
   dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0

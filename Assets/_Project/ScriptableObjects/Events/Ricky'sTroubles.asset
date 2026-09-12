@@ -13,7 +13,39 @@ MonoBehaviour:
   m_Name: Ricky'sTroubles
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   title: Chase
-  description: 
+  description: 'You chase after the crook, who runs into the crowded bazzar. He jumps
+    on a horse and starts riding deeper into the city. Ricky takes a nearby charriot
+    and call you to help him. The chase is fast and bumpy, still you manage to stay
+    on the crooks tail the whole time. You get close enough to him to act. '
   image: {fileID: 0}
   backgroundImage: {fileID: 0}
-  choices: []
+  choices:
+  - choiceText: (Abdul) Use amethyst
+    outcomeText: Abdul activates his amethyst and uses the shockwave it creates to
+      proppel the charriot forward at an incredible speed. This manouver makes it
+      so you catch up to the thief in no time, and jump him. You take Ricky's possesions
+      back. After this Ricky thanks you and as a reward takes you to ALESSI.
+    goldChange: 0
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []
+  - choiceText: (Sicur) Use misty step
+    outcomeText: 'Sicur warps to the crook''s horse tackling him to the ground. You
+      all jump him and take Ricky''s possesions back. After this Ricky thanks you
+      and as a reward takes you to ALESSI. '
+    goldChange: 0
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []
+  - choiceText: (Zavren) Use ice magic
+    outcomeText: Zavren uses his ice magic to freeze the ground in front of the 
+      horse, making it slip and drop the thief to the ground. You all jump him and
+      take Ricky's possesions back. After this Ricky thanks you and as a reward takes
+      you to ALESSI.
+    goldChange: 0
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []

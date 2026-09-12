@@ -14,13 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EventData
   title: Partner in crime
   description: 'You made a deal with Dest, he seems like a capable addition to the
-    team. His muscular physique and knowladge of the prison could come in handy,
-    but first things first, a preparation is required. '
+    team. His muscular physique and knowladge of the prison could come in handy. '
   image: {fileID: 0}
   backgroundImage: {fileID: 0}
   choices:
   - choiceText: Continue
-    outcomeText: 
+    outcomeText: First things first, a preparation is required.
     goldChange: 0
     hpChangePercent: 0
     recruitCharacter: {fileID: 11400000, guid: efe5acc6088599d44a3ae589863b8399, type: 2}

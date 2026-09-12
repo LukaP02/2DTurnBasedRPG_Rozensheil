@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e70547d8134d5943ac3fafcae79c9dc, type: 3}
+  m_Name: Escape
+  m_EditorClassIdentifier: Assembly-CSharp::EventData
+  title: The Escape
+  description: 'After some time spent monitoring guards behaviors, patrols and shifts,
+    you finally decide it is time to break out. At night you use a makeshift lockpick
+    made of bones to open the cell, sneak around the block until you reach the hallway.
+    This corridor has two door to the sides and one big door that seems to lead to
+    freedom. '
+  image: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  choices:
+  - choiceText: Check left door before leaving
+    outcomeText: You find yourself in a room full of guards, thankfully you managed
+      to beat them before they could call for reinforcements. You find an item on
+      one of the guards that could be of use to you. (-40% HP, + item)
+    goldChange: 0
+    hpChangePercent: 40
+    recruitCharacter: {fileID: 0}
+    grantItems:
+    - {fileID: 11400000, guid: c1134b85ee4556a469d2aec3aec096c8, type: 2}
+    costItems: []
+  - choiceText: Check right door before leaving
+    outcomeText: You find some items left by the guards int this room. Different
+      tresures that can be worth something. (+200 gold)
+    goldChange: 200
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []
+  - choiceText: Leave
+    outcomeText: The risk was too big to stick around more than necessary. You leave
+      through the big door and leave into the night.
+    goldChange: 0
+    hpChangePercent: 0
+    recruitCharacter: {fileID: 0}
+    grantItems: []
+    costItems: []
