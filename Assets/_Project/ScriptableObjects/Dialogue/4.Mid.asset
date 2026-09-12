@@ -12,5 +12,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2d31c0a575d374f9b00d77d5d88faf, type: 3}
   m_Name: 4.Mid
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
-  lines: []
+  lines:
+  - speakerName: Azgor
+    speakerPortrait: {fileID: 0}
+    text: Oy yeh, of little faith. Thine moment of triumph hath still not come...
+      For it is mine that shall be stronger... Witness the champion of the God of
+      Strenght, AND TREMBLE UPON ME!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: What, where did he go!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0.9339623, g: 0.8991859, b: 0.19824673, a: 0}
+    flashFadeInSeconds: 0.5
+    flashHoldSeconds: 2
+    flashFadeOutSeconds: 0.5
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: bb680456bc018df4c966efbe0232b4d6, type: 3}
+    text: Eh, guys, ABOVE!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0.9339623, g: 0.8991859, b: 0.19824673, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Azgor
+    speakerPortrait: {fileID: 0}
+    text: LET US BEGINETH, THE FINAL TRIAL!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Raindorf
+    speakerPortrait: {fileID: 21300000, guid: bb680456bc018df4c966efbe0232b4d6, type: 3}
+    text: Dear Focalor, save us all!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
   music: {fileID: 0}

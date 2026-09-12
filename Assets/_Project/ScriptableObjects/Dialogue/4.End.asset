@@ -12,5 +12,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2d31c0a575d374f9b00d77d5d88faf, type: 3}
   m_Name: 4.End
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
-  lines: []
+  lines:
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: That, that was brutal.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Raindorf
+    speakerPortrait: {fileID: 21300000, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    text: Yeah, thank the Gods you came to my rescue.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: af62107a84f21a44cb1e8b2d56509fb4, type: 3}
+    text: Guys, let's catch up later. We gotta move. There could be more guards any
+      minute from now.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: Zavren's right. Get a move on!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: bb680456bc018df4c966efbe0232b4d6, type: 3}
+    text: Where to?
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: Anywhere but here!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: Let's catch up with my friend, he could hook us up with a way out!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
   music: {fileID: 0}
