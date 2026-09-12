@@ -82,7 +82,37 @@ MonoBehaviour:
     flashFadeOutSeconds: -1
   - speakerName: ALESSI
     speakerPortrait: {fileID: 21300000, guid: 7ca186b6bf414e44a9826793b41c0019, type: 3}
-    text: 'Well thank you for asking, young boy. It is my sense of adventure and '
+    text: 'Well thank you for asking, young boy. It is my sense of adventure and
+      need for the inspiration that drives me to such fabulous expeditions such as
+      these. '
+    backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ALESSI
+    speakerPortrait: {fileID: 21300000, guid: 7ca186b6bf414e44a9826793b41c0019, type: 3}
+    text: 'You could look at this like a tour around the world. Art is something
+      that needs to be seen - no - lived first hand to really appriciate it mes amis. '
+    backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ALESSI
+    speakerPortrait: {fileID: 21300000, guid: 7ca186b6bf414e44a9826793b41c0019, type: 3}
+    text: 'Now, I must say that you give me such a strong vibe. That resilience,
+      that desire I feel in your eyes, TRES BIEN! '
+    backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ALESSI
+    speakerPortrait: {fileID: 21300000, guid: 7ca186b6bf414e44a9826793b41c0019, type: 3}
+    text: You people are on a mission and are ready to throw hands at any time. Please,
+      let this creator do something for you, I will make a creation that shows the
+      world what you are made of?
     backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
     flashFadeInSeconds: -1

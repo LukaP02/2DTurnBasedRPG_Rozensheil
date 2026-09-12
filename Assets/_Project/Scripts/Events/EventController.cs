@@ -28,7 +28,9 @@ public class EventController : MonoBehaviour
     public float delayBeforeTypewriter = 1f;
     [Tooltip("Played once per revealed character while text types out (skipped for whitespace). Leave empty for a silent typewriter.")]
     public AudioClip typewriterBlipSound;
-    [Tooltip("Each blip's pitch is randomized by +/- this much (0.15 = between 0.85x and 1.15x) so a fast repeated sound doesn't sound mechanical.")]
+    [Tooltip("Base pitch the blip plays at - turn this down (e.g. 0.7) if your clip sounds too high-pitched.")]
+    [Range(0.1f, 2f)] public float typewriterBlipBasePitch = 1f;
+    [Tooltip("Each blip's pitch is randomized by +/- this much around the base pitch (0.15 = +/-15%) so a fast repeated sound doesn't sound mechanical.")]
     [Range(0f, 0.5f)] public float typewriterBlipPitchVariance = 0.15f;
 
     [NonSerialized] public List<CharacterInstance> currentParty;
@@ -42,10 +44,20 @@ public class EventController : MonoBehaviour
     private bool isTyping;
     private bool skipTypewriter;
 
+    // Dedicated AudioSource rather than routing through AudioManager's shared SFX pool - lets each
+    // new blip cut off the previous one (Stop() in PlayTypewriterBlip) instead of letting several
+    // overlapping copies ring out and stack into a wall of sound that outlasts the visible typing.
+    private AudioSource typewriterBlipSource;
+
     private void Awake()
     {
         if (eventPanel != null) eventPanel.SetActive(false);
         if (outcomePanel != null) outcomePanel.SetActive(false);
+
+        typewriterBlipSource = gameObject.AddComponent<AudioSource>();
+        typewriterBlipSource.playOnAwake = false;
+        if (AudioManager.Instance != null)
+            typewriterBlipSource.outputAudioMixerGroup = AudioManager.Instance.sfxMixerGroup;
     }
 
     public void StartEvent(EventData eventData)
@@ -150,14 +162,23 @@ public class EventController : MonoBehaviour
 
         isTyping = false;
         skipTypewriter = false;
+
+        // Cut the blip off the instant typing stops (whether it finished or was skipped) - without
+        // this, whatever the clip's own natural length is keeps ringing out after the text is done.
+        typewriterBlipSource?.Stop();
     }
 
     private void PlayTypewriterBlip()
     {
-        if (typewriterBlipSound == null) return;
+        if (typewriterBlipSound == null || typewriterBlipSource == null) return;
 
-        float pitch = 1f + UnityEngine.Random.Range(-typewriterBlipPitchVariance, typewriterBlipPitchVariance);
-        AudioManager.Instance?.PlaySFX(typewriterBlipSound, pitch);
+        // Stop the previous blip before starting the next one - back-to-back characters at a fast
+        // typewriterSecondsPerChar would otherwise overlap several copies of the clip on top of
+        // each other, which is what made it sound like it dragged on past the last character.
+        typewriterBlipSource.Stop();
+        typewriterBlipSource.pitch = typewriterBlipBasePitch + UnityEngine.Random.Range(-typewriterBlipPitchVariance, typewriterBlipPitchVariance);
+        typewriterBlipSource.clip = typewriterBlipSound;
+        typewriterBlipSource.Play();
     }
 
     // Click-to-fast-forward, same idea as DialogueController.AdvanceDialogue - completes whichever

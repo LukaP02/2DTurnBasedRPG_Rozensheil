@@ -22,7 +22,7 @@ MonoBehaviour:
   combatBackground: {fileID: 0}
   combatMusic: {fileID: 0}
   preLevelEvent: {fileID: 11400000, guid: eeb0fac708153da48a7ff74210267510, type: 2}
-  introDialogue: {fileID: 0}
+  introDialogue: {fileID: 11400000, guid: 5a16a38cc9e3b3b4abc10838daaa40e2, type: 2}
   dialogueBeforePreEvent: 1
   promptPartySelectionBeforeCombat: 0
   enemies: []
