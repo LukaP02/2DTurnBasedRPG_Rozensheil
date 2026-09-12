@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
     private const string SFX_MIXER_PARAM = "SFXVolume";
     private const string MUSIC_PREF_KEY = "MusicVolume";
     private const string SFX_PREF_KEY = "SFXVolume";
-    private const float DEFAULT_VOLUME = 0.5f;
+    private const float DEFAULT_VOLUME = 0.8f;
 
     public float MusicVolume { get; private set; }
     public float SFXVolume { get; private set; }
@@ -59,7 +59,15 @@ public class AudioManager : MonoBehaviour
 
         MusicVolume = PlayerPrefs.GetFloat(MUSIC_PREF_KEY, DEFAULT_VOLUME);
         SFXVolume = PlayerPrefs.GetFloat(SFX_PREF_KEY, DEFAULT_VOLUME);
+    }
 
+    // AudioMixer.SetFloat calls made from Awake can silently no-op - the mixer's audio graph
+    // isn't guaranteed to be fully initialized that early, especially right after entering Play
+    // mode. Applying the loaded volume here instead (a frame later, guaranteed after every
+    // object's Awake) is what actually makes the restored value take effect on the mixer instead
+    // of it staying at the mixer's baked-in Editor default until something else changes it.
+    private void Start()
+    {
         ApplyMusicVolume();
         ApplySFXVolume();
     }
@@ -94,13 +102,18 @@ public class AudioManager : MonoBehaviour
     private void ApplyMusicVolume() => SetMixerVolume(MUSIC_MIXER_PARAM, MusicVolume);
     private void ApplySFXVolume() => SetMixerVolume(SFX_MIXER_PARAM, SFXVolume);
 
-    // A 0-1 slider isn't perceptually linear on a mixer fader, so convert to decibels; treat
-    // near-zero as -80dB (silent) instead of letting log10(0) blow up to -infinity.
+    // Hearing perceives loudness roughly logarithmically, so the slider should move in equal
+    // decibel steps, not equal amplitude steps - map it linearly across the dB range instead of
+    // converting a linear amplitude value via log10 (that alternative crams almost the whole
+    // useful range into the bottom ~10% of the slider, since log10(0.5)*20 is only -6dB).
+    private const float MIN_VOLUME_DB = -80f;
+    private const float MAX_VOLUME_DB = 0f;
+
     private void SetMixerVolume(string parameterName, float linearValue)
     {
         if (audioMixer == null) return;
 
-        float dB = linearValue > 0.0001f ? Mathf.Log10(linearValue) * 20f : -80f;
+        float dB = Mathf.Lerp(MIN_VOLUME_DB, MAX_VOLUME_DB, linearValue);
         audioMixer.SetFloat(parameterName, dB);
     }
 

@@ -13,9 +13,17 @@ MonoBehaviour:
   m_Name: ALESSI.Eisendorph
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
   lines:
-  - speakerName: 
-    speakerPortrait: {fileID: 0}
-    text: 
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: You guys hear that?
+    backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: Seems to be coming from that carriage.
     backgroundImage: {fileID: 206467504548108173, guid: 2ce9ee5b5e1ea7a4dbb14fcd90facf5a, type: 3}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
     flashFadeInSeconds: -1

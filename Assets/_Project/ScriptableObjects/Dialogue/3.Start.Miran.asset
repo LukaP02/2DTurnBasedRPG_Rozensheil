@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: 3.Start.Miran
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
   lines:
-  - speakerName: 
+  - speakerName: Abdul
     speakerPortrait: {fileID: 0}
-    text: 
+    text: You guys hear that?
     backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  music: {fileID: 0}

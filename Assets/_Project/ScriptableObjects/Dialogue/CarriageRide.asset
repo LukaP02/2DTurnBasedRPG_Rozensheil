@@ -58,3 +58,4 @@ MonoBehaviour:
     flashFadeInSeconds: 0
     flashHoldSeconds: 0
     flashFadeOutSeconds: 0
+  music: {fileID: 8300000, guid: 8304d5d84951d95428ef7af8e3bd4167, type: 3}
