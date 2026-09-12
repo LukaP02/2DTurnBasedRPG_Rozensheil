@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Sicur.D.Skill
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Tear
-  icon: {fileID: 0}
+  icon: {fileID: -2305958526138685017, guid: 694faf62a532f024abd1711bbf0ce7ac, type: 3}
   description: Demonic entity goes into a blood driven rampage, hitting up to 5 targets
-    for high shadow damage. (70% Missing HP)
+    for high shadow damage. (40% Max HP)
   abilityType: 1
   spCost: 0
   spGain: 0
@@ -24,11 +24,11 @@ MonoBehaviour:
   energyCost: 100
   stackableEnergy: 0
   maxEnergyStacks: 1
-  attackScaling: 1.5
+  attackScaling: 1.2
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
-  castSound: {fileID: 0}
+  castSound: {fileID: 8300000, guid: 6bd4d4ae1a88f5649ad9f8d41d208ecd, type: 3}
   impactSound: {fileID: 0}
   canCrit: 1
   targetShape: 3

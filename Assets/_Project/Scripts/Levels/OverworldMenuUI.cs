@@ -23,12 +23,12 @@ public class OverworldMenuUI : MonoBehaviour
 
     private void Awake()
     {
-        if (openShopButton != null) openShopButton.onClick.AddListener(() => shopMenuPanel.SetActive(true));
-        if (openLoadoutButton != null) openLoadoutButton.onClick.AddListener(() => loadoutMenuPanel.SetActive(true));
-        if (openPartySetupButton != null) openPartySetupButton.onClick.AddListener(() => partySetupPanel.SetActive(true));
+        if (openShopButton != null) openShopButton.onClick.AddListener(() => ScreenFader.Transition(() => shopMenuPanel.SetActive(true)));
+        if (openLoadoutButton != null) openLoadoutButton.onClick.AddListener(() => ScreenFader.Transition(() => loadoutMenuPanel.SetActive(true)));
+        if (openPartySetupButton != null) openPartySetupButton.onClick.AddListener(() => ScreenFader.Transition(() => partySetupPanel.SetActive(true)));
 
-        if (closeShopButton != null) closeShopButton.onClick.AddListener(() => shopMenuPanel.SetActive(false));
-        if (closeLoadoutButton != null) closeLoadoutButton.onClick.AddListener(() => loadoutMenuPanel.SetActive(false));
-        if (closePartySetupButton != null) closePartySetupButton.onClick.AddListener(() => partySetupPanel.SetActive(false));
+        if (closeShopButton != null) closeShopButton.onClick.AddListener(() => ScreenFader.Transition(() => shopMenuPanel.SetActive(false)));
+        if (closeLoadoutButton != null) closeLoadoutButton.onClick.AddListener(() => ScreenFader.Transition(() => loadoutMenuPanel.SetActive(false)));
+        if (closePartySetupButton != null) closePartySetupButton.onClick.AddListener(() => ScreenFader.Transition(() => partySetupPanel.SetActive(false)));
     }
 }

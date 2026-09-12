@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sicur.N.Skill
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Hunger Of Hadar
-  icon: {fileID: 0}
+  icon: {fileID: -5293891915579027753, guid: e10cc0b44925ae04e9f4f341b4cc4223, type: 3}
   description: Sicur opens a gateway to the dark between the stars damaging up to
     three targets for medium fire damage.
   abilityType: 1
@@ -21,13 +21,29 @@ MonoBehaviour:
   spGain: 0
   power: 40
   element: 1
+  energyCost: 100
+  stackableEnergy: 0
+  maxEnergyStacks: 1
+  attackScaling: 1
+  maxHPScaling: 0
+  defenseScaling: 0
+  speedScaling: 0
+  castSound: {fileID: 8300000, guid: 6963369cb53590a41976d874fdc666f2, type: 3}
+  impactSound: {fileID: 0}
+  canCrit: 1
   targetShape: 2
   targetSide: 0
-  freezeChance: 0
+  appliesStatusEffect: {fileID: 0}
+  statusEffectChance: 1
   appliesMark: 0
   maxMarkStacks: 3
   consumesMark: 0
   bonusDamagePerMarkStack: 0
+  lifestealPercent: 0
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0
+  projectilePrefab: {fileID: 0}
+  projectileTravelSeconds: 0.4
+  impactEffectPrefab: {fileID: 0}
+  impactEffectDuration: 0.5

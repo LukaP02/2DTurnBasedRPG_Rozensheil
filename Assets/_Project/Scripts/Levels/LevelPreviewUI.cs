@@ -74,7 +74,7 @@ public class LevelPreviewUI : MonoBehaviour
     private void Confirm()
     {
         panel.SetActive(false);
-        gameFlowManager.StartLevel(pendingLevel, pendingLevelIndex);
+        ScreenFader.Transition(() => gameFlowManager.StartLevel(pendingLevel, pendingLevelIndex));
     }
 
     public void Hide()

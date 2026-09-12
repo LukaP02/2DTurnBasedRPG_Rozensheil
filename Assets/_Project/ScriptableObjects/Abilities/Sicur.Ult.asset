@@ -15,7 +15,8 @@ MonoBehaviour:
   abilityName: Demonic Ascention
   icon: {fileID: -1094162994846681431, guid: bf9a4309eedd5df498a84f3bbb4e1ace, type: 3}
   description: 'Sicur unshackles the bind keeping his patron restrained, letting
-    him take over for a price. '
+    him take over for a price. In this state dealing damage also lifesteals a small
+    percentage of damage dealt. '
   abilityType: 2
   spCost: 0
   spGain: 0

@@ -116,7 +116,7 @@ public class OverworldMapUI : MonoBehaviour
                 if (levelPreviewUI != null)
                     levelPreviewUI.Show(level, index, gameFlowManager);
                 else
-                    gameFlowManager.StartLevel(level, index);
+                    ScreenFader.Transition(() => gameFlowManager.StartLevel(level, index));
             });
 
             spawnedButtons.Add(button);

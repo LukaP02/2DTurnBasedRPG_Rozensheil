@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sicur.N.Basic
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Eldritch Blast
-  icon: {fileID: 0}
+  icon: {fileID: -6738290026676848657, guid: 1d1f64558eb170b47a576bf0cb54cc9a, type: 3}
   description: 'Sicur fires an eldritch projectile on a single target dealing low
     fire damage. '
   abilityType: 0
@@ -28,6 +28,8 @@ MonoBehaviour:
   maxHPScaling: 0
   defenseScaling: 0
   speedScaling: 0
+  castSound: {fileID: 8300000, guid: c23574dfa6231ad498cbe6af31f32fa9, type: 3}
+  impactSound: {fileID: 0}
   canCrit: 1
   targetShape: 0
   targetSide: 0
@@ -41,3 +43,7 @@ MonoBehaviour:
   triggersFormSwitch: 0
   costsHPPercentOfMissing: 0
   hpCostPercent: 0
+  projectilePrefab: {fileID: 0}
+  projectileTravelSeconds: 0.4
+  impactEffectPrefab: {fileID: 0}
+  impactEffectDuration: 0.5

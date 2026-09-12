@@ -125,33 +125,36 @@ public class GameFlowManager : MonoBehaviour
     }
     private void BeginCombat()
     {
-        List<CharacterInstance> allies = PartyManager.Instance.GetPartyInstances();
-        List<CharacterInstance> enemies = new List<CharacterInstance>();
-
-        foreach (var data in currentLevel.enemies)
+        ScreenFader.Transition(() =>
         {
-            if (data != null) enemies.Add(new CharacterInstance(data));
-        }
+            List<CharacterInstance> allies = PartyManager.Instance.GetPartyInstances();
+            List<CharacterInstance> enemies = new List<CharacterInstance>();
 
-        combatController.ConfigureWaveEncounter(
-            currentLevel.maxEnemiesOnField,
-            currentLevel.reinforcementPool,
-            currentLevel.killTarget,
-            currentLevel.midBattleDialogue,
-            currentLevel.wipeMessage);
+            foreach (var data in currentLevel.enemies)
+            {
+                if (data != null) enemies.Add(new CharacterInstance(data));
+            }
 
-        combatController.OnStateChanged += CheckCombatEnd;
-        combatController.OnMidBattleDialogueRequested += HandleMidBattleDialogueRequested;
-        combatController.OnPhaseTransitionRequested += HandlePhaseTransitionRequested;
-        combatController.StartCombat(allies, enemies);
+            combatController.ConfigureWaveEncounter(
+                currentLevel.maxEnemiesOnField,
+                currentLevel.reinforcementPool,
+                currentLevel.killTarget,
+                currentLevel.midBattleDialogue,
+                currentLevel.wipeMessage);
 
-        combatScreen.SetActive(true);
+            combatController.OnStateChanged += CheckCombatEnd;
+            combatController.OnMidBattleDialogueRequested += HandleMidBattleDialogueRequested;
+            combatController.OnPhaseTransitionRequested += HandlePhaseTransitionRequested;
+            combatController.StartCombat(allies, enemies);
 
-        combatUIManager.SetupCombatUI(currentLevel.combatBackground);
-        
+            combatScreen.SetActive(true);
 
-        AudioManager.Instance?.PlayMusic(currentLevel.combatMusic != null ? currentLevel.combatMusic : defaultCombatMusic);
+            combatUIManager.SetupCombatUI(currentLevel.combatBackground);
+
+            AudioManager.Instance?.PlayMusic(currentLevel.combatMusic != null ? currentLevel.combatMusic : defaultCombatMusic);
+        });
     }
+
 
     // Shows the mid-battle dialogue on top of the still-active combat screen (combat is not hidden).
     // suppressBackground: true so only the darken overlay dims the arena, instead of the
@@ -190,24 +193,33 @@ public class GameFlowManager : MonoBehaviour
             combatController.OnStateChanged -= CheckCombatEnd;
             combatController.OnMidBattleDialogueRequested -= HandleMidBattleDialogueRequested;
             combatController.OnPhaseTransitionRequested -= HandlePhaseTransitionRequested;
-            combatScreen.SetActive(false);
 
-            AudioManager.Instance?.PlaySFX(victoryStinger);
-            PartyManager.Instance.ResetPartyAfterBattle();
+            ScreenFader.Transition(() =>
+            {
+                combatScreen.SetActive(false);
 
-            victoryScreen.Show(combatController.goldReward);
+                AudioManager.Instance?.PlaySFX(victoryStinger);
+                PartyManager.Instance.ResetPartyAfterBattle();
+
+                victoryScreen.Show(combatController.goldReward);
+            });
         }
         else if (combatController.currentState == CombatState.Defeat)
         {
             combatController.OnStateChanged -= CheckCombatEnd;
             combatController.OnMidBattleDialogueRequested -= HandleMidBattleDialogueRequested;
             combatController.OnPhaseTransitionRequested -= HandlePhaseTransitionRequested;
-            combatScreen.SetActive(false);
 
-            AudioManager.Instance?.PlaySFX(defeatStinger);
-            OnCombatDefeat();
+            ScreenFader.Transition(() =>
+            {
+                combatScreen.SetActive(false);
+
+                AudioManager.Instance?.PlaySFX(defeatStinger);
+                OnCombatDefeat();
+            });
         }
     }
+
 
     // Shared by both combat victory and no-combat levels. Order controlled by
     // LevelData.dialogueBeforePostEvent, same idea as the pre-level sequence above.
@@ -229,16 +241,19 @@ public class GameFlowManager : MonoBehaviour
             return;
         }
 
-        eventController.currentParty = PartyManager.Instance.GetPartyInstances();
-
-        void OnClosed()
+        ScreenFader.Transition(() =>
         {
-            eventController.OnEventClosed -= OnClosed;
-            onComplete();
-        }
+            eventController.currentParty = PartyManager.Instance.GetPartyInstances();
 
-        eventController.OnEventClosed += OnClosed;
-        eventController.StartEvent(eventData);
+            void OnClosed()
+            {
+                eventController.OnEventClosed -= OnClosed;
+                ScreenFader.Transition(onComplete);
+            }
+
+            eventController.OnEventClosed += OnClosed;
+            eventController.StartEvent(eventData);
+        });
     }
 
     private void PlayDialogue(DialogueSequence sequence, System.Action onComplete)
@@ -249,15 +264,19 @@ public class GameFlowManager : MonoBehaviour
             return;
         }
 
-        void OnEnded()
+        ScreenFader.Transition(() =>
         {
-            dialogueController.OnDialogueEnded -= OnEnded;
-            onComplete();
-        }
+            void OnEnded()
+            {
+                dialogueController.OnDialogueEnded -= OnEnded;
+                ScreenFader.Transition(onComplete);
+            }
 
-        dialogueController.OnDialogueEnded += OnEnded;
-        dialogueController.StartDialogue(sequence);
+            dialogueController.OnDialogueEnded += OnEnded;
+            dialogueController.StartDialogue(sequence);
+        });
     }
+
 
     private void OnCombatDefeat()
     {
@@ -281,19 +300,25 @@ public class GameFlowManager : MonoBehaviour
 
     private void ReturnToOverworld()
     {
-        PartyManager.Instance.MarkLevelCompleted(currentLevel);
-        PartyManager.Instance.UnlockLevels(currentLevel.unlocksOnComplete);
-        overworldMapUI.RefreshNodes();
-        overworldPanel.SetActive(true);
+        ScreenFader.Transition(() =>
+        {
+            PartyManager.Instance.MarkLevelCompleted(currentLevel);
+            PartyManager.Instance.UnlockLevels(currentLevel.unlocksOnComplete);
+            overworldMapUI.RefreshNodes();
+            overworldPanel.SetActive(true);
 
-        AudioManager.Instance?.PlayMusic(overworldMusic);
+            AudioManager.Instance?.PlayMusic(overworldMusic);
+        });
     }
 
     private void ReturnToOverworldWithoutUnlocking()
     {
-        overworldPanel.SetActive(true);
+        ScreenFader.Transition(() =>
+        {
+            overworldPanel.SetActive(true);
 
-        AudioManager.Instance?.PlayMusic(overworldMusic);
+            AudioManager.Instance?.PlayMusic(overworldMusic);
+        });
     }
 
 }
