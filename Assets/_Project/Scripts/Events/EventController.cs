@@ -26,6 +26,10 @@ public class EventController : MonoBehaviour
     public float typewriterSecondsPerChar = 0.02f;
     [Tooltip("Blank pause before each panel starts typing - one beat before the prompt panel's title, and one beat before the outcome panel's text.")]
     public float delayBeforeTypewriter = 1f;
+    [Tooltip("Played once per revealed character while text types out (skipped for whitespace). Leave empty for a silent typewriter.")]
+    public AudioClip typewriterBlipSound;
+    [Tooltip("Each blip's pitch is randomized by +/- this much (0.15 = between 0.85x and 1.15x) so a fast repeated sound doesn't sound mechanical.")]
+    [Range(0f, 0.5f)] public float typewriterBlipPitchVariance = 0.15f;
 
     [NonSerialized] public List<CharacterInstance> currentParty;
 
@@ -134,11 +138,26 @@ public class EventController : MonoBehaviour
             }
 
             target.maxVisibleCharacters = i;
+
+            // i - 1 is the character that just became visible this step (i == 0 reveals nothing
+            // yet). Read it from textInfo rather than fullText directly since TMP rich text tags
+            // (e.g. <b>) are stripped from textInfo's indexing but not from the raw string.
+            if (i > 0 && !char.IsWhiteSpace(target.textInfo.characterInfo[i - 1].character))
+                PlayTypewriterBlip();
+
             yield return new WaitForSeconds(typewriterSecondsPerChar);
         }
 
         isTyping = false;
         skipTypewriter = false;
+    }
+
+    private void PlayTypewriterBlip()
+    {
+        if (typewriterBlipSound == null) return;
+
+        float pitch = 1f + UnityEngine.Random.Range(-typewriterBlipPitchVariance, typewriterBlipPitchVariance);
+        AudioManager.Instance?.PlaySFX(typewriterBlipSound, pitch);
     }
 
     // Click-to-fast-forward, same idea as DialogueController.AdvanceDialogue - completes whichever

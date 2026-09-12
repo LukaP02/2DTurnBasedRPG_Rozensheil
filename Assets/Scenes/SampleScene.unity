@@ -2775,6 +2775,7 @@ MonoBehaviour:
   selectedItemIcon: {fileID: 953548220}
   selectedItemNameText: {fileID: 1242398562}
   selectedItemDescriptionText: {fileID: 1622092021}
+  purchaseSound: {fileID: 0}
 --- !u!114 &289487213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14730,6 +14731,9 @@ MonoBehaviour:
   outcomeText: {fileID: 2019285663}
   outcomeContinueButton: {fileID: 760625497}
   typewriterSecondsPerChar: 0.02
+  delayBeforeTypewriter: 1
+  typewriterBlipSound: {fileID: 8300000, guid: 0e477efb508caae4ab5780c99d950e6d, type: 3}
+  typewriterBlipPitchVariance: 0.15
 --- !u!4 &1550024062
 Transform:
   m_ObjectHideFlags: 0
@@ -17506,8 +17510,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 252.55, y: -247}
-  m_SizeDelta: {x: 1117.7, y: 260.95}
+  m_AnchoredPosition: {x: 252.56, y: -210}
+  m_SizeDelta: {x: 1117.7, y: 371.3573}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2009176379
 MonoBehaviour:

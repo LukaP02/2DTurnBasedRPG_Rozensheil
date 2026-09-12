@@ -185,13 +185,23 @@ public class AudioManager : MonoBehaviour
 
     // --- SFX ---
     // Cycles through a pool so overlapping calls (e.g. two hits in the same frame) don't cut each other off.
+    // --- SFX ---
+    // Cycles through a pool so overlapping calls (e.g. two hits in the same frame) don't cut each other off.
     public void PlaySFX(AudioClip clip)
+    {
+        PlaySFX(clip, 1f);
+    }
+
+    // Pitch overload - used by the typewriter blip (EventController/DialogueController) to vary
+    // each character's blip slightly so a fast, repeated sound doesn't sound like a machine gun.
+    public void PlaySFX(AudioClip clip, float pitch)
     {
         if (clip == null || sfxPool.Count == 0) return;
 
         AudioSource source = sfxPool[nextSfxIndex];
         nextSfxIndex = (nextSfxIndex + 1) % sfxPool.Count;
 
+        source.pitch = pitch;
         source.PlayOneShot(clip);
     }
 }

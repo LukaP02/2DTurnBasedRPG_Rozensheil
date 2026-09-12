@@ -20,9 +20,11 @@ MonoBehaviour:
   mapPosition: {x: -260, y: 310}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}
+  combatMusic: {fileID: 0}
   preLevelEvent: {fileID: 0}
-  introDialogue: {fileID: 0}
+  introDialogue: {fileID: 11400000, guid: 2871140174a74394db3b5fe5a2f7cdb3, type: 2}
   dialogueBeforePreEvent: 0
+  promptPartySelectionBeforeCombat: 0
   enemies: []
   postLevelEvent: {fileID: 11400000, guid: 7ec8965b55c1469419c71dc7b92f26eb, type: 2}
   postLevelDialogue: {fileID: 0}
