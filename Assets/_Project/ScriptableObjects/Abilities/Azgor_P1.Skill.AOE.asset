@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: Azgor jumps to the target's location and hits the ground with incredible
     force spreading and dealing medium Physical damage
-  abilityType: 0
+  abilityType: 1
   spCost: 3
   spGain: 0
   power: 50
@@ -47,3 +47,4 @@ MonoBehaviour:
   projectileTravelSeconds: 0.4
   impactEffectPrefab: {fileID: 0}
   impactEffectDuration: 0.5
+  aiSelectionWeight: 1

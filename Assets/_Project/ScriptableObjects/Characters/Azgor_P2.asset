@@ -41,9 +41,9 @@ MonoBehaviour:
   basicOptions: []
   skillOptions: []
   ultimateOptions: []
-  defaultBasic: {fileID: 0}
-  defaultSkill: {fileID: 0}
-  defaultUltimate: {fileID: 0}
+  defaultBasic: {fileID: 11400000, guid: 32942213078f3c847b397d421499fe54, type: 2}
+  defaultSkill: {fileID: 11400000, guid: b7b24520a74d07941b5906814556fb08, type: 2}
+  defaultUltimate: {fileID: 11400000, guid: 35536a0c8b3d87c4caee1b30a99fa2d6, type: 2}
   passive: {fileID: 11400000, guid: da87de48834cc3d4ca9bd2f62fae9a7a, type: 2}
   hasForms: 0
   normalFormBasic: {fileID: 0}
@@ -59,12 +59,9 @@ MonoBehaviour:
   hpTriggeredReinforcementPercent: 0.5
   hpTriggeredReinforcementMessage: The Cyclops calls two wolves!
   extraBasicAbilities:
-  - {fileID: 11400000, guid: 32942213078f3c847b397d421499fe54, type: 2}
   - {fileID: 11400000, guid: d08c9b1fad9d73342b20c1abfa3d1af8, type: 2}
   extraSkillAbilities:
-  - {fileID: 11400000, guid: b7b24520a74d07941b5906814556fb08, type: 2}
-  - {fileID: 0}
-  extraUltimateAbilities:
-  - {fileID: 11400000, guid: 35536a0c8b3d87c4caee1b30a99fa2d6, type: 2}
+  - {fileID: 11400000, guid: 1aca58961e9aa1149b68d4a469db42b6, type: 2}
+  extraUltimateAbilities: []
   isBoss: 1
   markIcon: {fileID: 0}

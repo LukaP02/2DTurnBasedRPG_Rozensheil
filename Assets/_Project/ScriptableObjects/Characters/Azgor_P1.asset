@@ -59,10 +59,8 @@ MonoBehaviour:
   hpTriggeredReinforcements: []
   hpTriggeredReinforcementPercent: 0.5
   hpTriggeredReinforcementMessage: 
-  extraBasicAbilities:
-  - {fileID: 11400000, guid: 32942213078f3c847b397d421499fe54, type: 2}
+  extraBasicAbilities: []
   extraSkillAbilities:
-  - {fileID: 11400000, guid: b7b24520a74d07941b5906814556fb08, type: 2}
   - {fileID: 11400000, guid: 1aca58961e9aa1149b68d4a469db42b6, type: 2}
   extraUltimateAbilities: []
   isBoss: 1

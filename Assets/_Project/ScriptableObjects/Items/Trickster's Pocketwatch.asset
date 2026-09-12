@@ -16,11 +16,11 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 57352c55b6764c442b53f3dbd061f275, type: 3}
   description: '+40 Attack
 
-    +40 Speed'
-  price: 120
+    +40% Energy Recharge'
+  price: 100
   attackBonus: 40
   defenseBonus: 0
   hpBonus: 0
-  speedBonus: 40
+  speedBonus: 0
   critRateBonus: 0
-  energyRechargeBonus: 0
+  energyRechargeBonus: 0.4

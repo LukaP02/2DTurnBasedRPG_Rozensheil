@@ -24,6 +24,8 @@ public class EventController : MonoBehaviour
     [Header("Typewriter Effect")]
     [Tooltip("Title, then Description, type out on the prompt panel (choices stay hidden until both finish); Outcome Text does the same on the outcome panel (Continue button stays hidden until it finishes).")]
     public float typewriterSecondsPerChar = 0.02f;
+    [Tooltip("Blank pause before each panel starts typing - one beat before the prompt panel's title, and one beat before the outcome panel's text.")]
+    public float delayBeforeTypewriter = 1f;
 
     [NonSerialized] public List<CharacterInstance> currentParty;
 
@@ -67,6 +69,13 @@ public class EventController : MonoBehaviour
         eventPanel.SetActive(true);
         outcomePanel.SetActive(false);
 
+        // Blank both fields immediately (synchronously, before the coroutine's pause even starts)
+        // so whatever the previous event left in them can't be visible during delayBeforeTypewriter -
+        // clearing this only once the coroutine reaches TypewriterReveal was too late, since that
+        // happened after the pause instead of before it.
+        ClearText(titleText);
+        ClearText(descriptionText);
+
         if (promptTypewriterCoroutine != null)
             StopCoroutine(promptTypewriterCoroutine);
 
@@ -75,8 +84,13 @@ public class EventController : MonoBehaviour
 
     // Types the title, then the description, one after the other, then reveals the choices -
     // matches the "read the setup before you're asked to decide" pacing of the outcome panel below.
+    // The blank pause only happens once, before the title - both fields are already cleared by the
+    // time this starts (see StartEvent), so there's no leftover-text moment left to cover before
+    // the description and a second pause there would just double the wait for no benefit.
     private IEnumerator PlayPromptTypewriter(string title, string description)
     {
+        yield return new WaitForSeconds(delayBeforeTypewriter);
+
         yield return TypewriterReveal(titleText, title);
         yield return TypewriterReveal(descriptionText, description);
 
@@ -86,18 +100,23 @@ public class EventController : MonoBehaviour
         promptTypewriterCoroutine = null;
     }
 
-    // Setting the full string up front lets TMP compute word-wrap once, so the layout never
-    // shifts mid-reveal; only maxVisibleCharacters changes as the line types out.
-    private IEnumerator TypewriterReveal(TMP_Text target, string fullText)
+    // Blanks a field and forces the mesh to rebuild immediately - without ForceMeshUpdate, TMP
+    // defers the actual rebuild to the next Canvas pass, so simply assigning .text = "" can still
+    // leave the previous string rendered on screen for a moment.
+    private void ClearText(TMP_Text target)
     {
+        if (target == null) return;
+
         target.text = string.Empty;
         target.maxVisibleCharacters = 0;
+        target.ForceMeshUpdate();
+    }
 
-        yield return null; // let the panel's just-activated layout/canvas fully settle before
-                           // assigning the real text - otherwise TextMeshPro can briefly render
-                           // the fully-typed text for one frame before maxVisibleCharacters
-                           // properly takes effect.
-
+    // Setting the full string up front lets TMP compute word-wrap once, so the layout never
+    // shifts mid-reveal; only maxVisibleCharacters changes as the line types out. Caller is
+    // expected to have already blanked target (see ClearText) before any pause happens.
+    private IEnumerator TypewriterReveal(TMP_Text target, string fullText)
+    {
         target.text = fullText;
         target.maxVisibleCharacters = 0; // re-assert - assigning .text can reset this on its own
         target.ForceMeshUpdate();
@@ -187,6 +206,9 @@ public class EventController : MonoBehaviour
 
         outcomePanel.SetActive(true);
 
+        // Same reasoning as StartEvent - blank immediately, before the pause, not after it.
+        ClearText(outcomeText);
+
         if (outcomeTypewriterCoroutine != null)
             StopCoroutine(outcomeTypewriterCoroutine);
 
@@ -195,6 +217,8 @@ public class EventController : MonoBehaviour
 
     private IEnumerator PlayOutcomeTypewriter(string text)
     {
+        yield return new WaitForSeconds(delayBeforeTypewriter);
+
         yield return TypewriterReveal(outcomeText, text);
 
         if (outcomeContinueButton != null)

@@ -285,6 +285,10 @@ public class CombatController : MonoBehaviour
     // over Basic (ENEMY_SKILL_PREFERENCE_CHANCE of the time), falling back to whichever exists.
     // When a side has multiple abilities of the chosen type (e.g. a boss with several Skills),
     // one is picked at random from that pool rather than always using the first one.
+    // Priority order: use a charged Ultimate whenever available, otherwise lean toward Skill
+    // over Basic (ENEMY_SKILL_PREFERENCE_CHANCE of the time), falling back to whichever exists.
+    // When a side has multiple abilities of the chosen type (e.g. a boss with several Skills),
+    // one is picked at random from that pool rather than always using the first one.
     private AbilityData ChooseEnemyAbility(CharacterInstance enemy)
     {
         bool isSilenced = enemy.IsSilenced();
@@ -298,7 +302,7 @@ public class CombatController : MonoBehaviour
 
         var ultimates = validAbilities.Where(a => a.abilityType == AbilityType.Ultimate).ToList();
         if (ultimates.Count > 0)
-            return ultimates[UnityEngine.Random.Range(0, ultimates.Count)];
+            return PickWeighted(ultimates);
 
         var skills = validAbilities.Where(a => a.abilityType == AbilityType.Skill).ToList();
         var basics = validAbilities.Where(a => a.abilityType == AbilityType.Basic).ToList();
@@ -308,9 +312,32 @@ public class CombatController : MonoBehaviour
             : (skills.Count > 0 ? skills : basics);
 
         if (pool.Count > 0)
-            return pool[UnityEngine.Random.Range(0, pool.Count)];
+            return PickWeighted(pool);
 
-        return validAbilities[UnityEngine.Random.Range(0, validAbilities.Count)];
+        return PickWeighted(validAbilities);
+    }
+
+    // Weighted random pick within a same-type pool (e.g. a boss's several Skills), using each
+    // ability's AbilityData.aiSelectionWeight - lets a specific ability (like a self-buff that
+    // shouldn't compete evenly with a boss's main damage Skill) show up less often than the rest
+    // of its pool without touching ENEMY_SKILL_PREFERENCE_CHANCE, which governs Skill-vs-Basic for
+    // every enemy. Weight 1 for every ability in a pool behaves exactly like a plain uniform pick.
+    private AbilityData PickWeighted(List<AbilityData> pool)
+    {
+        if (pool.Count == 1) return pool[0];
+
+        float totalWeight = pool.Sum(a => Mathf.Max(0.01f, a.aiSelectionWeight));
+        float roll = UnityEngine.Random.value * totalWeight;
+        float cumulative = 0f;
+
+        foreach (var ability in pool)
+        {
+            cumulative += Mathf.Max(0.01f, ability.aiSelectionWeight);
+            if (roll <= cumulative)
+                return ability;
+        }
+
+        return pool[pool.Count - 1];
     }
 
     private List<CharacterInstance> ChooseEnemyTargets(CharacterInstance caster, AbilityData ability)
@@ -673,15 +700,7 @@ public class CombatController : MonoBehaviour
     // (see CombatController.ResolvePhaseTransition) - Phase 1's card needs to actually leave the
     // field for this, same fade-then-destroy treatment as a wave-encounter death, or it just sits
     // there forever alongside Phase 2's card since it was never really "killed".
-    private void HandleEnemyRemoved(CharacterInstance enemy)
-    {
-        if (!cardLookup.TryGetValue(enemy, out var card)) return;
-
-        cardLookup.Remove(enemy);
-        enemySlotAssignment.Remove(enemy);
-
-        card.PlayDeathFadeOut(() => Destroy(card.gameObject));
-    }
+   
     private void TrySpawnReinforcement()
     {
         if (maxEnemiesOnField <= 0 || reinforcementQueue.Count == 0)

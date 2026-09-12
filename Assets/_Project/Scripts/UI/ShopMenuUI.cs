@@ -18,6 +18,8 @@ public class ShopMenuUI : MonoBehaviour
     public TMP_Text selectedItemNameText;
     public TMP_Text selectedItemDescriptionText;
 
+    [Header("Audio")]
+    public AudioClip purchaseSound;
     // OnEnable rather than Start - the panel is only ever shown/hidden via SetActive (see
     // OverworldMenuUI), so Start would only ever run once at scene load and gold/stock would go
     // stale after that (e.g. gold earned from a level wouldn't show until the next scene reload).

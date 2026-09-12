@@ -77,5 +77,7 @@ public class AbilityData : ScriptableObject
     public GameObject impactEffectPrefab;
     [Tooltip("How long (seconds) Impact Effect Prefab above plays before it's removed and the number appears. Match this to the prefab's own animation/particle duration. Only used if Impact Effect Prefab is set.")]
     public float impactEffectDuration = 0.5f;
-
+    [Header("Enemy AI")]
+    [Tooltip("Enemy-only. Relative weight for the AI to pick this ability when it's choosing among several of the same type (e.g. a boss with two Skills). 1 = normal. Lower it (e.g. 0.3) to make an ability like a self-buff show up less often than a boss's main damage Skill, without touching how often Skills in general get picked over Basics.")]
+    public float aiSelectionWeight = 1f;
 }
