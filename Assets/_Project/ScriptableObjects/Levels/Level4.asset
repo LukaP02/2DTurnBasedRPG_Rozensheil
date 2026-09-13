@@ -35,6 +35,6 @@ MonoBehaviour:
   dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0
   reinforcementPool: []
-  killTarget: 1
-  midBattleDialogue: {fileID: 11400000, guid: 8ea736e4e35edb4499729c2f5bacd230, type: 2}
+  killTarget: 0
+  midBattleDialogue: {fileID: 0}
   wipeMessage: The remaining enemies are struck down!
