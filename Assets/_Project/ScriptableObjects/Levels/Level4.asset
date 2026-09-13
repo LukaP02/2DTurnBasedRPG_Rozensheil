@@ -22,7 +22,7 @@ MonoBehaviour:
   mapPosition: {x: -280, y: -200}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 93fb02922b82fdd48925285eb60011ed, type: 2}
-  combatBackground: {fileID: 0}
+  combatBackground: {fileID: 3816729604529703635, guid: fd9e07ebb3715d7429e20595427e2a1f, type: 3}
   combatMusic: {fileID: 8300000, guid: 34caefe7978b6874ab6b1f6174d51468, type: 3}
   preLevelEvent: {fileID: 0}
   introDialogue: {fileID: 11400000, guid: f4775677a6cf7f34d8ba351d7fdb4202, type: 2}
@@ -35,6 +35,6 @@ MonoBehaviour:
   dialogueBeforePostEvent: 0
   maxEnemiesOnField: 0
   reinforcementPool: []
-  killTarget: 0
+  killTarget: 1
   midBattleDialogue: {fileID: 11400000, guid: 8ea736e4e35edb4499729c2f5bacd230, type: 2}
   wipeMessage: The remaining enemies are struck down!

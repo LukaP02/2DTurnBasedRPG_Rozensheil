@@ -16,7 +16,7 @@ MonoBehaviour:
   - speakerName: Abdul
     speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
     text: That, that was brutal.
-    backgroundImage: {fileID: 0}
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
     flashColor: {r: 0, g: 0, b: 0, a: 0}
     flashFadeInSeconds: 0
     flashHoldSeconds: 0
