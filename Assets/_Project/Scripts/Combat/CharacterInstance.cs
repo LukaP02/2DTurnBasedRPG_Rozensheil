@@ -393,6 +393,11 @@ public class CharacterInstance
     {
         return activeEffects.Any(e => e.category == StatusEffectCategory.CrowdControl && e.skipTurn);
     }
+    public GameObject GetActiveShieldVisualPrefab()
+    {
+        var effect = activeEffects.FirstOrDefault(e => e.category == StatusEffectCategory.Shield && e.shieldRemaining > 0);
+        return effect?.shieldVisualPrefab;
+    }
     // Card art tint for whichever active effect wants one (e.g. Freeze/Petrified) - null if none
     // of this character's active effects have Tints Card Art checked. If more than one such effect
     // is active at once, whichever was applied first (earliest in activeEffects) wins.
