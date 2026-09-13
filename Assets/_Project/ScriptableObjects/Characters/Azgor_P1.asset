@@ -55,7 +55,7 @@ MonoBehaviour:
   phaseTwoCard: {fileID: 11400000, guid: 762e5b2ced7ffa84ba357a40281dee04, type: 2}
   phaseTransitionHPPercent: 0
   phaseTransitionDialogue: {fileID: 11400000, guid: 8ea736e4e35edb4499729c2f5bacd230, type: 2}
-  phaseTransitionMessage: A new form emerges!
+  phaseTransitionMessage: The topaz starts pulsating in Azgor's chest.
   hpTriggeredReinforcements: []
   hpTriggeredReinforcementPercent: 0.5
   hpTriggeredReinforcementMessage: 

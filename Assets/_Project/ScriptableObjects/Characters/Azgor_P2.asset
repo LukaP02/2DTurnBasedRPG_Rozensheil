@@ -55,9 +55,13 @@ MonoBehaviour:
   phaseTransitionHPPercent: 0.5
   phaseTransitionDialogue: {fileID: 0}
   phaseTransitionMessage: A new form emerges!
-  hpTriggeredReinforcements: []
-  hpTriggeredReinforcementPercent: 0.5
-  hpTriggeredReinforcementMessage: The Cyclops calls two wolves!
+  hpTriggeredReinforcements:
+  - {fileID: 11400000, guid: 098692a7589a2be4e96e0f8e8372a793, type: 2}
+  - {fileID: 11400000, guid: f723367e4bac66147be58f3ca5b121c7, type: 2}
+  - {fileID: 11400000, guid: f723367e4bac66147be58f3ca5b121c7, type: 2}
+  - {fileID: 11400000, guid: 098692a7589a2be4e96e0f8e8372a793, type: 2}
+  hpTriggeredReinforcementPercent: 1
+  hpTriggeredReinforcementMessage: Guards come to support the Champion!
   extraBasicAbilities:
   - {fileID: 11400000, guid: d08c9b1fad9d73342b20c1abfa3d1af8, type: 2}
   extraSkillAbilities:
