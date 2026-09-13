@@ -314,6 +314,7 @@ public class CharacterInstance
                 flatAmount = data.isPercent ? data.flatAmount : data.flatAmount + scalingBonus,
                 percentAmount = data.percentAmount,
                 shieldRemaining = Mathf.Min(data.shieldAmount + scalingBonus, maxHP),
+                shieldVisualPrefab = data.shieldVisualPrefab,
                 skipTurn = data.skipTurn,
                 silences = data.silences,
                 grantsDoubleAction = data.grantsDoubleAction,

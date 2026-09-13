@@ -81,6 +81,13 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private Coroutine ghostHpCoroutine;
     private float lastGhostHpFraction = -1f;
 
+    [Header("Shield Visual")]
+    [Tooltip("Where a shield's visual effect (StatusEffectData.shieldVisualPrefab) is spawned/enveloped around - defaults to this card's own transform if left empty.")]
+    public Transform shieldVisualAnchor;
+    private GameObject shieldVisualInstance;
+    private GameObject shieldVisualSourcePrefab;
+
+
     [Header("Slide-In")]
     public float slideInSeconds = 0.35f;
 
@@ -611,6 +618,7 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         if (boundCharacter == null) return;
 
         ApplyStatusTint();
+        ApplyShieldVisual();
 
         if (statusIconContainer == null) return;
 
@@ -638,6 +646,29 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         }
     }
 
+    private void ApplyShieldVisual()
+    {
+        GameObject desiredPrefab = boundCharacter.isAlive ? boundCharacter.GetActiveShieldVisualPrefab() : null;
+
+        if (desiredPrefab == shieldVisualSourcePrefab)
+            return;
+
+        if (shieldVisualInstance != null)
+            Destroy(shieldVisualInstance);
+
+        shieldVisualSourcePrefab = desiredPrefab;
+
+        if (desiredPrefab != null)
+        {
+            Transform anchor = shieldVisualAnchor != null ? shieldVisualAnchor : transform;
+            shieldVisualInstance = Instantiate(desiredPrefab, anchor);
+            shieldVisualInstance.transform.localPosition = Vector3.zero;
+        }
+        else
+        {
+            shieldVisualInstance = null;
+        }
+    }
     private Sprite GetStainIcon(ElementType element)
     {
         switch (element)

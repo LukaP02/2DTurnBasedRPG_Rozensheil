@@ -701,6 +701,11 @@ public class CombatUIManager : MonoBehaviour
         }
 
         GameObject fx = Instantiate(ability.projectilePrefab, projectileLayer);
+
+        var elementTint = fx.GetComponent<ElementTintedParticle>();
+        if (elementTint != null)
+            elementTint.ApplyElementColor(ability.element);
+
         RectTransform fxRect = fx.transform as RectTransform;
 
         if (fxRect == null)

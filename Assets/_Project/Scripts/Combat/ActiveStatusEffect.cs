@@ -15,6 +15,7 @@ public class ActiveStatusEffect
     public float percentAmount;
 
     public int shieldRemaining;
+    public GameObject shieldVisualPrefab;
 
     public bool skipTurn;
     public bool silences;

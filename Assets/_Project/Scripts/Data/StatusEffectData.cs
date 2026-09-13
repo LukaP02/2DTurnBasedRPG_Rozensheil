@@ -40,6 +40,8 @@ public class StatusEffectData : ScriptableObject
 
     [Header("Shield (category = Shield)")]
     public int shieldAmount;
+    [Tooltip("Looping visual effect spawned on the shielded character's card for as long as this shield is active - e.g. a bubble/aura enveloping the card. Destroyed automatically once the shield ends. Leave empty for no visual.")]
+    public GameObject shieldVisualPrefab;
 
     [Header("Crowd Control (category = CrowdControl)")]
     public bool skipTurn;
