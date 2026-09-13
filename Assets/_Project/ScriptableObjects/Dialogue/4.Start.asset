@@ -12,5 +12,166 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2d31c0a575d374f9b00d77d5d88faf, type: 3}
   m_Name: 4.Start
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
-  lines: []
-  music: {fileID: 0}
+  lines:
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: He could be anywhere... This might take a while.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: bb680456bc018df4c966efbe0232b4d6, type: 3}
+    text: What did you say your friend looked like again?
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: 'Red-bearded, short, brown eyes. Very basic for a dwarf. '
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: Also has a medalion of Focalor, never takes it off.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: bb680456bc018df4c966efbe0232b4d6, type: 3}
+    text: Then maybe... that one?
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: Where!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: bb680456bc018df4c966efbe0232b4d6, type: 3}
+    text: In the arena.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: Damn, that's him. Let's move.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: A few minutes later...
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: Oy... Raindorf, here.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: He doesnt hear us. HEY, RAINDORF! OVER HERE!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Raindorf
+    speakerPortrait: {fileID: 21300000, guid: cc3daa6a9a1207a429fc0a1b02e63d65, type: 3}
+    text: Eh... you lot... *cough *cough. Get back, it's a tr-
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: What are you saying, friend. We got you, c'mon let's go.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: a4e25b23fb97a46489f95e4bf3dafbd2, type: 3}
+    text: No... he said trap, STAY ALERT!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: ???
+    speakerPortrait: {fileID: 0}
+    text: Thine companionship runs deep within. praises for that.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: bb680456bc018df4c966efbe0232b4d6, type: 3}
+    text: Oh-oh, this is bad.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: ???
+    speakerPortrait: {fileID: 0}
+    text: Congratulations are in order. Thine honor of the brotherhood and the spirit
+      of a warrior is most acceptable.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: Dest, who is that?
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: bb680456bc018df4c966efbe0232b4d6, type: 3}
+    text: That's the Champion... Azgor. He- he shouldn't be here... not yet.
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  - speakerName: Azgor
+    speakerPortrait: {fileID: 0}
+    text: Thine resolve shall be tested proper. Prepare!
+    backgroundImage: {fileID: 0}
+    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 0
+  music: {fileID: 8300000, guid: 8304d5d84951d95428ef7af8e3bd4167, type: 3}
