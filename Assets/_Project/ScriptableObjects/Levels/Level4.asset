@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   levelName: Azgor
   location: Khar / Colosseum Arena
-  previewDescription: A battle with the Champion is going to be fierce, better prepare
-    yourselves.
+  previewDescription: You went back to get Raindorf from the Colosseum. With the
+    help of Abdul's friend Icotar, you managed to get to him safely, but there the
+    Champion was waiting for the final battle. Battle with the Champion is going
+    to be fierce, better prepare yourselves.
   previewImage: {fileID: 0}
   mapPosition: {x: -280, y: -200}
   unlocksOnComplete:

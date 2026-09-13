@@ -13,11 +13,288 @@ MonoBehaviour:
   m_Name: 3.Start
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
   lines:
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: Ah- my head-... Where are we?
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: 0
+    flashHoldSeconds: 0
+    flashFadeOutSeconds: 2
   - speakerName: 
     speakerPortrait: {fileID: 0}
-    text: 
-    backgroundImage: {fileID: 0}
-    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    text: Sicur lays on the ground next to Zavren, nonrespondant.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: Sicur, are you alright? Hey, do you hear me? Get up.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: 
+    speakerPortrait: {fileID: 0}
+    text: Zavren tries using his magic to try and wake Sicur up
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: Wha- Why can't I? My magic- what is going on?
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ???
+    speakerPortrait: {fileID: 0}
+    text: Don't bother, save your strenght.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: Ah, who are you? What do you want?!
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ???
+    speakerPortrait: {fileID: 21300000, guid: 18ae8c76944fc3844838f6d844a04a4b, type: 3}
+    text: Don't worry about your friend. He is alive.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ???
+    speakerPortrait: {fileID: 21300000, guid: 18ae8c76944fc3844838f6d844a04a4b, type: 3}
+    text: This place blocks magic from the user. Some mages just collapse from the
+      intensity of the absorption.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ???
+    speakerPortrait: {fileID: 21300000, guid: 18ae8c76944fc3844838f6d844a04a4b, type: 3}
+    text: You seem to have more mana than your friend there, that is why you have
+      greater resistance. Although, you will probably feel its effect sooner than
+      later.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: What are you talking about. Where are we? You are not answering questions!
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: ???
+    speakerPortrait: {fileID: 21300000, guid: 18ae8c76944fc3844838f6d844a04a4b, type: 3}
+    text: 'Ah sorry, i have been here for some time. Kinda gets awkward not having
+      anyone to talk to for months. '
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: Call me Dest, I'm a prisoner, like you. As I said, your friend will be
+      ok. After some rest he will be as good as new. Maybe feeling a bit fatigued,
+      but that's it.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: How did we get here and... where are Abdul and Raindorf?
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: 'Well, knowing Kharian people, my guess as to why you are here is... for
+      gold. Probably sold to entertain the mass outside for being a mage. '
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: As for your friends, my guess is they don't wield magic, so they are in
+      a different part of the prison.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 0}
+    text: AHH- GET THE FUCK OFF ME YOU STINKIN' RAT!
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: That's Abdul!
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: Seems he met Miran.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Miran
+    speakerPortrait: {fileID: 21300000, guid: b9f4a5a05364fba4ab8a21c443176b7a, type: 3}
+    text: Chill out, fresh meat. Where is the respect for the long-timers. You kids
+      these days. NO RESPECT WHATSOEVER
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: 8519536599c40ae47a63c37549b69ffe, type: 3}
+    text: STAY BACK, YOU FILTHY RAT! My weapons...
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Miran
+    speakerPortrait: {fileID: 21300000, guid: b9f4a5a05364fba4ab8a21c443176b7a, type: 3}
+    text: Chill meat, we are in a cell, you see. My hands are tied... literaly.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Abdul
+    speakerPortrait: {fileID: 21300000, guid: 8519536599c40ae47a63c37549b69ffe, type: 3}
+    text: Why are we here?
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Miran
+    speakerPortrait: {fileID: 21300000, guid: b9f4a5a05364fba4ab8a21c443176b7a, type: 3}
+    text: HEHE, What do you think, TO FIGHT OBVIOUSLY. HEHEHEHE.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: What is he talking about?
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: The tournament... we are the entertainment. A duel with other parts of
+      the prison.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: Wait, but Raindorf isn't here. Are we going to fight him too?
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: That depends. If he is a mage, then probably not. Matches are usually devided
+      into the groups of those who can and cannot use any form of magic.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: Think like Paladins and Clerics are in the same boat as us. While they
+      are just conduits of divine power, they still channel miracles from their bodies.
+      Well they are seen as above us anyhow.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Zavren
+    speakerPortrait: {fileID: 21300000, guid: ea391b21d3571b74891285752549baee, type: 3}
+    text: He is a cleric...
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Sicur
+    speakerPortrait: {fileID: 21300000, guid: 5f842b72481fd6043bb45ee3ba848524, type: 3}
+    text: Eh- ...
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: Your friend has woken up at last.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Guards
+    speakerPortrait: {fileID: 0}
+    text: Get the next round of prisoners for the battle!
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
+    flashFadeInSeconds: -1
+    flashHoldSeconds: -1
+    flashFadeOutSeconds: -1
+  - speakerName: Dest
+    speakerPortrait: {fileID: 21300000, guid: 8a07dcf60f7ef3642920c2f88c59c818, type: 3}
+    text: Looks like we are up. Get ready, this can get ugly.
+    backgroundImage: {fileID: 4162267117642399333, guid: d69d10f179f5db94b83bea37268acb56, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
     flashFadeInSeconds: -1
     flashHoldSeconds: -1
     flashFadeOutSeconds: -1
