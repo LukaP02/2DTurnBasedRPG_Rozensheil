@@ -16,14 +16,16 @@ MonoBehaviour:
   location: DartMund / UnterGarten
   previewDescription: After a long journey through the snowy hills of EisenDorph,
     you find yourselves in an inn, looking to rest for the night.
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 3519853033311105074, guid: 30163c899021f054683333df6ab89a97, type: 3}
   mapPosition: {x: -520, y: 60}
   unlocksOnComplete:
   - {fileID: 11400000, guid: e3a15cdc848fd404c8107bd0127d7b48, type: 2}
   combatBackground: {fileID: 0}
+  combatMusic: {fileID: 0}
   preLevelEvent: {fileID: 11400000, guid: 50cb8419ca138b24b9b25b29cc753e61, type: 2}
   introDialogue: {fileID: 0}
   dialogueBeforePreEvent: 0
+  promptPartySelectionBeforeCombat: 0
   enemies: []
   postLevelEvent: {fileID: 0}
   postLevelDialogue: {fileID: 0}

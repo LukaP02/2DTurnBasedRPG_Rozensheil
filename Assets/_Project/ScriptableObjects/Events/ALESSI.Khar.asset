@@ -15,7 +15,7 @@ MonoBehaviour:
   title: ALESSI's Shop
   description: ALESSI is inpressed with your willingness to help Rikki with his problem.
     He is willing to give you a custom attire for a generous price.
-  image: {fileID: 0}
+  image: {fileID: -7849309450816237558, guid: fa04d43538b3840469ffb8efe65ebd2f, type: 3}
   backgroundImage: {fileID: 0}
   choices:
   - choiceText: Buy armor  for Abdul (200 gold)

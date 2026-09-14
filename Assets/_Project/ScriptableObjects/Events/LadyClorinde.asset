@@ -21,7 +21,7 @@ MonoBehaviour:
     gets up and crosses path with Zavren, her soft voice whispers something to him.
     Zavren''s surprised reaction made everyone else vary of the hooded woman. She
     calmly went outside the inn and gave a gesture to follow her. '
-  image: {fileID: 0}
+  image: {fileID: 3519853033311105074, guid: 30163c899021f054683333df6ab89a97, type: 3}
   backgroundImage: {fileID: 0}
   choices:
   - choiceText: Continue

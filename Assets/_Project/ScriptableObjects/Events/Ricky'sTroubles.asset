@@ -17,7 +17,7 @@ MonoBehaviour:
     on a horse and starts riding deeper into the city. Ricky takes a nearby charriot
     and call you to help him. The chase is fast and bumpy, still you manage to stay
     on the crooks tail the whole time. You get close enough to him to act. '
-  image: {fileID: 0}
+  image: {fileID: 699584173993887821, guid: 6805ce3fcd0da544fb50fb1786e47ed7, type: 3}
   backgroundImage: {fileID: 0}
   choices:
   - choiceText: (Abdul) Use amethyst

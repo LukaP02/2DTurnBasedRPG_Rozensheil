@@ -16,7 +16,7 @@ MonoBehaviour:
   location: Khar / Lower Setekh
   previewDescription: Icotar tells you of a certain relic that is needed to rescue
     Henry from captivity, it is up to you to figure out how to get it.
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 4174446080511355770, guid: 4a75f80b18da87b47a064dba7ce6c129, type: 3}
   mapPosition: {x: -340, y: -80}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}

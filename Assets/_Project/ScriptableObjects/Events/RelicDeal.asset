@@ -18,7 +18,7 @@ MonoBehaviour:
     This dagger could be worth a lot. Zavren knows one of the factions known as Raven''s
     Grasp", as they are his former allies. He believes that getting a hold of this
     knife might be a moderately simple task... '
-  image: {fileID: 0}
+  image: {fileID: 4174446080511355770, guid: 4a75f80b18da87b47a064dba7ce6c129, type: 3}
   backgroundImage: {fileID: 0}
   choices:
   - choiceText: Ignore the deal

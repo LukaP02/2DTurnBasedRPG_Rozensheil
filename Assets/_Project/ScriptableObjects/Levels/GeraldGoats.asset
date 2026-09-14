@@ -16,7 +16,7 @@ MonoBehaviour:
   location: EisenDorph / Northern Gate Village
   previewDescription: 'At the far North of the village, there lies an isolated house.
     job posting says that a lonely old man needs some help with his goats. '
-  previewImage: {fileID: 0}
+  previewImage: {fileID: -2690351224845468974, guid: ea7562f49effbed419d74376643aa859, type: 3}
   mapPosition: {x: -260, y: 310}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}

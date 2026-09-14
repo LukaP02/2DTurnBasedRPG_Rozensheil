@@ -16,7 +16,7 @@ MonoBehaviour:
   location: EisenDorph
   previewDescription: Four strangers find themselves in a cold and unfamiliar place
     after a bright green beam.
-  previewImage: {fileID: 0}
+  previewImage: {fileID: -1062033846832284166, guid: 1e04ff2632eb347438a32c9cfcd247f0, type: 3}
   mapPosition: {x: -350, y: 260}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 7f186bb01b5270b41a60d22a052d6456, type: 2}

@@ -16,7 +16,7 @@ MonoBehaviour:
   description: On your way to the grassland, the goats started acting funny... All
     of them broke off their leashes and started scattering in all directions. Getting
     them back is now your first priority.
-  image: {fileID: 0}
+  image: {fileID: -2690351224845468974, guid: ea7562f49effbed419d74376643aa859, type: 3}
   backgroundImage: {fileID: 0}
   choices:
   - choiceText: Ignore the goats and leave the village

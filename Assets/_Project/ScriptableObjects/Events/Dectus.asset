@@ -20,7 +20,7 @@ MonoBehaviour:
     man that saved you before, soon realizing that the bandaged man is blind. Still
     he proved to be a serious threat, but not one that you could't conquer. Gods
     only know how this would end had he not been robbed of his sight.
-  image: {fileID: 0}
+  image: {fileID: -3217854862394781279, guid: 7b46875fc6f7a664db14263639cd3918, type: 3}
   backgroundImage: {fileID: 0}
   choices:
   - choiceText: Continue

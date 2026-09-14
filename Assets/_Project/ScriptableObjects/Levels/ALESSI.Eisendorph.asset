@@ -16,7 +16,7 @@ MonoBehaviour:
   location: EisenDorph
   previewDescription: A strange, luxurious carriage drawn by two beautiful white
     horses approaches...
-  previewImage: {fileID: 0}
+  previewImage: {fileID: -7849309450816237558, guid: fa04d43538b3840469ffb8efe65ebd2f, type: 3}
   mapPosition: {x: -500, y: 150}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}

@@ -18,7 +18,7 @@ MonoBehaviour:
     help of Abdul's friend Icotar, you managed to get to him safely, but there the
     Champion was waiting for the final battle. Battle with the Champion is going
     to be fierce, better prepare yourselves.
-  previewImage: {fileID: 0}
+  previewImage: {fileID: -2737929817473870774, guid: 78e659f1bbcba034bb638cd7ff77c161, type: 3}
   mapPosition: {x: -280, y: -200}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 93fb02922b82fdd48925285eb60011ed, type: 2}

@@ -18,7 +18,7 @@ MonoBehaviour:
     it. Olaf and Wagner don''t seem nervous but you never know. Soon they arrive
     at the talking distance, some dwarvish words are exchanged, you notice one of
     the hooded men discreetly show a few signs with his hand. '
-  image: {fileID: 0}
+  image: {fileID: 1099741534708091869, guid: a05f47cf10e94864e922ecbced6809fc, type: 3}
   backgroundImage: {fileID: 0}
   choices:
   - choiceText: (Abdul) Show a sign as an answer
