@@ -15,7 +15,7 @@ MonoBehaviour:
   title: Partner in crime
   description: 'You made a deal with Dest, he seems like a capable addition to the
     team. His muscular physique and knowladge of the prison could come in handy. '
-  image: {fileID: 0}
+  image: {fileID: -5181815243216415095, guid: 70bdcf786d2e0f74987bba202dd46dfc, type: 3}
   backgroundImage: {fileID: 0}
   choices:
   - choiceText: Continue

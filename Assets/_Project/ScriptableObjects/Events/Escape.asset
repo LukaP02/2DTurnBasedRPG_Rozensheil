@@ -18,7 +18,7 @@ MonoBehaviour:
     made of bones to open the cell, sneak around the block until you reach the hallway.
     This corridor has two door to the sides and one big door that seems to lead to
     freedom. '
-  image: {fileID: 0}
+  image: {fileID: 7052292767051419233, guid: ead172367de414b4fba53925aea6dfed, type: 3}
   backgroundImage: {fileID: 0}
   choices:
   - choiceText: Check left door before leaving

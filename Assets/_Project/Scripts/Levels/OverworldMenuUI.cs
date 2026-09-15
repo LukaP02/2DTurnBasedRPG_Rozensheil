@@ -10,22 +10,27 @@ public class OverworldMenuUI : MonoBehaviour
     public GameObject shopMenuPanel;
     public GameObject loadoutMenuPanel;
     public GameObject partySetupPanel;
+    public GameObject optionsPanel;
 
     [Header("Open Buttons (on the Overworld screen)")]
     public Button openShopButton;
     public Button openLoadoutButton;
     public Button openPartySetupButton;
+    public Button openOptionsButton;
 
     [Header("Close Buttons (on each panel)")]
     public Button closeShopButton;
     public Button closeLoadoutButton;
     public Button closePartySetupButton;
+    // No closeOptionsButton here - OverworldOptionsUI owns its own Back/Quit buttons since closing
+    // it involves cross-panel logic (Back reopens the Overworld, Quit goes to the Main Menu).
 
     private void Awake()
     {
         if (openShopButton != null) openShopButton.onClick.AddListener(() => ScreenFader.Transition(() => shopMenuPanel.SetActive(true)));
         if (openLoadoutButton != null) openLoadoutButton.onClick.AddListener(() => ScreenFader.Transition(() => loadoutMenuPanel.SetActive(true)));
         if (openPartySetupButton != null) openPartySetupButton.onClick.AddListener(() => ScreenFader.Transition(() => partySetupPanel.SetActive(true)));
+        if (openOptionsButton != null) openOptionsButton.onClick.AddListener(() => ScreenFader.Transition(() => optionsPanel.SetActive(true)));
 
         if (closeShopButton != null) closeShopButton.onClick.AddListener(() => ScreenFader.Transition(() => shopMenuPanel.SetActive(false)));
         if (closeLoadoutButton != null) closeLoadoutButton.onClick.AddListener(() => ScreenFader.Transition(() => loadoutMenuPanel.SetActive(false)));
