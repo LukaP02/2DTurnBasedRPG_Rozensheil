@@ -17,7 +17,7 @@ MonoBehaviour:
   previewDescription: After coming back from your investigation, a certain job catches
     your eye. It seems to have been posted by Wagner.
   previewImage: {fileID: -3217854862394781279, guid: 7b46875fc6f7a664db14263639cd3918, type: 3}
-  mapPosition: {x: -500, y: 250}
+  mapPosition: {x: -480, y: 300}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}
   combatMusic: {fileID: 0}

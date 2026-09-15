@@ -19,7 +19,7 @@ MonoBehaviour:
     Champion was waiting for the final battle. Battle with the Champion is going
     to be fierce, better prepare yourselves.
   previewImage: {fileID: -2737929817473870774, guid: 78e659f1bbcba034bb638cd7ff77c161, type: 3}
-  mapPosition: {x: -280, y: -200}
+  mapPosition: {x: -250, y: -130}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 93fb02922b82fdd48925285eb60011ed, type: 2}
   combatBackground: {fileID: 3816729604529703635, guid: fd9e07ebb3715d7429e20595427e2a1f, type: 3}

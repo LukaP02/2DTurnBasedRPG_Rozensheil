@@ -17,7 +17,7 @@ MonoBehaviour:
   previewDescription: Exploring the bazzar of the grand city, you meet a familiar
     face...
   previewImage: {fileID: 699584173993887821, guid: 6805ce3fcd0da544fb50fb1786e47ed7, type: 3}
-  mapPosition: {x: -200, y: -120}
+  mapPosition: {x: -150, y: -70}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}
   combatMusic: {fileID: 0}

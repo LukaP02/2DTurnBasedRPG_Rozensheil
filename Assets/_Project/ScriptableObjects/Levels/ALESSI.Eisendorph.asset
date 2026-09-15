@@ -17,7 +17,7 @@ MonoBehaviour:
   previewDescription: A strange, luxurious carriage drawn by two beautiful white
     horses approaches...
   previewImage: {fileID: -7849309450816237558, guid: fa04d43538b3840469ffb8efe65ebd2f, type: 3}
-  mapPosition: {x: -500, y: 150}
+  mapPosition: {x: -450, y: 210}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}
   combatMusic: {fileID: 0}

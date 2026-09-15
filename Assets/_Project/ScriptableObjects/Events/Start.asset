@@ -19,7 +19,7 @@ MonoBehaviour:
     who were on duty were drunk so taking care of them wasn''t too big of a problem.
     Just as the last guard was defeated, a necklace containing a green gem was tossed
     towards the commosion. A bright green light started eminating from the gem. '
-  image: {fileID: -1062033846832284166, guid: 1e04ff2632eb347438a32c9cfcd247f0, type: 3}
+  image: {fileID: 7416057313662428392, guid: 9043c8bacaeb86041b030b470396a202, type: 3}
   backgroundImage: {fileID: 0}
   choices:
   - choiceText: Continue

@@ -17,7 +17,7 @@ MonoBehaviour:
   previewDescription: Four strangers find themselves in a cold and unfamiliar place
     after a bright green beam.
   previewImage: {fileID: -1062033846832284166, guid: 1e04ff2632eb347438a32c9cfcd247f0, type: 3}
-  mapPosition: {x: -350, y: 260}
+  mapPosition: {x: -300, y: 320}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 7f186bb01b5270b41a60d22a052d6456, type: 2}
   - {fileID: 11400000, guid: 9e9ab007e968bc344ab1c345c7889cec, type: 2}

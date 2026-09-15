@@ -17,7 +17,7 @@ MonoBehaviour:
   previewDescription: After a long journey through the snowy hills of EisenDorph,
     you find yourselves in an inn, looking to rest for the night.
   previewImage: {fileID: 3519853033311105074, guid: 30163c899021f054683333df6ab89a97, type: 3}
-  mapPosition: {x: -520, y: 60}
+  mapPosition: {x: -500, y: 110}
   unlocksOnComplete:
   - {fileID: 11400000, guid: e3a15cdc848fd404c8107bd0127d7b48, type: 2}
   combatBackground: {fileID: 0}

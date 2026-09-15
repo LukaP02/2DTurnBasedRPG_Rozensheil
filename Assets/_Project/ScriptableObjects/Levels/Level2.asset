@@ -19,7 +19,7 @@ MonoBehaviour:
     It seems that the previous group never came back from this journey. There is
     also a bonus reward to finishing this task in under a day.
   previewImage: {fileID: -8822686629393387835, guid: 024b18d08cf71204fa9986c3e7fa2e70, type: 3}
-  mapPosition: {x: -420, y: 200}
+  mapPosition: {x: -370, y: 260}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 94788f5ac821a5f46a048bd8ffb0d65b, type: 2}
   - {fileID: 11400000, guid: 00a068fa7b2dabe4d824e142426eb5a6, type: 2}

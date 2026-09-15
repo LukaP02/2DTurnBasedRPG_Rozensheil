@@ -17,7 +17,7 @@ MonoBehaviour:
   previewDescription: Thanks to Abdul's connections, you get a ticket for a carriage
     ride out of the city, awaiting the next stop of your journey...
   previewImage: {fileID: 0}
-  mapPosition: {x: -550, y: -250}
+  mapPosition: {x: -380, y: -170}
   unlocksOnComplete: []
   combatBackground: {fileID: 0}
   combatMusic: {fileID: 0}

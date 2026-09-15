@@ -17,7 +17,7 @@ MonoBehaviour:
   previewDescription: You find yourselves behind bars, unable to use magic and stripped
     of your belongings.
   previewImage: {fileID: 0}
-  mapPosition: {x: -380, y: -150}
+  mapPosition: {x: -360, y: -90}
   unlocksOnComplete:
   - {fileID: 11400000, guid: 2ce8c474912bd6c41b12ecd925a80ea2, type: 2}
   - {fileID: 11400000, guid: a497becf27a8ecb43ac6376ab95e9cee, type: 2}
