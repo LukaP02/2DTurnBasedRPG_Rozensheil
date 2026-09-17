@@ -327,6 +327,12 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
+
+        // SetTargetHighlight tints this Image per-hover (orange for a valid ally target, red for
+        // enemy) - without caching it here, the color argument it's given is silently dropped and
+        // the highlight always shows whatever color was last painted on it in the Editor.
+        if (targetHoverHighlight != null)
+            targetHoverHighlightImage = targetHoverHighlight.GetComponent<Image>();
     }
 
     // Crossfades in this character's dedicated dead-card art (CharacterCardData.deadArt) and blocks
