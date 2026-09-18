@@ -31,6 +31,9 @@ public class CombatController : MonoBehaviour
     [Header("Status Effect Feedback")]
     [Tooltip("Minimum time (seconds) combat pauses right after a status effect is newly applied to a target, so the player has a chance to actually see it (status icon, card tint) before turn order gets a chance to clear it again - important for a 1-turn effect like Freeze/Petrified when the affected character's turn comes up immediately next.")]
     public float statusEffectAppliedPauseSeconds = 0.6f;
+    [Header("Enemy Turn Pacing")]
+    [Tooltip("Delay (seconds) before an enemy's turn resolves into an action. Prevents back-to-back enemy turns from happening instantly one after another.")]
+    public float enemyTurnStartDelaySeconds = 0.75f;
 
     // --- Wave encounter (optional, configured per level via ConfigureWaveEncounter) ---
     private int maxEnemiesOnField;
@@ -261,6 +264,10 @@ public class CombatController : MonoBehaviour
 
     private System.Collections.IEnumerator ResolveEnemyActionRoutine()
     {
+        // Give the player a beat to see whose turn it is before the action fires - without this,
+        // consecutive enemy turns can resolve back-to-back in the same frame with no visible gap.
+        yield return new WaitForSeconds(enemyTurnStartDelaySeconds);
+
         currentState = CombatState.Resolving;
 
         CharacterInstance user = activeActor;
