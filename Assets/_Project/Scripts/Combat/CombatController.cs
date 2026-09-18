@@ -485,23 +485,20 @@ public class CombatController : MonoBehaviour
                 (userIsAlly && turnOrder.allies.Contains(target)) ||
                 (!userIsAlly && turnOrder.enemies.Contains(target));
 
-            // Play projectile/impact visuals whenever the ability has one configured, even for a
-            // power=0 buff/shield cast - previously this was gated on power > 0, so a buff's
-            // Impact Effect Prefab (e.g. a shield circle) never played at all.
-            bool hasImpactVisual = ability.power > 0
-                || ability.projectilePrefab != null
-                || ability.impactEffectPrefab != null;
-
-            if (hasImpactVisual)
-            {
-                yield return WaitForHitEffects(user, target, ability);
-            }
+            // Only the projectile's travel time is worth blocking on - the target shouldn't take
+            // damage/be buffed before a ranged bolt has visually arrived. The impact-effect particle
+            // itself is fired-and-forgotten at the exact moment of the hit/heal/buff below instead of
+            // being waited on, so the particle, the hit sound, the floating number and the shake all
+            // land on the same frame instead of the particle finishing first and everything else
+            // arriving late.
+            yield return WaitForProjectile(user, target, ability);
 
             if (ability.power > 0)
             {
                 if (targetIsSameSideAsUser)
                 {
                     int healAmount = CalculateScaledPower(user, ability);
+                    OnRequestImpactEffect?.Invoke(target, ability, null);
                     target.Heal(healAmount);
                     OnHealApplied?.Invoke(target, healAmount);
                     OnTargetUpdated?.Invoke(target);
@@ -516,6 +513,7 @@ public class CombatController : MonoBehaviour
                     }
 
                     int rawDamage = CalculateDamage(user, target, ability, out bool wasCritOrWeakness) + bonusFromMarks;
+                    OnRequestImpactEffect?.Invoke(target, ability, null);
                     totalDamageDealt += DealDamage(user, target, rawDamage, ability.element, ability);
 
                     // Skip the shiver on a killing blow - the death-fade/dim visual takes over instead.
@@ -534,6 +532,12 @@ public class CombatController : MonoBehaviour
                         TryApplyElementalStain(user, target, ability.element);
                     }
                 }
+            }
+            else if (ability.impactEffectPrefab != null)
+            {
+                // Power=0 buff/shield cast: there's no damage/heal moment to sync the particle to, so
+                // just fire it here, right before the status effect (e.g. the shield) is applied below.
+                OnRequestImpactEffect?.Invoke(target, ability, null);
             }
 
             if (target.isAlive && ability.appliesStatusEffect != null && UnityEngine.Random.value <= ability.statusEffectChance)
@@ -590,7 +594,11 @@ public class CombatController : MonoBehaviour
     // routine here until each stage reports back. Either or both stages are skipped instantly if
     // nobody's listening, or the ability has nothing configured for that stage - so an ability
     // with neither behaves exactly as before either of these existed.
-    private System.Collections.IEnumerator WaitForHitEffects(CharacterInstance user, CharacterInstance target, AbilityData ability)
+    // Waits only for the projectile's travel (caster -> target) if the ability has one configured.
+    // The impact effect itself is fired-and-forgotten at the moment of the hit/heal/buff (see call
+    // site above) rather than waited on here, so it lands in sync with damage/sound/shake instead of
+    // gating the whole hit on the particle's playback length.
+    private System.Collections.IEnumerator WaitForProjectile(CharacterInstance user, CharacterInstance target, AbilityData ability)
     {
         if (ability.projectilePrefab != null && OnRequestProjectile != null)
         {
@@ -598,14 +606,6 @@ public class CombatController : MonoBehaviour
             OnRequestProjectile.Invoke(user, target, ability, () => arrived = true);
 
             yield return new WaitUntil(() => arrived);
-        }
-
-        if (OnRequestImpactEffect != null)
-        {
-            bool done = false;
-            OnRequestImpactEffect.Invoke(target, ability, () => done = true);
-
-            yield return new WaitUntil(() => done);
         }
     }
 
