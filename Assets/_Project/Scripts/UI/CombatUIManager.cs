@@ -682,7 +682,7 @@ public class CombatUIManager : MonoBehaviour
     private void HandleRequestImpactEffect(CharacterInstance target, AbilityData ability, System.Action onComplete)
     {
         if (cardLookup.TryGetValue(target, out var card))
-            card.PlayImpactEffect(ability.impactEffectPrefab, ability.impactEffectDuration, onComplete);
+            card.PlayImpactEffect(ability.impactEffectPrefab, ability.impactEffectDuration, ability.element, onComplete);
         else
             onComplete?.Invoke();
     }
@@ -834,4 +834,5 @@ public class CombatUIManager : MonoBehaviour
 
         card.PlayDeathFadeOut(() => Destroy(card.gameObject));
     }
+
 }

@@ -485,10 +485,20 @@ public class CombatController : MonoBehaviour
                 (userIsAlly && turnOrder.allies.Contains(target)) ||
                 (!userIsAlly && turnOrder.enemies.Contains(target));
 
-            if (ability.power > 0)
+            // Play projectile/impact visuals whenever the ability has one configured, even for a
+            // power=0 buff/shield cast - previously this was gated on power > 0, so a buff's
+            // Impact Effect Prefab (e.g. a shield circle) never played at all.
+            bool hasImpactVisual = ability.power > 0
+                || ability.projectilePrefab != null
+                || ability.impactEffectPrefab != null;
+
+            if (hasImpactVisual)
             {
                 yield return WaitForHitEffects(user, target, ability);
+            }
 
+            if (ability.power > 0)
+            {
                 if (targetIsSameSideAsUser)
                 {
                     int healAmount = CalculateScaledPower(user, ability);

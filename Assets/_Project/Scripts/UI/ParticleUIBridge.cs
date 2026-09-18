@@ -70,4 +70,25 @@ public class ParticleUIBridge : MonoBehaviour
 
         onComplete?.Invoke();
     }
+    public void PlayImpactEffect(GameObject effectPrefab, Transform screenAnchor, float duration, ElementType element, Action onComplete)
+    {
+        if (effectPrefab == null || particleCamera == null || screenAnchor == null)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, screenAnchor.position);
+        Vector3 viewportPos = new Vector3(screenPos.x / Screen.width, screenPos.y / Screen.height, spawnDepth);
+        Vector3 worldPos = particleCamera.ViewportToWorldPoint(viewportPos);
+
+        GameObject fx = Instantiate(effectPrefab, worldPos, Quaternion.identity);
+        SetLayerRecursively(fx, vfxLayer);
+
+        var elementTint = fx.GetComponent<ElementTintedParticle>();
+        if (elementTint != null)
+            elementTint.ApplyElementColor(element);
+
+        StartCoroutine(DespawnRoutine(fx, duration, onComplete));
+    }
 }

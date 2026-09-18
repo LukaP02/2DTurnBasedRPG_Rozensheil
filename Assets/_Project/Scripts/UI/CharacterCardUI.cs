@@ -832,4 +832,15 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         if (energyBarContainer != null)
             energyBarContainer.SetActive(visible);
     }
+    public void PlayImpactEffect(GameObject effectPrefab, float duration, ElementType element, System.Action onComplete)
+    {
+        if (effectPrefab == null || ParticleUIBridge.Instance == null)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        Transform anchor = impactEffectAnchor != null ? impactEffectAnchor : transform;
+        ParticleUIBridge.Instance.PlayImpactEffect(effectPrefab, anchor, duration, element, onComplete);
+    }
 }
