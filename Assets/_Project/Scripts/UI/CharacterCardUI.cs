@@ -110,6 +110,8 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public float shiverSeconds = 0.3f;
     [Tooltip("How far side to side the card jitters during a shiver, in UI units.")]
     public float shiverDistance = 8f;
+    [Tooltip("Multiplier applied to Shiver Seconds/Distance on a critical or weakness hit, so those shake noticeably harder than a normal hit.")]
+    public float critShiverMultiplier = 1.8f;
 
     [Header("Inspect Zoom")]
     [Tooltip("How long the on-field card takes to zoom toward the inspect anchor before the inspect panel opens.")]
@@ -189,27 +191,31 @@ public class CharacterCardUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
         rectTransform.localScale = preInspectScale;
     }
 
-    // Plays a quick, damped side-to-side shudder - see CombatController.OnCriticalOrWeaknessHit.
-    public void PlayShiver()
+    // Plays a quick, damped side-to-side shudder. Called at normal intensity on every hit
+    // (CombatController.OnDamageApplied) and at a stronger intensity for crits/weakness hits
+    // (CombatController.OnCriticalOrWeaknessHit) - see critShiverMultiplier.
+    public void PlayShiver(float intensityMultiplier = 1f)
     {
         if (rectTransform == null) return;
 
         if (shiverCoroutine != null)
             StopCoroutine(shiverCoroutine);
 
-        shiverCoroutine = StartCoroutine(ShiverRoutine());
+        shiverCoroutine = StartCoroutine(ShiverRoutine(intensityMultiplier));
     }
 
-    private System.Collections.IEnumerator ShiverRoutine()
+    private System.Collections.IEnumerator ShiverRoutine(float intensityMultiplier)
     {
         Vector2 basePos = rectTransform.anchoredPosition;
+        float duration = shiverSeconds * intensityMultiplier;
+        float distance = shiverDistance * intensityMultiplier;
         float elapsed = 0f;
 
-        while (elapsed < shiverSeconds)
+        while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            float damped = 1f - (elapsed / shiverSeconds); // shudder settles down toward the end
-            float offsetX = Mathf.Sin(elapsed * 60f) * shiverDistance * damped;
+            float damped = 1f - (elapsed / duration); // shudder settles down toward the end
+            float offsetX = Mathf.Sin(elapsed * 60f) * distance * damped;
             rectTransform.anchoredPosition = basePos + new Vector2(offsetX, 0f);
             yield return null;
         }

@@ -127,7 +127,7 @@ public class CombatUIManager : MonoBehaviour
     private void HandleCriticalOrWeaknessHit(CharacterInstance character)
     {
         if (cardLookup.TryGetValue(character, out var card))
-            card.PlayShiver();
+            card.PlayShiver(card.critShiverMultiplier);
 
         AudioManager.Instance?.PlaySFX(critSound);
     }
@@ -226,6 +226,7 @@ public class CombatUIManager : MonoBehaviour
         if (cardLookup.TryGetValue(target, out var card))
         {
             card.ShowFloatingText(amount, false, element);
+            card.PlayShiver();
         }
 
         AudioClip sound = (ability != null && ability.impactSound != null) ? ability.impactSound : hitSound;
