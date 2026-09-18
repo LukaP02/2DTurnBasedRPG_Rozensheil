@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Ice Meteor
   icon: {fileID: -6523412668041131603, guid: 76db2334c8e190b439f0b0f5f013c7a5, type: 3}
-  description: Dest conjures a huge ice meteor and hurls it towards up to 3 enemies
-    dealing 150+20% HP ice damage.
+  description: Dest conjures a huge ice meteor and hurls it towards up to three enemies
+    dealing 100+40% HP ice damage.
   abilityType: 2
   spCost: 0
   spGain: 0
-  power: 150
+  power: 100
   element: 2
   energyCost: 160
   stackableEnergy: 0
   maxEnergyStacks: 1
   attackScaling: 0
-  maxHPScaling: 0.2
+  maxHPScaling: 0.4
   defenseScaling: 0
   speedScaling: 0
   castSound: {fileID: 8300000, guid: a20be6bc04bd3d64e85bceab6cd6d4e1, type: 3}
@@ -47,3 +47,4 @@ MonoBehaviour:
   projectileTravelSeconds: 0.4
   impactEffectPrefab: {fileID: 0}
   impactEffectDuration: 0.5
+  aiSelectionWeight: 1

@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Glacial Prison
   icon: {fileID: 2783454057628332559, guid: 28a60e0d15a492e4c8b707953531e7a4, type: 3}
-  description: Dest hurls a draconic projectile dealing low damage and freezing the
-    target hit for 1 turn.
+  description: Dest hurls a draconic projectile dealing medium damage and freezing
+    the target hit for one turn. This ability can be stacked up to two times
   abilityType: 2
   spCost: 0
   spGain: 0
-  power: 25
+  power: 50
   element: 2
-  energyCost: 80
+  energyCost: 100
   stackableEnergy: 1
   maxEnergyStacks: 2
-  attackScaling: 1
-  maxHPScaling: 0
+  attackScaling: 0
+  maxHPScaling: 0.5
   defenseScaling: 0
   speedScaling: 0
   castSound: {fileID: 8300000, guid: a60ed671a7058ae4eb23a766e95c6bcd, type: 3}
@@ -47,3 +47,4 @@ MonoBehaviour:
   projectileTravelSeconds: 0.4
   impactEffectPrefab: {fileID: 0}
   impactEffectDuration: 0.5
+  aiSelectionWeight: 1

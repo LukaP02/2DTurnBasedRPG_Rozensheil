@@ -6,11 +6,11 @@ public class FloatingTextUI : MonoBehaviour
 {
     public TMP_Text text;
 
-    private const float POP_DURATION = 0.12f;
+    private const float POP_DURATION = 0.18f;
     private const float POP_SCALE = 1.5f;
-    private const float RISE_DURATION = 0.85f;
-    private const float RISE_DISTANCE = 40f;
-    private const float OUTLINE_WIDTH = 0.2f;
+    private const float RISE_DURATION = 1f;
+    private const float RISE_DISTANCE = 50f;
+    private const float OUTLINE_WIDTH = 0.1f;
 
     public void Play(string content, Color color)
     {

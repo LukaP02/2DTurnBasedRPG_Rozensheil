@@ -7371,6 +7371,7 @@ MonoBehaviour:
   currentState: 0
   goldReward: 150
   statusEffectAppliedPauseSeconds: 0.6
+  enemyTurnStartDelaySeconds: 0.75
 --- !u!4 &646583274
 Transform:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ MonoBehaviour:
   stackableEnergy: 0
   maxEnergyStacks: 1
   attackScaling: 0
-  maxHPScaling: 0.1
+  maxHPScaling: 0.3
   defenseScaling: 0
   speedScaling: 0
   castSound: {fileID: 8300000, guid: a60ed671a7058ae4eb23a766e95c6bcd, type: 3}
@@ -47,3 +47,4 @@ MonoBehaviour:
   projectileTravelSeconds: 0.4
   impactEffectPrefab: {fileID: 0}
   impactEffectDuration: 0.5
+  aiSelectionWeight: 1

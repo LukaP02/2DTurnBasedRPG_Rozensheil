@@ -45,5 +45,6 @@ MonoBehaviour:
   hpCostPercent: 0
   projectilePrefab: {fileID: 0}
   projectileTravelSeconds: 0.2
-  impactEffectPrefab: {fileID: 0}
-  impactEffectDuration: 3
+  impactEffectPrefab: {fileID: 1801362588963085420, guid: 2d5148baced932c42a71663579e585e9, type: 3}
+  impactEffectDuration: 1
+  aiSelectionWeight: 1

@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AbilityData
   abilityName: Ice Barrier
   icon: {fileID: 9082041684060318996, guid: 62c432e2b0d733440bf1228ae1ac462b, type: 3}
-  description: Dest shields himself for 50+15% HP absorbing damage for 2 turns or
+  description: Dest shields himself for 150+30% HP absorbing damage for 2 turns or
     until broken.
   abilityType: 1
   spCost: 1
   spGain: 0
-  power: 0
+  power: 1
   element: 2
   energyCost: 100
   stackableEnergy: 0
   maxEnergyStacks: 1
   attackScaling: 0
-  maxHPScaling: 0.15
+  maxHPScaling: 0.3
   defenseScaling: 0
   speedScaling: 0
   castSound: {fileID: 8300000, guid: 0b659b5b8e470e64e91d5468805f866a, type: 3}
@@ -47,3 +47,4 @@ MonoBehaviour:
   projectileTravelSeconds: 0.4
   impactEffectPrefab: {fileID: 0}
   impactEffectDuration: 0.5
+  aiSelectionWeight: 1
