@@ -20,9 +20,9 @@ MonoBehaviour:
     It is said that gaining the title of a guard is no easy task, but gaining the
     opportunity to serve inside the colosseum is an achievement worthy of only dozen
     men.
-  isPlayableCharacter: 1
+  isPlayableCharacter: 0
   role: 0
-  maxHP: 200
+  maxHP: 280
   attack: 60
   defense: 80
   speed: 80
