@@ -17,11 +17,11 @@ MonoBehaviour:
     speakerPortrait: {fileID: 0}
     text: After putting a stop to this sadistic tradition, you decide it is time
       to go to the next destination.
-    backgroundImage: {fileID: 0}
-    flashColor: {r: 0, g: 0, b: 0, a: 0}
+    backgroundImage: {fileID: -8191077023100261086, guid: 71446bbea3ec5cb448541e42f90e0d42, type: 3}
+    flashColor: {r: 0, g: 0, b: 0, a: 1}
     flashFadeInSeconds: 0
     flashHoldSeconds: 0
-    flashFadeOutSeconds: 0
+    flashFadeOutSeconds: 1
   - speakerName: 
     speakerPortrait: {fileID: 0}
     text: With the help of Henry, head of Abdul's group, you are granted a free ride
