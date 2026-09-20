@@ -21,15 +21,15 @@ MonoBehaviour:
     under an iron mask. '
   isPlayableCharacter: 0
   role: 0
-  maxHP: 200
+  maxHP: 280
   attack: 70
-  defense: 50
+  defense: 70
   speed: 85
   maxEnergy: 100
   energyRechargeRate: 1
   critRate: 0.05
   threatWeight: 1
-  weaknesses: 0400000000000000
+  weaknesses: 04000000
   defaultResistancePercent: 0.1
   resistances:
   - element: 1
